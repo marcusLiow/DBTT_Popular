@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POPULAR — Books, Stationery & More</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #D0021B;
+    --dark: #1A1A1A;
+    --mid: #444;
+    --light: #F7F5F2;
+    --cream: #FFF9F0;
+    --gold: #C9A84C;
+    --border: #E5E0D8;
+    --white: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--dark);
+    overflow-x: hidden;
+  }
+
+  /* ── ANNOUNCEMENT BAR ── */
+  .announce {
+    background: var(--red);
+    color: white;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 9px 16px;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .announce:hover { background: #a8001a; }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  .header-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    height: 68px;
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--red);
+    letter-spacing: -0.5px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .logo span { color: var(--dark); }
+
+  .search-bar {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background: var(--light);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .search-bar:focus-within { border-color: var(--red); }
+  .search-bar input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 10px 14px;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    color: var(--dark);
+  }
+  .search-bar button {
+    padding: 10px 18px;
+    background: var(--red);
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.2s;
+  }
+  .search-bar button:hover { background: #a8001a; }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .btn-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 6px 10px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.15s;
+    font-size: 11px;
+    color: var(--mid);
+    font-family: inherit;
+  }
+  .btn-icon:hover { background: var(--light); color: var(--red); }
+  .btn-icon .icon { font-size: 20px; }
+
+  .cart-btn { position: relative; }
+  .cart-badge {
+    position: absolute;
+    top: 2px; right: 6px;
+    background: var(--red);
+    color: white;
+    font-size: 10px;
+    font-weight: 600;
+    width: 17px; height: 17px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--dark);
+  }
+  .nav-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    gap: 0;
+  }
+
+  .nav-item {
+    position: relative;
+    padding: 13px 18px;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.85);
+    cursor: pointer;
+    letter-spacing: 0.01em;
+    transition: color 0.15s, background 0.15s;
+    white-space: nowrap;
+    user-select: none;
+  }
+  .nav-item:hover, .nav-item.active {
+    color: white;
+    background: rgba(255,255,255,0.08);
+  }
+  .nav-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--red);
+  }
+
+  /* Dropdown */
+  .dropdown {
+    display: none;
+    position: absolute;
+    top: 100%; left: 0;
+    background: white;
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--red);
+    border-radius: 0 0 8px 8px;
+    min-width: 220px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    z-index: 200;
+    padding: 8px 0;
+  }
+  .nav-item:hover .dropdown { display: block; }
+  .dropdown a {
+    display: block;
+    padding: 9px 20px;
+    font-size: 13px;
+    color: var(--mid);
+    text-decoration: none;
+    transition: background 0.12s, color 0.12s;
+  }
+  .dropdown a:hover { background: var(--light); color: var(--red); }
+  .dropdown .section-label {
+    padding: 10px 20px 4px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #aaa;
+    pointer-events: none;
+  }
+  .dropdown hr { border: none; border-top: 1px solid var(--border); margin: 6px 0; }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #1A1A1A 0%, #2d1a1a 50%, #1A1A1A 100%);
+    padding: 64px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 420px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(208,2,27,0.15) 0%, transparent 70%);
+  }
+  .hero-content {
+    max-width: 580px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: var(--red);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    font-weight: 800;
+    color: white;
+    line-height: 1.1;
+    margin-bottom: 18px;
+  }
+  .hero h1 em { color: var(--gold); font-style: normal; }
+  .hero p {
+    color: rgba(255,255,255,0.65);
+    font-size: 16px;
+    line-height: 1.65;
+    margin-bottom: 32px;
+  }
+  .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--red);
+    color: white;
+    border: none;
+    padding: 13px 28px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: #a8001a; transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: white;
+    border: 1.5px solid rgba(255,255,255,0.35);
+    padding: 13px 28px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.08); }
+
+  /* ── CATEGORY PILLS ── */
+  .cats {
+    background: var(--cream);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 24px;
+  }
+  .cats-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .cats-inner::-webkit-scrollbar { display: none; }
+  .cat-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 18px;
+    border-radius: 40px;
+    border: 1.5px solid var(--border);
+    background: white;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.18s;
+    color: var(--mid);
+    flex-shrink: 0;
+  }
+  .cat-pill:hover, .cat-pill.active {
+    border-color: var(--red);
+    color: var(--red);
+    background: rgba(208,2,27,0.05);
+  }
+  .cat-pill .emoji { font-size: 16px; }
+
+  /* ── SECTION ── */
+  .section {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 48px 24px;
+  }
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 28px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--dark);
+  }
+  .section-title span { color: var(--red); }
+  .section-sub {
+    font-size: 13px;
+    color: #888;
+    margin-top: 4px;
+  }
+  .see-all {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--red);
+    cursor: pointer;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+    white-space: nowrap;
+  }
+  .see-all:hover { border-color: var(--red); }
+
+  /* ── PRODUCT GRID ── */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 1100px) { .product-grid { grid-template-columns: repeat(4, 1fr); } }
+  @media (max-width: 800px)  { .product-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 540px)  { .product-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .product-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    background: white;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+  .product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); }
+
+  .product-img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    background: var(--light);
+  }
+
+  .product-body { padding: 12px 14px 14px; }
+  .product-cat {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 5px;
+  }
+  .product-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--dark);
+    line-height: 1.45;
+    margin-bottom: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .product-price {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--dark);
+  }
+  .product-price .original {
+    font-size: 12px;
+    font-weight: 400;
+    color: #aaa;
+    text-decoration: line-through;
+    margin-left: 5px;
+  }
+  .product-badge {
+    position: absolute;
+    top: 10px; left: 10px;
+    background: var(--red);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+  .product-add {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 8px;
+    background: var(--dark);
+    color: white;
+    border: none;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.18s;
+  }
+  .product-add:hover { background: var(--red); }
+
+  /* ── PROMO BANNER ── */
+  .promo-banner {
+    background: linear-gradient(120deg, var(--red) 0%, #8b0000 100%);
+    margin: 0;
+    padding: 48px 24px;
+    text-align: center;
+    color: white;
+  }
+  .promo-banner h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+  .promo-banner p {
+    font-size: 16px;
+    opacity: 0.85;
+    margin-bottom: 24px;
+  }
+  .member-perks {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+  .perk {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .perk .perk-icon { font-size: 22px; }
+
+  /* ── DIVIDER ── */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark);
+    color: rgba(255,255,255,0.6);
+    padding: 48px 24px 24px;
+  }
+  .footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--red);
+    margin-bottom: 12px;
+  }
+  .footer-logo span { color: white; }
+  .footer-desc { font-size: 13px; line-height: 1.7; margin-bottom: 20px; }
+  .footer-socials { display: flex; gap: 12px; }
+  .social-btn {
+    width: 36px; height: 36px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background 0.18s;
+  }
+  .social-btn:hover { background: var(--red); }
+  .footer-col h4 {
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .footer-col a {
+    display: block;
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 9px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .footer-col a:hover { color: white; }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    max-width: 1280px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 500;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: white;
+    border-radius: 16px;
+    max-width: 480px;
+    width: 100%;
+    overflow: hidden;
+    animation: slideUp 0.25s ease;
+  }
+  @keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .modal-header h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .modal-close {
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    border: none; background: var(--light);
+    border-radius: 50%; cursor: pointer; font-size: 18px;
+    transition: background 0.15s;
+  }
+  .modal-close:hover { background: #e0dbd2; }
+  .modal-body { padding: 24px; }
+
+  .modal-product {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 20px;
+  }
+  .modal-img {
+    width: 90px; height: 120px;
+    background: var(--light);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px;
+    flex-shrink: 0;
+  }
+  .modal-info { flex: 1; }
+  .modal-info .cat { font-size: 11px; font-weight: 600; color: var(--red); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 6px; }
+  .modal-info .title { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+  .modal-info .price { font-size: 22px; font-weight: 700; color: var(--dark); }
+  .modal-info .price .orig { font-size: 14px; color: #aaa; text-decoration: line-through; font-weight: 400; margin-left: 6px; }
+
+  .modal-desc {
+    font-size: 13px;
+    color: var(--mid);
+    line-height: 1.7;
+    margin-bottom: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+  .modal-actions { display: flex; gap: 10px; }
+  .modal-actions .btn-primary { flex: 1; }
+  .modal-actions .btn-wishlist {
+    padding: 13px 16px;
+    border: 1.5px solid var(--border);
+    background: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: border-color 0.18s;
+  }
+  .modal-actions .btn-wishlist:hover { border-color: var(--red); }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 30px; right: 30px;
+    background: var(--dark);
+    color: white;
+    padding: 13px 22px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 1000;
+    transform: translateY(80px);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* ── CLICK & COLLECT SECTION ── */
+  .cc-section {
+    background: var(--cream);
+    padding: 56px 24px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .cc-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .cc-left h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .cc-left h2 span { color: var(--red); }
+  .cc-left p { font-size: 15px; color: var(--mid); line-height: 1.7; margin-bottom: 28px; }
+  .cc-steps { display: flex; flex-direction: column; gap: 18px; margin-bottom: 32px; }
+  .cc-step { display: flex; align-items: flex-start; gap: 14px; }
+  .cc-num {
+    width: 34px; height: 34px;
+    background: var(--red);
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .cc-step-text strong { display: block; font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+  .cc-step-text span { font-size: 13px; color: var(--mid); }
+
+  .cc-right {
+    background: white;
+    border-radius: 16px;
+    padding: 28px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  }
+  .cc-right h3 { font-size: 16px; font-weight: 600; margin-bottom: 18px; }
+  .input-group { margin-bottom: 14px; }
+  .input-group label { display: block; font-size: 12px; font-weight: 600; color: var(--mid); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+  .input-group input, .input-group select {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    background: white;
+    color: var(--dark);
+  }
+  .input-group input:focus, .input-group select:focus { border-color: var(--red); }
+
+  /* ── OUTLET STATUS ── */
+  .outlet-results { margin-top: 16px; display: none; }
+  .outlet-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background: var(--light);
+  }
+  .outlet-name { font-size: 14px; font-weight: 600; }
+  .outlet-detail { font-size: 12px; color: var(--mid); }
+  .stock-badge {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+  .stock-in { background: #e8f5e9; color: #2e7d32; }
+  .stock-low { background: #fff3e0; color: #e65100; }
+  .stock-out { background: #fce4ec; color: #c62828; }
+
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 36px; }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+    .cc-inner { grid-template-columns: 1fr; }
+    .nav-inner { overflow-x: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Announcement -->
+<div class="announce" onclick="showModal('membership')">
+  🎉 Members Enjoy 10% Off Storewide — Join Us Now! Free membership with every $30 spend.
+</div>
+
+<!-- Header -->
+<header>
+  <div class="header-inner">
+    <div class="logo" onclick="scrollToTop()">POPULAR<span>.</span></div>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search books, stationery, gadgets..." onkeypress="handleSearch(event)" />
+      <button onclick="doSearch()">🔍</button>
+    </div>
+    <div class="header-actions">
+      <button class="btn-icon" onclick="showModal('signin')">
+        <span class="icon">👤</span>Sign In
+      </button>
+      <button class="btn-icon cart-btn" onclick="showModal('cart')">
+        <span class="icon">🛒</span>Cart
+        <span class="cart-badge" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Nav -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-item active" onclick="setNav(this)">Home</div>
+    <div class="nav-item" onclick="setNav(this)">Assessment
+      <div class="dropdown">
+        <div class="section-label">By Level</div>
+        <a href="#">Preschool</a>
+        <a href="#">Primary</a>
+        <a href="#">PSLE Past Year Papers</a>
+        <hr>
+        <a href="#">Secondary (O / N / A Level)</a>
+        <a href="#">IGCSE</a>
+        <hr>
+        <a href="#">Promotions of the Month</a>
+      </div>
+    </div>
+    <div class="nav-item" onclick="setNav(this)">Stationery
+      <div class="dropdown">
+        <a href="#">Pens & Markers</a>
+        <a href="#">Art & Craft</a>
+        <a href="#">School Essentials</a>
+        <a href="#">Scientific Calculators</a>
+        <a href="#">Office Supplies</a>
+        <a href="#">Toys & Games</a>
+      </div>
+    </div>
+    <div class="nav-item" onclick="setNav(this)">English Books
+      <div class="dropdown">
+        <a href="#">Children Books</a>
+        <a href="#">Fiction</a>
+        <a href="#">Non-Fiction</a>
+        <a href="#">Self Help</a>
+        <a href="#">Young Adults</a>
+        <a href="#">Netflix Featured</a>
+        <hr>
+        <a href="#">On Sale</a>
+      </div>
+    </div>
+    <div class="nav-item" onclick="setNav(this)">Chinese Books
+      <div class="dropdown">
+        <a href="#">Children Book</a>
+        <a href="#">Fiction</a>
+        <a href="#">Non-Fiction</a>
+        <a href="#">Self-Improvement</a>
+        <a href="#">Comics / Humour</a>
+      </div>
+    </div>
+    <div class="nav-item" onclick="setNav(this)">Gadgets & IT
+      <div class="dropdown">
+        <a href="#">Smartphones & Tablets</a>
+        <a href="#">Audio</a>
+        <a href="#">Gaming & Peripherals</a>
+        <a href="#">Computer & Peripherals</a>
+        <a href="#">E-Reader</a>
+        <a href="#">SmartWatch For Kids</a>
+      </div>
+    </div>
+    <div class="nav-item" onclick="setNav(this)">Titbits & Snacks
+      <div class="dropdown">
+        <a href="#">Chocolates</a>
+        <a href="#">Biscuits</a>
+        <a href="#">Local Delights</a>
+        <a href="#">Candy</a>
+        <a href="#">Instant Beverage</a>
+      </div>
+    </div>
+    <div class="nav-item" onclick="setNav(this)" style="color: var(--gold);">🔖 On Sale</div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-content">
+    <span class="hero-tag">New Season Arrivals</span>
+    <h1>Discover Your Next <em>Great Read</em></h1>
+    <p>Singapore's largest bookstore chain — explore thousands of titles in assessment, fiction, lifestyle, and more. Shop online or collect in-store.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="scrollTo({top: 500, behavior:'smooth'})">Shop Now</button>
+      <button class="btn-outline" onclick="window.location.href='click-collect.html'">Click & Collect ↓</button>
+    </div>
+  </div>
+</div>
+
+<!-- Category Pills -->
+<div class="cats">
+  <div class="cats-inner">
+    <div class="cat-pill active" onclick="filterCat(this,'all')"><span class="emoji">✨</span> All Products</div>
+    <div class="cat-pill" onclick="filterCat(this,'assessment')"><span class="emoji">📚</span> Assessment</div>
+    <div class="cat-pill" onclick="filterCat(this,'stationery')"><span class="emoji">✏️</span> Stationery</div>
+    <div class="cat-pill" onclick="filterCat(this,'english')"><span class="emoji">📖</span> English Books</div>
+    <div class="cat-pill" onclick="filterCat(this,'chinese')"><span class="emoji">🀄</span> Chinese Books</div>
+    <div class="cat-pill" onclick="filterCat(this,'gadgets')"><span class="emoji">💻</span> Gadgets</div>
+    <div class="cat-pill" onclick="filterCat(this,'snacks')"><span class="emoji">🍫</span> Titbits & Snacks</div>
+    <div class="cat-pill" onclick="filterCat(this,'sale')"><span class="emoji">🏷️</span> On Sale</div>
+  </div>
+</div>
+
+<!-- Featured Products -->
+<div class="section">
+  <div class="section-header">
+    <div>
+      <div class="section-title">Featured <span>Products</span></div>
+      <div class="section-sub">Curated picks for you this week</div>
+    </div>
+    <a class="see-all">See all →</a>
+  </div>
+  <div class="product-grid" id="productGrid">
+    <!-- Rendered by JS -->
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- Click & Collect -->
+<div class="cc-section" id="cc">
+  <div class="cc-inner">
+    <div class="cc-left">
+      <h2>Shop Online,<br>Pick Up <span>In-Store</span></h2>
+      <p>Reserve your items online and collect them at your nearest POPULAR outlet within 2 hours — no waiting, no shipping fees.</p>
+      <div class="cc-steps">
+        <div class="cc-step">
+          <div class="cc-num">1</div>
+          <div class="cc-step-text">
+            <strong>Browse & Add to Cart</strong>
+            <span>Shop our full range online as usual</span>
+          </div>
+        </div>
+        <div class="cc-step">
+          <div class="cc-num">2</div>
+          <div class="cc-step-text">
+            <strong>Select Click & Collect</strong>
+            <span>Choose your preferred outlet at checkout</span>
+          </div>
+        </div>
+        <div class="cc-step">
+          <div class="cc-num">3</div>
+          <div class="cc-step-text">
+            <strong>Collect Within 2 Hours</strong>
+            <span>We'll SMS you when your order is ready</span>
+          </div>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="window.location.href='click-collect.html'">Start Shopping →</button>
+    </div>
+    <div class="cc-right">
+      <h3>🔍 Check Stock at Your Outlet</h3>
+      <div class="input-group">
+        <label>Book / Product Title</label>
+        <input type="text" id="stockSearch" placeholder="e.g. Harry Potter, PSLE Math..." />
+      </div>
+      <div class="input-group">
+        <label>Select Outlet</label>
+        <select id="outletSelect">
+          <option value="">— Choose an outlet —</option>
+          <option>Bugis Junction</option>
+          <option>Causeway Point</option>
+          <option>Clementi Mall</option>
+          <option>Lot One Shoppers' Mall</option>
+          <option>Northpoint City</option>
+          <option>Plaza Singapura</option>
+          <option>Tampines Mall</option>
+          <option>Vivocity</option>
+        </select>
+      </div>
+      <button class="btn-primary" style="width:100%" onclick="checkStock()">Check Availability</button>
+      <div class="outlet-results" id="outletResults">
+        <div style="font-size:13px; font-weight:600; margin-bottom:10px; margin-top:4px;">Nearby Outlets:</div>
+        <div class="outlet-card">
+          <div>
+            <div class="outlet-name" id="res-name">—</div>
+            <div class="outlet-detail">Ready for collection today</div>
+          </div>
+          <span class="stock-badge stock-in" id="res-badge">In Stock</span>
+        </div>
+        <div class="outlet-card">
+          <div>
+            <div class="outlet-name">Nearest Alternative</div>
+            <div class="outlet-detail">1.2 km away</div>
+          </div>
+          <span class="stock-badge stock-low">Low Stock</span>
+        </div>
+        <button class="btn-primary" style="width:100%;margin-top:6px" onclick="showToast('✅ Reserved! We\'ll SMS you when ready.')">Reserve Now</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Membership Banner -->
+<div class="promo-banner">
+  <h2>Become a POPULAR Member</h2>
+  <p>Enjoy exclusive discounts, priority access, and rewards every time you shop</p>
+  <button class="btn-outline" onclick="showModal('membership')">Join Free Today</button>
+  <div class="member-perks">
+    <div class="perk"><span class="perk-icon">💳</span> 10% Off Storewide</div>
+    <div class="perk"><span class="perk-icon">🎁</span> Birthday Rewards</div>
+    <div class="perk"><span class="perk-icon">🚀</span> Early Sale Access</div>
+    <div class="perk"><span class="perk-icon">📦</span> Free Click & Collect</div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">POPULAR<span>.</span></div>
+      <p class="footer-desc">Singapore's leading bookstore since 1936. We bring you the best selection of books, stationery, and more across 30+ outlets islandwide.</p>
+      <div class="footer-socials">
+        <div class="social-btn">📘</div>
+        <div class="social-btn">📷</div>
+        <div class="social-btn">🐦</div>
+        <div class="social-btn">▶️</div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <a>Assessment Books</a>
+      <a>Stationery</a>
+      <a>English Books</a>
+      <a>Chinese Books</a>
+      <a>Gadgets & IT</a>
+      <a>Titbits & Snacks</a>
+    </div>
+    <div class="footer-col">
+      <h4>Help</h4>
+      <a>Track Your Order</a>
+      <a>Returns & Exchanges</a>
+      <a>Click & Collect</a>
+      <a>Store Locator</a>
+      <a>Contact Us</a>
+      <a>FAQs</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a>About POPULAR</a>
+      <a>Careers</a>
+      <a>Press</a>
+      <a>Corporate Sales</a>
+      <a>School Orders</a>
+      <a>Privacy Policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Popular Book Company Pte Ltd. All rights reserved.</span>
+    <span>🇸🇬 Singapore</span>
+  </div>
+</footer>
+
+<!-- Product Modal -->
+<div class="modal-overlay" id="productModal" onclick="closeModal('productModal')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h3 id="modalTitle">Product</h3>
+      <button class="modal-close" onclick="closeModal('productModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-product">
+        <div class="modal-img" id="modalEmoji">📚</div>
+        <div class="modal-info">
+          <div class="cat" id="modalCat"></div>
+          <div class="title" id="modalName"></div>
+          <div class="price" id="modalPrice"></div>
+        </div>
+      </div>
+      <div class="modal-desc" id="modalDesc"></div>
+      <div class="modal-actions">
+        <button class="btn-primary" onclick="addToCart(); closeModal('productModal')">Add to Cart</button>
+        <button class="btn-wishlist" title="Add to wishlist">♡</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Sign In Modal -->
+<div class="modal-overlay" id="signinModal" onclick="closeModal('signinModal')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Sign In</h3>
+      <button class="modal-close" onclick="closeModal('signinModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="input-group"><label>Email</label><input type="email" placeholder="your@email.com" /></div>
+      <div class="input-group"><label>Password</label><input type="password" placeholder="••••••••" /></div>
+      <button class="btn-primary" style="width:100%;margin-top:8px" onclick="showToast('👋 Welcome back!'); closeModal('signinModal')">Sign In</button>
+      <p style="text-align:center;margin-top:16px;font-size:13px;color:#888">Don't have an account? <span style="color:var(--red);cursor:pointer;font-weight:600">Join Free</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- Cart Modal -->
+<div class="modal-overlay" id="cartModal" onclick="closeModal('cartModal')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Your Cart</h3>
+      <button class="modal-close" onclick="closeModal('cartModal')">✕</button>
+    </div>
+    <div class="modal-body" id="cartBody">
+      <p style="color:#aaa;text-align:center;padding:20px 0">Your cart is empty.<br><span style="font-size:32px">🛒</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- Membership Modal -->
+<div class="modal-overlay" id="membershipModal" onclick="closeModal('membershipModal')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Join POPULAR</h3>
+      <button class="modal-close" onclick="closeModal('membershipModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="background:var(--light);border-radius:10px;padding:18px;margin-bottom:20px">
+        <div style="font-weight:700;margin-bottom:8px;font-size:15px">🎉 Member Benefits</div>
+        <div style="font-size:13px;color:var(--mid);line-height:1.8">
+          ✅ 10% off storewide<br>
+          ✅ Birthday month bonus<br>
+          ✅ Exclusive member sales<br>
+          ✅ Free Click & Collect
+        </div>
+      </div>
+      <div class="input-group"><label>Full Name</label><input type="text" placeholder="Your name" /></div>
+      <div class="input-group"><label>Email</label><input type="email" placeholder="your@email.com" /></div>
+      <div class="input-group"><label>Mobile</label><input type="tel" placeholder="+65 9xxx xxxx" /></div>
+      <button class="btn-primary" style="width:100%;margin-top:8px" onclick="showToast('🎉 Welcome to POPULAR!'); closeModal('membershipModal')">Create Free Account</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <span id="toastMsg">Item added!</span>
+</div>
+
+<script>
+const PRODUCTS = [
+  { id:1, emoji:'📗', cat:'assessment', catLabel:'Assessment', title:'PSLE Mathematics Past Year Papers 2025', price:'$12.90', orig:'$16.90', badge:'PSLE', desc:'Complete collection of past year PSLE Mathematics exam papers with worked solutions. Ideal for Primary 6 revision.', sale:true },
+  { id:2, emoji:'📘', cat:'english', catLabel:'English Books', title:'Atomic Habits — James Clear', price:'$21.90', orig:'$29.90', badge:'Bestseller', desc:'An easy and proven way to build good habits and break bad ones. A must-read for anyone looking to improve their life.', sale:false },
+  { id:3, emoji:'✏️', cat:'stationery', catLabel:'Stationery', title:'Stabilo Boss Highlighter Set (8 Colours)', price:'$8.90', orig:'$12.90', badge:'On Sale', desc:'Vibrant, smear-proof highlighters in 8 classic colours. Perfect for students and professionals alike.', sale:true },
+  { id:4, emoji:'💻', cat:'gadgets', catLabel:'Gadgets & IT', title:'Kindle Paperwhite (16GB)', price:'$249.00', orig:'$289.00', badge:'', desc:'The thinnest, lightest Kindle Paperwhite yet, with a flush-front design and 300 ppi glare-free display.', sale:false },
+  { id:5, emoji:'📙', cat:'chinese', catLabel:'Chinese Books', title:'小王子 (The Little Prince — Chinese Ed.)', price:'$14.90', orig:'', badge:'', desc:'经典儿童文学名著的中文版，适合所有年龄读者。A timeless classic in Chinese.', sale:false },
+  { id:6, emoji:'🍫', cat:'snacks', catLabel:'Titbits', title:'Meiji Milk Chocolate Assorted Box', price:'$6.90', orig:'$9.90', badge:'Sale', desc:'Premium Japanese milk chocolate in an assorted box — a perfect gift or treat for yourself.', sale:true },
+  { id:7, emoji:'📕', cat:'assessment', catLabel:'Assessment', title:'O-Level A-Math Ten Year Series 2025', price:'$19.90', orig:'$24.90', badge:'O Level', desc:'Complete ten-year series for O-Level Additional Mathematics with detailed answers and worked solutions.', sale:false },
+  { id:8, emoji:'🖊️', cat:'stationery', catLabel:'Stationery', title:'Pentel GraphGear 1000 Mechanical Pencil', price:'$22.90', orig:'', badge:'Premium', desc:'Professional-grade drafting mechanical pencil with retractable tip and grip for precision writing.', sale:false },
+  { id:9, emoji:'📓', cat:'english', catLabel:'English Books', title:'The Midnight Library — Matt Haig', price:'$18.90', orig:'$26.90', badge:'', desc:'A dazzling novel about all the choices that go into a life well lived, now a worldwide bestseller.', sale:true },
+  { id:10, emoji:'🎧', cat:'gadgets', catLabel:'Gadgets & IT', title:'JBL Tune 510BT Wireless Headphones', price:'$59.90', orig:'$89.00', badge:'30% Off', desc:'Pure Bass sound, up to 40 hours of battery, and a foldable design for easy portability.', sale:true },
+];
+
+let cartCount = 0;
+let activeFilter = 'all';
+
+function renderProducts(filter) {
+  const grid = document.getElementById('productGrid');
+  const filtered = filter === 'all' ? PRODUCTS : filter === 'sale' ? PRODUCTS.filter(p=>p.sale) : PRODUCTS.filter(p=>p.cat===filter);
+  grid.innerHTML = filtered.map(p => `
+    <div class="product-card" onclick="openProduct(${p.id})">
+      ${p.badge ? `<div class="product-badge">${p.badge}</div>` : ''}
+      <div class="product-img">${p.emoji}</div>
+      <div class="product-body">
+        <div class="product-cat">${p.catLabel}</div>
+        <div class="product-title">${p.title}</div>
+        <div class="product-price">${p.price}${p.orig ? `<span class="original">${p.orig}</span>` : ''}</div>
+      </div>
+      <button class="product-add" onclick="event.stopPropagation(); addToCart()">+ Add to Cart</button>
+    </div>
+  `).join('');
+}
+
+function filterCat(el, cat) {
+  document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  activeFilter = cat;
+  renderProducts(cat);
+}
+
+function openProduct(id) {
+  const p = PRODUCTS.find(x => x.id === id);
+  document.getElementById('modalTitle').textContent = p.title;
+  document.getElementById('modalEmoji').textContent = p.emoji;
+  document.getElementById('modalCat').textContent = p.catLabel;
+  document.getElementById('modalName').textContent = p.title;
+  document.getElementById('modalPrice').innerHTML = p.price + (p.orig ? ` <span class="orig">${p.orig}</span>` : '');
+  document.getElementById('modalDesc').textContent = p.desc;
+  document.getElementById('productModal').classList.add('open');
+}
+
+function showModal(type) {
+  if (type === 'signin') document.getElementById('signinModal').classList.add('open');
+  else if (type === 'cart') { updateCartModal(); document.getElementById('cartModal').classList.add('open'); }
+  else if (type === 'membership') document.getElementById('membershipModal').classList.add('open');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+function addToCart() {
+  cartCount++;
+  document.getElementById('cartCount').textContent = cartCount;
+  showToast('🛒 Item added to cart!');
+}
+
+let cartItems = [];
+function updateCartModal() {
+  const body = document.getElementById('cartBody');
+  if (cartCount === 0) {
+    body.innerHTML = '<p style="color:#aaa;text-align:center;padding:20px 0">Your cart is empty.<br><span style="font-size:32px">🛒</span></p>';
+  } else {
+    body.innerHTML = `<p style="color:var(--mid);margin-bottom:16px">${cartCount} item(s) in your cart</p>
+    <button class="btn-primary" style="width:100%" onclick="showToast('✅ Proceeding to checkout...'); closeModal(\'cartModal\')">Proceed to Checkout</button>
+    <p style="text-align:center;margin-top:12px;font-size:12px;color:#aaa">or <span style="color:var(--red);cursor:pointer;font-weight:600" onclick="closeModal(\'cartModal\'); document.getElementById(\'cc\').scrollIntoView({behavior:\'smooth\'})">Choose Click & Collect →</span></p>`;
+  }
+}
+
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function setNav(el) {
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function handleSearch(e) { if (e.key === 'Enter') doSearch(); }
+function doSearch() {
+  const q = document.getElementById('searchInput').value.trim();
+  if (!q) return;
+  showToast(`🔍 Searching for "${q}"...`);
+}
+
+function scrollToTop() { window.scrollTo({top:0, behavior:'smooth'}); }
+
+function checkStock() {
+  const item = document.getElementById('stockSearch').value.trim();
+  const outlet = document.getElementById('outletSelect').value;
+  if (!item || !outlet) { showToast('⚠️ Please enter a title and select an outlet.'); return; }
+  const statuses = ['stock-in', 'stock-low', 'stock-in'];
+  const labels = ['In Stock', 'Low Stock (2 left)', 'In Stock'];
+  const rand = Math.floor(Math.random() * 3);
+  document.getElementById('res-name').textContent = outlet;
+  document.getElementById('res-badge').className = 'stock-badge ' + statuses[rand];
+  document.getElementById('res-badge').textContent = labels[rand];
+  document.getElementById('outletResults').style.display = 'block';
+}
+
+// Init
+renderProducts('all');
+</script>
+</body>
+</html>
