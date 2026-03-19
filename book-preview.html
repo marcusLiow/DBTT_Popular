@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Preview — POPULAR Study Pass</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #c8102e;
+    --red-dark: #9e0c24;
+    --red-light: rgba(200,16,46,.07);
+    --bg: #FAFAF8;
+    --card: #ffffff;
+    --card-h: #F5F4F1;
+    --text: #1C1917;
+    --muted: #6B6560;
+    --dim: #A09B96;
+    --line: rgba(28,25,23,.11);
+    --gold: #B07D10;
+    --gold-bg: rgba(176,125,16,.09);
+    --green: #16A34A;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.6; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: #E8E5E0; }
+  ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 2px; }
+
+  /* ── NAV ── */
+  .top {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(250,250,248,.97); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    padding: 0 52px; height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-pill { background: var(--red); color: #fff; font-family: var(--sans); font-weight: 700; font-size: 15px; padding: 5px 11px; border-radius: 3px; letter-spacing: -.3px; }
+  .logo-tag { font-size: 9px; font-weight: 600; color: var(--dim); letter-spacing: 2.5px; text-transform: uppercase; }
+  .back-btn {
+    display: flex; align-items: center; gap: 6px;
+    border: 1px solid var(--line); background: var(--card); color: var(--muted);
+    border-radius: 6px; padding: 8px 14px; font-size: 12px; font-weight: 500;
+    font-family: var(--sans); cursor: pointer; transition: all .2s;
+  }
+  .back-btn:hover { background: var(--card-h); color: var(--text); border-color: rgba(28,25,23,.22); }
+
+  /* ── LAYOUT ── */
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 40px 52px 64px; }
+
+  /* ── BREADCRUMB ── */
+  .breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--dim); margin-bottom: 28px; }
+  .breadcrumb a { color: var(--dim); text-decoration: none; transition: color .2s; }
+  .breadcrumb a:hover { color: var(--text); }
+  .breadcrumb span { color: var(--line); }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid; grid-template-columns: 260px minmax(0, 1fr);
+    gap: 48px; align-items: start; margin-bottom: 40px;
+  }
+
+  /* Book cover with shadow */
+  .cover-wrap { position: relative; }
+  .cover-shadow {
+    position: absolute; bottom: -16px; left: 8px; right: -8px; top: 8px;
+    background: rgba(28,25,23,.15); border-radius: 10px; filter: blur(16px); z-index: 0;
+  }
+  .cover {
+    position: relative; z-index: 1;
+    width: 100%; aspect-ratio: 3 / 4.2;
+    border-radius: 8px;
+    box-shadow: -6px 8px 32px rgba(28,25,23,.28), 0 0 0 1px var(--line);
+    background: linear-gradient(135deg, #1d4ed8, #0f172a);
+    background-size: cover; background-position: center;
+    overflow: hidden;
+  }
+  .cover-spine { position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: rgba(0,0,0,.22); }
+
+  /* Download quick actions on cover */
+  .cover-actions {
+    margin-top: 20px; display: flex; flex-direction: column; gap: 8px;
+  }
+  .ca-btn {
+    width: 100%; border: none; border-radius: 6px; padding: 12px 16px;
+    font-size: 12px; font-weight: 600; font-family: var(--sans); cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: all .2s;
+  }
+  .ca-red { background: var(--red); color: #fff; }
+  .ca-red:hover { background: var(--red-dark); transform: translateY(-1px); }
+  .ca-outline { background: var(--card); color: var(--text); border: 1px solid var(--line); }
+  .ca-outline:hover { background: var(--card-h); transform: translateY(-1px); }
+  .ca-gold { background: var(--gold-bg); color: var(--gold); border: 1px solid rgba(176,125,16,.2); }
+  .ca-gold:hover { background: rgba(176,125,16,.14); transform: translateY(-1px); }
+
+  /* ── META PANEL ── */
+  .meta { }
+  .tag-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+  .tag { font-size: 10px; font-weight: 600; color: var(--red); letter-spacing: 1.8px; text-transform: uppercase; }
+  .tag-sep { color: var(--line); }
+  .tag-level { font-size: 10px; font-weight: 600; color: var(--muted); letter-spacing: 1.2px; text-transform: uppercase; background: rgba(28,25,23,.06); padding: 3px 8px; border-radius: 3px; }
+  .book-title { font-family: var(--serif); font-size: clamp(1.5rem, 2.8vw, 2.2rem); font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+  .book-sub { color: var(--muted); font-size: 13px; font-weight: 500; margin-bottom: 18px; }
+  .book-desc { color: var(--muted); font-size: 14px; line-height: 1.78; margin-bottom: 24px; }
+
+  /* Access banner */
+  .access-banner {
+    background: rgba(22,163,74,.07); border: 1px solid rgba(22,163,74,.2);
+    border-radius: 10px; padding: 16px 18px; margin-bottom: 22px;
+    display: flex; align-items: flex-start; gap: 14px;
+  }
+  .ab-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+  .ab-text strong { display: block; font-size: 13px; font-weight: 700; color: var(--green); margin-bottom: 3px; }
+  .ab-text p { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  /* Chips */
+  .chips { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 20px; }
+  .chip {
+    font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .8px;
+    border-radius: 999px; padding: 5px 11px; border: 1px solid var(--line);
+    background: var(--card); color: var(--muted);
+  }
+  .chip.green { border-color: rgba(22,163,74,.28); color: var(--green); background: rgba(22,163,74,.07); }
+  .chip.gold { border-color: rgba(176,125,16,.28); color: var(--gold); background: var(--gold-bg); }
+
+  /* Quick stats */
+  .quick-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; margin-bottom: 4px; }
+  .qs { background: var(--card); padding: 14px 16px; text-align: center; }
+  .qs-n { font-family: var(--serif); font-size: 18px; font-weight: 700; color: var(--text); display: block; }
+  .qs-l { font-size: 10px; color: var(--muted); font-weight: 500; margin-top: 2px; display: block; }
+
+  /* ── BOTTOM GRID ── */
+  .bottom-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 16px; margin-bottom: 16px; }
+
+  .panel {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 22px;
+  }
+  .panel-title {
+    font-size: 11px; font-weight: 700; color: var(--dim); text-transform: uppercase;
+    letter-spacing: 1.8px; margin-bottom: 18px; display: flex; align-items: center; gap: 8px;
+  }
+  .panel-title::before { content:''; width: 3px; height: 14px; background: var(--red); border-radius: 2px; }
+
+  /* TOC */
+  .toc { list-style: none; display: flex; flex-direction: column; gap: 0; }
+  .toc li {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 13px;
+    color: var(--muted);
+  }
+  .toc li:last-child { border-bottom: none; }
+  .toc-n {
+    width: 22px; height: 22px; border-radius: 50%; background: var(--red-light);
+    color: var(--red); font-size: 10px; font-weight: 700; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0; margin-top: 1px;
+  }
+  .toc-text strong { display: block; color: var(--text); font-size: 13px; font-weight: 600; margin-bottom: 1px; }
+  .toc-text span { font-size: 11px; color: var(--dim); }
+
+  /* Details list */
+  .detail-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
+  .detail-list li {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 13px;
+  }
+  .detail-list li:last-child { border-bottom: none; }
+  .dl-label { color: var(--dim); font-size: 12px; flex-shrink: 0; }
+  .dl-value { color: var(--text); font-weight: 500; text-align: right; font-size: 12px; }
+
+  /* ── SAMPLE QUESTIONS ── */
+  .sample-panel { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 22px; }
+  .sample-note { font-size: 12px; color: var(--dim); margin-bottom: 18px; font-style: italic; }
+  .question { border: 1px solid var(--line); border-radius: 8px; padding: 16px; margin-bottom: 12px; background: var(--bg); }
+  .question:last-child { margin-bottom: 0; }
+  .q-num { font-size: 9px; font-weight: 700; color: var(--red); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; }
+  .q-text { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; line-height: 1.5; }
+  .q-hint { font-size: 12px; color: var(--muted); line-height: 1.6; }
+  .q-mark { display: inline-block; font-size: 10px; font-weight: 600; color: var(--gold); background: var(--gold-bg); border: 1px solid rgba(176,125,16,.18); border-radius: 3px; padding: 2px 6px; margin-top: 6px; }
+
+  /* ── NOT SUBSCRIBED CTA ── */
+  .upsell { background: var(--text); border-radius: 12px; padding: 32px; text-align: center; margin-top: 16px; }
+  .upsell h3 { font-family: var(--serif); font-size: 1.4rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
+  .upsell p { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.7; margin-bottom: 22px; max-width: 420px; margin-left: auto; margin-right: auto; }
+  .upsell-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .btn-upsell { padding: 12px 24px; border-radius: 5px; font-size: 13px; font-weight: 600; font-family: var(--sans); cursor: pointer; border: none; transition: all .2s; }
+  .btn-upsell.red { background: var(--red); color: #fff; }
+  .btn-upsell.red:hover { background: var(--red-dark); }
+  .btn-upsell.ghost { background: transparent; color: rgba(255,255,255,.65); border: 1px solid rgba(255,255,255,.15); }
+  .btn-upsell.ghost:hover { background: rgba(255,255,255,.06); color: #fff; }
+
+  /* ── EMPTY STATE ── */
+  .empty { text-align: center; padding: 80px 24px; }
+  .empty h2 { font-family: var(--serif); font-size: 1.6rem; font-weight: 700; margin-bottom: 12px; }
+  .empty p { color: var(--muted); margin-bottom: 22px; }
+
+  /* ── TOAST ── */
+  .toast { position:fixed; bottom:24px; right:24px; background:var(--card); border:1px solid var(--line); border-left:3px solid var(--green); padding:13px 20px; border-radius:8px; font-size:13px; font-weight:500; z-index:3000; box-shadow:0 8px 30px rgba(28,25,23,.15); transform:translateX(130%); transition:transform .4s cubic-bezier(.34,1.56,.64,1); display:flex; align-items:center; gap:10px; max-width:320px; font-family:var(--sans); }
+  .toast.show { transform:translateX(0); }
+
+  @media(max-width: 860px) {
+    .wrap { padding: 24px 20px 48px; }
+    .top { padding: 0 20px; }
+    .hero { grid-template-columns: 1fr; gap: 28px; }
+    .cover-wrap { max-width: 220px; }
+    .bottom-grid { grid-template-columns: 1fr; }
+    .quick-stats { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media(max-width: 480px) {
+    .quick-stats { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="index.html" class="brand">
+    <span class="logo-pill">Popular</span>
+    <span class="logo-tag">Study Pass</span>
+  </a>
+  <button class="back-btn" onclick="goBack()">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
+    Back to library
+  </button>
+</header>
+
+<main class="wrap" id="app">
+  <div class="empty">
+    <h2>Loading book…</h2>
+    <p>Fetching book details from session.</p>
+  </div>
+</main>
+
+<div class="toast" id="toast">
+  <span id="tIcon">📄</span>
+  <span id="tMsg">Preparing download…</span>
+</div>
+
+<script>
+  function goBack() { window.location.href = 'index.html'; }
+
+  function getBook() {
+    const id = new URLSearchParams(window.location.search).get('id');
+    const raw = sessionStorage.getItem('selectedBook');
+    if (!raw) return null;
+    try {
+      const p = JSON.parse(raw);
+      if (!id || p.id === id) return p;
+    } catch(e) { return null; }
+    return null;
+  }
+
+  function tocForBook(book) {
+    const title = (book.title || '').toLowerCase();
+    const tag = (book.tag || '').toLowerCase();
+
+    if (title.includes('grammar') || title.includes('language use')) {
+      return [
+        { title: 'Diagnostic assessment', desc: 'Identify gaps before you begin' },
+        { title: 'Grammar foundations', desc: 'Subject–verb agreement, tenses, articles' },
+        { title: 'Sentence construction', desc: 'Synthesis, transformation, editing' },
+        { title: 'Cloze passage strategy', desc: 'Contextual clue techniques' },
+        { title: 'Timed exam practice', desc: 'Full-format papers under exam conditions' },
+      ];
+    }
+    if (title.includes('daily dose') || title.includes('weekly revision')) {
+      return [
+        { title: 'Reading comprehension', desc: 'Passage types: narrative, expository, descriptive' },
+        { title: 'Vocabulary in context', desc: 'Word meaning, usage, and word families' },
+        { title: 'Grammar practice', desc: 'MCQ and fill-in-the-blank grammar items' },
+        { title: 'Spelling and word study', desc: 'High-frequency and topic-specific vocabulary' },
+        { title: 'Writing stimulus', desc: 'Guided writing prompts for continuous practice' },
+      ];
+    }
+    if (title.includes('psle') || title.includes('specimen')) {
+      return [
+        { title: 'Examiner notes and format guide', desc: 'What examiners look for in each paper' },
+        { title: 'Paper 1: Situational writing', desc: 'Formal and informal writing, purpose and tone' },
+        { title: 'Paper 1: Continuous writing', desc: 'Narrative and expository essay techniques' },
+        { title: 'Paper 2: Language use components', desc: 'Grammar, vocabulary, comprehension cloze, synthesis' },
+        { title: 'Model answers with annotations', desc: 'Band-level explanations for each question type' },
+      ];
+    }
+    if (title.includes('maths') || title.includes('math') || title.includes('topical')) {
+      return [
+        { title: 'Numbers and algebra', desc: 'Real numbers, polynomials, equations' },
+        { title: 'Geometry and measurement', desc: 'Shapes, angles, congruence, similarity' },
+        { title: 'Statistics and probability', desc: 'Data interpretation, mean, median, mode' },
+        { title: 'Exam-format timed drills', desc: 'Paper 1 (MCQ) and Paper 2 (structured)' },
+        { title: 'Worked answers and method notes', desc: 'Step-by-step solutions with marks allocation' },
+      ];
+    }
+    if (title.includes('biology') || title.includes('chemistry') || title.includes('physics') || title.includes('science')) {
+      return [
+        { title: 'Syllabus concept summaries', desc: 'Concise notes for every tested topic' },
+        { title: 'Diagrams and key definitions', desc: 'Annotated visuals for high-yield content' },
+        { title: 'Structured question practice', desc: 'Short-answer and free-response question drills' },
+        { title: 'Data-based questions', desc: 'Graph interpretation and experimental design' },
+        { title: 'Full paper practice sets', desc: 'Timed papers modelled on the O Level format' },
+      ];
+    }
+    return [
+      { title: 'Diagnostic practice', desc: 'Assess your starting point' },
+      { title: 'Core skills development', desc: 'Structured skill-building exercises' },
+      { title: 'Exam strategy and technique', desc: 'How to approach each question type' },
+      { title: 'Timed assessment practice', desc: 'Exam-format papers under real conditions' },
+      { title: 'Revision checklist and error log', desc: 'Track progress and common mistakes' },
+    ];
+  }
+
+  function sampleQs(book) {
+    const title = (book.title || '').toLowerCase();
+    if (title.includes('grammar') || title.includes('language use') || title.includes('psle')) {
+      return [
+        {
+          n: 'Q1 — Grammar MCQ', text: 'Choose the word or group of words that best completes the sentence.',
+          hint: 'The children _______ to the park every Saturday morning, but today they stayed home.',
+          options: ['(A) go &nbsp; (B) goes &nbsp; (C) went &nbsp; (D) going'],
+          marks: '1 mark'
+        },
+        {
+          n: 'Q2 — Synthesis and Transformation',
+          text: 'Rewrite the sentence using the word given. Do not change the meaning.',
+          hint: '"I will lend you my umbrella only if you return it by Friday." &nbsp;→ &nbsp; rewrite using: <em>provided</em>',
+          marks: '2 marks'
+        },
+        {
+          n: 'Q3 — Comprehension open-ended',
+          text: 'Based on paragraph 2, explain in your own words why the villagers were reluctant to leave their homes.',
+          hint: 'Your answer must include one reason from the text and one inference supported by evidence.',
+          marks: '3 marks'
+        }
+      ];
+    }
+    if (title.includes('maths') || title.includes('math') || title.includes('topical')) {
+      return [
+        {
+          n: 'Q1 — Short answer',
+          text: 'Given that 3x − 7 = 2(x + 4), find the value of x.',
+          hint: 'Show all working clearly. Do not use a calculator.',
+          marks: '2 marks'
+        },
+        {
+          n: 'Q2 — Structured question',
+          text: 'Triangle PQR has vertices P(1, 2), Q(5, 2) and R(3, 6). Find the area of the triangle.',
+          hint: 'You may use the formula: Area = ½|x₁(y₂ − y₃) + x₂(y₃ − y₁) + x₃(y₁ − y₂)|',
+          marks: '3 marks'
+        },
+        {
+          n: 'Q3 — Application',
+          text: 'A shopkeeper bought 80 pens at $0.45 each and sold them at a profit of 20%. Find the selling price of each pen.',
+          hint: 'Express profit as a percentage of cost price. Round your answer to the nearest cent.',
+          marks: '3 marks'
+        }
+      ];
+    }
+    if (title.includes('biology')) {
+      return [
+        { n: 'Q1 — Short structured', text: 'Describe the role of mitochondria in aerobic respiration.', hint: 'Include the reactants, products, and the location of each stage within the mitochondrion.', marks: '3 marks' },
+        { n: 'Q2 — Data analysis', text: 'The table shows the oxygen uptake of a plant at different light intensities. Suggest why oxygen uptake increases up to 2,000 lux but does not increase beyond this level.', hint: 'Your answer should refer to limiting factors and include evidence from the data table.', marks: '4 marks' },
+        { n: 'Q3 — Extended answer', text: 'Explain how the human kidney maintains water balance in the body. Include the role of ADH in your answer.', hint: 'Structure your answer: stimulus → response → outcome. Use correct biological terminology.', marks: '6 marks' }
+      ];
+    }
+    return [
+      { n: 'Q1 — Short answer', text: 'Analyse the key factors that contributed to the outcome described in the passage.', hint: 'Use evidence from the passage to support your answer. Write 3–4 sentences.', marks: '4 marks' },
+      { n: 'Q2 — Extended response', text: 'To what extent do you agree with the view expressed by the author in paragraphs 4–5?', hint: 'Present a balanced argument with reference to specific details. At least two points per side.', marks: '8 marks' },
+    ];
+  }
+
+  function render() {
+    const app = document.getElementById('app');
+    const book = getBook();
+
+    if (!book) {
+      app.innerHTML = `
+        <div class="empty">
+          <h2>Book preview unavailable</h2>
+          <p>Open a book from the library page to see its full details.</p>
+          <button class="btn-upsell red" onclick="goBack()">Go to library</button>
+        </div>
+      `;
+      return;
+    }
+
+    document.title = `${book.title} — POPULAR Study Pass`;
+    const toc = tocForBook(book);
+    const qs = sampleQs(book);
+
+    app.innerHTML = `
+      <div class="breadcrumb">
+        <a href="index.html">Library</a>
+        <span>›</span>
+        <a href="index.html">${book.tag}</a>
+        <span>›</span>
+        <span style="color:var(--muted)">${book.title}</span>
+      </div>
+
+      <div class="hero">
+        <div class="cover-wrap">
+          <div class="cover-shadow"></div>
+          <div class="cover" style="background:${book.bg}">
+            <div class="cover-spine"></div>
+          </div>
+          <div class="cover-actions">
+            <button class="ca-btn ca-red" onclick="fakeDownload('Assessment PDF', '${book.title.replace(/'/g,"\'")}')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download assessment
+            </button>
+            <button class="ca-btn ca-gold" onclick="fakeDownload('Answers PDF', '${book.title.replace(/'/g,"\'")}')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download answers
+            </button>
+            <button class="ca-btn ca-outline" onclick="goBack()">Browse more books</button>
+          </div>
+        </div>
+
+        <div class="meta">
+          <div class="tag-row">
+            <span class="tag">${book.tag}</span>
+            <span class="tag-sep">·</span>
+            <span class="tag-level">${book.sub}</span>
+          </div>
+          <h1 class="book-title">${book.title}</h1>
+          <p class="book-desc">${book.desc}</p>
+
+          <div class="access-banner">
+            <div class="ab-icon">✅</div>
+            <div class="ab-text">
+              <strong>Included in your Study Pass subscription</strong>
+              <p>The assessment paper and full worked answers are provided as separate PDFs. Practise without seeing answers first, then mark with confidence.</p>
+            </div>
+          </div>
+
+          <div class="chips">
+            <span class="chip green">Included in subscription</span>
+            <span class="chip gold">Assessment PDF</span>
+            <span class="chip gold">Answers PDF</span>
+            <span class="chip">Instant access</span>
+            <span class="chip">Printable pages</span>
+          </div>
+
+          <div class="quick-stats">
+            <div class="qs">
+              <span class="qs-n">5</span>
+              <span class="qs-l">Sections</span>
+            </div>
+            <div class="qs">
+              <span class="qs-n">2 PDFs</span>
+              <span class="qs-l">Paper + answers</span>
+            </div>
+            <div class="qs">
+              <span class="qs-n">Instant</span>
+              <span class="qs-l">Download</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-grid">
+        <div class="panel">
+          <div class="panel-title">Table of contents</div>
+          <ul class="toc">
+            ${toc.map((item, i) => `
+              <li>
+                <div class="toc-n">${i+1}</div>
+                <div class="toc-text">
+                  <strong>${item.title}</strong>
+                  <span>${item.desc}</span>
+                </div>
+              </li>
+            `).join('')}
+          </ul>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Book details</div>
+          <ul class="detail-list">
+            <li><span class="dl-label">Publisher</span><span class="dl-value">Educational Publishing House</span></li>
+            <li><span class="dl-label">Format</span><span class="dl-value">Printable PDF workbook</span></li>
+            <li><span class="dl-label">Included files</span><span class="dl-value">Assessment + answers, separately</span></li>
+            <li><span class="dl-label">Best for</span><span class="dl-value">Weekly revision and exam practice</span></li>
+            <li><span class="dl-label">Access</span><span class="dl-value">Unlimited while subscribed</span></li>
+            <li><span class="dl-label">Device</span><span class="dl-value">Phone, tablet, or computer</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sample-panel" style="margin-bottom:16px;">
+        <div class="panel-title">Sample questions</div>
+        <p class="sample-note">The following are representative questions from this workbook. Actual questions and difficulty vary by section.</p>
+        ${qs.map(q => `
+          <div class="question">
+            <div class="q-num">${q.n}</div>
+            <div class="q-text">${q.text}</div>
+            ${q.options ? `<div class="q-hint" style="margin-top:6px;padding:10px 12px;background:rgba(28,25,23,.04);border-radius:5px;font-family:monospace;font-size:12px;">${q.options[0]}</div>` : ''}
+            <div class="q-hint" style="margin-top:${q.options ? '8' : '0'}px;">${q.hint}</div>
+            <span class="q-mark">${q.marks}</span>
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="upsell">
+        <h3>Get unlimited access to every title</h3>
+        <p>One subscription unlocks this book and thousands more — Preschool to A Level. Download papers and answers separately. Cancel anytime.</p>
+        <div class="upsell-btns">
+          <button class="btn-upsell red" onclick="startTrial()">Start 7-day free trial</button>
+          <button class="btn-upsell ghost" onclick="goBack()">Browse the full library</button>
+        </div>
+      </div>
+    `;
+  }
+
+  let tTimer;
+  function showToast(icon, msg, color) {
+    document.getElementById('tIcon').textContent = icon;
+    document.getElementById('tMsg').textContent = msg;
+    document.getElementById('toast').style.borderLeftColor = color;
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    clearTimeout(tTimer);
+    tTimer = setTimeout(() => t.classList.remove('show'), 3200);
+  }
+  function fakeDownload(label) {
+    const isPaper = label.includes('Assessment');
+    showToast(isPaper ? '📄' : '📋', `${label} is ready in your subscription dashboard.`, isPaper ? '#c8102e' : '#B07D10');
+  }
+  function startTrial() {
+    showToast('🎉', 'Redirecting to your free trial…', '#16A34A');
+  }
+
+  render();
+</script>
+</body>
+</html>
