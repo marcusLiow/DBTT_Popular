@@ -221,11 +221,64 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 .toast{position:fixed;bottom:30px;right:30px;background:var(--dark);color:white;padding:13px 22px;border-radius:10px;font-size:14px;font-weight:500;z-index:1000;transform:translateY(80px);opacity:0;transition:all .3s cubic-bezier(.34,1.56,.64,1);display:flex;align-items:center;gap:10px;}
 .toast.show{transform:translateY(0);opacity:1;}
 
+/* BOOKS IN DEMAND */
+.demand-outer{background:#fff;border-bottom:1px solid var(--border);padding:22px 24px 18px;}
+.demand-inner{max-width:1140px;margin:0 auto;}
+.demand-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;margin-bottom:3px;}
+.demand-sub{font-size:12.5px;color:var(--mid);margin-bottom:14px;}
+.demand-scroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
+.demand-scroll::-webkit-scrollbar{height:4px;}
+.demand-scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+.demand-card{flex-shrink:0;width:175px;border:1.5px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;background:#fff;transition:all .18s;}
+.demand-card:hover{border-color:var(--red);box-shadow:var(--shadow-sm);transform:translateY(-2px);}
+.demand-card-emoji{font-size:26px;margin-bottom:8px;}
+.demand-card-title{font-size:12px;font-weight:600;line-height:1.35;margin-bottom:7px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.demand-pill{font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;margin-bottom:7px;display:inline-block;line-height:1.4;}
+.demand-pill.high{background:var(--amber-bg);color:var(--amber);}
+.demand-pill.boosted{background:var(--green-bg);color:var(--green);}
+.demand-pill.normal{background:var(--gray-bg);color:var(--mid);}
+.demand-pill.low{background:var(--gray-bg);color:#999;}
+.demand-card-credit{font-size:11.5px;color:var(--green);font-weight:600;}
+
+/* TRADE-IN HISTORY */
+.history-item{display:flex;align-items:flex-start;gap:12px;padding:12px 20px;border-bottom:1px solid var(--border);}
+.history-item:last-child{border-bottom:none;}
+.history-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+.history-info{flex:1;min-width:0;}
+.history-title{font-size:12.5px;font-weight:600;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.history-date{font-size:11px;color:var(--mid);}
+.history-right{text-align:right;flex-shrink:0;}
+.history-credit{font-size:13px;font-weight:700;color:var(--green);}
+.badge{display:inline-block;font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;margin-top:3px;}
+.badge-green{background:var(--green-bg);color:var(--green);}
+.badge-amber{background:var(--amber-bg);color:var(--amber);}
+
+/* EDUPASS BANNER */
+.edupass-banner{background:linear-gradient(120deg,#1A1A1A 0%,#2a1a0e 60%,rgba(201,168,76,0.1) 100%);border-radius:12px;padding:18px 20px;margin-top:16px;border:1px solid rgba(201,168,76,0.3);display:flex;align-items:center;gap:14px;}
+.edupass-icon{font-size:28px;flex-shrink:0;}
+.edupass-text{flex:1;}
+.edupass-text p{font-size:13px;color:rgba(255,255,255,0.75);line-height:1.6;margin-bottom:8px;}
+.edupass-text strong{color:var(--gold);}
+.edupass-link{display:inline-block;font-size:12.5px;font-weight:700;color:var(--gold);text-decoration:none;border:1px solid rgba(201,168,76,0.4);padding:6px 14px;border-radius:6px;transition:background .15s;white-space:nowrap;}
+.edupass-link:hover{background:rgba(201,168,76,0.12);}
+
+/* PRICE CALC */
+.price-calc-toggle{display:flex;align-items:center;gap:6px;font-size:11.5px;color:rgba(255,255,255,0.45);cursor:pointer;margin-top:12px;user-select:none;transition:color .15s;}
+.price-calc-toggle:hover{color:rgba(255,255,255,0.7);}
+.price-calc-toggle .pc-arrow{transition:transform .2s;font-size:9px;}
+.price-calc-toggle.open .pc-arrow{transform:rotate(90deg);}
+.price-calc-body{display:none;margin-top:10px;background:rgba(255,255,255,0.06);border-radius:8px;padding:12px 14px;animation:fadeIn .2s ease;}
+.price-calc-body.show{display:block;}
+.price-calc-row{font-size:12px;color:rgba(255,255,255,0.6);margin-bottom:5px;line-height:1.5;}
+.price-calc-row strong{color:rgba(255,255,255,0.9);}
+.price-calc-eq{font-size:12.5px;font-weight:600;color:var(--gold);margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.1);}
+
 @media(max-width:600px){
   .hero-text h1{font-size:26px;}
   .hero-stats{gap:12px;}
   .condition-grid{grid-template-columns:repeat(3,1fr);}
   .btn-row{grid-template-columns:1fr;}
+  .demand-card{width:150px;}
 }
 </style>
 </head>
@@ -261,6 +314,14 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
         <div class="stat-num">30+</div>
         <div class="stat-lbl">Outlets islandwide</div>
       </div>
+      <div class="stat-box">
+        <div class="stat-num">2,847</div>
+        <div class="stat-lbl">Books saved from landfill</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">$14,230</div>
+        <div class="stat-lbl">Credits returned to families</div>
+      </div>
     </div>
   </div>
 </div>
@@ -284,6 +345,15 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
       <div class="step-circle">4</div>
       <div class="step-label">Credits Issued</div>
     </div>
+  </div>
+</div>
+
+<!-- BOOKS IN DEMAND -->
+<div class="demand-outer" id="demandOuter">
+  <div class="demand-inner">
+    <div class="demand-title">📚 Books in Demand</div>
+    <div class="demand-sub">Click any book to auto-fill and get an instant credit estimate</div>
+    <div class="demand-scroll" id="demandScroll"></div>
   </div>
 </div>
 
@@ -365,6 +435,14 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
           <div class="ob-row"><span class="ol">Demand signal</span><span class="ov" id="ob-demand">—</span></div>
         </div>
         <div class="offer-note">⚠ This is a provisional offer. Final credit is confirmed after staff inspection at the counter.</div>
+        <div class="price-calc-toggle" id="priceCalcToggle" onclick="togglePriceCalc()">
+          <span class="pc-arrow">▶</span> How is this price calculated?
+        </div>
+        <div class="price-calc-body" id="priceCalcBody">
+          <div class="price-calc-row">Base price: <strong id="pc-base">$0.00</strong></div>
+          <div class="price-calc-row">Demand multiplier: <strong id="pc-mult">×1.0×</strong> — <span id="pc-demand-label"></span></div>
+          <div class="price-calc-eq">= Final offer: <span id="pc-final">$0.00</span></div>
+        </div>
       </div>
 
       <div id="nextBtn1" style="display:none">
@@ -542,6 +620,14 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 
       <button class="btn-primary" onclick="restart()">Trade In Another Book</button>
       <button class="btn-secondary" onclick="restart()">Back to Home</button>
+
+      <div class="edupass-banner" id="edupassBanner">
+        <div class="edupass-icon">🎓</div>
+        <div class="edupass-text">
+          <p>Your credit can cover <strong id="edupass-months">1</strong> month<span id="edupass-months-s"></span> of <strong>EduPass Basic ($3.90/month)</strong> — start reading digitally today.</p>
+          <a href="subscription.html" class="edupass-link">Subscribe now →</a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -569,6 +655,44 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
       <div class="s-item"><span class="st">Demand signal</span><span class="sp" id="sum-demand">—</span></div>
       <hr class="s-div">
       <div class="s-total"><span class="stl">Credit offer</span><span id="sum-total" style="color:var(--green);">—</span></div>
+    </div>
+  </div>
+
+  <!-- Trade-In History -->
+  <div class="summary-card">
+    <div class="summary-header">🕐 My Past Trade-Ins</div>
+    <div class="history-item">
+      <div class="history-icon">📗</div>
+      <div class="history-info">
+        <div class="history-title">PSLE Mathematics Past Year Papers 2024</div>
+        <div class="history-date">12 Mar 2025 · Bugis Junction</div>
+      </div>
+      <div class="history-right">
+        <div class="history-credit">S$5.40</div>
+        <span class="badge badge-green">Credit Confirmed</span>
+      </div>
+    </div>
+    <div class="history-item">
+      <div class="history-icon">📘</div>
+      <div class="history-info">
+        <div class="history-title">O-Level English Ten Year Series</div>
+        <div class="history-date">28 Feb 2025 · Tampines Mall</div>
+      </div>
+      <div class="history-right">
+        <div class="history-credit">S$4.80</div>
+        <span class="badge badge-amber">Pending Inspection</span>
+      </div>
+    </div>
+    <div class="history-item">
+      <div class="history-icon">📙</div>
+      <div class="history-info">
+        <div class="history-title">Primary 4 Science Worksheets</div>
+        <div class="history-date">15 Jan 2025 · VivoCity</div>
+      </div>
+      <div class="history-right">
+        <div class="history-credit">S$2.60</div>
+        <span class="badge badge-green">Credit Confirmed</span>
+      </div>
     </div>
   </div>
 
@@ -606,6 +730,12 @@ const BOOKS = [
   { isbn:'9789810985371', emoji:'📘', title:'Secondary 3 E-Maths Assessment Book', sub:'EPB Publishers · Secondary · Assessment', tags:['Sec 3','E-Math','O Level'], baseGood:4.00, baseFair:2.50, baseWorn:1.00, demand:'Normal stock levels', demandMult:1.0 },
   { isbn:'9789810985372', emoji:'📙', title:'Primary 4 Science Worksheets', sub:'Pan Lloyds · Primary · Assessment', tags:['Primary 4','Science'], baseGood:3.50, baseFair:2.00, baseWorn:0.80, demand:'Low stock — offer boosted!', demandMult:1.3 },
   { isbn:'9789810985373', emoji:'📕', title:'O-Level English Ten Year Series', sub:'EPB Publishers · Secondary · Assessment', tags:['O Level','English','TYS'], baseGood:5.00, baseFair:3.00, baseWorn:1.50, demand:'High demand — limited stock', demandMult:1.25 },
+  { isbn:'9789810985374', emoji:'📗', title:'Primary 5 Chinese Assessment Book', sub:'Pan Lloyds · Primary · Assessment', tags:['Primary 5','Chinese'], baseGood:3.80, baseFair:2.20, baseWorn:0.90, demand:'Normal stock levels', demandMult:1.0 },
+  { isbn:'9789810985375', emoji:'📘', title:'JC2 H2 Chemistry Ten Year Series', sub:'EPB Publishers · JC · Assessment', tags:['JC2','H2 Chem','A Level'], baseGood:5.50, baseFair:3.50, baseWorn:1.80, demand:'High demand — A Level prep', demandMult:1.3 },
+  { isbn:'9789810985376', emoji:'📙', title:'Secondary 1 History Textbook', sub:'EPB Publishers · Secondary · Textbook', tags:['Sec 1','History'], baseGood:2.80, baseFair:1.50, baseWorn:0.60, demand:'Low demand', demandMult:0.8 },
+  { isbn:'9789810985377', emoji:'📕', title:'The Great Gatsby — F. Scott Fitzgerald', sub:'Scribner · Fiction · Literature', tags:['Fiction','Literature'], baseGood:3.00, baseFair:1.80, baseWorn:0.70, demand:'Steady — Literature set text', demandMult:1.1 },
+  { isbn:'9789810985378', emoji:'📗', title:'Primary 3 Maths Challenging Problems', sub:'Pan Lloyds · Primary · Assessment', tags:['Primary 3','Maths'], baseGood:4.00, baseFair:2.50, baseWorn:1.00, demand:'Low stock — offer boosted!', demandMult:1.3 },
+  { isbn:'9789810985379', emoji:'📙', title:'Tomorrow, and Tomorrow, and Tomorrow — Gabrielle Zevin', sub:'Vintage · Fiction', tags:['Fiction','BookTok'], baseGood:4.20, baseFair:2.60, baseWorn:1.10, demand:'High demand — BookTok trending', demandMult:1.25 },
   { isbn:'default', emoji:'📚', title:'Assessment Book', sub:'Popular Imprints · General', tags:['General'], baseGood:3.00, baseFair:1.80, baseWorn:0.80, demand:'Normal stock levels', demandMult:1.0 },
 ];
 
@@ -651,6 +781,9 @@ function renderStep(){
   if(step===3) populateConfirm();
   if(step===4) populateSuccess();
   window.scrollTo({top:0,behavior:'smooth'});
+  // Show demand section only on step 1
+  const demandOuter = document.getElementById('demandOuter');
+  if(demandOuter) demandOuter.style.display = step===1 ? '' : 'none';
 }
 
 // ── STEP 1 LOGIC ──────────────────────────────────────────────────────
@@ -712,6 +845,7 @@ function selectCondition(cond){
   document.getElementById('offerBox').classList.add('show');
   document.getElementById('nextBtn1').style.display = 'block';
   updateSidebar(credit, condLabel);
+  updatePriceCalc(cond);
 }
 
 function updateSidebar(credit, condLabel){
@@ -806,6 +940,7 @@ function populateSuccess(){
   document.getElementById('success-outlet').textContent = outlet.name;
   document.getElementById('success-credit').textContent = 'S$'+credit;
   document.getElementById('refNum').textContent = String(Math.floor(1000+Math.random()*8999));
+  updateEdupassBanner(credit);
 }
 
 // ── RESTART ───────────────────────────────────────────────────────────
@@ -823,7 +958,63 @@ function restart(){
   renderStep();
 }
 
+// ── BOOKS IN DEMAND ───────────────────────────────────────────────────
+function renderDemandSection(){
+  const featured = BOOKS.filter(b => b.isbn !== 'default');
+  document.getElementById('demandScroll').innerHTML = featured.map(b => {
+    const d = b.demand.toLowerCase();
+    let pillClass = 'normal';
+    if(b.demandMult >= 1.2 || d.includes('high') || d.includes('trending')) pillClass = 'high';
+    else if(d.includes('boost') || d.includes('low stock')) pillClass = 'boosted';
+    else if(b.demandMult < 1) pillClass = 'low';
+    const maxCredit = (b.baseGood * b.demandMult).toFixed(2);
+    const minCredit = (b.baseWorn * b.demandMult).toFixed(2);
+    return `<div class="demand-card" onclick="pickDemandBook('${b.isbn}')">
+      <div class="demand-card-emoji">${b.emoji}</div>
+      <div class="demand-card-title">${b.title}</div>
+      <div class="demand-pill ${pillClass}">${b.demand}</div>
+      <div class="demand-card-credit">S$${minCredit}–S$${maxCredit}</div>
+    </div>`;
+  }).join('');
+}
+
+function pickDemandBook(isbn){
+  document.getElementById('isbnInput').value = isbn;
+  lookupBook();
+  document.getElementById('content-1').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// ── PRICE CALC ────────────────────────────────────────────────────────
+function togglePriceCalc(){
+  document.getElementById('priceCalcToggle').classList.toggle('open');
+  document.getElementById('priceCalcBody').classList.toggle('show');
+}
+
+function updatePriceCalc(cond){
+  if(!currentBook) return;
+  const baseMap = {good: currentBook.baseGood, fair: currentBook.baseFair, worn: currentBook.baseWorn};
+  const base = baseMap[cond];
+  const mult = currentBook.demandMult;
+  const final = (base * mult).toFixed(2);
+  document.getElementById('pc-base').textContent = '$'+base.toFixed(2);
+  document.getElementById('pc-mult').textContent = mult.toFixed(1)+'×';
+  document.getElementById('pc-demand-label').textContent = currentBook.demand;
+  document.getElementById('pc-final').textContent = '$'+final;
+  document.getElementById('priceCalcToggle').classList.remove('open');
+  document.getElementById('priceCalcBody').classList.remove('show');
+}
+
+// ── EDUPASS BANNER ────────────────────────────────────────────────────
+function updateEdupassBanner(credit){
+  const months = Math.max(1, Math.floor(parseFloat(credit) / 3.90));
+  document.getElementById('edupass-months').textContent = months;
+  document.getElementById('edupass-months-s').textContent = months > 1 ? 's' : '';
+}
+
 // ── TOAST ─────────────────────────────────────────────────────────────
+// ── INIT ──────────────────────────────────────────────────────────────
+renderDemandSection();
+
 let toastTimer;
 function showToast(msg){
   const t = document.getElementById('toast');
