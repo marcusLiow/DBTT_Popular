@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TradeIn — POPULAR</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red:#D0021B; --dark:#1A1A1A; --mid:#666; --light:#F7F5F2;
+  --green:#1B7F4F; --green-bg:#E8F5EE;
+  --amber:#B45309; --amber-bg:#FEF3C7;
+  --gray-bg:#F1F0EF; --border:#E5E0D8;
+  --gold:#C9A84C; --white:#fff;
+  --shadow-sm:0 1px 4px rgba(0,0,0,0.07);
+  --shadow:0 4px 20px rgba(0,0,0,0.09);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--light);color:var(--dark);min-height:100vh;}
+
+/* TOPBAR */
+.topbar{background:var(--red);color:#fff;text-align:center;font-size:12px;font-weight:500;padding:8px;letter-spacing:.04em;}
+
+/* HEADER */
+header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.06);}
+.header-inner{max-width:1140px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:16px;height:62px;}
+.logo{font-family:'Playfair Display',serif;font-size:23px;font-weight:800;color:var(--red);}
+.logo span{color:var(--dark);}
+.back-link{margin-left:auto;display:flex;align-items:center;gap:5px;font-size:13px;color:var(--mid);text-decoration:none;padding:6px 12px;border-radius:6px;transition:background .15s;cursor:pointer;}
+.back-link:hover{background:var(--light);color:var(--dark);}
+
+/* HERO BAND */
+.hero-band{background:linear-gradient(135deg,#1A1A1A 0%,#2a1a0e 60%,#1A1A1A 100%);padding:44px 24px;position:relative;overflow:hidden;}
+.hero-band::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(201,168,76,0.12) 0%,transparent 65%);}
+.hero-inner{max-width:1140px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:32px;position:relative;z-index:1;flex-wrap:wrap;}
+.hero-text{}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,0.18);border:1px solid rgba(201,168,76,0.4);color:var(--gold);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;border-radius:20px;margin-bottom:16px;}
+.hero-text h1{font-family:'Playfair Display',serif;font-size:34px;font-weight:800;color:#fff;line-height:1.15;margin-bottom:10px;}
+.hero-text h1 em{color:var(--gold);font-style:normal;}
+.hero-text p{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.7;max-width:440px;}
+.hero-stats{display:flex;gap:24px;flex-wrap:wrap;}
+.stat-box{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:14px 20px;text-align:center;min-width:110px;}
+.stat-num{font-size:24px;font-weight:800;color:var(--gold);}
+.stat-lbl{font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px;}
+
+/* STEPPER */
+.stepper-wrap{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;}
+.stepper{max-width:760px;margin:0 auto;display:flex;align-items:center;padding:18px 0;}
+.step{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;position:relative;cursor:pointer;}
+.step::after{content:'';position:absolute;top:17px;left:calc(50% + 20px);right:calc(-50% + 20px);height:2px;background:var(--border);transition:background .4s;}
+.step:last-child::after{display:none;}
+.step.completed::after{background:var(--red);}
+.step-circle{width:34px;height:34px;border-radius:50%;border:2px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#bbb;transition:all .3s;z-index:1;}
+.step.active .step-circle{border-color:var(--red);background:var(--red);color:#fff;box-shadow:0 0 0 4px rgba(208,2,27,.12);}
+.step.completed .step-circle{border-color:var(--red);background:var(--red);color:#fff;}
+.step-label{font-size:11px;font-weight:600;color:#bbb;letter-spacing:.03em;transition:color .3s;white-space:nowrap;}
+.step.active .step-label,.step.completed .step-label{color:var(--red);}
+
+/* LAYOUT */
+.main{max-width:1140px;margin:0 auto;padding:36px 24px;display:grid;grid-template-columns:1fr 340px;gap:28px;align-items:start;}
+@media(max-width:860px){.main{grid-template-columns:1fr;}}
+
+/* PANEL */
+.panel{background:#fff;border-radius:14px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow);}
+.panel-header{padding:22px 26px 18px;border-bottom:1px solid var(--border);}
+.panel-header h2{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;margin-bottom:3px;}
+.panel-header p{font-size:13px;color:var(--mid);}
+.panel-body{padding:24px 26px;}
+
+/* STEP CONTENT */
+.step-content{display:none;}
+.step-content.active{display:block;}
+
+/* STEP 1 — SCAN */
+.scan-zone{border:2px dashed var(--border);border-radius:12px;padding:32px;text-align:center;background:var(--light);cursor:pointer;transition:border-color .2s,background .2s;margin-bottom:20px;}
+.scan-zone:hover,.scan-zone.drag{border-color:var(--red);background:rgba(208,2,27,0.03);}
+.scan-icon{font-size:44px;margin-bottom:10px;}
+.scan-zone h3{font-size:16px;font-weight:600;margin-bottom:6px;}
+.scan-zone p{font-size:13px;color:var(--mid);}
+.scan-or{display:flex;align-items:center;gap:12px;margin:18px 0;color:#bbb;font-size:12px;}
+.scan-or::before,.scan-or::after{content:'';flex:1;height:1px;background:var(--border);}
+.form-row{margin-bottom:13px;}
+.form-row label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--mid);margin-bottom:5px;}
+.form-row input,.form-row select{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:8px;font-family:inherit;font-size:14px;outline:none;transition:border-color .2s;background:#fff;color:var(--dark);}
+.form-row input:focus,.form-row select:focus{border-color:var(--red);}
+
+/* Book result card */
+.book-result{display:none;background:var(--light);border-radius:12px;padding:16px;border:1.5px solid var(--border);margin-bottom:20px;animation:fadeIn .25s ease;}
+.book-result.show{display:flex;gap:14px;align-items:flex-start;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.book-cover{width:58px;height:76px;background:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;border:1px solid var(--border);}
+.book-meta{flex:1;}
+.book-title{font-size:14px;font-weight:600;margin-bottom:3px;line-height:1.35;}
+.book-sub{font-size:12px;color:var(--mid);margin-bottom:8px;}
+.book-tags{display:flex;gap:6px;flex-wrap:wrap;}
+.book-tag{font-size:11px;padding:3px 9px;border-radius:20px;background:#fff;border:1px solid var(--border);color:var(--mid);}
+
+/* Condition selector */
+.condition-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--mid);margin-bottom:10px;display:block;}
+.condition-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;}
+.cond-card{border:1.5px solid var(--border);border-radius:10px;padding:14px 12px;text-align:center;cursor:pointer;transition:all .18s;background:#fff;}
+.cond-card:hover{border-color:var(--dark);}
+.cond-card.selected{border-color:var(--red);background:rgba(208,2,27,0.04);}
+.cond-icon{font-size:22px;margin-bottom:6px;}
+.cond-name{font-size:13px;font-weight:600;margin-bottom:3px;}
+.cond-desc{font-size:11px;color:var(--mid);line-height:1.4;}
+.cond-credit{font-size:13px;font-weight:700;color:var(--green);margin-top:6px;}
+
+/* Offer box */
+.offer-box{background:linear-gradient(120deg,#1A1A1A,#2a1a0e);border-radius:12px;padding:20px;display:none;margin-bottom:20px;animation:fadeIn .3s ease;}
+.offer-box.show{display:block;}
+.offer-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.offer-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,0.5);}
+.offer-amount{font-size:32px;font-weight:800;color:var(--gold);}
+.offer-amount span{font-size:14px;color:rgba(255,255,255,0.5);font-weight:400;}
+.offer-breakdown{border-top:1px solid rgba(255,255,255,0.1);padding-top:12px;}
+.ob-row{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:6px;}
+.ob-row .ol{color:rgba(255,255,255,0.55);}
+.ob-row .ov{color:rgba(255,255,255,0.85);font-weight:500;}
+.offer-note{font-size:11.5px;color:rgba(255,255,255,0.4);margin-top:10px;line-height:1.5;}
+
+/* Buttons */
+.btn-primary{display:inline-block;width:100%;padding:12px 20px;background:var(--red);color:#fff;border:none;border-radius:8px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s,transform .15s;text-align:center;}
+.btn-primary:hover{background:#a8001a;transform:translateY(-1px);}
+.btn-primary:disabled{background:#ccc;cursor:default;transform:none;}
+.btn-secondary{display:inline-block;width:100%;padding:12px 20px;background:transparent;color:var(--mid);border:1.5px solid var(--border);border-radius:8px;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;transition:all .2s;text-align:center;margin-top:10px;}
+.btn-secondary:hover{border-color:var(--dark);color:var(--dark);}
+.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px;}
+.btn-row .btn-primary,.btn-row .btn-secondary{margin-top:0;}
+
+/* STEP 2 — DROP OFF */
+.outlet-search-wrap{display:flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--border);border-radius:9px;padding:0 14px;margin-bottom:14px;transition:border-color .2s;}
+.outlet-search-wrap:focus-within{border-color:var(--red);}
+.outlet-search-wrap input{border:none;background:transparent;font-family:inherit;font-size:13.5px;padding:11px 0;outline:none;flex:1;color:var(--dark);}
+.region-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px;}
+.rtab{padding:6px 13px;border-radius:20px;border:1.5px solid var(--border);font-size:12px;font-weight:600;cursor:pointer;background:#fff;color:var(--mid);transition:all .18s;white-space:nowrap;user-select:none;}
+.rtab:hover{border-color:var(--dark);color:var(--dark);}
+.rtab.active{background:var(--dark);color:#fff;border-color:var(--dark);}
+.outlet-scroll{max-height:420px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
+.outlet-scroll::-webkit-scrollbar{width:4px;}
+.outlet-scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+.outlet-row{display:flex;align-items:stretch;border:1.5px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .2s;background:#fff;position:relative;}
+.outlet-row:hover{border-color:#b0a9a0;box-shadow:var(--shadow-sm);}
+.outlet-row.selected{border-color:var(--red);box-shadow:0 0 0 3px rgba(208,2,27,.08);}
+.avail-bar{width:5px;flex-shrink:0;background:var(--green);}
+.outlet-body{flex:1;padding:13px 15px;display:flex;align-items:center;gap:12px;}
+.out-icon{font-size:18px;width:38px;height:38px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.out-info{flex:1;min-width:0;}
+.out-name{font-size:14px;font-weight:600;margin-bottom:2px;}
+.out-addr{font-size:12px;color:var(--mid);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.out-meta{display:flex;gap:10px;flex-wrap:wrap;}
+.out-tag{font-size:11px;color:var(--mid);}
+.out-cta{font-size:12px;font-weight:600;color:var(--red);white-space:nowrap;padding:0 8px;display:flex;align-items:center;}
+.sel-tick{display:none;position:absolute;top:10px;right:10px;width:20px;height:20px;background:var(--red);border-radius:50%;color:#fff;font-size:10px;font-weight:800;align-items:center;justify-content:center;}
+.outlet-row.selected .sel-tick{display:flex;}
+.shimmer-wrap{display:none;}
+.shimmer-wrap.show{display:block;}
+.shimmer-row{height:68px;background:linear-gradient(90deg,var(--light) 25%,#ede9e3 50%,var(--light) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:11px;margin-bottom:10px;}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* STEP 3 — CONFIRM */
+.confirm-block{background:var(--light);border-radius:10px;padding:16px 18px;margin-bottom:14px;}
+.confirm-block h4{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--mid);margin-bottom:10px;}
+.cr{display:flex;justify-content:space-between;align-items:flex-start;font-size:13.5px;margin-bottom:8px;gap:12px;}
+.cr:last-child{margin-bottom:0;}
+.cr .cl{color:var(--mid);}
+.cr .cv{font-weight:500;text-align:right;}
+.wallet-dest{display:flex;align-items:center;gap:12px;background:var(--green-bg);border-radius:10px;padding:14px 16px;border:1px solid rgba(27,127,79,0.2);margin-bottom:14px;}
+.wallet-icon{font-size:24px;}
+.wallet-text strong{display:block;font-size:13.5px;font-weight:600;color:var(--green);margin-bottom:2px;}
+.wallet-text span{font-size:12px;color:#4a9a73;}
+.upsell-box{background:linear-gradient(120deg,#1A1A1A,#2a1a0e);border-radius:10px;padding:16px 18px;margin-bottom:14px;display:flex;align-items:center;gap:14px;}
+.upsell-icon{font-size:26px;flex-shrink:0;}
+.upsell-text strong{display:block;font-size:13px;font-weight:600;color:var(--gold);margin-bottom:3px;}
+.upsell-text span{font-size:12px;color:rgba(255,255,255,0.55);line-height:1.5;}
+.upsell-link{font-size:12px;font-weight:600;color:var(--gold);cursor:pointer;white-space:nowrap;text-decoration:underline;}
+
+/* STEP 4 — SUCCESS */
+.success-wrap{text-align:center;padding:36px 16px;}
+.success-icon{width:76px;height:76px;background:var(--green-bg);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:34px;margin:0 auto 18px;animation:popIn .4s cubic-bezier(.34,1.56,.64,1);}
+@keyframes popIn{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+.success-wrap h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin-bottom:8px;}
+.success-wrap>p{font-size:13.5px;color:var(--mid);line-height:1.7;max-width:320px;margin:0 auto 24px;}
+.credit-confirm{background:linear-gradient(120deg,#1A1A1A,#2a1a0e);border-radius:14px;padding:20px;margin-bottom:20px;}
+.cc-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,0.45);margin-bottom:4px;}
+.cc-amount{font-size:36px;font-weight:800;color:var(--gold);margin-bottom:4px;}
+.cc-sub{font-size:12px;color:rgba(255,255,255,0.45);}
+.order-ref{background:var(--light);border-radius:12px;padding:18px;margin-bottom:16px;border:1px solid var(--border);}
+.ref-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--mid);margin-bottom:5px;}
+.ref-num{font-size:22px;font-weight:800;letter-spacing:.08em;margin-bottom:3px;}
+.ref-sub{font-size:12px;color:var(--mid);}
+.sms-notice{background:var(--green-bg);border-radius:9px;padding:12px 16px;display:flex;gap:10px;align-items:center;margin-bottom:20px;font-size:13px;color:var(--green);font-weight:500;}
+.success-next{background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);border-radius:10px;padding:14px 18px;margin-bottom:20px;font-size:13px;color:var(--amber);font-weight:500;text-align:left;line-height:1.6;}
+
+/* SIDEBAR */
+.sidebar{display:flex;flex-direction:column;gap:16px;}
+.summary-card{background:#fff;border-radius:14px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow);}
+.summary-header{padding:16px 20px;border-bottom:1px solid var(--border);font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;}
+.summary-body{padding:16px 20px;}
+.s-item{display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px;gap:8px;}
+.st{color:var(--mid);}
+.sp{font-weight:500;}
+.s-div{border:none;border-top:1px solid var(--border);margin:10px 0;}
+.s-total{display:flex;justify-content:space-between;font-size:16px;font-weight:700;}
+.stl{color:var(--dark);}
+.info-card{background:#fff;border-radius:14px;border:1px solid var(--border);padding:18px;box-shadow:var(--shadow);}
+.info-card h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--mid);margin-bottom:12px;}
+.info-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;}
+.info-row:last-child{margin-bottom:0;}
+.info-dot{width:7px;height:7px;border-radius:50%;background:var(--red);flex-shrink:0;margin-top:5px;}
+.info-text{font-size:12.5px;color:var(--mid);line-height:1.6;}
+.wallet-card{background:linear-gradient(135deg,#1A1A1A,#2a1a0e);border-radius:14px;padding:18px;box-shadow:var(--shadow);}
+.wallet-card .wc-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,0.45);margin-bottom:4px;}
+.wallet-card .wc-balance{font-size:28px;font-weight:800;color:var(--gold);margin-bottom:2px;}
+.wallet-card .wc-sub{font-size:11.5px;color:rgba(255,255,255,0.45);margin-bottom:14px;}
+.wallet-card .wc-bar-bg{height:6px;background:rgba(255,255,255,0.1);border-radius:3px;margin-bottom:6px;}
+.wallet-card .wc-bar{height:6px;background:var(--gold);border-radius:3px;width:35%;}
+.wallet-card .wc-note{font-size:11px;color:rgba(255,255,255,0.35);}
+
+/* Toast */
+.toast{position:fixed;bottom:30px;right:30px;background:var(--dark);color:white;padding:13px 22px;border-radius:10px;font-size:14px;font-weight:500;z-index:1000;transform:translateY(80px);opacity:0;transition:all .3s cubic-bezier(.34,1.56,.64,1);display:flex;align-items:center;gap:10px;}
+.toast.show{transform:translateY(0);opacity:1;}
+
+@media(max-width:600px){
+  .hero-text h1{font-size:26px;}
+  .hero-stats{gap:12px;}
+  .condition-grid{grid-template-columns:repeat(3,1fr);}
+  .btn-row{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">♻️ Trade in your old books and earn Popular Wallet credits — redeemable in-store &amp; online</div>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">POPULAR<span>.</span></div>
+    <a class="back-link" onclick="history.back()">← Back to Home</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero-band">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-tag">♻️ New Service</div>
+      <h1>Trade In Your Books,<br>Earn <em>Wallet Credits</em></h1>
+      <p>Bring your used assessment books or fiction to any Popular outlet. We'll grade them on the spot and add store credits to your Popular Wallet instantly — redeemable on anything in-store or online.</p>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-box">
+        <div class="stat-num">$0</div>
+        <div class="stat-lbl">Delivery fees</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">3 min</div>
+        <div class="stat-lbl">Drop-off time</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">30+</div>
+        <div class="stat-lbl">Outlets islandwide</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEPPER -->
+<div class="stepper-wrap">
+  <div class="stepper">
+    <div class="step active" id="s1">
+      <div class="step-circle">1</div>
+      <div class="step-label">Scan Book</div>
+    </div>
+    <div class="step" id="s2">
+      <div class="step-circle">2</div>
+      <div class="step-label">Choose Outlet</div>
+    </div>
+    <div class="step" id="s3">
+      <div class="step-circle">3</div>
+      <div class="step-label">Confirm</div>
+    </div>
+    <div class="step" id="s4">
+      <div class="step-circle">4</div>
+      <div class="step-label">Credits Issued</div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="main">
+<div class="left-col">
+
+<!-- ══ STEP 1: SCAN & VALUE ══ -->
+<div class="step-content active panel" id="content-1">
+  <div class="panel-header">
+    <h2>Scan or Enter Your Book</h2>
+    <p>We'll give you an instant credit offer before you leave home</p>
+  </div>
+  <div class="panel-body">
+
+    <div class="scan-zone" id="scanZone" onclick="simulateScan()">
+      <div class="scan-icon">📷</div>
+      <h3>Tap to Scan Barcode</h3>
+      <p>Point your camera at the ISBN barcode on the back of your book</p>
+    </div>
+
+    <div class="scan-or">or enter manually</div>
+
+    <div class="form-row">
+      <label>Book Title or ISBN</label>
+      <input type="text" id="isbnInput" placeholder="e.g. 9789810985370 or PSLE Mathematics..." oninput="onIsbnInput()" />
+    </div>
+    <button class="btn-primary" onclick="lookupBook()" style="margin-bottom:20px;">Get Credit Estimate →</button>
+
+    <!-- Book result (shown after lookup) -->
+    <div class="book-result" id="bookResult">
+      <div class="book-cover" id="bookEmoji">📗</div>
+      <div class="book-meta">
+        <div class="book-title" id="bookTitle">—</div>
+        <div class="book-sub" id="bookSub">—</div>
+        <div class="book-tags" id="bookTags"></div>
+      </div>
+    </div>
+
+    <!-- Condition selector (shown after book found) -->
+    <div id="conditionSection" style="display:none">
+      <span class="condition-label">What condition is your book in?</span>
+      <div class="condition-grid">
+        <div class="cond-card" id="cond-good" onclick="selectCondition('good')">
+          <div class="cond-icon">✨</div>
+          <div class="cond-name">Good</div>
+          <div class="cond-desc">Minimal wear, no writing</div>
+          <div class="cond-credit" id="credit-good">$4.00</div>
+        </div>
+        <div class="cond-card" id="cond-fair" onclick="selectCondition('fair')">
+          <div class="cond-icon">📝</div>
+          <div class="cond-name">Fair</div>
+          <div class="cond-desc">Some annotations or creases</div>
+          <div class="cond-credit" id="credit-fair">$2.50</div>
+        </div>
+        <div class="cond-card" id="cond-worn" onclick="selectCondition('worn')">
+          <div class="cond-icon">📖</div>
+          <div class="cond-name">Worn</div>
+          <div class="cond-desc">Heavy use, torn pages</div>
+          <div class="cond-credit" id="credit-worn">$1.00</div>
+        </div>
+      </div>
+
+      <!-- Credit offer box -->
+      <div class="offer-box" id="offerBox">
+        <div class="offer-top">
+          <div>
+            <div class="offer-label">Your Credit Offer</div>
+            <div class="offer-amount"><span>S$</span><span id="offerAmount">—</span></div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-bottom:4px;">Valid for 7 days</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.45);">QR code on next step</div>
+          </div>
+        </div>
+        <div class="offer-breakdown">
+          <div class="ob-row"><span class="ol">Book</span><span class="ov" id="ob-book">—</span></div>
+          <div class="ob-row"><span class="ol">Condition</span><span class="ov" id="ob-cond">—</span></div>
+          <div class="ob-row"><span class="ol">Demand signal</span><span class="ov" id="ob-demand">—</span></div>
+        </div>
+        <div class="offer-note">⚠ This is a provisional offer. Final credit is confirmed after staff inspection at the counter.</div>
+      </div>
+
+      <div id="nextBtn1" style="display:none">
+        <button class="btn-primary" onclick="nextStep()">Accept Offer & Choose Outlet →</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ STEP 2: CHOOSE OUTLET ══ -->
+<div class="step-content panel" id="content-2">
+  <div class="panel-header">
+    <h2>Choose Your Drop-Off Outlet</h2>
+    <p>Bring your book to any outlet below — drop-off takes under 3 minutes</p>
+  </div>
+  <div class="panel-body">
+
+    <div class="outlet-search-wrap">
+      <span style="font-size:15px;color:#bbb;">🔍</span>
+      <input type="text" placeholder="Search by outlet name or area (e.g. Tampines, Orchard)…" oninput="onOutletSearch(this)">
+    </div>
+
+    <div class="region-tabs">
+      <div class="rtab active" onclick="setRegion(this,'all')">All Regions</div>
+      <div class="rtab" onclick="setRegion(this,'central')">Central</div>
+      <div class="rtab" onclick="setRegion(this,'north')">North</div>
+      <div class="rtab" onclick="setRegion(this,'east')">East</div>
+      <div class="rtab" onclick="setRegion(this,'west')">West</div>
+      <div class="rtab" onclick="setRegion(this,'northeast')">North-East</div>
+    </div>
+
+    <div class="shimmer-wrap" id="shimmerWrap">
+      <div class="shimmer-row"></div>
+      <div class="shimmer-row"></div>
+      <div class="shimmer-row"></div>
+    </div>
+
+    <div class="outlet-scroll">
+      <div id="outletList"></div>
+    </div>
+
+    <div class="btn-row" style="margin-top:18px;">
+      <button class="btn-secondary" style="margin-top:0" onclick="prevStep()">← Back</button>
+      <button class="btn-primary" id="outletNextBtn" onclick="nextStep()" disabled>Confirm Outlet →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ STEP 3: CONFIRM ══ -->
+<div class="step-content panel" id="content-3">
+  <div class="panel-header">
+    <h2>Review &amp; Confirm</h2>
+    <p>Check the details below — credits are added to your Popular Wallet at the counter</p>
+  </div>
+  <div class="panel-body">
+
+    <div class="confirm-block">
+      <h4>📚 Book Being Traded In</h4>
+      <div class="cr"><span class="cl">Title</span><span class="cv" id="conf-title">—</span></div>
+      <div class="cr"><span class="cl">Condition</span><span class="cv" id="conf-cond">—</span></div>
+      <div class="cr"><span class="cl">Provisional credit</span><span class="cv" id="conf-credit" style="color:var(--green);font-weight:700;">—</span></div>
+    </div>
+
+    <div class="confirm-block">
+      <h4>📍 Drop-Off Outlet</h4>
+      <div class="cr"><span class="cl">Store</span><span class="cv" id="conf-name">—</span></div>
+      <div class="cr"><span class="cl">Address</span><span class="cv" id="conf-addr">—</span></div>
+      <div class="cr"><span class="cl">Opening Hours</span><span class="cv" id="conf-hours">—</span></div>
+    </div>
+
+    <div class="wallet-dest">
+      <div class="wallet-icon">💳</div>
+      <div class="wallet-text">
+        <strong>Credits go to your Popular Wallet</strong>
+        <span>Spend in-store, online, via app, or toward EduPass subscription</span>
+      </div>
+    </div>
+
+    <div class="upsell-box">
+      <div class="upsell-icon">📲</div>
+      <div class="upsell-text" style="flex:1;">
+        <strong>Your credit covers 1 month of EduPass</strong>
+        <span>Going digital? Apply your TradeIn credit toward unlimited digital access to assessment books.</span>
+      </div>
+      <span class="upsell-link" onclick="showToast('📲 Redirecting to EduPass...')">Learn more →</span>
+    </div>
+
+    <div class="confirm-block">
+      <h4>👤 Your Details</h4>
+      <div class="form-row"><label>Full Name</label><input type="text" value="Alex Tan" /></div>
+      <div class="form-row" style="margin-bottom:0"><label>Mobile (for QR code)</label><input type="tel" value="+65 9123 4567" /></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-secondary" style="margin-top:0" onclick="prevStep()">← Back</button>
+      <button class="btn-primary" onclick="nextStep()">Generate TradeIn QR →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ STEP 4: SUCCESS ══ -->
+<div class="step-content panel" id="content-4">
+  <div class="panel-body">
+    <div class="success-wrap">
+      <div class="success-icon">♻️</div>
+      <h2>Your TradeIn QR is Ready!</h2>
+      <p>Show this at the TradeIn counter at <strong id="success-outlet">your outlet</strong>. Staff will inspect the book and confirm your credit on the spot.</p>
+
+      <div class="credit-confirm">
+        <div class="cc-label">Provisional Credit Offer</div>
+        <div class="cc-amount" id="success-credit">$4.00</div>
+        <div class="cc-sub">Final amount confirmed after staff inspection · Valid 7 days</div>
+      </div>
+
+      <div class="order-ref">
+        <div class="ref-label">TradeIn Reference</div>
+        <div class="ref-num">TI-2025-<span id="refNum">4471</span></div>
+        <div class="ref-sub">Show QR code at the TradeIn counter</div>
+      </div>
+
+      <!-- Mock QR -->
+      <div style="background:var(--light);border-radius:12px;padding:20px;margin-bottom:16px;border:1px solid var(--border);">
+        <svg width="140" height="140" viewBox="0 0 140 140" style="display:block;margin:0 auto;">
+          <rect width="140" height="140" fill="white"/>
+          <!-- QR pattern mock -->
+          <rect x="10" y="10" width="40" height="40" fill="none" stroke="#1A1A1A" stroke-width="4"/>
+          <rect x="18" y="18" width="24" height="24" fill="#1A1A1A"/>
+          <rect x="90" y="10" width="40" height="40" fill="none" stroke="#1A1A1A" stroke-width="4"/>
+          <rect x="98" y="18" width="24" height="24" fill="#1A1A1A"/>
+          <rect x="10" y="90" width="40" height="40" fill="none" stroke="#1A1A1A" stroke-width="4"/>
+          <rect x="18" y="98" width="24" height="24" fill="#1A1A1A"/>
+          <rect x="58" y="10" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="68" y="10" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="58" y="20" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="75" y="20" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="58" y="30" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="68" y="30" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="58" y="58" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="68" y="58" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="80" y="58" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="92" y="58" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="104" y="58" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="116" y="58" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="58" y="68" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="80" y="68" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="104" y="68" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="58" y="80" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="68" y="80" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="80" y="80" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="92" y="80" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="116" y="80" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="58" y="92" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="80" y="92" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="92" y="92" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="116" y="92" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="58" y="104" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="68" y="104" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="80" y="104" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="104" y="104" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="58" y="116" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="80" y="116" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="92" y="116" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="104" y="116" width="6" height="6" fill="#1A1A1A"/>
+          <rect x="116" y="116" width="6" height="6" fill="#1A1A1A"/>
+        </svg>
+        <div style="text-align:center;font-size:12px;color:var(--mid);margin-top:10px;">Scan at the TradeIn counter</div>
+      </div>
+
+      <div class="sms-notice"><span style="font-size:20px;">📱</span> QR code also sent to +65 9123 4567</div>
+
+      <div class="success-next">
+        💡 <strong>What happens next:</strong> Walk to the TradeIn counter at your chosen outlet. Staff will check the book condition (under 3 minutes) and confirm your final credit. Credits appear in your Popular Wallet immediately.
+      </div>
+
+      <button class="btn-primary" onclick="restart()">Trade In Another Book</button>
+      <button class="btn-secondary" onclick="restart()">Back to Home</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- /left -->
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+  <!-- Wallet balance -->
+  <div class="wallet-card">
+    <div class="wc-label">Popular Wallet Balance</div>
+    <div class="wc-balance">$12.50</div>
+    <div class="wc-sub">+ <span id="pendingCredit">$0.00</span> pending this trade-in</div>
+    <div class="wc-bar-bg"><div class="wc-bar" id="walletBar"></div></div>
+    <div class="wc-note">Redeemable in-store · online · EduPass</div>
+  </div>
+
+  <!-- Trade-in summary -->
+  <div class="summary-card">
+    <div class="summary-header">📋 Trade-In Summary</div>
+    <div class="summary-body">
+      <div class="s-item"><span class="st">Book</span><span class="sp" id="sum-book" style="text-align:right;max-width:180px;">—</span></div>
+      <div class="s-item"><span class="st">Condition</span><span class="sp" id="sum-cond">—</span></div>
+      <div class="s-item"><span class="st">Demand signal</span><span class="sp" id="sum-demand">—</span></div>
+      <hr class="s-div">
+      <div class="s-total"><span class="stl">Credit offer</span><span id="sum-total" style="color:var(--green);">—</span></div>
+    </div>
+  </div>
+
+  <!-- How it works -->
+  <div class="info-card">
+    <h4>How TradeIn works</h4>
+    <div class="info-row">
+      <div class="info-dot"></div>
+      <div class="info-text">Scan any Popular assessment book or fiction title to get an instant credit estimate</div>
+    </div>
+    <div class="info-row">
+      <div class="info-dot"></div>
+      <div class="info-text">Drop the book off at any Popular outlet — takes under 3 minutes at the counter</div>
+    </div>
+    <div class="info-row">
+      <div class="info-dot"></div>
+      <div class="info-text">Credits are added to your Popular Wallet immediately after staff inspection</div>
+    </div>
+    <div class="info-row">
+      <div class="info-dot"></div>
+      <div class="info-text">Use credits in-store, on the website, via app, or toward EduPass subscription fees</div>
+    </div>
+  </div>
+
+</div>
+</div><!-- /main -->
+
+<!-- Toast -->
+<div class="toast" id="toast"><span id="toastMsg"></span></div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────
+const BOOKS = [
+  { isbn:'9789810985370', emoji:'📗', title:'PSLE Mathematics Past Year Papers 2025', sub:'Pan Lloyds · Primary · Assessment', tags:['Primary 6','Maths','PSLE'], baseGood:4.50, baseFair:2.80, baseWorn:1.20, demand:'High demand — back-to-school', demandMult:1.2 },
+  { isbn:'9789810985371', emoji:'📘', title:'Secondary 3 E-Maths Assessment Book', sub:'EPB Publishers · Secondary · Assessment', tags:['Sec 3','E-Math','O Level'], baseGood:4.00, baseFair:2.50, baseWorn:1.00, demand:'Normal stock levels', demandMult:1.0 },
+  { isbn:'9789810985372', emoji:'📙', title:'Primary 4 Science Worksheets', sub:'Pan Lloyds · Primary · Assessment', tags:['Primary 4','Science'], baseGood:3.50, baseFair:2.00, baseWorn:0.80, demand:'Low stock — offer boosted!', demandMult:1.3 },
+  { isbn:'9789810985373', emoji:'📕', title:'O-Level English Ten Year Series', sub:'EPB Publishers · Secondary · Assessment', tags:['O Level','English','TYS'], baseGood:5.00, baseFair:3.00, baseWorn:1.50, demand:'High demand — limited stock', demandMult:1.25 },
+  { isbn:'default', emoji:'📚', title:'Assessment Book', sub:'Popular Imprints · General', tags:['General'], baseGood:3.00, baseFair:1.80, baseWorn:0.80, demand:'Normal stock levels', demandMult:1.0 },
+];
+
+const OUTLETS = [
+  { id:1, name:'Bugis Junction',    addr:'4 New Bugis St, #B1-05',          region:'central',   dist:'0.4 km', hours:'10am–10pm' },
+  { id:2, name:'Plaza Singapura',   addr:'68 Orchard Rd, #B2-22',           region:'central',   dist:'2.1 km', hours:'10am–10pm' },
+  { id:3, name:'VivoCity',          addr:'1 HarbourFront Walk, #B2-12',     region:'central',   dist:'4.8 km', hours:'10am–10pm' },
+  { id:4, name:'Tampines Mall',     addr:'4 Tampines Central 5, #B1-12',    region:'east',      dist:'3.2 km', hours:'10am–10pm' },
+  { id:5, name:'Parkway Parade',    addr:'80 Marine Parade Rd, #B1-10',     region:'east',      dist:'5.6 km', hours:'10am–9:30pm' },
+  { id:6, name:'Northpoint City',   addr:'930 Yishun Ave 2, #B1-107',       region:'north',     dist:'7.1 km', hours:'10am–9:30pm' },
+  { id:7, name:'Causeway Point',    addr:'1 Woodlands Square, #03-04',      region:'north',     dist:'11.3 km',hours:'10am–10pm' },
+  { id:8, name:'Lot One Shoppers',  addr:'21 Choa Chu Kang Ave 4, #01-01', region:'west',      dist:'9.4 km', hours:'10am–10pm' },
+  { id:9, name:'Clementi Mall',     addr:'3155 Commonwealth Ave W, #03-55', region:'west',      dist:'8.2 km', hours:'10am–10pm' },
+  { id:10,name:'NEX',               addr:'23 Serangoon Central, #B1-31',    region:'northeast', dist:'5.0 km', hours:'10am–10pm' },
+  { id:11,name:'Heartland Mall',    addr:'205 Hougang St 21, #01-107',      region:'northeast', dist:'6.3 km', hours:'10am–9pm'  },
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────
+let step = 1;
+let currentBook = null;
+let currentCondition = null;
+let selectedOutletId = null;
+let region = 'all';
+let outletSearch = '';
+
+// ── STEP NAV ──────────────────────────────────────────────────────────
+function nextStep(){ if(step<4){ step++; renderStep(); } }
+function prevStep(){ if(step>1){ step--; renderStep(); } }
+
+function renderStep(){
+  document.querySelectorAll('.step-content').forEach((el,i)=>{
+    el.classList.toggle('active', i+1===step);
+  });
+  for(let i=1;i<=4;i++){
+    const s = document.getElementById('s'+i);
+    s.classList.remove('active','completed');
+    if(i===step) s.classList.add('active');
+    else if(i<step) s.classList.add('completed');
+    const c = s.querySelector('.step-circle');
+    c.textContent = i<step ? '✓' : String(i);
+  }
+  if(step===2) loadOutlets();
+  if(step===3) populateConfirm();
+  if(step===4) populateSuccess();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ── STEP 1 LOGIC ──────────────────────────────────────────────────────
+function simulateScan(){
+  document.getElementById('isbnInput').value = '9789810985370';
+  lookupBook();
+  showToast('📷 Barcode scanned!');
+}
+
+function onIsbnInput(){}
+
+function lookupBook(){
+  const q = document.getElementById('isbnInput').value.trim().toLowerCase();
+  if(!q){ showToast('⚠️ Please enter a title or ISBN'); return; }
+
+  let book = BOOKS.find(b => b.isbn === q);
+  if(!book) book = BOOKS.find(b => b.title.toLowerCase().includes(q));
+  if(!book) book = BOOKS[BOOKS.length-1]; // fallback
+
+  currentBook = book;
+  currentCondition = null;
+
+  // Show book card
+  const br = document.getElementById('bookResult');
+  document.getElementById('bookEmoji').textContent = book.emoji;
+  document.getElementById('bookTitle').textContent = book.title;
+  document.getElementById('bookSub').textContent = book.sub;
+  document.getElementById('bookTags').innerHTML = book.tags.map(t=>`<span class="book-tag">${t}</span>`).join('');
+  br.classList.add('show');
+
+  // Set credit amounts
+  document.getElementById('credit-good').textContent = '$'+book.baseGood.toFixed(2);
+  document.getElementById('credit-fair').textContent = '$'+book.baseFair.toFixed(2);
+  document.getElementById('credit-worn').textContent = '$'+book.baseWorn.toFixed(2);
+
+  document.getElementById('conditionSection').style.display = 'block';
+  document.getElementById('offerBox').classList.remove('show');
+  document.getElementById('nextBtn1').style.display = 'none';
+
+  // Reset condition cards
+  ['good','fair','worn'].forEach(c => document.getElementById('cond-'+c).classList.remove('selected'));
+  updateSidebar();
+}
+
+function selectCondition(cond){
+  if(!currentBook){ showToast('⚠️ Scan a book first'); return; }
+  currentCondition = cond;
+  ['good','fair','worn'].forEach(c => document.getElementById('cond-'+c).classList.remove('selected'));
+  document.getElementById('cond-'+cond).classList.add('selected');
+
+  const baseMap = {good: currentBook.baseGood, fair: currentBook.baseFair, worn: currentBook.baseWorn};
+  const credit = (baseMap[cond] * currentBook.demandMult).toFixed(2);
+  const condLabel = {good:'Good condition',fair:'Fair condition',worn:'Worn condition'}[cond];
+
+  document.getElementById('offerAmount').textContent = credit;
+  document.getElementById('ob-book').textContent = currentBook.title.length>30 ? currentBook.title.slice(0,30)+'…' : currentBook.title;
+  document.getElementById('ob-cond').textContent = condLabel;
+  document.getElementById('ob-demand').textContent = currentBook.demand;
+  document.getElementById('offerBox').classList.add('show');
+  document.getElementById('nextBtn1').style.display = 'block';
+  updateSidebar(credit, condLabel);
+}
+
+function updateSidebar(credit, condLabel){
+  document.getElementById('sum-book').textContent = currentBook ? (currentBook.title.length>28 ? currentBook.title.slice(0,28)+'…' : currentBook.title) : '—';
+  document.getElementById('sum-cond').textContent = condLabel || '—';
+  document.getElementById('sum-demand').textContent = currentBook ? currentBook.demand : '—';
+  document.getElementById('sum-total').textContent = credit ? 'S$'+credit : '—';
+  if(credit){
+    document.getElementById('pendingCredit').textContent = 'S$'+credit;
+    const pct = Math.min((parseFloat(credit)/10)*100, 100);
+    document.getElementById('walletBar').style.width = (35+pct*0.3)+'%';
+  }
+}
+
+// ── STEP 2: OUTLETS ───────────────────────────────────────────────────
+function loadOutlets(){
+  const sw = document.getElementById('shimmerWrap');
+  document.getElementById('outletList').innerHTML = '';
+  sw.classList.add('show');
+  setTimeout(()=>{ sw.classList.remove('show'); renderOutlets(); }, 500);
+}
+
+function renderOutlets(){
+  const q = outletSearch.toLowerCase();
+  const visible = OUTLETS.filter(o=>{
+    const okRegion = region==='all' || o.region===region;
+    const okSearch = !q || o.name.toLowerCase().includes(q) || o.addr.toLowerCase().includes(q);
+    return okRegion && okSearch;
+  });
+
+  document.getElementById('outletList').innerHTML = visible.map(o=>{
+    const isSel = selectedOutletId===o.id;
+    return `
+    <div class="outlet-row ${isSel?'selected':''}" onclick="chooseOutlet(${o.id})">
+      <div class="avail-bar"></div>
+      <div class="outlet-body">
+        <div class="out-icon">🏬</div>
+        <div class="out-info">
+          <div class="out-name">${o.name}</div>
+          <div class="out-addr">${o.addr}</div>
+          <div class="out-meta">
+            <span class="out-tag">📍 ${o.dist}</span>
+            <span class="out-tag">🕙 ${o.hours}</span>
+          </div>
+        </div>
+        <div class="out-cta">${isSel?'✓ Selected':'Select →'}</div>
+      </div>
+      <div class="sel-tick">✓</div>
+    </div>`;
+  }).join('');
+}
+
+function chooseOutlet(id){
+  selectedOutletId = id;
+  document.getElementById('outletNextBtn').disabled = false;
+  renderOutlets();
+}
+
+function setRegion(tab, r){
+  document.querySelectorAll('.rtab').forEach(t=>t.classList.remove('active'));
+  tab.classList.add('active');
+  region = r;
+  renderOutlets();
+}
+
+function onOutletSearch(input){
+  outletSearch = input.value;
+  renderOutlets();
+}
+
+// ── STEP 3: CONFIRM ───────────────────────────────────────────────────
+function populateConfirm(){
+  const outlet = OUTLETS.find(o=>o.id===selectedOutletId);
+  const condLabel = {good:'Good condition',fair:'Fair condition',worn:'Worn condition'}[currentCondition];
+  const baseMap = {good: currentBook.baseGood, fair: currentBook.baseFair, worn: currentBook.baseWorn};
+  const credit = (baseMap[currentCondition] * currentBook.demandMult).toFixed(2);
+
+  document.getElementById('conf-title').textContent = currentBook.title;
+  document.getElementById('conf-cond').textContent = condLabel;
+  document.getElementById('conf-credit').textContent = 'S$'+credit;
+  document.getElementById('conf-name').textContent = outlet.name;
+  document.getElementById('conf-addr').textContent = outlet.addr;
+  document.getElementById('conf-hours').textContent = outlet.hours;
+}
+
+// ── STEP 4: SUCCESS ───────────────────────────────────────────────────
+function populateSuccess(){
+  const outlet = OUTLETS.find(o=>o.id===selectedOutletId);
+  const baseMap = {good: currentBook.baseGood, fair: currentBook.baseFair, worn: currentBook.baseWorn};
+  const credit = (baseMap[currentCondition] * currentBook.demandMult).toFixed(2);
+
+  document.getElementById('success-outlet').textContent = outlet.name;
+  document.getElementById('success-credit').textContent = 'S$'+credit;
+  document.getElementById('refNum').textContent = String(Math.floor(1000+Math.random()*8999));
+}
+
+// ── RESTART ───────────────────────────────────────────────────────────
+function restart(){
+  step=1; currentBook=null; currentCondition=null; selectedOutletId=null;
+  region='all'; outletSearch='';
+  document.getElementById('isbnInput').value='';
+  document.getElementById('bookResult').classList.remove('show');
+  document.getElementById('conditionSection').style.display='none';
+  document.getElementById('offerBox').classList.remove('show');
+  document.getElementById('nextBtn1').style.display='none';
+  document.getElementById('outletNextBtn').disabled=true;
+  document.getElementById('pendingCredit').textContent='$0.00';
+  ['good','fair','worn'].forEach(c=>document.getElementById('cond-'+c).classList.remove('selected'));
+  renderStep();
+}
+
+// ── TOAST ─────────────────────────────────────────────────────────────
+let toastTimer;
+function showToast(msg){
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
