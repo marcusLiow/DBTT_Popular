@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Learning Report — POPULAR Study Pass</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #c8102e;
+    --red-dark: #9e0c24;
+    --red-light: rgba(200,16,46,.08);
+    --bg: #FAFAF8;
+    --bg2: #ffffff;
+    --card: #ffffff;
+    --card-h: #F5F4F1;
+    --text: #1C1917;
+    --muted: #6B6560;
+    --dim: #A09B96;
+    --line: rgba(28,25,23,.11);
+    --gold: #B07D10;
+    --gold-bg: rgba(176,125,16,.09);
+    --green: #16A34A;
+    --green-bg: rgba(22,163,74,.08);
+    --blue: #1D4ED8;
+    --blue-bg: rgba(29,78,216,.07);
+    --nav-h: 68px;
+    --r: 6px;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--bg); color: var(--text); overflow-x: hidden; font-size: 15px; line-height: 1.6; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: #E8E5E0; }
+  ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 2px; }
+
+  /* ── NAV ── */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); z-index: 900;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 52px;
+    background: rgba(250,250,248,.97); box-shadow: 0 1px 0 var(--line); backdrop-filter: blur(12px);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-pill { background: var(--red); color: #fff; font-family: var(--sans); font-weight: 700; font-size: 15px; padding: 5px 11px; border-radius: 3px; letter-spacing: -.3px; }
+  .logo-tag { font-size: 9px; font-weight: 600; color: var(--dim); letter-spacing: 2.5px; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 30px; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--muted); font-size: 13px; font-weight: 500; transition: color .2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a.on { color: var(--red); font-weight: 600; }
+  .nav-right { display: flex; align-items: center; gap: 14px; }
+  .sub-active {
+    display: flex; align-items: center; gap: 7px; background: rgba(22,163,74,.1);
+    border: 1px solid rgba(22,163,74,.28); border-radius: 20px; padding: 6px 14px 6px 10px;
+    font-size: 12px; font-weight: 600; color: var(--green);
+  }
+  .sub-dot { width: 7px; height: 7px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.4)} }
+
+  /* ── PAGE SHELL ── */
+  .page-wrap { padding-top: var(--nav-h); }
+
+  /* ── PROFILE BANNER ── */
+  .profile-banner {
+    background: linear-gradient(135deg, #1C1917 0%, #2d2520 50%, #1C1917 100%);
+    padding: 56px 52px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .profile-banner::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(200,16,46,.12) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  .profile-banner::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0; height: 80px;
+    background: linear-gradient(to top, var(--bg), transparent);
+  }
+  .profile-inner { position: relative; z-index: 1; display: flex; align-items: flex-end; gap: 36px; padding-bottom: 40px; }
+  .profile-avatar {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--red), #e8404a);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif); font-size: 32px; font-weight: 700; color: #fff;
+    border: 3px solid rgba(255,255,255,.15); flex-shrink: 0;
+    box-shadow: 0 8px 32px rgba(200,16,46,.4);
+  }
+  .profile-info { flex: 1; }
+  .profile-eyebrow { font-size: 10px; font-weight: 600; color: rgba(200,16,46,.8); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+  .profile-name { font-family: var(--serif); font-size: 2.2rem; font-weight: 800; color: #fff; line-height: 1.05; margin-bottom: 8px; }
+  .profile-meta { display: flex; gap: 14px; flex-wrap: wrap; }
+  .profile-tag {
+    font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px;
+    background: rgba(255,255,255,.1); color: rgba(255,255,255,.75); border: 1px solid rgba(255,255,255,.12);
+  }
+  .profile-tag.active { background: var(--green-bg); color: #4ade80; border-color: rgba(74,222,128,.25); }
+  .profile-stats { display: flex; gap: 28px; }
+  .ps { text-align: right; }
+  .ps-n { font-family: var(--serif); font-size: 28px; font-weight: 700; color: #fff; line-height: 1; }
+  .ps-l { font-size: 10px; color: rgba(255,255,255,.45); font-weight: 500; margin-top: 3px; text-transform: uppercase; letter-spacing: 1px; }
+  .ps-div { width: 1px; height: 40px; background: rgba(255,255,255,.12); align-self: center; }
+
+  /* ── SUMMARY CARDS ── */
+  .summary-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 36px 52px 0; }
+  .sum-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 22px 20px; position: relative; overflow: hidden;
+    opacity: 0; transform: translateY(20px); transition: opacity .5s, transform .5s;
+  }
+  .sum-card.vis { opacity: 1; transform: translateY(0); }
+  .sum-card:nth-child(2) { transition-delay: .08s; }
+  .sum-card:nth-child(3) { transition-delay: .16s; }
+  .sum-card:nth-child(4) { transition-delay: .24s; }
+  .sum-accent { width: 28px; height: 3px; border-radius: 2px; margin-bottom: 12px; }
+  .acc-red { background: var(--red); }
+  .acc-gold { background: var(--gold); }
+  .acc-green { background: var(--green); }
+  .acc-blue { background: var(--blue); }
+  .sum-n { font-family: var(--serif); font-size: 30px; font-weight: 700; line-height: 1; margin-bottom: 4px; }
+  .sum-l { font-size: 11px; color: var(--muted); font-weight: 500; }
+  .sum-delta { position: absolute; top: 20px; right: 18px; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 10px; }
+  .delta-up { background: var(--green-bg); color: var(--green); }
+  .delta-warn { background: var(--gold-bg); color: var(--gold); }
+
+  /* ── SECTION HEADER ── */
+  .sec-hd { padding: 44px 52px 20px; display: flex; align-items: center; justify-content: space-between; }
+  .sec-title { font-family: var(--serif); font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 12px; }
+  .sec-bar { width: 3px; height: 22px; background: var(--red); border-radius: 2px; flex-shrink: 0; }
+  .sec-sub { font-size: 12px; color: var(--muted); font-weight: 400; margin-top: 2px; font-family: var(--sans); }
+  .badge { font-size: 9px; font-weight: 700; font-family: var(--sans); padding: 3px 8px; border-radius: 2px; text-transform: uppercase; letter-spacing: .8px; }
+  .badge-red { background: var(--red); color: #fff; }
+  .badge-gold { background: var(--gold-bg); color: var(--gold); border: 1px solid rgba(176,125,16,.2); }
+  .badge-green { background: var(--green-bg); color: var(--green); border: 1px solid rgba(22,163,74,.2); }
+
+  /* ── COMPLETED BOOKS ── */
+  .books-grid { display: flex; flex-direction: column; gap: 14px; padding: 0 52px; }
+  .book-row {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 22px 24px; display: flex; align-items: center; gap: 20px;
+    transition: box-shadow .25s; cursor: default;
+    opacity: 0; transform: translateY(16px); transition: opacity .5s, transform .5s, box-shadow .25s;
+  }
+  .book-row.vis { opacity: 1; transform: translateY(0); }
+  .book-row:hover { box-shadow: 0 8px 32px rgba(28,25,23,.08); }
+  .book-cover-thumb {
+    width: 52px; height: 74px; border-radius: 4px; flex-shrink: 0;
+    background-size: cover; background-position: center;
+    box-shadow: -3px 4px 16px rgba(0,0,0,.35);
+  }
+  .book-info { flex: 1; min-width: 0; }
+  .book-series { font-size: 9px; font-weight: 600; color: var(--red); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; }
+  .book-name { font-family: var(--serif); font-size: 16px; font-weight: 700; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .book-by { font-size: 11px; color: var(--muted); }
+  .book-dates { font-size: 11px; color: var(--dim); margin-top: 2px; }
+  .book-metrics { display: flex; gap: 28px; align-items: center; flex-shrink: 0; }
+  .bm { text-align: center; }
+  .bm-n { font-family: var(--serif); font-size: 20px; font-weight: 700; line-height: 1; }
+  .bm-l { font-size: 9px; color: var(--dim); font-weight: 500; text-transform: uppercase; letter-spacing: .8px; margin-top: 2px; }
+  .bm-div { width: 1px; height: 30px; background: var(--line); }
+  .score-ring { position: relative; width: 56px; height: 56px; flex-shrink: 0; }
+  .score-ring svg { transform: rotate(-90deg); }
+  .ring-bg { fill: none; stroke: var(--line); stroke-width: 5; }
+  .ring-fill { fill: none; stroke-width: 5; stroke-linecap: round; transition: stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1); }
+  .ring-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 13px; font-weight: 700; }
+  .grade-pill { font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 10px; letter-spacing: .3px; }
+  .grade-a { background: var(--green-bg); color: var(--green); border: 1px solid rgba(22,163,74,.25); }
+  .grade-b { background: var(--blue-bg); color: var(--blue); border: 1px solid rgba(29,78,216,.2); }
+  .grade-c { background: var(--gold-bg); color: var(--gold); border: 1px solid rgba(176,125,16,.25); }
+
+  /* ── SKILL BREAKDOWN ── */
+  .skills-section { padding: 0 52px; }
+  .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .skill-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 22px 22px 18px;
+    opacity: 0; transform: translateY(16px); transition: opacity .5s, transform .5s;
+  }
+  .skill-card.vis { opacity: 1; transform: translateY(0); }
+  .skill-card:nth-child(2) { transition-delay: .07s; }
+  .skill-card:nth-child(3) { transition-delay: .14s; }
+  .skill-card:nth-child(4) { transition-delay: .21s; }
+  .skill-card:nth-child(5) { transition-delay: .28s; }
+  .skill-card:nth-child(6) { transition-delay: .35s; }
+  .skill-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .skill-name { font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  .skill-icon { font-size: 15px; }
+  .skill-score { font-family: var(--serif); font-size: 18px; font-weight: 700; }
+  .skill-bar-track { height: 8px; background: rgba(28,25,23,.07); border-radius: 4px; overflow: hidden; margin-bottom: 8px; }
+  .skill-bar-fill { height: 100%; border-radius: 4px; transition: width 1.4s cubic-bezier(.4,0,.2,1); width: 0; }
+  .fill-green { background: linear-gradient(90deg, #16A34A, #22c55e); }
+  .fill-blue { background: linear-gradient(90deg, #1D4ED8, #3b82f6); }
+  .fill-gold { background: linear-gradient(90deg, #B07D10, #d4960f); }
+  .fill-red { background: linear-gradient(90deg, #c8102e, #e8404a); }
+  .skill-note { font-size: 11px; color: var(--muted); line-height: 1.5; }
+  .skill-trend { display: flex; gap: 3px; margin-top: 8px; }
+  .trend-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--line); }
+  .trend-dot.lit { background: var(--green); }
+  .trend-dot.mid { background: var(--gold); }
+  .trend-dot.low { background: var(--red); }
+
+  /* ── TIMELINE / ACTIVITY ── */
+  .activity-section { padding: 0 52px; }
+  .activity-list { display: flex; flex-direction: column; gap: 0; }
+  .activity-item {
+    display: flex; gap: 20px; padding: 18px 0;
+    border-bottom: 1px solid var(--line);
+    opacity: 0; transform: translateX(-12px); transition: opacity .5s, transform .5s;
+  }
+  .activity-item.vis { opacity: 1; transform: translateX(0); }
+  .activity-item:last-child { border-bottom: none; }
+  .act-line { display: flex; flex-direction: column; align-items: center; gap: 0; flex-shrink: 0; }
+  .act-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--red); border: 2px solid var(--bg); flex-shrink: 0; margin-top: 4px; }
+  .act-dot.green { background: var(--green); }
+  .act-dot.gold { background: var(--gold); }
+  .act-stem { flex: 1; width: 1px; background: var(--line); margin: 4px 0; }
+  .act-content { flex: 1; padding-bottom: 8px; }
+  .act-title { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
+  .act-desc { font-size: 12px; color: var(--muted); line-height: 1.55; }
+  .act-time { font-size: 10px; color: var(--dim); margin-top: 5px; font-weight: 500; }
+  .act-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 10px; margin-top: 6px; }
+  .act-badge-red { background: var(--red-light); color: var(--red); }
+  .act-badge-green { background: var(--green-bg); color: var(--green); }
+  .act-badge-gold { background: var(--gold-bg); color: var(--gold); }
+
+  /* ── RADAR / CHART AREA ── */
+  .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 0 52px; }
+  .chart-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 26px 24px;
+    opacity: 0; transform: translateY(16px); transition: opacity .55s, transform .55s;
+  }
+  .chart-card.vis { opacity: 1; transform: translateY(0); }
+  .chart-card:nth-child(2) { transition-delay: .1s; }
+  .chart-title { font-family: var(--serif); font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .chart-sub { font-size: 11px; color: var(--muted); margin-bottom: 20px; }
+  .radar-wrap { display: flex; justify-content: center; }
+  /* Bar chart */
+  .bar-list { display: flex; flex-direction: column; gap: 14px; }
+  .bar-item-label { display: flex; justify-content: space-between; margin-bottom: 5px; }
+  .bar-topic { font-size: 12px; font-weight: 600; }
+  .bar-val { font-size: 12px; font-weight: 700; font-family: var(--serif); }
+  .bar-track { height: 10px; background: rgba(28,25,23,.06); border-radius: 5px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 5px; transition: width 1.4s cubic-bezier(.4,0,.2,1); width: 0; }
+
+  /* ── RECOMMENDATIONS ── */
+  .reco-section { padding: 0 52px 20px; }
+  .reco-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .reco-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
+    display: flex; flex-direction: column; transition: all .28s; cursor: pointer;
+    opacity: 0; transform: translateY(20px); transition: opacity .5s, transform .5s, box-shadow .25s;
+  }
+  .reco-card.vis { opacity: 1; transform: translateY(0); }
+  .reco-card:nth-child(2) { transition-delay: .1s; }
+  .reco-card:nth-child(3) { transition-delay: .2s; }
+  .reco-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(28,25,23,.1); }
+  .reco-card.vis:hover { transform: translateY(-4px); }
+  .reco-cover {
+    height: 160px; background-size: cover; background-position: center;
+    position: relative; overflow: hidden;
+  }
+  .reco-cover::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,25,23,.6) 0%, transparent 60%); }
+  .reco-why-tag {
+    position: absolute; top: 12px; left: 12px; z-index: 2;
+    font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 3px;
+  }
+  .why-weak { background: var(--red); color: #fff; }
+  .why-next { background: var(--gold); color: #fff; }
+  .why-stretch { background: var(--blue); color: #fff; }
+  .reco-body { padding: 18px 18px 20px; flex: 1; display: flex; flex-direction: column; }
+  .reco-series { font-size: 9px; font-weight: 600; color: var(--red); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px; }
+  .reco-title { font-family: var(--serif); font-size: 15px; font-weight: 700; line-height: 1.25; margin-bottom: 6px; }
+  .reco-author { font-size: 11px; color: var(--muted); margin-bottom: 12px; }
+  .reco-reason { font-size: 12px; color: var(--muted); line-height: 1.6; flex: 1; }
+  .reco-reason strong { color: var(--text); font-weight: 600; }
+  .reco-action { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; }
+  .reco-match { font-size: 10px; font-weight: 600; color: var(--green); }
+  .reco-btn { font-size: 10px; font-weight: 600; font-family: var(--sans); background: var(--red); color: #fff; border: none; border-radius: 3px; padding: 6px 12px; cursor: pointer; transition: background .2s; letter-spacing: .3px; }
+  .reco-btn:hover { background: var(--red-dark); }
+
+  /* ── WEAK POINTS CALLOUT ── */
+  .weakpoints-section { padding: 0 52px; }
+  .weakpoints-card {
+    background: linear-gradient(135deg, rgba(200,16,46,.04) 0%, rgba(200,16,46,.02) 100%);
+    border: 1px solid rgba(200,16,46,.2); border-radius: 12px; padding: 28px;
+    display: flex; gap: 24px; align-items: flex-start;
+    opacity: 0; transform: translateY(16px); transition: opacity .5s, transform .5s;
+  }
+  .weakpoints-card.vis { opacity: 1; transform: translateY(0); }
+  .wp-icon { font-size: 28px; flex-shrink: 0; padding-top: 2px; }
+  .wp-content { flex: 1; }
+  .wp-title { font-family: var(--serif); font-size: 17px; font-weight: 700; margin-bottom: 6px; color: var(--text); }
+  .wp-desc { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 16px; }
+  .wp-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .wp-tag {
+    background: rgba(200,16,46,.08); border: 1px solid rgba(200,16,46,.2); color: var(--red);
+    font-size: 11px; font-weight: 600; padding: 5px 13px; border-radius: 20px;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .wp-tag::before { content: '⚠'; font-size: 9px; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--text); padding: 44px 52px 26px; margin-top: 60px; }
+  .fbot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.08); }
+  .fbot span { font-size: 11px; color: rgba(255,255,255,.3); }
+  .fbot em { color: rgba(200,16,46,.7); font-style: normal; }
+  .ftop { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; flex-wrap: wrap; gap: 16px; }
+  .flogo { display: flex; align-items: center; gap: 10px; }
+  .fdesc { font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.65; max-width: 340px; }
+
+  /* ── TOAST ── */
+  .toast { position:fixed; bottom:24px; right:24px; background:var(--card); border:1px solid var(--line); border-left:3px solid var(--green); padding:13px 20px; border-radius:8px; font-size:13px; font-weight:500; z-index:3000; box-shadow:0 8px 30px rgba(28,25,23,.15); transform:translateX(130%); transition:transform .4s cubic-bezier(.34,1.56,.64,1); display:flex; align-items:center; gap:10px; max-width:320px; }
+  .toast.show { transform:translateX(0); }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width: 900px) {
+    .nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .profile-banner { padding: 40px 20px 0; }
+    .profile-inner { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .profile-stats { flex-direction: row; gap: 20px; }
+    .ps { text-align: left; }
+    .summary-row { grid-template-columns: 1fr 1fr; padding: 24px 20px 0; }
+    .sec-hd { padding: 32px 20px 16px; }
+    .books-grid, .skills-section, .chart-row, .reco-section, .weakpoints-section, .activity-section { padding-left: 20px; padding-right: 20px; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .chart-row { grid-template-columns: 1fr; }
+    .reco-grid { grid-template-columns: 1fr; }
+    footer { padding: 36px 20px 20px; }
+    .book-metrics { flex-wrap: wrap; gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="subcription.html" class="nav-logo">
+    <span class="logo-pill">Popular</span>
+    <span class="logo-tag">Study Pass</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="subcription.html">Library</a></li>
+    <li><a href="#" class="on">My Progress</a></li>
+    <li><a href="#">Recommendations</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="sub-active">
+      <span class="sub-dot"></span>Study Pass Plus
+    </div>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- PROFILE BANNER -->
+  <div class="profile-banner">
+    <div class="profile-inner">
+      <div class="profile-avatar">E</div>
+      <div class="profile-info">
+        <div class="profile-eyebrow">Student Learning Report</div>
+        <div class="profile-name">Ethan Tan Jun Wei</div>
+        <div class="profile-meta">
+          <span class="profile-tag">Primary 5</span>
+          <span class="profile-tag">English — EPH Series</span>
+          <span class="profile-tag active">✓ Active Subscriber</span>
+        </div>
+      </div>
+      <div class="profile-stats">
+        <div class="ps">
+          <div class="ps-n">3</div>
+          <div class="ps-l">Books Done</div>
+        </div>
+        <div class="ps-div"></div>
+        <div class="ps">
+          <div class="ps-n">74%</div>
+          <div class="ps-l">Avg. Score</div>
+        </div>
+        <div class="ps-div"></div>
+        <div class="ps">
+          <div class="ps-n">128</div>
+          <div class="ps-l">Days Active</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY CARDS -->
+  <div class="summary-row">
+    <div class="sum-card" data-obs>
+      <div class="sum-accent acc-red"></div>
+      <div class="sum-n">74%</div>
+      <div class="sum-l">Overall Average Score</div>
+      <div class="sum-delta delta-up">↑ 6pts</div>
+    </div>
+    <div class="sum-card" data-obs>
+      <div class="sum-accent acc-gold"></div>
+      <div class="sum-n">3</div>
+      <div class="sum-l">Books Completed</div>
+      <div class="sum-delta delta-up">+1 this term</div>
+    </div>
+    <div class="sum-card" data-obs>
+      <div class="sum-accent acc-green"></div>
+      <div class="sum-n">87%</div>
+      <div class="sum-l">Best Skill: Grammar MCQ</div>
+      <div class="sum-delta delta-up">↑ Strong</div>
+    </div>
+    <div class="sum-card" data-obs>
+      <div class="sum-accent acc-blue"></div>
+      <div class="sum-n">52%</div>
+      <div class="sum-l">Weakest: Synthesis & Transformation</div>
+      <div class="sum-delta delta-warn">⚠ Needs work</div>
+    </div>
+  </div>
+
+  <!-- WEAK POINTS CALLOUT -->
+  <div class="sec-hd" style="padding-bottom:12px;">
+    <div>
+      <div class="sec-title"><span class="sec-bar"></span>Areas That Need Attention</div>
+      <div class="sec-sub">Identified from Ethan's assessment results across all completed books</div>
+    </div>
+  </div>
+  <div class="weakpoints-section">
+    <div class="weakpoints-card" data-obs>
+      <div class="wp-icon">🎯</div>
+      <div class="wp-content">
+        <div class="wp-title">Ethan has 3 identified weak areas this term</div>
+        <div class="wp-desc">Based on his performance across 3 completed books, Ethan consistently scores below 60% in the following components. These have been used to generate personalised book recommendations below. Focusing on these areas before PSLE will have the highest impact on his overall English grade.</div>
+        <div class="wp-tags">
+          <span class="wp-tag">Synthesis &amp; Transformation</span>
+          <span class="wp-tag">Comprehension Cloze</span>
+          <span class="wp-tag">Situational Writing</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPLETED BOOKS -->
+  <div class="sec-hd">
+    <div>
+      <div class="sec-title"><span class="sec-bar"></span>Completed Books <span class="badge badge-red">3 Done</span></div>
+      <div class="sec-sub">Assessment scores and performance summary per book</div>
+    </div>
+  </div>
+  <div class="books-grid">
+
+    <!-- Book 1 -->
+    <div class="book-row" data-obs>
+      <div class="book-cover-thumb" style="background: url(https://www.eph.com.sg/wp-content/uploads/9789815214222_1-360x492.jpg) center/cover no-repeat;"></div>
+      <div class="book-info">
+        <div class="book-series">EPH Primary English</div>
+        <div class="book-name">P3 Champion in English Grammar</div>
+        <div class="book-by">Primary 3 · Lim Geok Choo</div>
+        <div class="book-dates">Completed 14 Jan 2025 &nbsp;·&nbsp; Took 6 weeks</div>
+      </div>
+      <div class="book-metrics">
+        <div class="bm">
+          <div class="bm-n" style="color:var(--green)">82%</div>
+          <div class="bm-l">Score</div>
+        </div>
+        <div class="bm-div"></div>
+        <div class="bm">
+          <div class="bm-n">12/14</div>
+          <div class="bm-l">Exercises</div>
+        </div>
+        <div class="bm-div"></div>
+        <div class="bm">
+          <div class="bm-n" style="color:var(--gold)">6h 40m</div>
+          <div class="bm-l">Time Spent</div>
+        </div>
+      </div>
+      <div>
+        <div class="score-ring">
+          <svg width="56" height="56" viewBox="0 0 56 56">
+            <circle class="ring-bg" cx="28" cy="28" r="23"/>
+            <circle class="ring-fill" cx="28" cy="28" r="23" stroke="#16A34A"
+              stroke-dasharray="144.5" stroke-dashoffset="26" />
+          </svg>
+          <div class="ring-text" style="color:var(--green)">82</div>
+        </div>
+        <div style="text-align:center;margin-top:5px;"><span class="grade-pill grade-a">A</span></div>
+      </div>
+    </div>
+
+    <!-- Book 2 -->
+    <div class="book-row" data-obs style="transition-delay:.08s">
+      <div class="book-cover-thumb" style="background: url(https://www.eph.com.sg/wp-content/uploads/9789815214239_1-360x492.jpg) center/cover no-repeat;"></div>
+      <div class="book-info">
+        <div class="book-series">EPH Primary English</div>
+        <div class="book-name">P4 Champion in English Grammar</div>
+        <div class="book-by">Primary 4 · Lim Geok Choo</div>
+        <div class="book-dates">Completed 28 Mar 2025 &nbsp;·&nbsp; Took 8 weeks</div>
+      </div>
+      <div class="book-metrics">
+        <div class="bm">
+          <div class="bm-n" style="color:var(--blue)">71%</div>
+          <div class="bm-l">Score</div>
+        </div>
+        <div class="bm-div"></div>
+        <div class="bm">
+          <div class="bm-n">13/16</div>
+          <div class="bm-l">Exercises</div>
+        </div>
+        <div class="bm-div"></div>
+        <div class="bm">
+          <div class="bm-n" style="color:var(--gold)">9h 15m</div>
+          <div class="bm-l">Time Spent</div>
+        </div>
+      </div>
+      <div>
+        <div class="score-ring">
+          <svg width="56" height="56" viewBox="0 0 56 56">
+            <circle class="ring-bg" cx="28" cy="28" r="23"/>
+            <circle class="ring-fill" cx="28" cy="28" r="23" stroke="#1D4ED8"
+              stroke-dasharray="144.5" stroke-dashoffset="42" />
+          </svg>
+          <div class="ring-text" style="color:var(--blue)">71</div>
+        </div>
+        <div style="text-align:center;margin-top:5px;"><span class="grade-pill grade-b">B</span></div>
+      </div>
+    </div>
+
+    <!-- Book 3 -->
+    <div class="book-row" data-obs style="transition-delay:.16s">
+      <div class="book-cover-thumb" style="background: url(https://www.eph.com.sg/wp-content/uploads/9789814574891_1-360x493.jpg) center/cover no-repeat;"></div>
+      <div class="book-info">
+        <div class="book-series">EPH Primary English</div>
+        <div class="book-name">P4 Daily Dose of English</div>
+        <div class="book-by">Primary 4 · Cindy Lim</div>
+        <div class="book-dates">Completed 15 Jun 2025 &nbsp;·&nbsp; Took 12 weeks</div>
+      </div>
+      <div class="book-metrics">
+        <div class="bm">
+          <div class="bm-n" style="color:var(--gold)">68%</div>
+          <div class="bm-l">Score</div>
+        </div>
+        <div class="bm-div"></div>
+        <div class="bm">
+          <div class="bm-n">10/12</div>
+          <div class="bm-l">Exercises</div>
+        </div>
+        <div class="bm-div"></div>
+        <div class="bm">
+          <div class="bm-n" style="color:var(--gold)">11h 05m</div>
+          <div class="bm-l">Time Spent</div>
+        </div>
+      </div>
+      <div>
+        <div class="score-ring">
+          <svg width="56" height="56" viewBox="0 0 56 56">
+            <circle class="ring-bg" cx="28" cy="28" r="23"/>
+            <circle class="ring-fill" cx="28" cy="28" r="23" stroke="#B07D10"
+              stroke-dasharray="144.5" stroke-dashoffset="46" />
+          </svg>
+          <div class="ring-text" style="color:var(--gold)">68</div>
+        </div>
+        <div style="text-align:center;margin-top:5px;"><span class="grade-pill grade-c">C+</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SKILL BREAKDOWN -->
+  <div class="sec-hd">
+    <div>
+      <div class="sec-title"><span class="sec-bar"></span>Skills Breakdown</div>
+      <div class="sec-sub">Averaged across all completed books</div>
+    </div>
+    <span class="badge badge-gold">6 Skills Tracked</span>
+  </div>
+  <div class="skills-section">
+    <div class="skills-grid">
+
+      <div class="skill-card" data-obs>
+        <div class="skill-header">
+          <div class="skill-name"><span class="skill-icon">📝</span> Grammar MCQ</div>
+          <div class="skill-score" style="color:var(--green)">87%</div>
+        </div>
+        <div class="skill-bar-track"><div class="skill-bar-fill fill-green" data-width="87"></div></div>
+        <div class="skill-note">Ethan consistently scores in the top range here. Strong understanding of tenses, subject-verb agreement, and determiners.</div>
+        <div class="skill-trend">
+          <div class="trend-dot lit"></div><div class="trend-dot lit"></div><div class="trend-dot lit"></div><div class="trend-dot lit"></div><div class="trend-dot lit"></div>
+        </div>
+      </div>
+
+      <div class="skill-card" data-obs>
+        <div class="skill-header">
+          <div class="skill-name"><span class="skill-icon">📖</span> Reading Comprehension</div>
+          <div class="skill-score" style="color:var(--blue)">78%</div>
+        </div>
+        <div class="skill-bar-track"><div class="skill-bar-fill fill-blue" data-width="78"></div></div>
+        <div class="skill-note">Good performance on inference questions. Some difficulty with "explain in your own words" style long-answer items.</div>
+        <div class="skill-trend">
+          <div class="trend-dot lit"></div><div class="trend-dot lit"></div><div class="trend-dot lit"></div><div class="trend-dot mid"></div><div class="trend-dot mid"></div>
+        </div>
+      </div>
+
+      <div class="skill-card" data-obs>
+        <div class="skill-header">
+          <div class="skill-name"><span class="skill-icon">🔤</span> Vocabulary &amp; Spelling</div>
+          <div class="skill-score" style="color:var(--blue)">75%</div>
+        </div>
+        <div class="skill-bar-track"><div class="skill-bar-fill fill-blue" data-width="75"></div></div>
+        <div class="skill-note">Steady improvement across the term. Synonym and antonym exercises score well; idiom usage needs more practice.</div>
+        <div class="skill-trend">
+          <div class="trend-dot mid"></div><div class="trend-dot mid"></div><div class="trend-dot lit"></div><div class="trend-dot lit"></div><div class="trend-dot lit"></div>
+        </div>
+      </div>
+
+      <div class="skill-card" data-obs>
+        <div class="skill-header">
+          <div class="skill-name"><span class="skill-icon">✍️</span> Situational Writing</div>
+          <div class="skill-score" style="color:var(--gold)">61%</div>
+        </div>
+        <div class="skill-bar-track"><div class="skill-bar-fill fill-gold" data-width="61"></div></div>
+        <div class="skill-note">Inconsistent register and format. Ethan tends to omit key content points and needs to practise the email/report format for P5.</div>
+        <div class="skill-trend">
+          <div class="trend-dot mid"></div><div class="trend-dot low"></div><div class="trend-dot mid"></div><div class="trend-dot mid"></div><div class="trend-dot mid"></div>
+        </div>
+      </div>
+
+      <div class="skill-card" data-obs>
+        <div class="skill-header">
+          <div class="skill-name"><span class="skill-icon">🔀</span> Synthesis &amp; Transformation</div>
+          <div class="skill-score" style="color:var(--red)">52%</div>
+        </div>
+        <div class="skill-bar-track"><div class="skill-bar-fill fill-red" data-width="52"></div></div>
+        <div class="skill-note">Weakest area. Struggles with reported speech, passive voice conversion, and combining sentences using connectives correctly.</div>
+        <div class="skill-trend">
+          <div class="trend-dot low"></div><div class="trend-dot low"></div><div class="trend-dot mid"></div><div class="trend-dot low"></div><div class="trend-dot mid"></div>
+        </div>
+      </div>
+
+      <div class="skill-card" data-obs>
+        <div class="skill-header">
+          <div class="skill-name"><span class="skill-icon">🧩</span> Comprehension Cloze</div>
+          <div class="skill-score" style="color:var(--red)">58%</div>
+        </div>
+        <div class="skill-bar-track"><div class="skill-bar-fill fill-red" data-width="58"></div></div>
+        <div class="skill-note">Often picks grammatically plausible but contextually wrong words. Needs to practise reading for context clues before selecting answers.</div>
+        <div class="skill-trend">
+          <div class="trend-dot low"></div><div class="trend-dot mid"></div><div class="trend-dot low"></div><div class="trend-dot mid"></div><div class="trend-dot mid"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CHARTS ROW -->
+  <div class="sec-hd">
+    <div>
+      <div class="sec-title"><span class="sec-bar"></span>Score Trends by Book</div>
+      <div class="sec-sub">How each skill score changed across the 3 completed books</div>
+    </div>
+  </div>
+  <div class="chart-row">
+
+    <div class="chart-card" data-obs>
+      <div class="chart-title">Score per Book — Overview</div>
+      <div class="chart-sub">Overall score across all completed assessments</div>
+      <div class="bar-list">
+        <div>
+          <div class="bar-item-label"><span class="bar-topic">P3 Champion Grammar</span><span class="bar-val" style="color:var(--green)">82%</span></div>
+          <div class="bar-track"><div class="bar-fill fill-green" data-width="82"></div></div>
+        </div>
+        <div>
+          <div class="bar-item-label"><span class="bar-topic">P4 Champion Grammar</span><span class="bar-val" style="color:var(--blue)">71%</span></div>
+          <div class="bar-track"><div class="bar-fill fill-blue" data-width="71"></div></div>
+        </div>
+        <div>
+          <div class="bar-item-label"><span class="bar-topic">P4 Daily Dose</span><span class="bar-val" style="color:var(--gold)">68%</span></div>
+          <div class="bar-track"><div class="bar-fill fill-gold" data-width="68"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-card" data-obs>
+      <div class="chart-title">Weak Area Comparison</div>
+      <div class="chart-sub">Ethan's scores on his 3 weakest components</div>
+      <div class="bar-list">
+        <div>
+          <div class="bar-item-label"><span class="bar-topic">Synthesis &amp; Transformation</span><span class="bar-val" style="color:var(--red)">52%</span></div>
+          <div class="bar-track"><div class="bar-fill fill-red" data-width="52"></div></div>
+        </div>
+        <div>
+          <div class="bar-item-label"><span class="bar-topic">Comprehension Cloze</span><span class="bar-val" style="color:var(--red)">58%</span></div>
+          <div class="bar-track"><div class="bar-fill fill-red" data-width="58"></div></div>
+        </div>
+        <div>
+          <div class="bar-item-label"><span class="bar-topic">Situational Writing</span><span class="bar-val" style="color:var(--gold)">61%</span></div>
+          <div class="bar-track"><div class="bar-fill fill-gold" data-width="61"></div></div>
+        </div>
+        <div style="margin-top:16px; padding-top:14px; border-top:1px solid var(--line);">
+          <div class="bar-item-label"><span class="bar-topic" style="color:var(--muted)">P5 Target Benchmark</span><span class="bar-val" style="color:var(--green)">75%</span></div>
+          <div class="bar-track"><div class="bar-fill fill-green" data-width="75" style="opacity:.35"></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ACTIVITY TIMELINE -->
+  <div class="sec-hd">
+    <div>
+      <div class="sec-title"><span class="sec-bar"></span>Recent Activity</div>
+      <div class="sec-sub">Ethan's last 5 study sessions</div>
+    </div>
+  </div>
+  <div class="activity-section">
+    <div style="background:var(--card); border:1px solid var(--line); border-radius:12px; padding:8px 26px 4px;">
+      <div class="activity-list">
+
+        <div class="activity-item" data-obs>
+          <div class="act-line"><div class="act-dot green"></div><div class="act-stem"></div></div>
+          <div class="act-content">
+            <div class="act-title">Completed: Exercise 12 — Situational Writing (Email)</div>
+            <div class="act-desc">Scored 14/20. Lost marks on missing content points and inappropriate register. Teacher note: "Remember to address all bullet points in the question."</div>
+            <div class="act-time">2 days ago · P4 Daily Dose of English</div>
+            <div class="act-badge act-badge-gold">📝 68% this exercise</div>
+          </div>
+        </div>
+
+        <div class="activity-item" data-obs style="transition-delay:.07s">
+          <div class="act-line"><div class="act-dot green"></div><div class="act-stem"></div></div>
+          <div class="act-content">
+            <div class="act-title">Completed: Exercise 11 — Comprehension Cloze</div>
+            <div class="act-desc">Scored 16/20. Improved from previous attempt. Struggled with items 5 and 12 which required understanding of idiomatic expressions.</div>
+            <div class="act-time">5 days ago · P4 Daily Dose of English</div>
+            <div class="act-badge act-badge-green">📈 Better than last time (+8pts)</div>
+          </div>
+        </div>
+
+        <div class="activity-item" data-obs style="transition-delay:.14s">
+          <div class="act-line"><div class="act-dot"></div><div class="act-stem"></div></div>
+          <div class="act-content">
+            <div class="act-title">Completed: Exercise 10 — Grammar MCQ + Error Correction</div>
+            <div class="act-desc">Scored 22/25. Strong performance. Only 3 errors, all in the passive voice section. This is a consistent pattern across books.</div>
+            <div class="act-time">1 week ago · P4 Daily Dose of English</div>
+            <div class="act-badge act-badge-green">⭐ 88% — Personal best this topic</div>
+          </div>
+        </div>
+
+        <div class="activity-item" data-obs style="transition-delay:.21s">
+          <div class="act-line"><div class="act-dot gold"></div><div class="act-stem"></div></div>
+          <div class="act-content">
+            <div class="act-title">Completed: Exercise 9 — Synthesis &amp; Transformation</div>
+            <div class="act-desc">Scored 11/20. Missed reported speech conversions and had errors in conditional sentence structures. Needs dedicated practice in this area.</div>
+            <div class="act-time">10 days ago · P4 Daily Dose of English</div>
+            <div class="act-badge act-badge-red">⚠️ 55% — Below benchmark</div>
+          </div>
+        </div>
+
+        <div class="activity-item" data-obs style="transition-delay:.28s">
+          <div class="act-line"><div class="act-dot"></div></div>
+          <div class="act-content">
+            <div class="act-title">Started Book: P4 Daily Dose of English</div>
+            <div class="act-desc">Began working through daily practice sessions. Set study goal of 3 sessions per week.</div>
+            <div class="act-time">12 weeks ago</div>
+            <div class="act-badge act-badge-green">📚 New book started</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- RECOMMENDATIONS -->
+  <div class="sec-hd">
+    <div>
+      <div class="sec-title"><span class="sec-bar"></span>Recommended Next Books <span class="badge badge-green">Personalised</span></div>
+      <div class="sec-sub">Matched to Ethan's weak areas in Synthesis &amp; Transformation, Cloze, and Situational Writing</div>
+    </div>
+  </div>
+  <div class="reco-section">
+    <div class="reco-grid">
+
+      <!-- Reco 1 -->
+      <div class="reco-card" data-obs>
+        <div class="reco-cover" style="background: url(https://www.eph.com.sg/wp-content/uploads/9789814832571_1-360x514.jpg) center/cover no-repeat;">
+          <div class="reco-why-tag why-weak">⚠ Weak Area Fix</div>
+        </div>
+        <div class="reco-body">
+          <div class="reco-series">EPH PSLE English</div>
+          <div class="reco-title">PSLE Synthesis / Transformation</div>
+          <div class="reco-author">Claire Leow</div>
+          <div class="reco-reason">Ethan scored <strong>52%</strong> in Synthesis &amp; Transformation across all his books — the lowest of any skill area. This book has <strong>300+ graded exercises</strong> specifically targeting reported speech, passive voice, and sentence combining, which are his exact problem types.</div>
+          <div class="reco-action">
+            <span class="reco-match">✓ 94% skill match</span>
+            <button class="reco-btn" onclick="goToBook('psle-tam')">View Book →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reco 2 -->
+      <div class="reco-card" data-obs>
+        <div class="reco-cover" style="background: url(https://www.eph.com.sg/wp-content/uploads/9789815214246_1-360x493.jpg) center/cover no-repeat;">
+          <div class="reco-why-tag why-next">→ Next Level</div>
+        </div>
+        <div class="reco-body">
+          <div class="reco-series">EPH Primary English</div>
+          <div class="reco-title">P5 Champion in English Grammar</div>
+          <div class="reco-author">Primary 5 · Lim Geok Choo</div>
+          <div class="reco-reason">As Ethan moves into P5, this is the natural progression from his completed P4 Champion book. It introduces <strong>P5-level grammar patterns</strong> including more complex synthesis and comprehension cloze formats aligned to MOE's latest syllabus.</div>
+          <div class="reco-action">
+            <span class="reco-match">✓ 88% readiness</span>
+            <button class="reco-btn" onclick="goToBook('tys-bio')">View Book →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reco 3 -->
+      <div class="reco-card" data-obs>
+        <div class="reco-cover" style="background: url(https://www.eph.com.sg/wp-content/uploads/9789815267426_1-360x491.jpg) center/cover no-repeat;">
+          <div class="reco-why-tag why-stretch">↗ Stretch Goal</div>
+        </div>
+        <div class="reco-body">
+          <div class="reco-series">EPH Primary English</div>
+          <div class="reco-title">P5 Daily Dose of English</div>
+          <div class="reco-author">Primary 5 · Cindy Lim</div>
+          <div class="reco-reason">The Daily Dose series worked well for Ethan's routine. This P5 version covers <strong>situational writing and comprehension cloze</strong> daily — the two other components he needs to improve before PSLE. Pairs well with the Champion Grammar book.</div>
+          <div class="reco-action">
+            <span class="reco-match">✓ 81% skill match</span>
+            <button class="reco-btn" onclick="goToBook('p4-chi')">View Book →</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="ftop">
+      <div class="flogo">
+        <span class="logo-pill">Popular</span>
+        <span class="logo-tag" style="color:rgba(255,255,255,.4)">Study Pass</span>
+      </div>
+      <p class="fdesc">Ethan's learning report is generated from completed book data and assessment scores recorded through Popular Study Pass.</p>
+    </div>
+    <div class="fbot">
+      <span>© 2025 Popular Holdings Ltd. All rights reserved.</span>
+      <span>Report generated <em>July 2025</em> · Study Pass Plus</span>
+    </div>
+  </footer>
+
+</div><!-- end page-wrap -->
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span id="tIcon" style="font-size:16px;flex-shrink:0"></span>
+  <span id="tMsg"></span>
+</div>
+
+<script>
+  // Intersection observer for .vis animations
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('[data-obs]').forEach(el => obs.observe(el));
+
+  // Animate skill bars and chart bars when they become visible
+  const barObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.skill-bar-fill, .bar-fill').forEach(bar => {
+          const w = bar.getAttribute('data-width');
+          if (w) setTimeout(() => bar.style.width = w + '%', 100);
+        });
+        barObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.skill-card, .chart-card').forEach(el => barObs.observe(el));
+
+  // Navigate to subscription page with book preselected
+  function goToBook(id) {
+    window.location.href = `subcription.html?book=${encodeURIComponent(id)}`;
+  }
+
+  // Toast helper
+  let tTimer;
+  function showToast(icon, msg, color) {
+    document.getElementById('tIcon').textContent = icon;
+    document.getElementById('tMsg').textContent = msg;
+    document.getElementById('toast').style.borderLeftColor = color;
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    clearTimeout(tTimer);
+    tTimer = setTimeout(() => t.classList.remove('show'), 3200);
+  }
+</script>
+</body>
+</html>
