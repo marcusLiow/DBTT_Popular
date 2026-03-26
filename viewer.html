@@ -1,0 +1,424 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P2 Champion in English Grammar - Page Viewer</title>
+<style>
+  :root {
+    --red: #c8102e;
+    --red-dark: #9e0c24;
+    --bg: #f7f7f7;
+    --card: #ffffff;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --line: #e5e7eb;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    height: 64px;
+    background: #fff;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .brand img {
+    height: 36px;
+    width: auto;
+    display: block;
+  }
+
+  .logo-pill {
+    background: var(--red);
+    color: #fff;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1;
+    padding: 8px 12px;
+    border-radius: 2px;
+  }
+
+  .brand-sub {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    font-weight: 700;
+  }
+
+  .back-link {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--red);
+    text-decoration: none;
+  }
+
+  .back-link:hover { text-decoration: underline; }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    height: calc(100vh - 64px);
+  }
+
+  .sidebar {
+    border-right: 1px solid var(--line);
+    background: #fff;
+    padding: 12px;
+    overflow-y: auto;
+    min-height: 0;
+  }
+
+  .sidebar h3 {
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .page-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .page-list button {
+    width: 100%;
+    text-align: left;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 8px 10px;
+    background: #fff;
+    font-size: 13px;
+    cursor: pointer;
+    color: #374151;
+  }
+
+  .page-list button.active {
+    border-color: rgba(200,16,46,.35);
+    background: rgba(200,16,46,.06);
+    color: var(--red);
+    font-weight: 700;
+  }
+
+  .main {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 0;
+  }
+
+  .viewer-head {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .viewer-title {
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  .viewer-sub {
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .page-label {
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .viewer-canvas-wrap {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 8px;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+  }
+
+  #pageImage {
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+    border: 1px solid #d1d5db;
+    box-shadow: 0 8px 28px rgba(0,0,0,.08);
+    display: none;
+  }
+
+  .status {
+    color: var(--muted);
+    font-size: 13px;
+    text-align: center;
+    padding: 16px;
+  }
+
+  .controls {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .btn {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    background: #fff;
+  }
+
+  .btn:hover { background: #f9fafb; }
+  .btn:disabled { opacity: .45; cursor: not-allowed; }
+
+  .btn.primary {
+    background: var(--red);
+    border-color: var(--red);
+    color: #fff;
+  }
+
+  .btn.primary:hover { background: var(--red-dark); border-color: var(--red-dark); }
+
+  @media (max-width: 860px) {
+    body { overflow: auto; }
+    .layout { grid-template-columns: 1fr; height: auto; }
+    .sidebar { border-right: none; border-bottom: 1px solid var(--line); }
+    .page-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .main { min-height: auto; }
+    .viewer-canvas-wrap { min-height: 55vh; flex: none; }
+  }
+
+  @media (max-width: 560px) {
+    .topbar { height: 58px; }
+    .brand-sub { font-size: 10px; letter-spacing: 1px; }
+    .main { padding: 10px; }
+    .controls { flex-wrap: wrap; }
+    .controls .btn { width: 100%; }
+    .page-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <img src="popular-logo25.png" alt="POPULAR">
+      <div class="brand-sub">STUDY PASS</div>
+    </a>
+    <a id="backLink" class="back-link" href="subcription.html">Back to library</a>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <h3>Pages</h3>
+      <ul id="pageList" class="page-list"></ul>
+    </aside>
+
+    <main class="main">
+      <section class="viewer-head">
+        <div>
+          <div class="viewer-title">P2 Champion in English Grammar</div>
+          <div class="viewer-sub">Image-based e-textbook viewer</div>
+        </div>
+        <div id="pageLabel" class="page-label">Loading...</div>
+      </section>
+
+      <section class="viewer-canvas-wrap" id="canvasWrap">
+        <div id="status" class="status">Loading PDF pages...</div>
+        <img id="pageImage" alt="Workbook page" />
+      </section>
+
+      <section class="controls">
+        <button id="prevBtn" class="btn">Previous Page</button>
+        <button id="nextBtn" class="btn primary">Next Page</button>
+      </section>
+    </main>
+  </div>
+
+  <script type="module">
+    import * as pdfjsLib from 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.6.82/pdf.min.mjs';
+
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.6.82/pdf.worker.min.mjs';
+
+    const pdfPath = 'assets/eph-p2-grammar.pdf';
+    const firstVisiblePdfPage = 2; // Remove the first PDF page from the viewer.
+
+    const backLink = document.getElementById('backLink');
+    const params = new URLSearchParams(window.location.search);
+    const from = params.get('from');
+    if (from && /^[a-zA-Z0-9._-]+\.html(?:\?.*)?$/.test(from)) {
+      backLink.href = from;
+    }
+
+    const pageList = document.getElementById('pageList');
+    const pageLabel = document.getElementById('pageLabel');
+    const statusEl = document.getElementById('status');
+    const imageEl = document.getElementById('pageImage');
+    const wrapEl = document.getElementById('canvasWrap');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    let pdfDoc = null;
+    let currentPdfPage = firstVisiblePdfPage;
+
+    function visibleIndex(pdfPage) {
+      return pdfPage - firstVisiblePdfPage + 1;
+    }
+
+    function totalVisiblePages() {
+      return Math.max(0, (pdfDoc?.numPages || 0) - 1);
+    }
+
+    function setStatus(msg) {
+      statusEl.textContent = msg;
+      statusEl.style.display = 'block';
+      imageEl.style.display = 'none';
+    }
+
+    function setReady() {
+      statusEl.style.display = 'none';
+      imageEl.style.display = 'block';
+    }
+
+    function buildPageList() {
+      pageList.innerHTML = '';
+      for (let p = firstVisiblePdfPage; p <= pdfDoc.numPages; p += 1) {
+        const li = document.createElement('li');
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.dataset.pdfPage = String(p);
+        btn.textContent = `Page ${visibleIndex(p)}`;
+        btn.addEventListener('click', () => {
+          currentPdfPage = p;
+          renderCurrentPage();
+        });
+        li.appendChild(btn);
+        pageList.appendChild(li);
+      }
+    }
+
+    function updateControls() {
+      pageLabel.textContent = `Page ${visibleIndex(currentPdfPage)} of ${totalVisiblePages()}`;
+      prevBtn.disabled = currentPdfPage <= firstVisiblePdfPage;
+      nextBtn.disabled = currentPdfPage >= pdfDoc.numPages;
+
+      document.querySelectorAll('#pageList button').forEach((btn) => {
+        btn.classList.toggle('active', Number(btn.dataset.pdfPage) === currentPdfPage);
+      });
+    }
+
+    async function renderCurrentPage() {
+      if (!pdfDoc) return;
+      setStatus('Rendering page...');
+      updateControls();
+
+      const page = await pdfDoc.getPage(currentPdfPage);
+      const baseViewport = page.getViewport({ scale: 1 });
+      const targetWidth = Math.max(wrapEl.clientWidth - 20, 280);
+      const targetHeight = Math.max(wrapEl.clientHeight - 20, 280);
+      const widthScale = targetWidth / baseViewport.width;
+      const heightScale = targetHeight / baseViewport.height;
+      const scale = Math.min(widthScale, heightScale);
+      const viewport = page.getViewport({ scale });
+
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d', { alpha: false });
+      canvas.width = Math.floor(viewport.width);
+      canvas.height = Math.floor(viewport.height);
+
+      await page.render({ canvasContext: context, viewport }).promise;
+      imageEl.src = canvas.toDataURL('image/png');
+      imageEl.alt = `Workbook page ${visibleIndex(currentPdfPage)}`;
+
+      setReady();
+      updateControls();
+    }
+
+    prevBtn.addEventListener('click', () => {
+      if (currentPdfPage > firstVisiblePdfPage) {
+        currentPdfPage -= 1;
+        renderCurrentPage();
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (pdfDoc && currentPdfPage < pdfDoc.numPages) {
+        currentPdfPage += 1;
+        renderCurrentPage();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (pdfDoc) renderCurrentPage();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') prevBtn.click();
+      if (e.key === 'ArrowRight') nextBtn.click();
+    });
+
+    async function init() {
+      try {
+        setStatus('Loading PDF pages...');
+        const task = pdfjsLib.getDocument(pdfPath);
+        pdfDoc = await task.promise;
+
+        if (pdfDoc.numPages < firstVisiblePdfPage) {
+          setStatus('PDF does not contain enough pages to hide page 1.');
+          return;
+        }
+
+        buildPageList();
+        currentPdfPage = firstVisiblePdfPage;
+        await renderCurrentPage();
+      } catch (err) {
+        console.error(err);
+        setStatus('Unable to load PDF. Please check assets/eph-p2-grammar.pdf exists and refresh.');
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>

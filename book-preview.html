@@ -39,6 +39,7 @@
     display: flex; align-items: center; justify-content: space-between;
   }
   .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .brand img { height: 36px; width: auto; display: block; }
   .logo-pill { background: var(--red); color: #fff; font-family: var(--sans); font-weight: 700; font-size: 15px; padding: 5px 11px; border-radius: 3px; letter-spacing: -.3px; }
   .logo-tag { font-size: 9px; font-weight: 600; color: var(--dim); letter-spacing: 2.5px; text-transform: uppercase; }
   .back-btn {
@@ -69,6 +70,7 @@
   .cover-shadow {
     position: absolute; bottom: -16px; left: 8px; right: -8px; top: 8px;
     background: rgba(28,25,23,.15); border-radius: 10px; filter: blur(16px); z-index: 0;
+    pointer-events: none;
   }
   .cover {
     position: relative; z-index: 1;
@@ -84,12 +86,17 @@
   /* Download quick actions on cover */
   .cover-actions {
     margin-top: 20px; display: flex; flex-direction: column; gap: 8px;
+    position: relative;
+    z-index: 3;
   }
   .ca-btn {
     width: 100%; border: none; border-radius: 6px; padding: 12px 16px;
     font-size: 12px; font-weight: 600; font-family: var(--sans); cursor: pointer;
     display: flex; align-items: center; justify-content: center; gap: 8px;
-    transition: all .2s;
+    transition: all .2s; text-decoration: none;
+    position: relative;
+    z-index: 4;
+    pointer-events: auto;
   }
   .ca-red { background: var(--red); color: #fff; }
   .ca-red:hover { background: var(--red-dark); transform: translateY(-1px); }
@@ -219,7 +226,7 @@
 
 <header class="top">
   <a href="index.html" class="brand">
-    <span class="logo-pill">Popular</span>
+    <img src="popular-logo25.png" alt="POPULAR">
     <span class="logo-tag">Study Pass</span>
   </a>
   <button class="back-btn" onclick="goBack()">
@@ -241,7 +248,24 @@
 </div>
 
 <script>
-  function goBack() { window.location.href = 'index.html'; }
+  function getBackTarget() {
+    const fromParam = new URLSearchParams(window.location.search).get('from');
+    if (fromParam && /^[a-zA-Z0-9._-]+\.html(?:\?.*)?$/.test(fromParam)) return fromParam;
+
+    if (document.referrer) {
+      try {
+        const ref = new URL(document.referrer);
+        if (ref.origin === window.location.origin) {
+          const file = ref.pathname.split('/').pop();
+          if (file && /^[a-zA-Z0-9._-]+\.html$/.test(file)) return file;
+        }
+      } catch (_) {}
+    }
+
+    return 'index.html';
+  }
+
+  function goBack() { window.location.href = getBackTarget(); }
 
   function getBook() {
     const id = new URLSearchParams(window.location.search).get('id');
@@ -389,6 +413,13 @@
     document.title = `${book.title} — POPULAR Study Pass`;
     const toc = tocForBook(book);
     const qs = sampleQs(book);
+    const urlId = new URLSearchParams(window.location.search).get('id') || String(book.id || '');
+    const canOpenViewer = urlId === 'al-gp';
+    const viewerHref = `viewer.html?from=${encodeURIComponent(getBackTarget())}&id=${encodeURIComponent(urlId)}`;
+    const readerMessage = 'E-reader for this title will be available soon.';
+    const readerActionPrimary = canOpenViewer
+      ? `<a class="ca-btn ca-red" href="${viewerHref}">Open E-reader</a>`
+      : `<button class="ca-btn ca-red" onclick="showToast('📚', '${readerMessage}', '#c8102e')">Open E-reader</button>`;
 
     app.innerHTML = `
       <div class="breadcrumb">
@@ -406,15 +437,8 @@
             <div class="cover-spine"></div>
           </div>
           <div class="cover-actions">
-            <button class="ca-btn ca-red" onclick="fakeDownload('Assessment PDF', '${book.title.replace(/'/g,"\'")}')">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Download assessment
-            </button>
-            <button class="ca-btn ca-gold" onclick="fakeDownload('Answers PDF', '${book.title.replace(/'/g,"\'")}')">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Download answers
-            </button>
-            <button class="ca-btn ca-outline" onclick="goBack()">Browse more books</button>
+            ${readerActionPrimary}
+            <a class="ca-btn ca-outline" href="${getBackTarget()}">Browse more books</a>
           </div>
         </div>
 
