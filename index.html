@@ -668,52 +668,7 @@
   }
   .toast.show { transform: translateY(0); opacity: 1; }
 
-  /* ── CLICK & COLLECT SECTION ── */
-  .cc-section {
-    background: var(--cream);
-    padding: 56px 24px;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-  .cc-inner {
-    max-width: 1280px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-  }
-  .cc-left h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 36px;
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 16px;
-  }
-  .cc-left h2 span { color: var(--red); }
-  .cc-left p { font-size: 15px; color: var(--mid); line-height: 1.7; margin-bottom: 28px; }
-  .cc-steps { display: flex; flex-direction: column; gap: 18px; margin-bottom: 32px; }
-  .cc-step { display: flex; align-items: flex-start; gap: 14px; }
-  .cc-num {
-    width: 34px; height: 34px;
-    background: var(--red);
-    color: white;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 14px; font-weight: 700;
-    flex-shrink: 0;
-  }
-  .cc-step-text strong { display: block; font-size: 14px; font-weight: 600; margin-bottom: 2px; }
-  .cc-step-text span { font-size: 13px; color: var(--mid); }
-
-  .cc-right {
-    background: white;
-    border-radius: 16px;
-    padding: 28px;
-    border: 1px solid var(--border);
-    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
-  }
-  .cc-right h3 { font-size: 16px; font-weight: 600; margin-bottom: 18px; }
+  /* ── INPUT GROUPS (shared) ── */
   .input-group { margin-bottom: 14px; }
   .input-group label { display: block; font-size: 12px; font-weight: 600; color: var(--mid); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
   .input-group input, .input-group select {
@@ -754,11 +709,352 @@
   .stock-low { background: #fff3e0; color: #e65100; }
   .stock-out { background: #fce4ec; color: #c62828; }
 
+  /* ═══════════════════════════════════════════
+     ── CAROUSEL ──
+  ═══════════════════════════════════════════ */
+  .carousel-section {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    background: var(--cream);
+    width: 100%;
+  }
+
+  .carousel-track {
+    display: flex;
+    width: 100%;
+    transition: transform 0.65s cubic-bezier(0.45, 0, 0.25, 1);
+    will-change: transform;
+  }
+
+  .carousel-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  /* ── Slide 1: Click & Collect ── */
+  .cc-slide {
+    padding: 56px 24px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .cc-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .cc-left h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .cc-left h2 span { color: var(--red); }
+  .cc-left p { font-size: 15px; color: var(--mid); line-height: 1.7; margin-bottom: 28px; }
+  .cc-steps { display: flex; flex-direction: column; gap: 18px; margin-bottom: 32px; }
+  .cc-step { display: flex; align-items: flex-start; gap: 14px; }
+  .cc-num {
+    width: 34px; height: 34px;
+    background: var(--red);
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .cc-step-text strong { display: block; font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+  .cc-step-text span { font-size: 13px; color: var(--mid); }
+  .cc-right {
+    background: white;
+    border-radius: 16px;
+    padding: 28px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  }
+  .cc-right h3 { font-size: 16px; font-weight: 600; margin-bottom: 18px; }
+
+  /* ── Slide 2: Subscription ── */
+  .sub-slide {
+    padding: 56px 24px;
+    background: linear-gradient(135deg, #1A1A1A 0%, #2d1a1a 60%, #1A1A1A 100%);
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .sub-slide::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(208,2,27,0.18) 0%, transparent 65%),
+                radial-gradient(ellipse at 80% 20%, rgba(201,168,76,0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .sub-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .sub-left { color: white; }
+  .sub-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(201,168,76,0.18);
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 22px;
+  }
+  .sub-left h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 18px;
+    color: white;
+  }
+  .sub-left h2 em { color: var(--gold); font-style: normal; }
+  .sub-left p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.75;
+    margin-bottom: 32px;
+  }
+  .sub-features {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 36px;
+  }
+  .sub-feat {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.85);
+    font-weight: 500;
+  }
+  .sub-feat-icon {
+    width: 32px; height: 32px;
+    background: rgba(208,2,27,0.25);
+    border: 1px solid rgba(208,2,27,0.4);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+  .sub-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-gold {
+    background: var(--gold);
+    color: #1A1A1A;
+    border: none;
+    padding: 13px 28px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-gold:hover { background: #b8952e; transform: translateY(-1px); }
+  .btn-sub-outline {
+    background: transparent;
+    color: rgba(255,255,255,0.8);
+    border: 1.5px solid rgba(255,255,255,0.3);
+    padding: 13px 28px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-sub-outline:hover { border-color: white; color: white; background: rgba(255,255,255,0.07); }
+
+  /* Plan cards on slide 2 */
+  .sub-plans {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-width: 0;
+    width: 100%;
+  }
+  .plan-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 14px;
+    padding: 20px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    backdrop-filter: blur(6px);
+    transition: border-color 0.2s, background 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .plan-card:hover {
+    border-color: rgba(208,2,27,0.5);
+    background: rgba(208,2,27,0.08);
+  }
+  .plan-card.featured {
+    background: rgba(208,2,27,0.15);
+    border-color: rgba(208,2,27,0.5);
+  }
+  .plan-badge-wrap { position: relative; }
+  .plan-popular {
+    position: absolute;
+    top: -28px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: #1A1A1A;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 10px;
+    white-space: nowrap;
+    letter-spacing: 0.06em;
+  }
+  .plan-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 3px;
+  }
+  .plan-desc {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+  }
+  .plan-price {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .plan-price .amount {
+    font-size: 20px;
+    font-weight: 800;
+    color: white;
+  }
+  .plan-price .period {
+    font-size: 11px;
+    color: rgba(255,255,255,0.45);
+    display: block;
+  }
+  .plan-arrow {
+    font-size: 18px;
+    color: rgba(255,255,255,0.4);
+    flex-shrink: 0;
+    transition: color 0.2s, transform 0.2s;
+  }
+  .plan-card:hover .plan-arrow { color: var(--red); transform: translateX(3px); }
+
+  /* ── CAROUSEL CONTROLS ── */
+  .carousel-controls {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 20;
+  }
+  .carousel-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: all 0.3s;
+    border: none;
+    padding: 0;
+  }
+  .carousel-dot.active {
+    background: var(--red);
+    width: 24px;
+    border-radius: 4px;
+  }
+
+  /* Dots are white on the dark subscription slide */
+  .carousel-section[data-slide="1"] .carousel-dot {
+    background: rgba(255,255,255,0.3);
+  }
+  .carousel-section[data-slide="1"] .carousel-dot.active {
+    background: var(--gold);
+  }
+
+  .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    border: 1px solid var(--border);
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    z-index: 20;
+    transition: background 0.2s, transform 0.2s;
+    color: var(--dark);
+  }
+  .carousel-arrow:hover { background: var(--red); color: white; border-color: var(--red); }
+  .carousel-arrow.prev { left: 20px; }
+  .carousel-arrow.next { right: 20px; }
+
+  /* Progress bar */
+  .carousel-progress {
+    position: absolute;
+    bottom: 0; left: 0;
+    height: 3px;
+    background: var(--red);
+    transition: width 0.1s linear;
+    z-index: 20;
+  }
+
+  @media (max-width: 1024px) {
+    .cc-inner, .sub-inner { gap: 32px; }
+    .sub-plans { min-width: 0; }
+  }
+
   @media (max-width: 768px) {
     .hero h1 { font-size: 36px; }
     .footer-inner { grid-template-columns: 1fr 1fr; }
-    .cc-inner { grid-template-columns: 1fr; }
+    .cc-inner, .sub-inner { grid-template-columns: 1fr; gap: 32px; }
     .nav-inner { overflow-x: auto; }
+    .carousel-arrow { display: none; }
+    .sub-left h2 { font-size: 28px; }
+    .cc-slide, .sub-slide { padding: 40px 20px 56px; }
+    .plan-card { padding: 16px 18px; }
   }
 </style>
 </head>
@@ -868,7 +1164,7 @@
     <p>Singapore's largest bookstore chain — explore thousands of titles in assessment, fiction, lifestyle, and more. Shop online or collect in-store.</p>
     <div class="hero-btns">
       <button class="btn-primary" onclick="scrollTo({top: 500, behavior:'smooth'})">Shop Now</button>
-      <button class="btn-outline" onclick="window.location.href='click-collect.html'">Click & Collect ↓</button>
+      <button class="btn-outline" onclick="goToSlide(0); document.getElementById('service-carousel').scrollIntoView({behavior:'smooth'})">Click & Collect ↓</button>
     </div>
   </div>
 </div>
@@ -903,79 +1199,184 @@
 
 <hr class="divider">
 
-<!-- Click & Collect -->
-<div class="cc-section" id="cc">
-  <div class="cc-inner">
-    <div class="cc-left">
-      <h2>Shop Online,<br>Pick Up <span>In-Store</span></h2>
-      <p>Reserve your items online and collect them at your nearest POPULAR outlet within 2 hours — no waiting, no shipping fees.</p>
-      <div class="cc-steps">
-        <div class="cc-step">
-          <div class="cc-num">1</div>
-          <div class="cc-step-text">
-            <strong>Browse & Add to Cart</strong>
-            <span>Shop our full range online as usual</span>
+<!-- ═══════════════════════════════════════
+     SERVICE CAROUSEL
+     Slide 0 → Click & Collect
+     Slide 1 → Subscription Service
+════════════════════════════════════════ -->
+<div class="carousel-section" id="service-carousel" data-slide="0">
+
+  <!-- Arrows -->
+  <button class="carousel-arrow prev" onclick="prevSlide()">&#8249;</button>
+  <button class="carousel-arrow next" onclick="nextSlide()">&#8250;</button>
+
+  <!-- Track -->
+  <div class="carousel-track" id="carouselTrack">
+
+    <!-- ── SLIDE 0: Click & Collect ── -->
+    <div class="carousel-slide">
+      <div class="cc-slide" id="cc">
+        <div class="cc-inner">
+          <div class="cc-left">
+            <h2>Shop Online,<br>Pick Up <span>In-Store</span></h2>
+            <p>Reserve your items online and collect them at your nearest POPULAR outlet within 2 hours — no waiting, no shipping fees.</p>
+            <div class="cc-steps">
+              <div class="cc-step">
+                <div class="cc-num">1</div>
+                <div class="cc-step-text">
+                  <strong>Browse & Add to Cart</strong>
+                  <span>Shop our full range online as usual</span>
+                </div>
+              </div>
+              <div class="cc-step">
+                <div class="cc-num">2</div>
+                <div class="cc-step-text">
+                  <strong>Select Click & Collect</strong>
+                  <span>Choose your preferred outlet at checkout</span>
+                </div>
+              </div>
+              <div class="cc-step">
+                <div class="cc-num">3</div>
+                <div class="cc-step-text">
+                  <strong>Collect Within 2 Hours</strong>
+                  <span>We'll SMS you when your order is ready</span>
+                </div>
+              </div>
+            </div>
+            <button class="btn-primary" onclick="window.location.href='click-collect.html'">Start Shopping →</button>
           </div>
-        </div>
-        <div class="cc-step">
-          <div class="cc-num">2</div>
-          <div class="cc-step-text">
-            <strong>Select Click & Collect</strong>
-            <span>Choose your preferred outlet at checkout</span>
-          </div>
-        </div>
-        <div class="cc-step">
-          <div class="cc-num">3</div>
-          <div class="cc-step-text">
-            <strong>Collect Within 2 Hours</strong>
-            <span>We'll SMS you when your order is ready</span>
+          <div class="cc-right">
+            <h3>🔍 Check Stock at Your Outlet</h3>
+            <div class="input-group">
+              <label>Book / Product Title</label>
+              <input type="text" id="stockSearch" placeholder="e.g. Harry Potter, PSLE Math..." />
+            </div>
+            <div class="input-group">
+              <label>Select Outlet</label>
+              <select id="outletSelect">
+                <option value="">— Choose an outlet —</option>
+                <option>Bugis Junction</option>
+                <option>Causeway Point</option>
+                <option>Clementi Mall</option>
+                <option>Lot One Shoppers' Mall</option>
+                <option>Northpoint City</option>
+                <option>Plaza Singapura</option>
+                <option>Tampines Mall</option>
+                <option>Vivocity</option>
+              </select>
+            </div>
+            <button class="btn-primary" style="width:100%" onclick="checkStock()">Check Availability</button>
+            <div class="outlet-results" id="outletResults">
+              <div style="font-size:13px; font-weight:600; margin-bottom:10px; margin-top:4px;">Nearby Outlets:</div>
+              <div class="outlet-card">
+                <div>
+                  <div class="outlet-name" id="res-name">—</div>
+                  <div class="outlet-detail">Ready for collection today</div>
+                </div>
+                <span class="stock-badge stock-in" id="res-badge">In Stock</span>
+              </div>
+              <div class="outlet-card">
+                <div>
+                  <div class="outlet-name">Nearest Alternative</div>
+                  <div class="outlet-detail">1.2 km away</div>
+                </div>
+                <span class="stock-badge stock-low">Low Stock</span>
+              </div>
+              <button class="btn-primary" style="width:100%;margin-top:6px" onclick="showToast('✅ Reserved! We\'ll SMS you when ready.')">Reserve Now</button>
+            </div>
           </div>
         </div>
       </div>
-      <button class="btn-primary" onclick="window.location.href='click-collect.html'">Start Shopping →</button>
-    </div>
-    <div class="cc-right">
-      <h3>🔍 Check Stock at Your Outlet</h3>
-      <div class="input-group">
-        <label>Book / Product Title</label>
-        <input type="text" id="stockSearch" placeholder="e.g. Harry Potter, PSLE Math..." />
-      </div>
-      <div class="input-group">
-        <label>Select Outlet</label>
-        <select id="outletSelect">
-          <option value="">— Choose an outlet —</option>
-          <option>Bugis Junction</option>
-          <option>Causeway Point</option>
-          <option>Clementi Mall</option>
-          <option>Lot One Shoppers' Mall</option>
-          <option>Northpoint City</option>
-          <option>Plaza Singapura</option>
-          <option>Tampines Mall</option>
-          <option>Vivocity</option>
-        </select>
-      </div>
-      <button class="btn-primary" style="width:100%" onclick="checkStock()">Check Availability</button>
-      <div class="outlet-results" id="outletResults">
-        <div style="font-size:13px; font-weight:600; margin-bottom:10px; margin-top:4px;">Nearby Outlets:</div>
-        <div class="outlet-card">
-          <div>
-            <div class="outlet-name" id="res-name">—</div>
-            <div class="outlet-detail">Ready for collection today</div>
+    </div><!-- /slide 0 -->
+
+    <!-- ── SLIDE 1: Subscription Service ── -->
+    <div class="carousel-slide">
+      <div class="sub-slide">
+        <div class="sub-inner">
+          <div class="sub-left">
+            <div class="sub-tag">✦ New Service</div>
+            <h2>Unlimited Access to<br><em>Study Pass</em></h2>
+            <p>Get unlimited digital access to hundreds of assessment books, past year papers, and exclusive study materials — all in one subscription.</p>
+            <div class="sub-features">
+              <div class="sub-feat">
+                <div class="sub-feat-icon">📚</div>
+                Hundreds of assessment titles &amp; past year papers
+              </div>
+              <div class="sub-feat">
+                <div class="sub-feat-icon">📥</div>
+                Downloadable PDFs — study anywhere, anytime
+              </div>
+              <div class="sub-feat">
+                <div class="sub-feat-icon">🔄</div>
+                New content added monthly across all levels
+              </div>
+              <div class="sub-feat">
+                <div class="sub-feat-icon">👨‍👩‍👧</div>
+                Family plan covers up to 4 students
+              </div>
+            </div>
+            <div class="sub-btns">
+              <a href="subcription.html" class="btn-gold">Explore Study Pass →</a>
+              <a href="subcription.html" class="btn-sub-outline">View All Plans</a>
+            </div>
           </div>
-          <span class="stock-badge stock-in" id="res-badge">In Stock</span>
-        </div>
-        <div class="outlet-card">
-          <div>
-            <div class="outlet-name">Nearest Alternative</div>
-            <div class="outlet-detail">1.2 km away</div>
+
+          <div class="sub-plans">
+            <a href="subcription.html" class="plan-card" style="margin-top: 28px;">
+              <div>
+                <div class="plan-name">📖 Starter</div>
+                <div class="plan-desc">1 student · Primary levels</div>
+              </div>
+              <div class="plan-price">
+                <span class="amount">$9.90</span>
+                <span class="period">/ month</span>
+              </div>
+              <span class="plan-arrow">›</span>
+            </a>
+
+            <div style="position:relative;">
+              <div class="plan-popular">MOST POPULAR</div>
+              <a href="subcription.html" class="plan-card featured">
+                <div>
+                  <div class="plan-name">⭐ Study Pass Plus</div>
+                  <div class="plan-desc">1 student · All levels P1–O Level</div>
+                </div>
+                <div class="plan-price">
+                  <span class="amount">$12.90</span>
+                  <span class="period">/ month</span>
+                </div>
+                <span class="plan-arrow">›</span>
+              </a>
+            </div>
+
+            <a href="subcription.html" class="plan-card">
+              <div>
+                <div class="plan-name">👨‍👩‍👧 Family</div>
+                <div class="plan-desc">Up to 4 students · All levels</div>
+              </div>
+              <div class="plan-price">
+                <span class="amount">$24.90</span>
+                <span class="period">/ month</span>
+              </div>
+              <span class="plan-arrow">›</span>
+            </a>
           </div>
-          <span class="stock-badge stock-low">Low Stock</span>
         </div>
-        <button class="btn-primary" style="width:100%;margin-top:6px" onclick="showToast('✅ Reserved! We\'ll SMS you when ready.')">Reserve Now</button>
       </div>
-    </div>
+    </div><!-- /slide 1 -->
+
+  </div><!-- /carousel-track -->
+
+  <!-- Dots -->
+  <div class="carousel-controls">
+    <button class="carousel-dot active" onclick="goToSlide(0)" title="Click & Collect"></button>
+    <button class="carousel-dot" onclick="goToSlide(1)" title="Subscription"></button>
   </div>
-</div>
+
+  <!-- Progress bar -->
+  <div class="carousel-progress" id="carouselProgress"></div>
+
+</div><!-- /carousel-section -->
 
 <!-- Membership Banner -->
 <div class="promo-banner">
@@ -1122,6 +1523,7 @@
 </div>
 
 <script>
+/* ── PRODUCTS ── */
 const PRODUCTS = [
   { id:1, emoji:'📗', cat:'assessment', catLabel:'Assessment', title:'PSLE Mathematics Past Year Papers 2025', price:'$12.90', orig:'$16.90', badge:'PSLE', desc:'Complete collection of past year PSLE Mathematics exam papers with worked solutions. Ideal for Primary 6 revision.', sale:true },
   { id:2, emoji:'📘', cat:'english', catLabel:'English Books', title:'Atomic Habits — James Clear', price:'$21.90', orig:'$29.90', badge:'Bestseller', desc:'An easy and proven way to build good habits and break bad ones. A must-read for anyone looking to improve their life.', sale:false },
@@ -1196,8 +1598,8 @@ function updateCartModal() {
     body.innerHTML = '<p style="color:#aaa;text-align:center;padding:20px 0">Your cart is empty.<br><span style="font-size:32px">🛒</span></p>';
   } else {
     body.innerHTML = `<p style="color:var(--mid);margin-bottom:16px">${cartCount} item(s) in your cart</p>
-    <button class="btn-primary" style="width:100%" onclick="showToast('✅ Proceeding to checkout...'); closeModal(\'cartModal\')">Proceed to Checkout</button>
-    <p style="text-align:center;margin-top:12px;font-size:12px;color:#aaa">or <span style="color:var(--red);cursor:pointer;font-weight:600" onclick="closeModal(\'cartModal\'); document.getElementById(\'cc\').scrollIntoView({behavior:\'smooth\'})">Choose Click & Collect →</span></p>`;
+    <button class="btn-primary" style="width:100%" onclick="showToast('✅ Proceeding to checkout...'); closeModal('cartModal')">Proceed to Checkout</button>
+    <p style="text-align:center;margin-top:12px;font-size:12px;color:#aaa">or <span style="color:var(--red);cursor:pointer;font-weight:600" onclick="closeModal('cartModal'); goToSlide(0); document.getElementById('service-carousel').scrollIntoView({behavior:'smooth'})">Choose Click & Collect →</span></p>`;
   }
 }
 
@@ -1237,8 +1639,97 @@ function checkStock() {
   document.getElementById('outletResults').style.display = 'block';
 }
 
-// Init
+/* ══════════════════════════════════════
+   CAROUSEL LOGIC
+══════════════════════════════════════ */
+const SLIDE_COUNT = 2;
+const INTERVAL_MS = 5000;
+let currentSlide = 0;
+let autoTimer = null;
+let progressTimer = null;
+let progressStart = null;
+let progressElapsed = 0;
+
+const track = document.getElementById('carouselTrack');
+const section = document.getElementById('service-carousel');
+const progressBar = document.getElementById('carouselProgress');
+const dots = document.querySelectorAll('.carousel-dot');
+
+function goToSlide(index) {
+  currentSlide = (index + SLIDE_COUNT) % SLIDE_COUNT;
+  track.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+  // Update dots
+  dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+
+  // Update section theme for arrow/dot colours
+  section.setAttribute('data-slide', currentSlide);
+
+  // Restart auto-advance & progress bar
+  resetAutoPlay();
+}
+
+function nextSlide() { goToSlide(currentSlide + 1); }
+function prevSlide() { goToSlide(currentSlide - 1); }
+
+/* ── Progress Bar ── */
+function startProgress() {
+  progressStart = performance.now() - progressElapsed;
+  progressBar.style.transition = 'none';
+
+  function tick(now) {
+    const elapsed = now - progressStart;
+    const pct = Math.min((elapsed / INTERVAL_MS) * 100, 100);
+    progressBar.style.width = pct + '%';
+    if (elapsed < INTERVAL_MS) {
+      progressTimer = requestAnimationFrame(tick);
+    }
+  }
+  progressTimer = requestAnimationFrame(tick);
+}
+
+function stopProgress() {
+  cancelAnimationFrame(progressTimer);
+  progressElapsed = parseFloat(progressBar.style.width || '0') / 100 * INTERVAL_MS;
+}
+
+function resetProgress() {
+  cancelAnimationFrame(progressTimer);
+  progressElapsed = 0;
+  progressBar.style.transition = 'none';
+  progressBar.style.width = '0%';
+  startProgress();
+}
+
+/* ── Auto-play ── */
+function resetAutoPlay() {
+  clearInterval(autoTimer);
+  resetProgress();
+  autoTimer = setInterval(() => {
+    goToSlide(currentSlide + 1);
+  }, INTERVAL_MS);
+}
+
+// Pause on hover
+section.addEventListener('mouseenter', () => {
+  clearInterval(autoTimer);
+  stopProgress();
+});
+section.addEventListener('mouseleave', () => {
+  resetAutoPlay();
+});
+
+// Touch/swipe support
+let touchStartX = 0;
+section.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+section.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if (Math.abs(dx) > 40) dx < 0 ? nextSlide() : prevSlide();
+}, { passive: true });
+
+// Boot
 renderProducts('all');
+resetAutoPlay();
 </script>
 </body>
 </html>

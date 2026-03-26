@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POPULAR Study Pass — Unlimited Assessment Access</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #c8102e;
+    --red-dark: #9e0c24;
+    --red-light: rgba(200,16,46,.08);
+    --bg: #FAFAF8;
+    --bg2: #ffffff;
+    --card: #ffffff;
+    --card-h: #F5F4F1;
+    --text: #1C1917;
+    --muted: #6B6560;
+    --dim: #A09B96;
+    --line: rgba(28,25,23,.11);
+    --gold: #B07D10;
+    --gold-bg: rgba(176,125,16,.09);
+    --green: #16A34A;
+    --nav-h: 68px;
+    --cw: 162px;
+    --ch: 232px;
+    --r: 6px;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--bg); color: var(--text); overflow-x: hidden; font-size: 15px; line-height: 1.6; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: #E8E5E0; }
+  ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 2px; }
+
+  /* ── NAV ── */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); z-index: 900;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 52px;
+    background: transparent; transition: background .3s, box-shadow .3s;
+  }
+  .nav.solid { background: rgba(250,250,248,.97); box-shadow: 0 1px 0 var(--line); backdrop-filter: blur(12px); }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-pill { background: var(--red); color: #fff; font-family: var(--sans); font-weight: 700; font-size: 15px; padding: 5px 11px; border-radius: 3px; letter-spacing: -.3px; }
+  .logo-tag { font-size: 9px; font-weight: 600; color: var(--dim); letter-spacing: 2.5px; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 30px; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--muted); font-size: 13px; font-weight: 500; transition: color .2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a.on { color: var(--text); font-weight: 600; }
+  .nav-right { display: flex; align-items: center; gap: 14px; }
+  .nav-search {
+    background: rgba(28,25,23,.05); border: 1px solid transparent; border-radius: 20px;
+    padding: 7px 15px; color: var(--text); font-size: 13px; font-family: var(--sans);
+    outline: none; width: 160px; transition: all .3s;
+  }
+  .nav-search:focus { background: #fff; border-color: var(--red); width: 200px; box-shadow: 0 0 0 3px rgba(200,16,46,.08); }
+  .nav-search::placeholder { color: var(--dim); }
+  .sub-cta {
+    background: var(--red); color: #fff; font-size: 12px; font-weight: 600;
+    padding: 8px 18px; border-radius: 4px; letter-spacing: .3px; cursor: pointer;
+    transition: background .2s; white-space: nowrap; border: none; font-family: var(--sans);
+  }
+  .sub-cta:hover { background: var(--red-dark); }
+  .sub-active {
+    display: none; align-items: center; gap: 7px; background: rgba(22,163,74,.1);
+    border: 1px solid rgba(22,163,74,.28); border-radius: 20px; padding: 6px 14px 6px 10px;
+    font-size: 12px; font-weight: 600; color: var(--green); cursor: pointer;
+  }
+  .sub-dot { width: 7px; height: 7px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.4)} }
+
+  /* ── MARQUEE ── */
+  .marquee { background: var(--text); padding: 9px 0; overflow: hidden; margin-top: var(--nav-h); }
+  .marquee-inner { display: flex; width: max-content; animation: march 32s linear infinite; gap: 64px; }
+  .mi { font-size: 10px; font-weight: 500; color: rgba(255,255,255,.72); letter-spacing: 1.8px; text-transform: uppercase; white-space: nowrap; display: flex; align-items: center; gap: 9px; }
+  .mi::before { content:''; width: 3px; height: 3px; background: rgba(200,16,46,.8); border-radius: 50%; }
+  @keyframes march { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+  /* ── HERO ── */
+  .hero { position: relative; min-height: 92vh; display: flex; align-items: center; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; background: linear-gradient(120deg, #FAFAF8 0%, #FDF5F3 40%, #F8F6F0 100%); }
+  .hero-pattern {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(200,16,46,.06) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: linear-gradient(to right, transparent 0%, black 25%, black 60%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 25%, black 60%, transparent 100%);
+  }
+  .hero-books {
+    position: absolute; right: 0; top: 0; bottom: 0;
+    width: 50%; display: flex; align-items: center; justify-content: center;
+    padding-right: 60px; gap: 24px;
+  }
+  .fbook {
+    border-radius: 6px; box-shadow: -10px 16px 44px rgba(28,25,23,.3), 0 0 0 1px rgba(28,25,23,.06);
+    animation: fb 6s ease-in-out infinite; overflow: hidden;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 16px 12px; text-align: center;
+  }
+  .fbook:nth-child(1) { width:120px; height:172px; --ty:10px; --ro:-4deg; animation-delay:0s; }
+  .fbook:nth-child(2) { width:145px; height:208px; --ty:-6px; --ro:0deg; animation-delay:1.4s; z-index:2; }
+  .fbook:nth-child(3) { width:120px; height:172px; --ty:14px; --ro:4deg; animation-delay:2.6s; }
+  @keyframes fb { 0%,100%{transform:translateY(var(--ty,0px)) rotate(var(--ro,0deg))} 50%{transform:translateY(calc(var(--ty,0px) - 14px)) rotate(var(--ro,0deg))} }
+  .fb-series { font-size:7px; font-weight:600; letter-spacing:2px; text-transform:uppercase; opacity:.6; margin-bottom:6px; }
+  .fb-title { font-family:var(--serif); font-size:14px; font-weight:700; line-height:1.2; margin-bottom:5px; }
+  .fb-sub { font-size:8px; font-weight:500; letter-spacing:1px; text-transform:uppercase; opacity:.55; }
+  .fb-access { margin-top:10px; font-size:7px; font-weight:700; letter-spacing:1px; background:rgba(22,163,74,.22); color:#16A34A; border:1px solid rgba(22,163,74,.35); border-radius:10px; padding:3px 9px; text-transform:uppercase; }
+  .hero-fade-b { position:absolute; bottom:0; left:0; right:0; height:280px; background:linear-gradient(to top, var(--bg) 0%, transparent 100%); }
+  .hero-fade-r { position:absolute; top:0; right:44%; bottom:0; width:200px; background:linear-gradient(to right, var(--bg) 0%, transparent 100%); }
+  .hero-content { position:relative; z-index:10; padding-left:64px; max-width:580px; }
+  .hero-eyebrow { display:inline-flex; align-items:center; gap:8px; font-size:11px; font-weight:600; color:var(--red); letter-spacing:1.8px; text-transform:uppercase; margin-bottom:20px; animation: hup 1s cubic-bezier(.22,1,.36,1) both; }
+  .hero-eyebrow::before { content:''; width:20px; height:1.5px; background:var(--red); }
+  .hero-title { font-family:var(--serif); font-size: clamp(2.5rem, 5vw, 3.9rem); font-weight:900; line-height:1.04; margin-bottom:14px; animation: hup 1s cubic-bezier(.22,1,.36,1) .1s both; }
+  .hero-title span { color:var(--red); font-style:italic; }
+  .hero-desc { font-size:15px; line-height:1.78; color:var(--muted); margin-bottom:32px; max-width:440px; font-weight:400; animation: hup 1s cubic-bezier(.22,1,.36,1) .25s both; }
+  .hero-pricing { display:flex; gap:10px; margin-bottom:32px; flex-wrap:wrap; animation: hup 1s cubic-bezier(.22,1,.36,1) .35s both; }
+  .price-pill {
+    background: var(--card); border: 1px solid var(--line); border-radius: 8px;
+    padding: 11px 18px; text-align: center; min-width: 110px; cursor: pointer;
+    transition: all .22s; position:relative;
+  }
+  .price-pill:hover { border-color: var(--red); box-shadow: 0 4px 16px rgba(200,16,46,.1); }
+  .price-pill.best { border-color: var(--red); background: rgba(200,16,46,.06); }
+  .price-pill.best::before { content:'Best value'; position:absolute; top:-10px; left:50%; transform:translateX(-50%); background:var(--gold); color:#fff; font-size:8px; font-weight:700; letter-spacing:.8px; padding:2px 9px; border-radius:2px; white-space:nowrap; text-transform:uppercase; }
+  .pp-amount { font-family:var(--serif); font-size:21px; font-weight:700; }
+  .pp-period { font-size:10px; color:var(--dim); font-weight:500; margin-top:2px; }
+  .hero-cta { display:flex; gap:12px; animation: hup 1s cubic-bezier(.22,1,.36,1) .45s both; }
+  .btn-red { background:var(--red); color:#fff; border:none; padding:13px 28px; font-size:13px; font-weight:600; font-family:var(--sans); border-radius:4px; cursor:pointer; display:flex; align-items:center; gap:8px; letter-spacing:.2px; transition:all .2s; box-shadow:0 4px 20px rgba(200,16,46,.35); }
+  .btn-red:hover { background:var(--red-dark); transform:translateY(-1px); box-shadow:0 6px 28px rgba(200,16,46,.45); }
+  .btn-ghost { background:#fff; color:var(--text); border:1px solid var(--line); padding:13px 24px; font-size:13px; font-weight:500; font-family:var(--sans); border-radius:4px; cursor:pointer; display:flex; align-items:center; gap:8px; transition:all .2s; }
+  .btn-ghost:hover { background:var(--card-h); border-color: rgba(28,25,23,.22); }
+  @keyframes hup { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+
+  /* ── TRUST BAR ── */
+  .trust-bar {
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    background: var(--card); padding: 22px 52px;
+    opacity:0; transform:translateY(16px); transition: opacity .5s, transform .5s;
+  }
+  .trust-bar.vis { opacity:1; transform:translateY(0); }
+  .trust-inner { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; max-width:900px; margin:0 auto; }
+  .trust-stat { text-align:center; }
+  .trust-n { display:block; font-family:var(--serif); font-size:22px; font-weight:700; color:var(--text); line-height:1.1; }
+  .trust-l { display:block; font-size:11px; color:var(--muted); font-weight:500; margin-top:3px; }
+  .trust-div { width:1px; height:36px; background:var(--line); }
+  .trust-badge { display:flex; align-items:center; gap:10px; }
+  .trust-logo { background:var(--red); color:#fff; font-weight:700; font-size:13px; padding:4px 9px; border-radius:3px; }
+  .trust-badge-text { font-size:12px; color:var(--muted); line-height:1.4; }
+  .trust-badge-text strong { display:block; color:var(--text); font-size:13px; }
+
+  /* ── TABS ── */
+  .tabs {
+    position:sticky; top:var(--nav-h); z-index:800;
+    background:rgba(250,250,248,.97); backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line); padding:0 52px;
+    display:flex; overflow-x:auto; scrollbar-width:none;
+  }
+  .tabs::-webkit-scrollbar { display:none; }
+  .tab { flex-shrink:0; padding:14px 18px; font-size:12px; font-weight:500; color:var(--muted); cursor:pointer; border-bottom:2px solid transparent; transition:all .2s; white-space:nowrap; }
+  .tab:hover { color:var(--text); }
+  .tab.on { color:var(--red); border-bottom-color:var(--red); font-weight:600; }
+
+  main { padding-top:34px; }
+
+  /* ── SECTION HEADER ── */
+  .rh { display:flex; align-items:center; justify-content:space-between; padding:0 52px; margin-bottom:18px; }
+  .rt { font-size:17px; font-weight:700; font-family:var(--serif); display:flex; align-items:center; gap:12px; color:var(--text); }
+  .rt-bar { width:3px; height:20px; background:var(--red); border-radius:2px; display:inline-block; flex-shrink:0; }
+  .rbadge { font-size:9px; font-weight:700; font-family:var(--sans); padding:3px 8px; border-radius:2px; text-transform:uppercase; letter-spacing:.8px; }
+  .rb-hot { background:var(--red); color:#fff; }
+  .rb-new { background:var(--gold-bg); color:var(--gold); border:1px solid rgba(176,125,16,.2); }
+  .rb-inc { background:rgba(22,163,74,.1); color:var(--green); border:1px solid rgba(22,163,74,.2); }
+  .see-all { font-size:12px; font-weight:500; color:var(--red); cursor:pointer; display:flex; align-items:center; gap:4px; transition:gap .2s; }
+  .see-all:hover { gap:7px; }
+
+  /* ── ROW ── */
+  .row { margin-bottom:52px; opacity:0; transform:translateY(24px); transition:opacity .55s ease, transform .55s ease; }
+  .row.vis { opacity:1; transform:translateY(0); }
+
+  /* ── CAROUSEL ── */
+  .cw { position:relative; }
+  .ct { display:flex; gap:12px; padding:8px 52px 28px; overflow-x:auto; overflow-y:hidden; scroll-behavior:smooth; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+  .ct::-webkit-scrollbar { display:none; }
+  .arr { position:absolute; top:50%; transform:translateY(-50%); width:36px; height:72px; background:rgba(250,250,248,.95); border:1px solid var(--line); cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:20; color:var(--text); font-size:20px; transition:all .2s; }
+  .arr:hover { background:var(--red); color:#fff; border-color:var(--red); }
+  .arr.L { left:0; border-radius:0 4px 4px 0; }
+  .arr.R { right:0; border-radius:4px 0 0 4px; }
+
+  /* ── BOOK CARD ── */
+  .bc { flex-shrink:0; width:var(--cw); cursor:pointer; position:relative; border-radius:var(--r); transition:transform .35s cubic-bezier(.34,1.56,.64,1); }
+  .bc:hover { transform:scale(1.07) translateY(-6px); z-index:20; }
+  .bcover { width:100%; height:var(--ch); border-radius:var(--r); overflow:hidden; position:relative; box-shadow:0 4px 20px rgba(0,0,0,.5); transition:box-shadow .35s; }
+  .bc:hover .bcover { box-shadow:0 14px 40px rgba(0,0,0,.75), 0 0 0 2px var(--red); }
+  .bca { width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:space-between; padding:13px 10px; position:relative; overflow:hidden; }
+  .bca.book-photo { background-size:cover !important; background-position:center !important; padding:0; }
+  .book-title-under { margin-top:10px; font-size:12px; font-weight:600; color:var(--text); line-height:1.3; text-align:left; letter-spacing:-.2px; }
+  .flat-cards .ct { gap:22px; align-items:flex-start; }
+  .flat-cards .bc { width:190px; padding-right:20px; border-right:1px solid var(--line); }
+  .flat-cards .ct .bc:last-child { border-right:none; padding-right:0; }
+  .flat-cards .book-title-under { font-size:13px; line-height:1.35; font-weight:600; white-space:normal; overflow:visible; text-overflow:clip; display:block; }
+  .flat-cards .binfo, .flat-cards .bc:hover .binfo { display:none !important; opacity:0 !important; }
+  .flat-cards .bc, .flat-cards .bc:hover { transform:none !important; z-index:auto !important; }
+  .flat-cards .bc:hover .bcover { box-shadow:0 6px 24px rgba(0,0,0,.55) !important; }
+  .sample-primary .binfo, .sample-primary .bc:hover .binfo { display:none !important; opacity:0 !important; }
+  .sample-primary .bc, .sample-primary .bc:hover { transform:none !important; }
+
+  /* ── HOVER PANEL ── */
+  .binfo { position:absolute; bottom:-116px; left:50%; transform:translateX(-50%); width:calc(100% + 36px); background:var(--card); border-radius:0 0 8px 8px; padding:11px 12px; box-shadow:0 14px 40px rgba(28,25,23,.2); opacity:0; transition:opacity .22s; z-index:5; border:1px solid var(--line); border-top:none; pointer-events:none; }
+  .bc:hover .binfo { opacity:1; pointer-events:all; }
+  .bi-title { font-size:10px; font-weight:600; margin-bottom:8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .dl-btns { display:flex; flex-direction:column; gap:5px; }
+  .dl-btn { width:100%; border:none; border-radius:4px; font-size:9px; font-weight:600; font-family:var(--sans); cursor:pointer; padding:7px 8px; display:flex; align-items:center; justify-content:center; gap:5px; letter-spacing:.3px; text-transform:uppercase; transition:all .18s; }
+  .dl-a { background:var(--red); color:#fff; }
+  .dl-a:hover { background:var(--red-dark); }
+  .dl-ans { background:var(--gold-bg); color:var(--gold); border:1px solid rgba(176,125,16,.22) !important; }
+  .dl-ans:hover { background:rgba(176,125,16,.16); }
+
+  /* ── TRUST BAR (stats) ── */
+  .stats-row { padding: 0 52px 52px; opacity:0; transform:translateY(20px); transition: opacity .5s, transform .5s; }
+  .stats-row.vis { opacity:1; transform:translateY(0); }
+  .stats-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:12px; }
+  .stat-card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:20px 18px; }
+  .stat-n { font-family:var(--serif); font-size:26px; font-weight:700; color:var(--text); line-height:1; margin-bottom:6px; }
+  .stat-l { font-size:11px; color:var(--muted); font-weight:500; line-height:1.4; }
+  .stat-accent { width:24px; height:2px; background:var(--red); border-radius:1px; margin-bottom:10px; }
+
+  /* ── TESTIMONIALS ── */
+  .reviews-sec { padding:60px 52px 70px; opacity:0; transform:translateY(24px); transition: opacity .55s, transform .55s; }
+  .reviews-sec.vis { opacity:1; transform:translateY(0); }
+  .sec-hd { margin-bottom:40px; }
+  .sec-eyebrow { font-size:10px; font-weight:600; color:var(--red); letter-spacing:2px; text-transform:uppercase; margin-bottom:8px; display:flex; align-items:center; gap:8px; }
+  .sec-eyebrow::before { content:''; width:20px; height:1.5px; background:var(--red); }
+  .sec-title { font-family:var(--serif); font-size:clamp(1.6rem,3vw,2.2rem); font-weight:700; line-height:1.15; }
+  .reviews-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:16px; }
+  .review { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:26px; display:flex; flex-direction:column; gap:14px; transition:box-shadow .25s; }
+  .review:hover { box-shadow:0 8px 32px rgba(28,25,23,.08); }
+  .review-stars { color:var(--gold); font-size:14px; letter-spacing:2px; }
+  .review-text { font-size:14px; line-height:1.72; color:var(--muted); font-style:italic; flex:1; }
+  .review-text::before { content:'\201C'; font-family:var(--serif); font-size:40px; color:var(--line); line-height:.5; display:block; margin-bottom:6px; }
+  .review-author { display:flex; align-items:center; gap:12px; padding-top:14px; border-top:1px solid var(--line); }
+  .review-initial { width:38px; height:38px; border-radius:50%; background:var(--red-light); display:flex; align-items:center; justify-content:center; font-family:var(--serif); font-weight:700; font-size:16px; color:var(--red); flex-shrink:0; }
+  .review-name { font-size:13px; font-weight:600; color:var(--text); }
+  .review-tag { font-size:11px; color:var(--dim); margin-top:2px; }
+
+  /* ── HOW IT WORKS ── */
+  .how-sec { padding:20px 52px 60px; opacity:0; transform:translateY(24px); transition: opacity .55s, transform .55s; }
+  .how-sec.vis { opacity:1; transform:translateY(0); }
+  .how-steps { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden; margin-top:28px; }
+  .how-step { background:var(--card); padding:28px 24px; position:relative; }
+  .how-step::after { content:attr(data-n); position:absolute; top:16px; right:20px; font-family:var(--serif); font-size:52px; font-weight:900; color:var(--line); line-height:1; }
+  .step-n { width:32px; height:32px; background:var(--red); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#fff; margin-bottom:14px; font-family:var(--sans); }
+  .step-t { font-size:14px; font-weight:700; margin-bottom:7px; font-family:var(--serif); }
+  .step-d { font-size:12px; color:var(--muted); line-height:1.7; }
+
+  /* ── PLANS ── */
+  .plans-sec { padding:70px 52px 80px; opacity:0; transform:translateY(24px); transition: opacity .55s, transform .55s; background:linear-gradient(180deg, transparent 0%, rgba(200,16,46,.03) 50%, transparent 100%); }
+  .plans-sec.vis { opacity:1; transform:translateY(0); }
+  .plans-hd { margin-bottom:48px; }
+  .plans-hd h2 { font-family:var(--serif); font-size:clamp(1.8rem,3.5vw,2.6rem); font-weight:700; margin-bottom:12px; line-height:1.15; }
+  .plans-hd h2 span { color:var(--red); font-style:italic; }
+  .plans-hd p { font-size:14px; color:var(--muted); max-width:500px; line-height:1.75; }
+  .plans-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:16px; max-width:920px; }
+  .plan { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:32px 28px; position:relative; transition:all .28s; cursor:pointer; }
+  .plan:hover { transform:translateY(-4px); box-shadow:0 16px 48px rgba(28,25,23,.1); }
+  .plan.feat { border-color:var(--red); box-shadow:0 0 0 1px rgba(200,16,46,.3), 0 8px 32px rgba(200,16,46,.1); }
+  .plan-chip { position:absolute; top:-13px; left:50%; transform:translateX(-50%); background:var(--red); color:#fff; font-size:9px; font-weight:700; font-family:var(--sans); letter-spacing:1.2px; padding:4px 14px; border-radius:3px; text-transform:uppercase; white-space:nowrap; }
+  .plan-name { font-size:11px; font-weight:600; color:var(--dim); text-transform:uppercase; letter-spacing:2px; margin-bottom:16px; }
+  .plan-price { display:flex; align-items:baseline; gap:4px; margin-bottom:4px; }
+  .plan-amt { font-family:var(--serif); font-size:38px; font-weight:700; }
+  .plan-per { font-size:13px; color:var(--muted); font-weight:500; }
+  .plan-billed { font-size:11px; color:var(--dim); margin-bottom:22px; }
+  .plan-feats { list-style:none; display:flex; flex-direction:column; gap:10px; margin-bottom:26px; }
+  .plan-feats li { font-size:13px; color:var(--muted); display:flex; align-items:flex-start; gap:9px; }
+  .plan-feats li::before { content:'✓'; color:var(--green); font-weight:700; font-size:11px; flex-shrink:0; margin-top:2px; }
+  .plan-feats li.no::before { content:'–'; color:var(--dim); }
+  .plan-feats li.no { color:var(--dim); }
+  .plan-btn { width:100%; padding:13px; border:none; border-radius:5px; font-size:12px; font-weight:600; font-family:var(--sans); cursor:pointer; letter-spacing:.3px; transition:all .2s; }
+  .pbr { background:var(--red); color:#fff; }
+  .pbr:hover { background:var(--red-dark); }
+  .pbo { background:transparent; color:var(--text); border:1px solid var(--line); }
+  .pbo:hover { background:var(--card-h); }
+
+  /* ── SUBJECT GRID ── */
+  .subj-sec { padding:0 52px 56px; opacity:0; transform:translateY(24px); transition: opacity .55s, transform .55s; }
+  .subj-sec.vis { opacity:1; transform:translateY(0); }
+  .subj-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:8px; margin-top:24px; }
+  .schip { background:var(--card); border:1px solid var(--line); border-radius:8px; padding:14px 13px; cursor:pointer; display:flex; align-items:center; gap:10px; transition:all .2s; }
+  .schip:hover { background:var(--card-h); border-color:rgba(200,16,46,.4); transform:translateY(-2px); }
+  .sicon { width:34px; height:34px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+  .sname { font-size:12px; font-weight:600; margin-bottom:1px; }
+  .scount { font-size:10px; color:var(--muted); }
+
+  /* ── FOOTER ── */
+  footer { background:var(--text); padding:56px 52px 30px; }
+  .ftop { display:flex; gap:56px; margin-bottom:44px; flex-wrap:wrap; }
+  .fbrand { flex:1; min-width:230px; }
+  .flogo { display:flex; align-items:center; gap:10px; margin-bottom:16px; }
+  .flogo .logo-pill { font-size:14px; }
+  .fdesc { font-size:13px; color:rgba(255,255,255,.5); line-height:1.75; max-width:260px; }
+  .fcol h4 { font-size:9px; font-weight:600; text-transform:uppercase; letter-spacing:2.5px; color:rgba(255,255,255,.35); margin-bottom:16px; }
+  .fcol a { display:block; font-size:13px; color:rgba(255,255,255,.55); text-decoration:none; margin-bottom:10px; transition:color .2s; }
+  .fcol a:hover { color:rgba(255,255,255,.9); }
+  .fbot { border-top:1px solid rgba(255,255,255,.08); padding-top:20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
+  .fbot span { font-size:11px; color:rgba(255,255,255,.3); }
+  .fbot em { color:rgba(200,16,46,.7); font-style:normal; }
+
+  /* ── MODAL ── */
+  .overlay { position:fixed; inset:0; background:rgba(28,25,23,.88); z-index:2000; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity .28s; backdrop-filter:blur(8px); }
+  .overlay.open { opacity:1; pointer-events:all; }
+  .modal { background:var(--bg); border-radius:14px; max-width:540px; width:92%; overflow:hidden; box-shadow:0 40px 100px rgba(28,25,23,.35); transform:scale(.88) translateY(22px); transition:transform .35s cubic-bezier(.34,1.56,.64,1); border:1px solid var(--line); }
+  .overlay.open .modal { transform:scale(1) translateY(0); }
+  .mcov { height:200px; display:flex; align-items:center; justify-content:center; gap:24px; padding:24px; position:relative; background:var(--text); }
+  .mcov::after { content:''; position:absolute; bottom:0; left:0; right:0; height:80px; background:linear-gradient(to top, var(--bg), transparent); }
+  .mbook { width:92px; height:132px; border-radius:5px; box-shadow:-6px 8px 32px rgba(0,0,0,.7); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:12px; text-align:center; }
+  .mbody { padding:0 26px 28px; }
+  .mtag2 { font-size:9px; font-weight:600; color:var(--red); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
+  .mtitle { font-family:var(--serif); font-size:22px; font-weight:700; margin-bottom:4px; }
+  .msub { font-size:12px; color:var(--muted); margin-bottom:16px; }
+  .mdesc { font-size:13px; line-height:1.74; color:var(--muted); margin-bottom:22px; }
+  .maccess { background:rgba(22,163,74,.07); border:1px solid rgba(22,163,74,.18); border-radius:10px; padding:14px 16px; margin-bottom:20px; display:flex; align-items:flex-start; gap:12px; }
+  .maccess-icon { font-size:18px; flex-shrink:0; padding-top:2px; }
+  .maccess-text { font-size:12px; line-height:1.65; }
+  .maccess-text strong { color:var(--green); display:block; margin-bottom:3px; font-size:13px; }
+  .mdl-btns { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px; }
+  .mdl-btn { padding:13px 14px; border:none; border-radius:6px; font-size:11px; font-weight:600; font-family:var(--sans); cursor:pointer; display:flex; align-items:center; justify-content:center; gap:7px; letter-spacing:.2px; transition:all .2s; }
+  .mdl-a { background:var(--red); color:#fff; }
+  .mdl-a:hover { background:var(--red-dark); transform:translateY(-1px); }
+  .mdl-ans { background:var(--gold-bg); color:var(--gold); border:1px solid rgba(176,125,16,.22) !important; }
+  .mdl-ans:hover { background:rgba(176,125,16,.16); transform:translateY(-1px); }
+  .mclose { position:absolute; top:12px; right:12px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.14); color:#fff; width:30px; height:30px; border-radius:50%; cursor:pointer; font-size:14px; display:flex; align-items:center; justify-content:center; z-index:10; transition:background .2s; }
+  .mclose:hover { background:var(--red); }
+  .mnote { font-size:11px; color:var(--dim); text-align:center; }
+  .mnote span { color:var(--muted); cursor:pointer; text-decoration:underline; }
+  .mnote span:hover { color:var(--text); }
+
+  /* ── TOAST ── */
+  .toast { position:fixed; bottom:24px; right:24px; background:var(--card); border:1px solid var(--line); border-left:3px solid var(--green); padding:13px 20px; border-radius:8px; font-size:13px; font-weight:500; z-index:3000; box-shadow:0 8px 30px rgba(28,25,23,.15); transform:translateX(130%); transition:transform .4s cubic-bezier(.34,1.56,.64,1); display:flex; align-items:center; gap:10px; max-width:320px; }
+  .toast.show { transform:translateX(0); }
+  .t-icon { font-size:16px; flex-shrink:0; }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:768px) {
+    :root { --cw:138px; --ch:198px; }
+    .nav { padding:0 18px; }
+    .nav-links { display:none; }
+    .hero-content { padding-left:22px; }
+    .hero-books, .hero-fade-r { display:none; }
+    .rh, .ct, .tabs, .plans-sec, .how-sec, .subj-sec, .reviews-sec, .stats-row { padding-left:18px; padding-right:18px; }
+    .trust-bar { padding-left:18px; padding-right:18px; }
+    .trust-div { display:none; }
+    .trust-inner { justify-content:flex-start; }
+    .how-steps { grid-template-columns:1fr; border-radius:8px; }
+    .ftop { flex-direction:column; gap:28px; }
+    footer { padding:36px 18px 20px; }
+    .mdl-btns { grid-template-columns:1fr; }
+    .plans-grid { grid-template-columns:1fr; }
+    .flat-cards .ct { gap:14px; }
+    .flat-cards .bc { width:155px; padding-right:14px; }
+    .flat-cards .book-title-under { font-size:12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo">
+    <span class="logo-pill">Popular</span>
+    <span class="logo-tag">Study Pass</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#" class="on">Home</a></li>
+    <li><a href="#plans">Plans</a></li>
+    <li><a href="#">O Level</a></li>
+    <li><a href="#">Primary</a></li>
+    <li><a href="#">A Level</a></li>
+    <li><a href="#">PSLE</a></li>
+  </ul>
+  <div class="nav-right">
+    <input type="text" class="nav-search" placeholder="Search assessments…">
+    <div class="sub-active" id="subActive">
+      <span class="sub-dot"></span>Subscribed ✓
+    </div>
+    <button class="sub-cta" id="subCta" onclick="openPlansModal()">Subscribe</button>
+  </div>
+</nav>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-inner">
+    <span class="mi">Unlimited downloads — one monthly fee</span>
+    <span class="mi">50,000+ assessment pages</span>
+    <span class="mi">Papers and answers as separate PDFs</span>
+    <span class="mi">Preschool to A Level</span>
+    <span class="mi">New titles every week</span>
+    <span class="mi">Cancel anytime · 7-day free trial</span>
+    <span class="mi">Unlimited downloads — one monthly fee</span>
+    <span class="mi">50,000+ assessment pages</span>
+    <span class="mi">Papers and answers as separate PDFs</span>
+    <span class="mi">Preschool to A Level</span>
+    <span class="mi">New titles every week</span>
+    <span class="mi">Cancel anytime · 7-day free trial</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-books">
+    <div class="fbook" style="background:linear-gradient(145deg,#0e2147,#1a3a7f);color:#fff;">
+      <div class="fb-series" style="color:#8ab0ff">Ten Year Series</div>
+      <div class="fb-title">O Level<br>Mathematics</div>
+      <div class="fb-sub" style="color:#8ab0ff">2015–2024</div>
+      <div class="fb-access">✓ Included</div>
+    </div>
+    <div class="fbook" style="background:linear-gradient(145deg,#7a1a1a,#c8102e);color:#fff;">
+      <div class="fb-series" style="color:#ffb8c4">Ten Year Series</div>
+      <div class="fb-title">O Level<br>English</div>
+      <div class="fb-sub" style="color:#ffb8c4">Paper 1 &amp; 2</div>
+      <div class="fb-access">✓ Included</div>
+    </div>
+    <div class="fbook" style="background:linear-gradient(145deg,#1a4e30,#2a7a50);color:#fff;">
+      <div class="fb-series" style="color:#88ffb8">PSLE Papers</div>
+      <div class="fb-title">P6<br>Mathematics</div>
+      <div class="fb-sub" style="color:#88ffb8">2018–2024</div>
+      <div class="fb-access">✓ Included</div>
+    </div>
+  </div>
+  <div class="hero-fade-b"></div>
+  <div class="hero-fade-r"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Singapore's Study Pass</div>
+    <h1 class="hero-title">Every assessment.<br><span>One subscription.</span></h1>
+    <p class="hero-desc">Access Singapore's largest digital library of assessment books and ten-year series — Preschool to A Level. The exam paper and full worked answers are separate downloads so students can practise honestly, then mark with confidence.</p>
+    <div class="hero-pricing">
+      <div class="price-pill" onclick="openPlansModal()">
+        <div class="pp-amount">$9.90</div>
+        <div class="pp-period">per month</div>
+      </div>
+      <div class="price-pill best" onclick="openPlansModal()">
+        <div class="pp-amount">$79.90</div>
+        <div class="pp-period">per year</div>
+      </div>
+      <div class="price-pill" onclick="openPlansModal()">
+        <div class="pp-amount">$24.90</div>
+        <div class="pp-period">per month · family</div>
+      </div>
+    </div>
+    <div class="hero-cta">
+      <button class="btn-red" onclick="subscribe('plus')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Start free 7-day trial
+      </button>
+      <button class="btn-ghost" onclick="openPlansModal()">See all plans</button>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar" data-obs>
+  <div class="trust-inner">
+    <div class="trust-badge">
+      <span class="trust-logo">Popular</span>
+      <div class="trust-badge-text">
+        <strong>Est. 1936</strong>
+        Singapore's #1 bookstore
+      </div>
+    </div>
+    <div class="trust-div"></div>
+    <div class="trust-stat">
+      <span class="trust-n">20,000+</span>
+      <span class="trust-l">Subscribing families</span>
+    </div>
+    <div class="trust-div"></div>
+    <div class="trust-stat">
+      <span class="trust-n">50,000+</span>
+      <span class="trust-l">Downloadable pages</span>
+    </div>
+    <div class="trust-div"></div>
+    <div class="trust-stat">
+      <span class="trust-n">4.8 ★</span>
+      <span class="trust-l">Average subscriber rating</span>
+    </div>
+    <div class="trust-div"></div>
+    <div class="trust-stat">
+      <span class="trust-n">P1 → A Level</span>
+      <span class="trust-l">Every level covered</span>
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab on" onclick="setTab(this)">All Levels</div>
+  <div class="tab" onclick="setTab(this)">Preschool</div>
+  <div class="tab" onclick="setTab(this)">Primary 1–6</div>
+  <div class="tab" onclick="setTab(this)">PSLE</div>
+  <div class="tab" onclick="setTab(this)">Secondary</div>
+  <div class="tab" onclick="setTab(this)">O Level</div>
+  <div class="tab" onclick="setTab(this)">N Level</div>
+  <div class="tab" onclick="setTab(this)">A Level</div>
+  <div class="tab" onclick="setTab(this)">IGCSE</div>
+</div>
+
+<main>
+
+<!-- ROW 1 -->
+<section class="row flat-cards" data-obs>
+  <div class="rh">
+    <div class="rt"><span class="rt-bar"></span>Primary English Grammar &amp; Revision</div>
+    <div class="see-all">See all <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></div>
+  </div>
+  <div class="cw">
+    <button class="arr L" onclick="cscroll(this,-1)">&#8249;</button>
+    <div class="ct">
+      <div class="bc" onclick="openModal('tys-math')"><div class="bcover"><div class="bca book-photo" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789815214208_1-360x442.jpg');"></div></div><div class="book-title-under">P1 Champion in English Grammar</div></div>
+      <div class="bc" onclick="openModal('tys-eng')"><div class="bcover"><div class="bca book-photo" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789815214215_1-360x494.jpg');"></div></div><div class="book-title-under">P2 Champion in English Grammar</div></div>
+      <div class="bc" onclick="openModal('tys-phy')"><div class="bcover"><div class="bca book-photo" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789815214222_1-360x492.jpg');"></div></div><div class="book-title-under">P3 Champion in English Grammar</div></div>
+      <div class="bc" onclick="openModal('tys-chem')"><div class="bcover"><div class="bca book-photo" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789815214239_1-360x492.jpg');"></div></div><div class="book-title-under">P4 Champion in English Grammar</div></div>
+      <div class="bc" onclick="openModal('tys-bio')"><div class="bcover"><div class="bca book-photo" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789815214246_1-360x493.jpg');"></div></div><div class="book-title-under">P5 Champion in English Grammar</div></div>
+      <div class="bc" onclick="openModal('tys-amath')"><div class="bcover"><div class="bca book-photo" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789815214253_1-360x493.jpg');"></div></div><div class="book-title-under">P6 Champion in English Grammar</div></div>
+      <div class="bc" onclick="openModal('tys-ss')"><div class="bcover"><div class="bca book-photo" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789814946001_1-360x493.jpg');"></div></div><div class="book-title-under">P1 English Weekly Revision</div></div>
+      <div class="bc" onclick="openModal('tys-comb')"><div class="bcover"><div class="bca book-photo" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789814946018_1-360x493.jpg');"></div></div><div class="book-title-under">P2 English Weekly Revision</div></div>
+    </div>
+    <button class="arr R" onclick="cscroll(this,1)">&#8250;</button>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-sec" data-obs>
+  <div class="sec-eyebrow">How it works</div>
+  <h2 class="sec-title" style="font-family:var(--serif);font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;margin-top:8px;">Four steps to exam-ready</h2>
+  <div class="how-steps">
+    <div class="how-step" data-n="1">
+      <div class="step-n">1</div>
+      <div class="step-t">Subscribe once</div>
+      <div class="step-d">One flat fee — no per-book charges, ever. Start with a 7-day free trial.</div>
+    </div>
+    <div class="how-step" data-n="2">
+      <div class="step-n">2</div>
+      <div class="step-t">Browse the library</div>
+      <div class="step-d">Search by level, subject, or exam type. Thousands of titles available instantly.</div>
+    </div>
+    <div class="how-step" data-n="3">
+      <div class="step-n">3</div>
+      <div class="step-t">Download the paper</div>
+      <div class="step-d">Clean exam paper PDF — no answers included. Print or practise on screen under timed conditions.</div>
+    </div>
+    <div class="how-step" data-n="4">
+      <div class="step-n">4</div>
+      <div class="step-t">Download answers</div>
+      <div class="step-d">Full worked answers as a separate PDF. Step-by-step solutions with mark allocation.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ROW 2 -->
+<section class="row flat-cards" data-obs>
+  <div class="rh">
+    <div class="rt"><span class="rt-bar"></span>PSLE English Exam Preparation</div>
+    <div class="see-all">See all <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></div>
+  </div>
+  <div class="cw">
+    <button class="arr L" onclick="cscroll(this,-1)">&#8249;</button>
+    <div class="ct">
+      <div class="bc" onclick="openModal('psle-math')"><div class="bcover"><div class="bca book-photo" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789815214963_1-360x510.jpg');"></div></div><div class="book-title-under">PSLE English Specimen Papers: Paper 1 &amp; 2</div></div>
+      <div class="bc" onclick="openModal('psle-eng')"><div class="bcover"><div class="bca book-photo" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789815214970_1-650x922.jpg');"></div></div><div class="book-title-under">PSLE English Specimen Papers: Paper 3 &amp; 4</div></div>
+      <div class="bc" onclick="openModal('psle-sci')"><div class="bcover"><div class="bca book-photo" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789815267181_1-360x502.jpg');"></div></div><div class="book-title-under">PSLE English Exam Power Pack</div></div>
+      <div class="bc" onclick="openModal('psle-chi')"><div class="bcover"><div class="bca book-photo" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789815091946_1-360x510.jpg');"></div></div><div class="book-title-under">PSLE English Exam Paper Package</div></div>
+      <div class="bc" onclick="openModal('psle-tam')"><div class="bcover"><div class="bca book-photo" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789814832571_1-360x514.jpg');"></div></div><div class="book-title-under">PSLE Synthesis / Transformation</div></div>
+      <div class="bc" onclick="openModal('psle-hchi')"><div class="bcover"><div class="bca book-photo" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789814662352_1-360x492.jpg');"></div></div><div class="book-title-under">Score in PSLE English Tips &amp; Practice</div></div>
+    </div>
+    <button class="arr R" onclick="cscroll(this,1)">&#8250;</button>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-row" data-obs>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-accent"></div>
+      <div class="stat-n">50K+</div>
+      <div class="stat-l">Downloadable assessment pages</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-accent"></div>
+      <div class="stat-n">30+</div>
+      <div class="stat-l">Subjects covered</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-accent"></div>
+      <div class="stat-n">P1 → A Level</div>
+      <div class="stat-l">Every Singapore exam level</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-accent"></div>
+      <div class="stat-n">Instant PDF</div>
+      <div class="stat-l">Download to any device</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-accent"></div>
+      <div class="stat-n">Weekly</div>
+      <div class="stat-l">New titles added</div>
+    </div>
+  </div>
+</div>
+
+<!-- ROW 3 -->
+<section class="row flat-cards" data-obs>
+  <div class="rh">
+    <div class="rt"><span class="rt-bar"></span>Primary School Workbooks</div>
+    <div class="see-all">See all <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></div>
+  </div>
+  <div class="cw">
+    <button class="arr L" onclick="cscroll(this,-1)">&#8249;</button>
+    <div class="ct">
+      <div class="bc" onclick="openModal('p1-math')"><div class="bcover"><div class="bca book-photo" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789813127043_1-360x496.jpg');"></div></div><div class="book-title-under">P1 Daily Dose of English</div></div>
+      <div class="bc" onclick="openModal('p3-eng')"><div class="bcover"><div class="bca book-photo" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789813128002_1-360x499.jpg');"></div></div><div class="book-title-under">P2 Daily Dose of English</div></div>
+      <div class="bc" onclick="openModal('p5-sci')"><div class="bcover"><div class="bca book-photo" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789813128019_1-360x496.jpg');"></div></div><div class="book-title-under">P3 Daily Dose of English</div></div>
+      <div class="bc" onclick="openModal('p4-chi')"><div class="bcover"><div class="bca book-photo" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789815267426_1-360x491.jpg');"></div></div><div class="book-title-under">P5 Daily Dose of English</div></div>
+      <div class="bc" onclick="openModal('p6-math')"><div class="bcover"><div class="bca book-photo" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789815267433_1-360x493.jpg');"></div></div><div class="book-title-under">P6 Daily Dose of English</div></div>
+      <div class="bc" onclick="openModal('p2-eng')"><div class="bcover"><div class="bca book-photo" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789814574891_1-360x493.jpg');"></div></div><div class="book-title-under">P4 Daily Dose of English</div></div>
+    </div>
+    <button class="arr R" onclick="cscroll(this,1)">&#8250;</button>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="reviews-sec" data-obs>
+  <div class="sec-hd">
+    <div class="sec-eyebrow">From Singapore parents</div>
+    <h2 class="sec-title">Why families choose Study Pass</h2>
+  </div>
+  <div class="reviews-grid">
+    <div class="review">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">My P5 daughter went from dreading exam prep to actually looking forward to it. Having papers without answers immediately visible meant she could practise honestly.</p>
+      <div class="review-author">
+        <div class="review-initial">M</div>
+        <div>
+          <div class="review-name">Mdm Tan, P5 parent</div>
+          <div class="review-tag">Bishan · Subscriber since 2024</div>
+        </div>
+      </div>
+    </div>
+    <div class="review">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">I used to spend $50–80 on assessment books every term. Now I pay less than that a year and have access to every single Popular title. Wish this existed when I was studying.</p>
+      <div class="review-author">
+        <div class="review-initial">R</div>
+        <div>
+          <div class="review-name">Mr Rajesh, O Level parent</div>
+          <div class="review-tag">Tampines · Subscriber since 2023</div>
+        </div>
+      </div>
+    </div>
+    <div class="review">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Three kids at different levels — one subscription. The family plan is a no-brainer. We've saved hundreds compared to buying physical books for each child every year.</p>
+      <div class="review-author">
+        <div class="review-initial">S</div>
+        <div>
+          <div class="review-name">Mrs Soh, 3 children P3/P6/Sec 2</div>
+          <div class="review-tag">Jurong West · Subscriber since 2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROW 4: SECONDARY -->
+<section class="row flat-cards" data-obs>
+  <div class="rh">
+    <div class="rt"><span class="rt-bar"></span>Secondary Maths &amp; Science</div>
+    <div class="see-all">See all <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></div>
+  </div>
+  <div class="cw">
+    <button class="arr L" onclick="cscroll(this,-1)">&#8249;</button>
+    <div class="ct">
+      <div class="bc" onclick="openModal('al-h2m')"><div class="bcover"><div class="bca book-photo" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789815214925_1-360x493.jpg');"></div></div><div class="book-title-under">S1/G3 Topical Maths</div></div>
+      <div class="bc" onclick="openModal('al-gp')"><div class="bcover"><div class="bca book-photo" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789815318302_1-360x494.jpg');"></div></div><div class="book-title-under">S2/G3 Topical Maths</div></div>
+      <div class="bc" onclick="openModal('al-h2c')"><div class="bcover"><div class="bca book-photo" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789815043532_1-360x494.jpg');"></div></div><div class="book-title-under">O Level Biology Fast Forward</div></div>
+      <div class="bc" onclick="openModal('al-h2b')"><div class="bcover"><div class="bca book-photo" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789815043525_1-360x494.jpg');"></div></div><div class="book-title-under">O Level Chemistry Fast Forward</div></div>
+      <div class="bc" onclick="openModal('al-econ')"><div class="bcover"><div class="bca book-photo" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789815043518_1-360x494.jpg');"></div></div><div class="book-title-under">O Level Physics Fast Forward</div></div>
+    </div>
+    <button class="arr R" onclick="cscroll(this,1)">&#8250;</button>
+  </div>
+</section>
+
+<!-- PLANS -->
+<section class="plans-sec" data-obs id="plans">
+  <div class="plans-hd">
+    <div class="sec-eyebrow">Pricing</div>
+    <h2>One subscription,<br><span>everything unlocked.</span></h2>
+    <p>Pay a flat monthly or annual fee. Download every assessment paper and full worked answers as separate PDFs — instantly, on any device. Cancel anytime.</p>
+  </div>
+  <div class="plans-grid">
+    <div class="plan" onclick="subscribe('starter')">
+      <div class="plan-name">Starter</div>
+      <div class="plan-price"><span class="plan-amt">$9.90</span><span class="plan-per">/ month</span></div>
+      <div class="plan-billed">Billed monthly · Cancel anytime</div>
+      <ul class="plan-feats">
+        <li>Unlimited assessment downloads</li>
+        <li>Unlimited answer key downloads</li>
+        <li>One level (e.g. Primary or Secondary)</li>
+        <li>Instant PDF access</li>
+        <li>New titles weekly</li>
+        <li class="no">Multi-device (1 device only)</li>
+        <li class="no">Offline reading app</li>
+        <li class="no">Family sharing</li>
+      </ul>
+      <button class="plan-btn pbo">Get started</button>
+    </div>
+    <div class="plan feat" onclick="subscribe('plus')">
+      <div class="plan-chip">Most popular</div>
+      <div class="plan-name">Study Pass Plus</div>
+      <div class="plan-price"><span class="plan-amt">$79.90</span><span class="plan-per">/ year</span></div>
+      <div class="plan-billed">Save 33% vs monthly · Billed annually</div>
+      <ul class="plan-feats">
+        <li>Unlimited assessment downloads</li>
+        <li>Unlimited answer key downloads</li>
+        <li>All levels — Preschool to A Level</li>
+        <li>Instant PDF access</li>
+        <li>New titles weekly</li>
+        <li>Up to 3 devices simultaneously</li>
+        <li>Offline reading app</li>
+        <li class="no">Family sharing</li>
+      </ul>
+      <button class="plan-btn pbr">Start 7-day free trial</button>
+    </div>
+    <div class="plan" onclick="subscribe('family')">
+      <div class="plan-name">Family</div>
+      <div class="plan-price"><span class="plan-amt">$24.90</span><span class="plan-per">/ month</span></div>
+      <div class="plan-billed">Up to 5 profiles · All levels · Cancel anytime</div>
+      <ul class="plan-feats">
+        <li>Unlimited assessment downloads</li>
+        <li>Unlimited answer key downloads</li>
+        <li>All levels — Preschool to A Level</li>
+        <li>Instant PDF access</li>
+        <li>New titles weekly</li>
+        <li>Up to 5 devices simultaneously</li>
+        <li>Offline reading app</li>
+        <li>Family sharing — up to 5 profiles</li>
+      </ul>
+      <button class="plan-btn pbo">Choose Family</button>
+    </div>
+  </div>
+</section>
+
+<!-- SUBJECT CHIPS -->
+<section class="subj-sec" data-obs>
+  <div class="rt"><span class="rt-bar"></span>Browse by subject</div>
+  <div class="subj-grid">
+    <div class="schip"><div class="sicon" style="background:rgba(200,16,46,.1)">📘</div><div><div class="sname">English</div><div class="scount">142 titles</div></div></div>
+    <div class="schip"><div class="sicon" style="background:rgba(29,78,216,.1)">🔢</div><div><div class="sname">Mathematics</div><div class="scount">128 titles</div></div></div>
+    <div class="schip"><div class="sicon" style="background:rgba(22,163,74,.1)">🧪</div><div><div class="sname">Science</div><div class="scount">96 titles</div></div></div>
+    <div class="schip"><div class="sicon" style="background:rgba(176,125,16,.1)">🈶</div><div><div class="sname">Chinese</div><div class="scount">84 titles</div></div></div>
+    <div class="schip"><div class="sicon" style="background:rgba(124,58,237,.1)">🧬</div><div><div class="sname">Biology</div><div class="scount">54 titles</div></div></div>
+    <div class="schip"><div class="sicon" style="background:rgba(14,116,144,.1)">⚗️</div><div><div class="sname">Chemistry</div><div class="scount">52 titles</div></div></div>
+    <div class="schip"><div class="sicon" style="background:rgba(234,88,12,.1)">⚡</div><div><div class="sname">Physics</div><div class="scount">51 titles</div></div></div>
+    <div class="schip"><div class="sicon" style="background:rgba(15,118,110,.1)">📊</div><div><div class="sname">Economics</div><div class="scount">38 titles</div></div></div>
+    <div class="schip"><div class="sicon" style="background:rgba(190,18,60,.1)">📜</div><div><div class="sname">History</div><div class="scount">29 titles</div></div></div>
+    <div class="schip"><div class="sicon" style="background:rgba(161,98,7,.1)">🗺️</div><div><div class="sname">Geography</div><div class="scount">24 titles</div></div></div>
+    <div class="schip"><div class="sicon" style="background:rgba(67,56,202,.1)">🔤</div><div><div class="sname">Tamil</div><div class="scount">18 titles</div></div></div>
+    <div class="schip"><div class="sicon" style="background:rgba(5,150,105,.1)">🌐</div><div><div class="sname">Malay</div><div class="scount">22 titles</div></div></div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ftop">
+    <div class="fbrand">
+      <div class="flogo">
+        <span class="logo-pill">Popular</span>
+        <span class="logo-tag" style="color:rgba(255,255,255,.35)">Study Pass</span>
+      </div>
+      <p class="fdesc">Singapore's largest digital assessment library. Trusted by families since 1936. Preschool to A Level, papers and answers as separate downloads.</p>
+    </div>
+    <div class="fcol">
+      <h4>Library</h4>
+      <a href="#">All Assessments</a>
+      <a href="#">Primary School</a>
+      <a href="#">Secondary School</a>
+      <a href="#">PSLE Prep</a>
+      <a href="#">O Level Prep</a>
+    </div>
+    <div class="fcol">
+      <h4>Account</h4>
+      <a href="#" onclick="openPlansModal()">Start free trial</a>
+      <a href="#">Sign in</a>
+      <a href="#plans">View plans</a>
+      <a href="#">Manage subscription</a>
+    </div>
+    <div class="fcol">
+      <h4>Popular</h4>
+      <a href="#">About us</a>
+      <a href="#">Store locator</a>
+      <a href="#">Popular Card</a>
+      <a href="https://popular.com.sg" target="_blank">Main website ↗</a>
+    </div>
+  </div>
+  <div class="fbot">
+    <span>© 2026 <em>Popular Book Company Pte Ltd</em>. All rights reserved.</span>
+    <span>Made for Singapore students 🇸🇬</span>
+  </div>
+</footer>
+
+<!-- BOOK MODAL -->
+<div class="overlay" id="overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <button class="mclose" onclick="closeModal()">✕</button>
+    <div class="mcov" id="mCov">
+      <div class="mbook" id="mBook"></div>
+    </div>
+    <div class="mbody">
+      <div class="mtag2" id="mTag"></div>
+      <div class="mtitle" id="mTitle"></div>
+      <div class="msub" id="mSub"></div>
+      <div class="mdesc" id="mDesc"></div>
+      <div class="maccess">
+        <div class="maccess-icon">✅</div>
+        <div class="maccess-text">
+          <strong>Included in your Study Pass subscription</strong>
+          The assessment paper and the full worked answers are separate PDF downloads. Practise clean, then mark with confidence.
+        </div>
+      </div>
+      <div class="mdl-btns">
+        <button class="mdl-btn mdl-a" onclick="closeModal();dlToast('paper',currentModal)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download assessment
+        </button>
+        <button class="mdl-btn mdl-ans" onclick="closeModal();dlToast('answers',currentModal)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download answers
+        </button>
+      </div>
+      <div class="mnote">Not subscribed yet? <span onclick="closeModal();openPlansModal()">Start your 7-day free trial →</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- PLANS MODAL -->
+<div class="overlay" id="plansOverlay" onclick="closePlansModal(event)">
+  <div class="modal" style="max-width:700px;">
+    <button class="mclose" onclick="closePlansModal()" style="background:rgba(28,25,23,.1);border-color:var(--line);color:var(--text);">✕</button>
+    <div style="padding:36px 30px 30px; background:var(--bg);">
+      <div style="margin-bottom:30px;">
+        <div style="font-size:10px;font-weight:600;color:var(--red);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px;"><span style="width:16px;height:1.5px;background:var(--red);display:inline-block;"></span>Popular Study Pass</div>
+        <div style="font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:8px;">Choose your plan</div>
+        <div style="font-size:13px;color:var(--muted);">All plans include unlimited assessment + answers downloads as separate PDFs. Cancel anytime.</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;">
+        <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:22px 18px;cursor:pointer;transition:border-color .2s;" onmouseenter="this.style.borderColor='rgba(200,16,46,.4)'" onmouseleave="this.style.borderColor='rgba(28,25,23,.11)'" onclick="subscribe('starter')">
+          <div style="font-size:10px;font-weight:600;color:var(--dim);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;">Starter</div>
+          <div style="font-family:var(--serif);font-size:30px;font-weight:700;">$9.90</div>
+          <div style="font-size:11px;color:var(--muted);margin-bottom:16px;">per month</div>
+          <div style="font-size:12px;color:var(--muted);line-height:2;">✓ Unlimited downloads<br>✓ 1 level<br>✓ 1 device<br><span style="color:var(--dim);">– Offline app</span></div>
+          <button class="plan-btn pbo" style="margin-top:16px;width:100%;">Select</button>
+        </div>
+        <div style="background:rgba(200,16,46,.05);border:2px solid var(--red);border-radius:10px;padding:22px 18px;cursor:pointer;position:relative;" onclick="subscribe('plus')">
+          <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;font-size:8px;font-weight:700;padding:3px 12px;border-radius:3px;letter-spacing:1.5px;white-space:nowrap;">Most popular</div>
+          <div style="font-size:10px;font-weight:600;color:var(--dim);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;">Plus Annual</div>
+          <div style="font-family:var(--serif);font-size:30px;font-weight:700;">$79.90</div>
+          <div style="font-size:11px;color:var(--muted);margin-bottom:16px;">per year · save 33%</div>
+          <div style="font-size:12px;color:var(--muted);line-height:2;">✓ Unlimited downloads<br>✓ All levels<br>✓ 3 devices<br>✓ Offline app</div>
+          <button class="plan-btn pbr" style="margin-top:16px;width:100%;">7-day free trial</button>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:22px 18px;cursor:pointer;transition:border-color .2s;" onmouseenter="this.style.borderColor='rgba(200,16,46,.4)'" onmouseleave="this.style.borderColor='rgba(28,25,23,.11)'" onclick="subscribe('family')">
+          <div style="font-size:10px;font-weight:600;color:var(--dim);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;">Family</div>
+          <div style="font-family:var(--serif);font-size:30px;font-weight:700;">$24.90</div>
+          <div style="font-size:11px;color:var(--muted);margin-bottom:16px;">per month · 5 profiles</div>
+          <div style="font-size:12px;color:var(--muted);line-height:2;">✓ Unlimited downloads<br>✓ All levels<br>✓ 5 devices<br>✓ Family sharing</div>
+          <button class="plan-btn pbo" style="margin-top:16px;width:100%;">Select</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span class="t-icon" id="tIcon">⬇</span>
+  <span id="tMsg">Downloading…</span>
+</div>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('solid', scrollY > 50), { passive:true });
+  function setTab(el) { document.querySelectorAll('.tab').forEach(t => t.classList.remove('on')); el.classList.add('on'); }
+  function cscroll(btn, dir) { const t = btn.closest('.cw').querySelector('.ct'); t.scrollBy({ left: dir * t.clientWidth * 0.72, behavior:'smooth' }); }
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('vis'), i * 60); obs.unobserve(e.target); } });
+  }, { threshold: 0.07, rootMargin:'0px 0px -36px 0px' });
+  document.querySelectorAll('[data-obs]').forEach(el => obs.observe(el));
+
+  const books = {
+    'tys-math':  { tag:'EPH Primary English', title:'P1 Champion in English Grammar', sub:'Primary 1 · Lim Geok Choo', desc:'A comprehensive grammar revision workbook aligned to the MOE primary English syllabus, with targeted exercises for P1 learners to build accuracy and confidence.', bg:'url(https://www.eph.com.sg/wp-content/uploads/9789815214208_1-360x442.jpg) center/cover no-repeat' },
+    'tys-eng':   { tag:'EPH Primary English', title:'P2 Champion in English Grammar', sub:'Primary 2 · Lim Geok Choo', desc:'Structured grammar practice for P2 students covering grammar rules, sentence construction, and vocabulary in exam-ready formats.', bg:'url(https://www.eph.com.sg/wp-content/uploads/9789815214215_1-360x494.jpg) center/cover no-repeat' },
+    'tys-phy':   { tag:'EPH Primary English', title:'P3 Champion in English Grammar', sub:'Primary 3 · Lim Geok Choo', desc:'Builds on foundational grammar with more complex sentence structures and cloze passage preparation, designed for P3 assessment standards.', bg:'url(https://www.eph.com.sg/wp-content/uploads/9789815214222_1-360x492.jpg) center/cover no-repeat' },
+    'tys-chem':  { tag:'EPH Primary English', title:'P4 Champion in English Grammar', sub:'Primary 4 · Lim Geok Choo', desc:'Intensive grammar drilling for P4 students with focus on synthesis, transformation, and grammar MCQ formats used in CA and SA papers.', bg:'url(https://www.eph.com.sg/wp-content/uploads/9789815214239_1-360x492.jpg) center/cover no-repeat' },
+    'tys-bio':   { tag:'EPH Primary English', title:'P5 Champion in English Grammar', sub:'Primary 5 · Lim Geok Choo', desc:'Targets the more demanding P5 English grammar requirements including editing, situational writing preparation, and comprehensive cloze.', bg:'url(https://www.eph.com.sg/wp-content/uploads/9789815214246_1-360x493.jpg) center/cover no-repeat' },
+    'tys-amath': { tag:'EPH Primary English', title:'P6 Champion in English Grammar', sub:'Primary 6 · Lim Geok Choo', desc:'Final-year PSLE preparation grammar workbook with rigorous practice on all tested grammar components including synthesis and transformation.', bg:'url(https://www.eph.com.sg/wp-content/uploads/9789815214253_1-360x493.jpg) center/cover no-repeat' },
+    'tys-ss':    { tag:'EPH Primary English', title:'P1 English Weekly Revision', sub:'Primary 1 · Naaz Thaker', desc:'A week-by-week structured revision programme for P1 English, covering reading comprehension, grammar, and spelling progressively.', bg:'url(https://www.eph.com.sg/wp-content/uploads/9789814946001_1-360x493.jpg) center/cover no-repeat' },
+    'tys-comb':  { tag:'EPH Primary English', title:'P2 English Weekly Revision', sub:'Primary 2 · Naaz Thaker', desc:'Systematic weekly revision exercises for P2 students covering key language skills in bite-sized, manageable units.', bg:'url(https://www.eph.com.sg/wp-content/uploads/9789814946018_1-360x493.jpg) center/cover no-repeat' },
+    'psle-math': { tag:'EPH PSLE English', title:'PSLE English Specimen Papers: Paper 1 Writing and Paper 2 Language Use', sub:'PSLE · Lim Geok Choo', desc:'Full specimen papers modelled on the latest PSLE format for Paper 1 (situational and continuous writing) and Paper 2 (language use components).', bg:'url(https://www.eph.com.sg/wp-content/uploads/9789815214963_1-360x510.jpg) center/cover no-repeat' },
+    'psle-eng':  { tag:'EPH PSLE English', title:'PSLE English Specimen Papers: Paper 3 Listening and Paper 4 Oral', sub:'PSLE · Lim Geok Choo', desc:'Practice papers for the listening comprehension and oral examination components of PSLE English, with examiner notes and full scripts.', bg:'url(https://www.eph.com.sg/wp-content/uploads/9789815214970_1-650x922.jpg) center/cover no-repeat' },
+    'psle-sci':  { tag:'EPH PSLE English', title:'PSLE English Exam Power Pack', sub:'PSLE', desc:'A comprehensive PSLE English revision bundle covering all four papers with model answers and targeted practice across every tested component.', bg:'url(https://www.eph.com.sg/wp-content/uploads/9789815267181_1-360x502.jpg) center/cover no-repeat' },
+    'psle-chi':  { tag:'EPH PSLE English', title:'PSLE English Exam Paper Package', sub:'PSLE · Claire Leow', desc:'Curated collection of past-year and specimen PSLE English exam papers with detailed worked answers for effective final-stage revision.', bg:'url(https://www.eph.com.sg/wp-content/uploads/9789815091946_1-360x510.jpg) center/cover no-repeat' },
+    'psle-tam':  { tag:'EPH PSLE English', title:'PSLE Synthesis / Transformation', sub:'PSLE · Claire Leow', desc:'Dedicated practice on the synthesis and transformation component of PSLE English Paper 2, with over 300 graded exercises and full answer keys.', bg:'url(https://www.eph.com.sg/wp-content/uploads/9789814832571_1-360x514.jpg) center/cover no-repeat' },
+    'psle-hchi': { tag:'EPH PSLE English', title:'Score in PSLE English Tips &amp; Practice', sub:'PSLE · Seow Shu Ling', desc:'Examiner-authored guide to maximising PSLE English marks, featuring proven techniques for writing, comprehension, and grammar sections.', bg:'url(https://www.eph.com.sg/wp-content/uploads/9789814662352_1-360x492.jpg) center/cover no-repeat' },
+    'p1-math':   { tag:'EPH Primary English', title:'P1 Daily Dose of English', sub:'Primary 1 · Claire Leow', desc:'A daily 10-minute practice programme for P1 English, designed to build vocabulary, reading fluency, and writing habits progressively through the year.', bg:'url(https://www.eph.com.sg/wp-content/uploads/9789813127043_1-360x496.jpg) center/cover no-repeat' },
+    'p3-eng':    { tag:'EPH Primary English', title:'P2 Daily Dose of English', sub:'Primary 2 · Claire Leow', desc:'Bite-sized daily exercises for P2 students covering all key English language skills. Ideal for consistent home revision alongside classroom learning.', bg:'url(https://www.eph.com.sg/wp-content/uploads/9789813128002_1-360x499.jpg) center/cover no-repeat' },
+    'p5-sci':    { tag:'EPH Primary English', title:'P3 Daily Dose of English', sub:'Primary 3 · Claire Leow', desc:'Daily English practice workbook for P3 with passages, grammar drills, and vocabulary exercises structured for progressive improvement.', bg:'url(https://www.eph.com.sg/wp-content/uploads/9789813128019_1-360x496.jpg) center/cover no-repeat' },
+    'p4-chi':    { tag:'EPH Primary English', title:'P5 Daily Dose of English', sub:'Primary 5 · Cindy Lim', desc:'P5-level daily practice covering comprehension, grammar, and writing prompts aligned to the more demanding upper-primary English curriculum.', bg:'url(https://www.eph.com.sg/wp-content/uploads/9789815267426_1-360x491.jpg) center/cover no-repeat' },
+    'p6-math':   { tag:'EPH Primary English', title:'P6 Daily Dose of English', sub:'Primary 6 · Cindy Lim', desc:'PSLE-preparation daily English practice for P6 students. Structured to consolidate all four papers with focused, manageable daily tasks.', bg:'url(https://www.eph.com.sg/wp-content/uploads/9789815267433_1-360x493.jpg) center/cover no-repeat' },
+    'p2-eng':    { tag:'EPH Primary English', title:'P4 Daily Dose of English', sub:'Primary 4 · Cindy Lim', desc:'Daily routine English practice for P4 students, building strong language habits through regular exposure to grammar, vocabulary, and comprehension.', bg:'url(https://www.eph.com.sg/wp-content/uploads/9789814574891_1-360x493.jpg) center/cover no-repeat' },
+    'al-h2m':    { tag:'EPH Secondary Maths', title:'S1/G3 Topical Maths', sub:'Secondary 1 Express · Dylan Fong', desc:'Topic-by-topic Sec 1 Express Mathematics practice aligned to the latest MOE syllabus. Each topic features worked examples and graded exercises.', bg:'url(https://www.eph.com.sg/wp-content/uploads/9789815214925_1-360x493.jpg) center/cover no-repeat' },
+    'al-gp':     { tag:'EPH Secondary Maths', title:'S2/G3 Topical Maths', sub:'Secondary 2 Express · Dylan Fong', desc:'Structured topical questions for Sec 2 Express Mathematics. Builds exam readiness with method accuracy and progressive difficulty per topic.', bg:'url(https://www.eph.com.sg/wp-content/uploads/9789815318302_1-360x494.jpg) center/cover no-repeat' },
+    'al-h2c':    { tag:'EPH Secondary Science', title:'O Level (G3) Biology Fast Forward', sub:'O Level Biology · Eunice Lin', desc:'Concise biology content revision plus targeted O Level exam-style practice. Covers all syllabus topics with concept summaries and structured questions.', bg:'url(https://www.eph.com.sg/wp-content/uploads/9789815043532_1-360x494.jpg) center/cover no-repeat' },
+    'al-h2b':    { tag:'EPH Secondary Science', title:'O Level (G3) Chemistry Fast Forward', sub:'O Level Chemistry · K W Ong / Joan Lim', desc:'Key chemistry concepts and targeted questions for O Level preparation. Ideal for students who need efficient, exam-focused revision.', bg:'url(https://www.eph.com.sg/wp-content/uploads/9789815043525_1-360x494.jpg) center/cover no-repeat' },
+    'al-econ':   { tag:'EPH Secondary Science', title:'O Level (G3) Physics Fast Forward', sub:'O Level Physics · Thang M L / Glenda Chia', desc:'Exam-focused physics revision with concept checks, practice drills, and model answers. Covers all O Level (G3) Physics topics.', bg:'url(https://www.eph.com.sg/wp-content/uploads/9789815043518_1-360x494.jpg) center/cover no-repeat' },
+  };
+
+  let currentModal = '';
+  function openModal(id) {
+    const d = books[id]; if (!d) return;
+    currentModal = d.title;
+    sessionStorage.setItem('selectedBook', JSON.stringify({ id, ...d }));
+    window.location.href = `book-preview.html?id=${encodeURIComponent(id)}`;
+  }
+  function closeModal(e) {
+    if (e && e.target !== document.getElementById('overlay')) return;
+    document.getElementById('overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function openPlansModal() { document.getElementById('plansOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closePlansModal(e) {
+    if (e && e.target !== document.getElementById('plansOverlay')) return;
+    document.getElementById('plansOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function subscribe(plan) {
+    closePlansModal();
+    const names = { starter:'Starter', plus:'Study Pass Plus', family:'Family' };
+    document.getElementById('subCta').style.display = 'none';
+    document.getElementById('subActive').style.display = 'flex';
+    showToast('🎉', `Welcome to ${names[plan] || 'Study Pass'}! All content unlocked.`, '#16A34A');
+  }
+  let tTimer;
+  function dlToast(type, title) {
+    const isPaper = type === 'paper';
+    showToast(isPaper ? '📄' : '📋', `${isPaper ? 'Assessment' : 'Answers'} PDF ready: ${title}`, isPaper ? '#c8102e' : '#B07D10');
+  }
+  function showToast(icon, msg, color) {
+    document.getElementById('tIcon').textContent = icon;
+    document.getElementById('tMsg').textContent = msg;
+    document.getElementById('toast').style.borderLeftColor = color;
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    clearTimeout(tTimer);
+    tTimer = setTimeout(() => t.classList.remove('show'), 3200);
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    document.getElementById('overlay').classList.remove('open');
+    document.getElementById('plansOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  });
+</script>
+</body>
+</html>
