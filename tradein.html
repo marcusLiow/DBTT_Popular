@@ -88,7 +88,7 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 .book-result{display:none;background:var(--light);border-radius:12px;padding:16px;border:1.5px solid var(--border);margin-bottom:20px;animation:fadeIn .25s ease;}
 .book-result.show{display:flex;gap:14px;align-items:flex-start;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
-.book-cover{width:58px;height:76px;background:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;border:1px solid var(--border);}
+.book-cover{width:58px;height:76px;background:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;border:1px solid var(--border);background-size:cover;background-position:center;}
 .book-meta{flex:1;}
 .book-title{font-size:14px;font-weight:600;margin-bottom:3px;line-height:1.35;}
 .book-sub{font-size:12px;color:var(--mid);margin-bottom:8px;}
@@ -291,6 +291,7 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 .rec-card{flex-shrink:0;width:175px;border:1.5px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;background:#fff;transition:all .18s;}
 .rec-card:hover{border-color:var(--red);box-shadow:var(--shadow-sm);transform:translateY(-2px);}
 .rec-card-emoji{font-size:26px;margin-bottom:8px;}
+.rec-card-img{width:100%;height:110px;border-radius:8px;background-size:cover;background-position:center;margin-bottom:8px;}
 .rec-card-title{font-size:12px;font-weight:600;line-height:1.35;margin-bottom:7px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
 .rec-pill{font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;margin-bottom:7px;display:inline-block;line-height:1.4;}
 .rec-pill.high{background:var(--amber-bg);color:var(--amber);}
@@ -308,6 +309,7 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 .demand-card{flex-shrink:0;width:175px;border:1.5px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;background:#fff;transition:all .18s;}
 .demand-card:hover{border-color:var(--red);box-shadow:var(--shadow-sm);transform:translateY(-2px);}
 .demand-card-emoji{font-size:26px;margin-bottom:8px;}
+.demand-card-img{width:100%;height:110px;border-radius:8px;background-size:cover;background-position:center;margin-bottom:8px;}
 .demand-card-title{font-size:12px;font-weight:600;line-height:1.35;margin-bottom:7px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
 .demand-pill{font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;margin-bottom:7px;display:inline-block;line-height:1.4;}
 .demand-pill.high{background:var(--amber-bg);color:var(--amber);}
@@ -923,17 +925,17 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 <script>
 // ── DATA ──────────────────────────────────────────────────────────────
 const BOOKS = [
-  { isbn:'9789810985370', emoji:'📗', title:'PSLE Mathematics Past Year Papers 2025', sub:'Pan Lloyds · Primary · Assessment', tags:['Primary 6','Maths','PSLE'], baseGood:4.50, baseFair:2.80, baseWorn:1.20, demand:'High demand — back-to-school', demandMult:1.2 },
-  { isbn:'9789810985371', emoji:'📘', title:'Secondary 3 E-Maths Assessment Book', sub:'EPB Publishers · Secondary · Assessment', tags:['Sec 3','E-Math','O Level'], baseGood:4.00, baseFair:2.50, baseWorn:1.00, demand:'Normal stock levels', demandMult:1.0 },
-  { isbn:'9789810985372', emoji:'📙', title:'Primary 4 Science Worksheets', sub:'Pan Lloyds · Primary · Assessment', tags:['Primary 4','Science'], baseGood:3.50, baseFair:2.00, baseWorn:0.80, demand:'Low stock — offer boosted!', demandMult:1.3 },
-  { isbn:'9789810985373', emoji:'📕', title:'O-Level English Ten Year Series', sub:'EPB Publishers · Secondary · Assessment', tags:['O Level','English','TYS'], baseGood:5.00, baseFair:3.00, baseWorn:1.50, demand:'High demand — limited stock', demandMult:1.25 },
-  { isbn:'9789810985374', emoji:'📗', title:'Primary 5 Chinese Assessment Book', sub:'Pan Lloyds · Primary · Assessment', tags:['Primary 5','Chinese'], baseGood:3.80, baseFair:2.20, baseWorn:0.90, demand:'Normal stock levels', demandMult:1.0 },
-  { isbn:'9789810985375', emoji:'📘', title:'JC2 H2 Chemistry Ten Year Series', sub:'EPB Publishers · JC · Assessment', tags:['JC2','H2 Chem','A Level'], baseGood:5.50, baseFair:3.50, baseWorn:1.80, demand:'High demand — A Level prep', demandMult:1.3 },
-  { isbn:'9789810985376', emoji:'📙', title:'Secondary 1 History Textbook', sub:'EPB Publishers · Secondary · Textbook', tags:['Sec 1','History'], baseGood:2.80, baseFair:1.50, baseWorn:0.60, demand:'Low demand', demandMult:0.8 },
-  { isbn:'9789810985377', emoji:'📕', title:'The Great Gatsby — F. Scott Fitzgerald', sub:'Scribner · Fiction · Literature', tags:['Fiction','Literature'], baseGood:3.00, baseFair:1.80, baseWorn:0.70, demand:'Steady — Literature set text', demandMult:1.1 },
-  { isbn:'9789810985378', emoji:'📗', title:'Primary 3 Maths Challenging Problems', sub:'Pan Lloyds · Primary · Assessment', tags:['Primary 3','Maths'], baseGood:4.00, baseFair:2.50, baseWorn:1.00, demand:'Low stock — offer boosted!', demandMult:1.3 },
-  { isbn:'9789810985379', emoji:'📙', title:'Tomorrow, and Tomorrow, and Tomorrow — Gabrielle Zevin', sub:'Vintage · Fiction', tags:['Fiction','BookTok'], baseGood:4.20, baseFair:2.60, baseWorn:1.10, demand:'High demand — BookTok trending', demandMult:1.25 },
-  { isbn:'default', emoji:'📚', title:'Assessment Book', sub:'Popular Imprints · General', tags:['General'], baseGood:3.00, baseFair:1.80, baseWorn:0.80, demand:'Normal stock levels', demandMult:1.0 },
+  { isbn:'9789810985370', img:'https://www.eph.com.sg/wp-content/uploads/9789815214963_1-360x510.jpg',  emoji:'📗', title:'PSLE Mathematics Past Year Papers 2025', sub:'Pan Lloyds · Primary · Assessment', tags:['Primary 6','Maths','PSLE'], baseGood:4.50, baseFair:2.80, baseWorn:1.20, demand:'High demand — back-to-school', demandMult:1.2 },
+  { isbn:'9789810985371', img:'https://www.eph.com.sg/wp-content/uploads/9789815214925_1-360x493.jpg',  emoji:'📘', title:'Secondary 3 E-Maths Assessment Book', sub:'EPB Publishers · Secondary · Assessment', tags:['Sec 3','E-Math','O Level'], baseGood:4.00, baseFair:2.50, baseWorn:1.00, demand:'Normal stock levels', demandMult:1.0 },
+  { isbn:'9789810985372', img:'https://www.eph.com.sg/wp-content/uploads/9789815214239_1-360x492.jpg',  emoji:'📙', title:'Primary 4 Science Worksheets', sub:'Pan Lloyds · Primary · Assessment', tags:['Primary 4','Science'], baseGood:3.50, baseFair:2.00, baseWorn:0.80, demand:'Low stock — offer boosted!', demandMult:1.3 },
+  { isbn:'9789810985373', img:'https://www.eph.com.sg/wp-content/uploads/9789815214970_1-650x922.jpg',  emoji:'📕', title:'O-Level English Ten Year Series', sub:'EPB Publishers · Secondary · Assessment', tags:['O Level','English','TYS'], baseGood:5.00, baseFair:3.00, baseWorn:1.50, demand:'High demand — limited stock', demandMult:1.25 },
+  { isbn:'9789810985374', img:'https://www.eph.com.sg/wp-content/uploads/9789815214246_1-360x493.jpg',  emoji:'📗', title:'Primary 5 Chinese Assessment Book', sub:'Pan Lloyds · Primary · Assessment', tags:['Primary 5','Chinese'], baseGood:3.80, baseFair:2.20, baseWorn:0.90, demand:'Normal stock levels', demandMult:1.0 },
+  { isbn:'9789810985375', img:'https://www.eph.com.sg/wp-content/uploads/9789815043525_1-360x494.jpg',  emoji:'📘', title:'JC2 H2 Chemistry Ten Year Series', sub:'EPB Publishers · JC · Assessment', tags:['JC2','H2 Chem','A Level'], baseGood:5.50, baseFair:3.50, baseWorn:1.80, demand:'High demand — A Level prep', demandMult:1.3 },
+  { isbn:'9789810985376', img:'https://www.eph.com.sg/wp-content/uploads/9789815318302_1-360x494.jpg',  emoji:'📙', title:'Secondary 1 History Textbook', sub:'EPB Publishers · Secondary · Textbook', tags:['Sec 1','History'], baseGood:2.80, baseFair:1.50, baseWorn:0.60, demand:'Low demand', demandMult:0.8 },
+  { isbn:'9789810985377', img:'https://www.eph.com.sg/wp-content/uploads/9789814662352_1-360x492.jpg',  emoji:'📕', title:'The Great Gatsby — F. Scott Fitzgerald', sub:'Scribner · Fiction · Literature', tags:['Fiction','Literature'], baseGood:3.00, baseFair:1.80, baseWorn:0.70, demand:'Steady — Literature set text', demandMult:1.1 },
+  { isbn:'9789810985378', img:'https://www.eph.com.sg/wp-content/uploads/9789815214222_1-360x492.jpg',  emoji:'📗', title:'Primary 3 Maths Challenging Problems', sub:'Pan Lloyds · Primary · Assessment', tags:['Primary 3','Maths'], baseGood:4.00, baseFair:2.50, baseWorn:1.00, demand:'Low stock — offer boosted!', demandMult:1.3 },
+  { isbn:'9789810985379', img:'https://www.eph.com.sg/wp-content/uploads/9789814946018_1-360x493.jpg',  emoji:'📙', title:'Tomorrow, and Tomorrow, and Tomorrow — Gabrielle Zevin', sub:'Vintage · Fiction', tags:['Fiction','BookTok'], baseGood:4.20, baseFair:2.60, baseWorn:1.10, demand:'High demand — BookTok trending', demandMult:1.25 },
+  { isbn:'default', img:'', emoji:'📚', title:'Assessment Book', sub:'Popular Imprints · General', tags:['General'], baseGood:3.00, baseFair:1.80, baseWorn:0.80, demand:'Normal stock levels', demandMult:1.0 },
 ];
 
 const OUTLETS = [
@@ -952,22 +954,22 @@ const OUTLETS = [
 
 const REC_DATA = {
   shop: [
-    { emoji:'📗', title:'Primary 6 Maths Challenging Problems', demandMult:1.2, baseGood:4.50, demand:'High demand' },
-    { emoji:'📘', title:'Secondary 2 Science Workbook', demandMult:1.0, baseGood:3.80, demand:'Normal' },
-    { emoji:'📙', title:'PSLE English Oral Practice', demandMult:1.25, baseGood:4.20, demand:'High demand' },
-    { emoji:'📕', title:'Primary 5 Higher Chinese', demandMult:1.1, baseGood:3.50, demand:'Normal' },
+    { img:'https://www.eph.com.sg/wp-content/uploads/9789815214253_1-360x493.jpg', emoji:'📗', title:'Primary 6 Maths Challenging Problems', demandMult:1.2, baseGood:4.50, demand:'High demand' },
+    { img:'https://www.eph.com.sg/wp-content/uploads/9789815267181_1-360x502.jpg', emoji:'📘', title:'Secondary 2 Science Workbook', demandMult:1.0, baseGood:3.80, demand:'Normal' },
+    { img:'https://www.eph.com.sg/wp-content/uploads/9789814832571_1-360x514.jpg', emoji:'📙', title:'PSLE English Oral Practice', demandMult:1.25, baseGood:4.20, demand:'High demand' },
+    { img:'https://www.eph.com.sg/wp-content/uploads/9789815091946_1-360x510.jpg', emoji:'📕', title:'Primary 5 Higher Chinese', demandMult:1.1, baseGood:3.50, demand:'Normal' },
   ],
   reading: [
-    { emoji:'📗', title:'Atomic Habits — James Clear', demandMult:1.3, baseGood:5.50, demand:'High demand — BookTok' },
-    { emoji:'📘', title:'The Psychology of Money', demandMult:1.2, baseGood:4.80, demand:'High demand' },
-    { emoji:'📙', title:'Lessons in Chemistry', demandMult:1.15, baseGood:4.00, demand:'Trending' },
-    { emoji:'📕', title:'Fourth Wing — Rebecca Yarros', demandMult:1.35, baseGood:5.20, demand:'High demand — BookTok' },
+    { img:'https://www.eph.com.sg/wp-content/uploads/9789813127043_1-360x496.jpg', emoji:'📗', title:'Atomic Habits — James Clear', demandMult:1.3, baseGood:5.50, demand:'High demand — BookTok' },
+    { img:'https://www.eph.com.sg/wp-content/uploads/9789813128002_1-360x499.jpg', emoji:'📘', title:'The Psychology of Money', demandMult:1.2, baseGood:4.80, demand:'High demand' },
+    { img:'https://www.eph.com.sg/wp-content/uploads/9789813128019_1-360x496.jpg', emoji:'📙', title:'Lessons in Chemistry', demandMult:1.15, baseGood:4.00, demand:'Trending' },
+    { img:'https://www.eph.com.sg/wp-content/uploads/9789814946001_1-360x493.jpg', emoji:'📕', title:'Fourth Wing — Rebecca Yarros', demandMult:1.35, baseGood:5.20, demand:'High demand — BookTok' },
   ],
   tradein: [
-    { emoji:'📗', title:'O-Level Chemistry Ten Year Series', demandMult:1.2, baseGood:5.00, demand:'High demand' },
-    { emoji:'📘', title:'JC1 H2 Physics Assessment', demandMult:1.25, baseGood:5.50, demand:'High demand' },
-    { emoji:'📙', title:'Secondary 4 E-Maths TYS', demandMult:1.0, baseGood:4.50, demand:'Normal' },
-    { emoji:'📕', title:'Primary 6 Science Past Papers', demandMult:1.3, baseGood:4.00, demand:'High demand' },
+    { img:'https://www.eph.com.sg/wp-content/uploads/9789815043532_1-360x494.jpg', emoji:'📗', title:'O-Level Chemistry Ten Year Series', demandMult:1.2, baseGood:5.00, demand:'High demand' },
+    { img:'https://www.eph.com.sg/wp-content/uploads/9789815043518_1-360x494.jpg', emoji:'📘', title:'JC1 H2 Physics Assessment', demandMult:1.25, baseGood:5.50, demand:'High demand' },
+    { img:'https://www.eph.com.sg/wp-content/uploads/9789815214208_1-360x442.jpg', emoji:'📙', title:'Secondary 4 E-Maths TYS', demandMult:1.0, baseGood:4.50, demand:'Normal' },
+    { img:'https://www.eph.com.sg/wp-content/uploads/9789815267426_1-360x491.jpg', emoji:'📕', title:'Primary 6 Science Past Papers', demandMult:1.3, baseGood:4.00, demand:'High demand' },
   ]
 };
 
@@ -1029,7 +1031,9 @@ function lookupBook(){
 
   // Show book card
   const br = document.getElementById('bookResult');
-  document.getElementById('bookEmoji').textContent = book.emoji;
+  const bookCoverEl = document.getElementById('bookEmoji');
+  if(book.img){ bookCoverEl.style.backgroundImage = `url('${book.img}')`; bookCoverEl.textContent = ''; }
+  else { bookCoverEl.style.backgroundImage = ''; bookCoverEl.textContent = book.emoji; }
   document.getElementById('bookTitle').textContent = book.title;
   document.getElementById('bookSub').textContent = book.sub;
   document.getElementById('bookTags').innerHTML = book.tags.map(t=>`<span class="book-tag">${t}</span>`).join('');
@@ -1237,7 +1241,7 @@ function renderRecCards(tabName){
     const maxCredit = (b.baseGood * b.demandMult).toFixed(2);
     const pillClass = b.demandMult >= 1.2 ? 'high' : 'normal';
     return `<div class="rec-card" onclick="pickRecBook('${b.title}')">
-      <div class="rec-card-emoji">${b.emoji}</div>
+      ${b.img ? `<div class="rec-card-img" style="background-image:url('${b.img}')"></div>` : `<div class="rec-card-emoji">${b.emoji}</div>`}
       <div class="rec-card-title">${b.title}</div>
       <div class="rec-pill ${pillClass}">${b.demand}</div>
       <div class="rec-card-credit">S$${maxCredit}</div>
@@ -1263,7 +1267,7 @@ function renderDemandSection(){
     const maxCredit = (b.baseGood * b.demandMult).toFixed(2);
     const minCredit = (b.baseWorn * b.demandMult).toFixed(2);
     return `<div class="demand-card" onclick="pickDemandBook('${b.isbn}')">
-      <div class="demand-card-emoji">${b.emoji}</div>
+      ${b.img ? `<div class="demand-card-img" style="background-image:url('${b.img}')"></div>` : `<div class="demand-card-emoji">${b.emoji}</div>`}
       <div class="demand-card-title">${b.title}</div>
       <div class="demand-pill ${pillClass}">${b.demand}</div>
       <div class="demand-card-credit">S$${minCredit}–S$${maxCredit}</div>
