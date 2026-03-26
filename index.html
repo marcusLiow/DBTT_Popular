@@ -15,6 +15,7 @@
     --gold: #C9A84C;
     --border: #E5E0D8;
     --white: #FFFFFF;
+    --green: #1B7F4F;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -49,7 +50,6 @@
     z-index: 100;
     box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   }
-
   .header-inner {
     max-width: 1280px;
     margin: 0 auto;
@@ -59,7 +59,6 @@
     gap: 24px;
     height: 68px;
   }
-
   .logo {
     font-family: 'Playfair Display', serif;
     font-size: 26px;
@@ -70,7 +69,6 @@
     flex-shrink: 0;
   }
   .logo span { color: var(--dark); }
-
   .search-bar {
     flex: 1;
     display: flex;
@@ -102,14 +100,12 @@
     transition: background 0.2s;
   }
   .search-bar button:hover { background: #a8001a; }
-
   .header-actions {
     display: flex;
     align-items: center;
     gap: 6px;
     flex-shrink: 0;
   }
-
   .btn-icon {
     display: flex;
     flex-direction: column;
@@ -127,7 +123,6 @@
   }
   .btn-icon:hover { background: var(--light); color: var(--red); }
   .btn-icon .icon { font-size: 20px; }
-
   .cart-btn { position: relative; }
   .cart-badge {
     position: absolute;
@@ -144,9 +139,7 @@
   }
 
   /* ── NAV ── */
-  nav {
-    background: var(--dark);
-  }
+  nav { background: var(--dark); }
   .nav-inner {
     max-width: 1280px;
     margin: 0 auto;
@@ -154,7 +147,6 @@
     display: flex;
     gap: 0;
   }
-
   .nav-item {
     position: relative;
     padding: 13px 18px;
@@ -178,8 +170,6 @@
     height: 3px;
     background: var(--red);
   }
-
-  /* Dropdown */
   .dropdown {
     display: none;
     position: absolute;
@@ -349,11 +339,7 @@
     color: var(--dark);
   }
   .section-title span { color: var(--red); }
-  .section-sub {
-    font-size: 13px;
-    color: #888;
-    margin-top: 4px;
-  }
+  .section-sub { font-size: 13px; color: #888; margin-top: 4px; }
   .see-all {
     font-size: 13px;
     font-weight: 600;
@@ -386,7 +372,6 @@
     position: relative;
   }
   .product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); }
-
   .product-img {
     width: 100%;
     height: 220px;
@@ -403,7 +388,6 @@
     transition: transform 0.3s ease;
   }
   .product-card:hover .product-img img { transform: scale(1.04); }
-
   .product-body { padding: 12px 14px 14px; }
   .product-cat {
     font-size: 10px;
@@ -424,14 +408,9 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     line-clamp: 2;
-
     min-height: calc(13px * 1.45 * 2);
   }
-  .product-price {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--dark);
-  }
+  .product-price { font-size: 15px; font-weight: 700; color: var(--dark); }
   .product-price .original {
     font-size: 12px;
     font-weight: 400;
@@ -467,6 +446,61 @@
   }
   .product-add:hover { background: var(--red); }
 
+  /* ── TRADE-IN STRIP ── */
+  .tradein-strip {
+    background: linear-gradient(120deg, #0f2e1a 0%, #1B7F4F 60%, #0f2e1a 100%);
+    padding: 28px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .tradein-strip::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 80% 50%, rgba(201,168,76,0.12) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .tradein-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+  .tradein-left { display: flex; align-items: center; gap: 18px; }
+  .tradein-icon { font-size: 36px; flex-shrink: 0; }
+  .tradein-text h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 4px;
+  }
+  .tradein-text p { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.5; }
+  .tradein-stats { display: flex; gap: 24px; flex-wrap: wrap; }
+  .tradein-stat { text-align: center; }
+  .tradein-stat-num { font-size: 20px; font-weight: 800; color: var(--gold); display: block; }
+  .tradein-stat-lbl { font-size: 10px; color: rgba(255,255,255,0.5); letter-spacing: 0.05em; }
+  .btn-tradein {
+    background: var(--gold);
+    color: #1A1A1A;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .btn-tradein:hover { background: #b8952e; transform: translateY(-1px); }
+
   /* ── PROMO BANNER ── */
   .promo-banner {
     background: linear-gradient(120deg, var(--red) 0%, #8b0000 100%);
@@ -481,11 +515,7 @@
     font-weight: 800;
     margin-bottom: 10px;
   }
-  .promo-banner p {
-    font-size: 16px;
-    opacity: 0.85;
-    margin-bottom: 24px;
-  }
+  .promo-banner p { font-size: 16px; opacity: 0.85; margin-bottom: 24px; }
   .member-perks {
     display: flex;
     justify-content: center;
@@ -493,13 +523,7 @@
     margin-top: 32px;
     flex-wrap: wrap;
   }
-  .perk {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 14px;
-    font-weight: 500;
-  }
+  .perk { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; }
   .perk .perk-icon { font-size: 22px; }
 
   /* ── DIVIDER ── */
@@ -519,13 +543,7 @@
     gap: 40px;
     margin-bottom: 40px;
   }
-  .footer-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    font-weight: 800;
-    color: var(--red);
-    margin-bottom: 12px;
-  }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 800; color: var(--red); margin-bottom: 12px; }
   .footer-logo span { color: white; }
   .footer-desc { font-size: 13px; line-height: 1.7; margin-bottom: 20px; }
   .footer-socials { display: flex; gap: 12px; }
@@ -602,11 +620,7 @@
     padding: 20px 24px;
     border-bottom: 1px solid var(--border);
   }
-  .modal-header h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    font-weight: 700;
-  }
+  .modal-header h3 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; }
   .modal-close {
     width: 32px; height: 32px;
     display: flex; align-items: center; justify-content: center;
@@ -616,12 +630,7 @@
   }
   .modal-close:hover { background: #e0dbd2; }
   .modal-body { padding: 24px; }
-
-  .modal-product {
-    display: flex;
-    gap: 18px;
-    margin-bottom: 20px;
-  }
+  .modal-product { display: flex; gap: 18px; margin-bottom: 20px; }
   .modal-img {
     width: 90px; height: 120px;
     background: var(--light);
@@ -629,18 +638,12 @@
     overflow: hidden;
     flex-shrink: 0;
   }
-  .modal-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
+  .modal-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .modal-info { flex: 1; }
   .modal-info .cat { font-size: 11px; font-weight: 600; color: var(--red); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 6px; }
   .modal-info .title { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
   .modal-info .price { font-size: 22px; font-weight: 700; color: var(--dark); }
   .modal-info .price .orig { font-size: 14px; color: #aaa; text-decoration: line-through; font-weight: 400; margin-left: 6px; }
-
   .modal-desc {
     font-size: 13px;
     color: var(--mid);
@@ -682,7 +685,7 @@
   }
   .toast.show { transform: translateY(0); opacity: 1; }
 
-  /* ── INPUT GROUPS (shared) ── */
+  /* ── INPUT GROUPS ── */
   .input-group { margin-bottom: 14px; }
   .input-group label { display: block; font-size: 12px; font-weight: 600; color: var(--mid); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
   .input-group input, .input-group select {
@@ -713,19 +716,12 @@
   }
   .outlet-name { font-size: 14px; font-weight: 600; }
   .outlet-detail { font-size: 12px; color: var(--mid); }
-  .stock-badge {
-    font-size: 11px;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 20px;
-  }
+  .stock-badge { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; }
   .stock-in { background: #e8f5e9; color: #2e7d32; }
   .stock-low { background: #fff3e0; color: #e65100; }
   .stock-out { background: #fce4ec; color: #c62828; }
 
-  /* ═══════════════════════════════════════════
-     ── CAROUSEL ──
-  ═══════════════════════════════════════════ */
+  /* ── CAROUSEL ── */
   .carousel-section {
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
@@ -734,28 +730,15 @@
     background: var(--cream);
     width: 100%;
   }
-
   .carousel-track {
     display: flex;
     width: 100%;
     transition: transform 0.65s cubic-bezier(0.45, 0, 0.25, 1);
     will-change: transform;
   }
+  .carousel-slide { flex: 0 0 100%; width: 100%; min-width: 0; overflow: hidden; box-sizing: border-box; }
 
-  .carousel-slide {
-    flex: 0 0 100%;
-    width: 100%;
-    min-width: 0;
-    overflow: hidden;
-    box-sizing: border-box;
-  }
-
-  /* ── Slide 1: Click & Collect ── */
-  .cc-slide {
-    padding: 56px 24px;
-    width: 100%;
-    box-sizing: border-box;
-  }
+  .cc-slide { padding: 56px 24px; width: 100%; box-sizing: border-box; }
   .cc-inner {
     max-width: 1200px;
     margin: 0 auto;
@@ -766,13 +749,7 @@
     width: 100%;
     box-sizing: border-box;
   }
-  .cc-left h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 36px;
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 16px;
-  }
+  .cc-left h2 { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
   .cc-left h2 span { color: var(--red); }
   .cc-left p { font-size: 15px; color: var(--mid); line-height: 1.7; margin-bottom: 28px; }
   .cc-steps { display: flex; flex-direction: column; gap: 18px; margin-bottom: 32px; }
@@ -797,7 +774,6 @@
   }
   .cc-right h3 { font-size: 16px; font-weight: 600; margin-bottom: 18px; }
 
-  /* ── Slide 2: Subscription ── */
   .sub-slide {
     padding: 56px 24px;
     background: linear-gradient(135deg, #1A1A1A 0%, #2d1a1a 60%, #1A1A1A 100%);
@@ -842,35 +818,11 @@
     border-radius: 20px;
     margin-bottom: 22px;
   }
-  .sub-left h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 38px;
-    font-weight: 800;
-    line-height: 1.15;
-    margin-bottom: 18px;
-    color: white;
-  }
+  .sub-left h2 { font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 800; line-height: 1.15; margin-bottom: 18px; color: white; }
   .sub-left h2 em { color: var(--gold); font-style: normal; }
-  .sub-left p {
-    font-size: 15px;
-    color: rgba(255,255,255,0.65);
-    line-height: 1.75;
-    margin-bottom: 32px;
-  }
-  .sub-features {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    margin-bottom: 36px;
-  }
-  .sub-feat {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 14px;
-    color: rgba(255,255,255,0.85);
-    font-weight: 500;
-  }
+  .sub-left p { font-size: 15px; color: rgba(255,255,255,0.65); line-height: 1.75; margin-bottom: 32px; }
+  .sub-features { display: flex; flex-direction: column; gap: 14px; margin-bottom: 36px; }
+  .sub-feat { display: flex; align-items: center; gap: 12px; font-size: 14px; color: rgba(255,255,255,0.85); font-weight: 500; }
   .sub-feat-icon {
     width: 32px; height: 32px;
     background: rgba(208,2,27,0.25);
@@ -911,15 +863,7 @@
     display: inline-block;
   }
   .btn-sub-outline:hover { border-color: white; color: white; background: rgba(255,255,255,0.07); }
-
-  /* Plan cards on slide 2 */
-  .sub-plans {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    min-width: 0;
-    width: 100%;
-  }
+  .sub-plans { display: flex; flex-direction: column; gap: 14px; min-width: 0; width: 100%; }
   .plan-card {
     background: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.12);
@@ -937,14 +881,8 @@
     width: 100%;
     box-sizing: border-box;
   }
-  .plan-card:hover {
-    border-color: rgba(208,2,27,0.5);
-    background: rgba(208,2,27,0.08);
-  }
-  .plan-card.featured {
-    background: rgba(208,2,27,0.15);
-    border-color: rgba(208,2,27,0.5);
-  }
+  .plan-card:hover { border-color: rgba(208,2,27,0.5); background: rgba(208,2,27,0.08); }
+  .plan-card.featured { background: rgba(208,2,27,0.15); border-color: rgba(208,2,27,0.5); }
   .plan-badge-wrap { position: relative; }
   .plan-popular {
     position: absolute;
@@ -959,39 +897,14 @@
     white-space: nowrap;
     letter-spacing: 0.06em;
   }
-  .plan-name {
-    font-size: 15px;
-    font-weight: 700;
-    color: white;
-    margin-bottom: 3px;
-  }
-  .plan-desc {
-    font-size: 12px;
-    color: rgba(255,255,255,0.5);
-  }
-  .plan-price {
-    text-align: right;
-    flex-shrink: 0;
-  }
-  .plan-price .amount {
-    font-size: 20px;
-    font-weight: 800;
-    color: white;
-  }
-  .plan-price .period {
-    font-size: 11px;
-    color: rgba(255,255,255,0.45);
-    display: block;
-  }
-  .plan-arrow {
-    font-size: 18px;
-    color: rgba(255,255,255,0.4);
-    flex-shrink: 0;
-    transition: color 0.2s, transform 0.2s;
-  }
+  .plan-name { font-size: 15px; font-weight: 700; color: white; margin-bottom: 3px; }
+  .plan-desc { font-size: 12px; color: rgba(255,255,255,0.5); }
+  .plan-price { text-align: right; flex-shrink: 0; }
+  .plan-price .amount { font-size: 20px; font-weight: 800; color: white; }
+  .plan-price .period { font-size: 11px; color: rgba(255,255,255,0.45); display: block; }
+  .plan-arrow { font-size: 18px; color: rgba(255,255,255,0.4); flex-shrink: 0; transition: color 0.2s, transform 0.2s; }
   .plan-card:hover .plan-arrow { color: var(--red); transform: translateX(3px); }
 
-  /* ── CAROUSEL CONTROLS ── */
   .carousel-controls {
     position: absolute;
     bottom: 20px;
@@ -1011,19 +924,9 @@
     border: none;
     padding: 0;
   }
-  .carousel-dot.active {
-    background: var(--red);
-    width: 24px;
-    border-radius: 4px;
-  }
-
-  .carousel-section[data-slide="1"] .carousel-dot {
-    background: rgba(255,255,255,0.3);
-  }
-  .carousel-section[data-slide="1"] .carousel-dot.active {
-    background: var(--gold);
-  }
-
+  .carousel-dot.active { background: var(--red); width: 24px; border-radius: 4px; }
+  .carousel-section[data-slide="1"] .carousel-dot { background: rgba(255,255,255,0.3); }
+  .carousel-section[data-slide="1"] .carousel-dot.active { background: var(--gold); }
   .carousel-arrow {
     position: absolute;
     top: 50%;
@@ -1043,8 +946,6 @@
   .carousel-arrow:hover { background: var(--red); color: white; border-color: var(--red); }
   .carousel-arrow.prev { left: 20px; }
   .carousel-arrow.next { right: 20px; }
-
-  /* Progress bar */
   .carousel-progress {
     position: absolute;
     bottom: 0; left: 0;
@@ -1054,11 +955,7 @@
     z-index: 20;
   }
 
-  @media (max-width: 1024px) {
-    .cc-inner, .sub-inner { gap: 32px; }
-    .sub-plans { min-width: 0; }
-  }
-
+  @media (max-width: 1024px) { .cc-inner, .sub-inner { gap: 32px; } }
   @media (max-width: 768px) {
     .hero h1 { font-size: 36px; }
     .footer-inner { grid-template-columns: 1fr 1fr; }
@@ -1068,14 +965,16 @@
     .sub-left h2 { font-size: 28px; }
     .cc-slide, .sub-slide { padding: 40px 20px 56px; }
     .plan-card { padding: 16px 18px; }
+    .tradein-inner { flex-direction: column; align-items: flex-start; }
+    .tradein-stats { display: none; }
   }
 </style>
 </head>
 <body>
 
-<!-- Announcement -->
-<div class="announce" onclick="showModal('membership')">
-  🎉 Members Enjoy 10% Off Storewide — Join Us Now! Free membership with every $30 spend.
+<!-- Announcement — links to trade-in page -->
+<div class="announce" onclick="window.location.href='tradein.html'">
+  ♻️ Trade in your old books &amp; earn Popular Wallet credits — <u>Start now</u> &nbsp;|&nbsp; 🎉 Members get 10% off storewide
 </div>
 
 <!-- Header -->
@@ -1166,6 +1065,8 @@
       </div>
     </div>
     <div class="nav-item" onclick="setNav(this)" style="color: var(--gold);">🔖 On Sale</div>
+    <!-- Trade-In nav link -->
+    <div class="nav-item" onclick="window.location.href='tradein.html'" style="color: #6ee7a8;">♻️ Trade In</div>
   </div>
 </nav>
 
@@ -1178,6 +1079,8 @@
     <div class="hero-btns">
       <button class="btn-primary" onclick="scrollTo({top: 500, behavior:'smooth'})">Shop Now</button>
       <button class="btn-outline" onclick="goToSlide(0); document.getElementById('service-carousel').scrollIntoView({behavior:'smooth'})">Click & Collect ↓</button>
+      <!-- Trade-In hero CTA -->
+      <button class="btn-outline" onclick="window.location.href='tradein.html'" style="border-color:rgba(110,231,168,0.5);color:#6ee7a8;">♻️ Trade In Books</button>
     </div>
   </div>
 </div>
@@ -1209,6 +1112,34 @@
 </div>
 
 <hr class="divider">
+
+<!-- Trade-In Strip -->
+<div class="tradein-strip">
+  <div class="tradein-inner">
+    <div class="tradein-left">
+      <div class="tradein-icon">♻️</div>
+      <div class="tradein-text">
+        <h3>Trade In Your Books, Earn Wallet Credits</h3>
+        <p>Bring used assessment books or fiction to any Popular outlet — get an instant credit estimate before you leave home.</p>
+      </div>
+    </div>
+    <div class="tradein-stats">
+      <div class="tradein-stat">
+        <span class="tradein-stat-num">$0</span>
+        <span class="tradein-stat-lbl">Delivery fees</span>
+      </div>
+      <div class="tradein-stat">
+        <span class="tradein-stat-num">3 min</span>
+        <span class="tradein-stat-lbl">Drop-off time</span>
+      </div>
+      <div class="tradein-stat">
+        <span class="tradein-stat-num">2,847</span>
+        <span class="tradein-stat-lbl">Books saved from landfill</span>
+      </div>
+    </div>
+    <button class="btn-tradein" onclick="window.location.href='tradein.html'">Get Credit Estimate →</button>
+  </div>
+</div>
 
 <!-- SERVICE CAROUSEL -->
 <div class="carousel-section" id="service-carousel" data-slide="0">
@@ -1361,7 +1292,6 @@
     <button class="carousel-dot active" onclick="goToSlide(0)" title="Click & Collect"></button>
     <button class="carousel-dot" onclick="goToSlide(1)" title="Subscription"></button>
   </div>
-
   <div class="carousel-progress" id="carouselProgress"></div>
 
 </div>
@@ -1376,6 +1306,8 @@
     <div class="perk"><span class="perk-icon">🎁</span> Birthday Rewards</div>
     <div class="perk"><span class="perk-icon">🚀</span> Early Sale Access</div>
     <div class="perk"><span class="perk-icon">📦</span> Free Click & Collect</div>
+    <!-- Trade-In perk added -->
+    <div class="perk"><span class="perk-icon">♻️</span> Book Trade-In Credits</div>
   </div>
 </div>
 
@@ -1406,6 +1338,8 @@
       <a>Track Your Order</a>
       <a>Returns & Exchanges</a>
       <a>Click & Collect</a>
+      <!-- Trade-In footer link added -->
+      <a onclick="window.location.href='tradein.html'">Book Trade-In</a>
       <a>Store Locator</a>
       <a>Contact Us</a>
       <a>FAQs</a>
@@ -1494,7 +1428,8 @@
           ✅ 10% off storewide<br>
           ✅ Birthday month bonus<br>
           ✅ Exclusive member sales<br>
-          ✅ Free Click & Collect
+          ✅ Free Click & Collect<br>
+          ✅ Book Trade-In credits
         </div>
       </div>
       <div class="input-group"><label>Full Name</label><input type="text" placeholder="Your name" /></div>
@@ -1513,96 +1448,16 @@
 <script>
 /* ── PRODUCTS ── */
 const PRODUCTS = [
-  {
-    id: 1,
-    img: 'https://www.eph.com.sg/wp-content/uploads/9789815214963_1-360x510.jpg',
-    cat: 'assessment', catLabel: 'Assessment',
-    title: 'PSLE English Specimen Papers: Paper 1 & 2',
-    price: '$12.90', orig: '$16.90', badge: 'PSLE',
-    desc: 'Full specimen papers modelled on the latest PSLE format for Paper 1 (writing) and Paper 2 (language use). Includes worked answers.',
-    sale: true
-  },
-  {
-    id: 2,
-    img: 'https://www.eph.com.sg/wp-content/uploads/9789815214208_1-360x442.jpg',
-    cat: 'assessment', catLabel: 'Assessment',
-    title: 'P1 Champion in English Grammar',
-    price: '$13.90', orig: '$17.90', badge: 'Primary',
-    desc: 'A comprehensive grammar revision workbook aligned to the MOE primary English syllabus for P1 learners.',
-    sale: false
-  },
-  {
-    id: 3,
-    img: 'https://www.eph.com.sg/wp-content/uploads/9789815214246_1-360x493.jpg',
-    cat: 'assessment', catLabel: 'Assessment',
-    title: 'P5 Champion in English Grammar',
-    price: '$13.90', orig: '', badge: '',
-    desc: 'Targets P5 English grammar requirements including editing, situational writing preparation, and comprehensive cloze.',
-    sale: false
-  },
-  {
-    id: 4,
-    img: 'https://www.eph.com.sg/wp-content/uploads/9789815043532_1-360x494.jpg',
-    cat: 'assessment', catLabel: 'Assessment',
-    title: 'O Level Biology Fast Forward',
-    price: '$19.90', orig: '$24.90', badge: 'O Level',
-    desc: 'Concise biology content revision plus targeted O Level exam-style practice. Covers all syllabus topics with concept summaries.',
-    sale: false
-  },
-  {
-    id: 5,
-    img: 'https://www.eph.com.sg/wp-content/uploads/9789815043525_1-360x494.jpg',
-    cat: 'assessment', catLabel: 'Assessment',
-    title: 'O Level Chemistry Fast Forward',
-    price: '$19.90', orig: '$24.90', badge: 'On Sale',
-    desc: 'Key chemistry concepts and targeted questions for O Level preparation. Ideal for efficient, exam-focused revision.',
-    sale: true
-  },
-  {
-    id: 6,
-    img: 'https://www.eph.com.sg/wp-content/uploads/9789815043518_1-360x494.jpg',
-    cat: 'assessment', catLabel: 'Assessment',
-    title: 'O Level Physics Fast Forward',
-    price: '$19.90', orig: '$24.90', badge: 'On Sale',
-    desc: 'Exam-focused physics revision with concept checks, practice drills, and model answers for all O Level topics.',
-    sale: true
-  },
-  {
-    id: 7,
-    img: 'https://www.eph.com.sg/wp-content/uploads/9789815214253_1-360x493.jpg',
-    cat: 'assessment', catLabel: 'Assessment',
-    title: 'P6 Champion in English Grammar',
-    price: '$13.90', orig: '$17.90', badge: 'PSLE',
-    desc: 'Final-year PSLE preparation grammar workbook with rigorous practice on all tested grammar components.',
-    sale: false
-  },
-  {
-    id: 8,
-    img: 'https://www.eph.com.sg/wp-content/uploads/9789814946001_1-360x493.jpg',
-    cat: 'assessment', catLabel: 'Assessment',
-    title: 'P1 English Weekly Revision',
-    price: '$11.90', orig: '', badge: '',
-    desc: 'A week-by-week structured revision programme for P1 English covering reading comprehension and grammar.',
-    sale: false
-  },
-  {
-    id: 9,
-    img: 'https://www.eph.com.sg/wp-content/uploads/9789815267181_1-360x502.jpg',
-    cat: 'assessment', catLabel: 'Assessment',
-    title: 'PSLE English Exam Power Pack',
-    price: '$21.90', orig: '$26.90', badge: 'Bestseller',
-    desc: 'A comprehensive PSLE English revision bundle covering all four papers with model answers.',
-    sale: true
-  },
-  {
-    id: 10,
-    img: 'https://www.eph.com.sg/wp-content/uploads/9789815214925_1-360x493.jpg',
-    cat: 'assessment', catLabel: 'Assessment',
-    title: 'S1/G3 Topical Maths',
-    price: '$16.90', orig: '$21.90', badge: '30% Off',
-    desc: 'Topic-by-topic Sec 1 Express Mathematics practice aligned to the latest MOE syllabus.',
-    sale: true
-  },
+  { id:1, img:'https://www.eph.com.sg/wp-content/uploads/9789815214963_1-360x510.jpg', cat:'assessment', catLabel:'Assessment', title:'PSLE English Specimen Papers: Paper 1 & 2', price:'$12.90', orig:'$16.90', badge:'PSLE', desc:'Full specimen papers modelled on the latest PSLE format for Paper 1 (writing) and Paper 2 (language use). Includes worked answers.', sale:true },
+  { id:2, img:'https://www.eph.com.sg/wp-content/uploads/9789815214208_1-360x442.jpg', cat:'assessment', catLabel:'Assessment', title:'P1 Champion in English Grammar', price:'$13.90', orig:'$17.90', badge:'Primary', desc:'A comprehensive grammar revision workbook aligned to the MOE primary English syllabus for P1 learners.', sale:false },
+  { id:3, img:'https://www.eph.com.sg/wp-content/uploads/9789815214246_1-360x493.jpg', cat:'assessment', catLabel:'Assessment', title:'P5 Champion in English Grammar', price:'$13.90', orig:'', badge:'', desc:'Targets P5 English grammar requirements including editing, situational writing preparation, and comprehensive cloze.', sale:false },
+  { id:4, img:'https://www.eph.com.sg/wp-content/uploads/9789815043532_1-360x494.jpg', cat:'assessment', catLabel:'Assessment', title:'O Level Biology Fast Forward', price:'$19.90', orig:'$24.90', badge:'O Level', desc:'Concise biology content revision plus targeted O Level exam-style practice. Covers all syllabus topics with concept summaries.', sale:false },
+  { id:5, img:'https://www.eph.com.sg/wp-content/uploads/9789815043525_1-360x494.jpg', cat:'assessment', catLabel:'Assessment', title:'O Level Chemistry Fast Forward', price:'$19.90', orig:'$24.90', badge:'On Sale', desc:'Key chemistry concepts and targeted questions for O Level preparation. Ideal for efficient, exam-focused revision.', sale:true },
+  { id:6, img:'https://www.eph.com.sg/wp-content/uploads/9789815043518_1-360x494.jpg', cat:'assessment', catLabel:'Assessment', title:'O Level Physics Fast Forward', price:'$19.90', orig:'$24.90', badge:'On Sale', desc:'Exam-focused physics revision with concept checks, practice drills, and model answers for all O Level topics.', sale:true },
+  { id:7, img:'https://www.eph.com.sg/wp-content/uploads/9789815214253_1-360x493.jpg', cat:'assessment', catLabel:'Assessment', title:'P6 Champion in English Grammar', price:'$13.90', orig:'$17.90', badge:'PSLE', desc:'Final-year PSLE preparation grammar workbook with rigorous practice on all tested grammar components.', sale:false },
+  { id:8, img:'https://www.eph.com.sg/wp-content/uploads/9789814946001_1-360x493.jpg', cat:'assessment', catLabel:'Assessment', title:'P1 English Weekly Revision', price:'$11.90', orig:'', badge:'', desc:'A week-by-week structured revision programme for P1 English covering reading comprehension and grammar.', sale:false },
+  { id:9, img:'https://www.eph.com.sg/wp-content/uploads/9789815267181_1-360x502.jpg', cat:'assessment', catLabel:'Assessment', title:'PSLE English Exam Power Pack', price:'$21.90', orig:'$26.90', badge:'Bestseller', desc:'A comprehensive PSLE English revision bundle covering all four papers with model answers.', sale:true },
+  { id:10, img:'https://www.eph.com.sg/wp-content/uploads/9789815214925_1-360x493.jpg', cat:'assessment', catLabel:'Assessment', title:'S1/G3 Topical Maths', price:'$16.90', orig:'$21.90', badge:'30% Off', desc:'Topic-by-topic Sec 1 Express Mathematics practice aligned to the latest MOE syllabus.', sale:true },
 ];
 
 let cartCount = 0;
@@ -1610,17 +1465,11 @@ let activeFilter = 'all';
 
 function renderProducts(filter) {
   const grid = document.getElementById('productGrid');
-  const filtered = filter === 'all'
-    ? PRODUCTS
-    : filter === 'sale'
-      ? PRODUCTS.filter(p => p.sale)
-      : PRODUCTS.filter(p => p.cat === filter);
+  const filtered = filter === 'all' ? PRODUCTS : filter === 'sale' ? PRODUCTS.filter(p=>p.sale) : PRODUCTS.filter(p=>p.cat===filter);
   grid.innerHTML = filtered.map(p => `
     <div class="product-card" onclick="openProduct(${p.id})">
       ${p.badge ? `<div class="product-badge">${p.badge}</div>` : ''}
-      <div class="product-img">
-        <img src="${p.img}" alt="${p.title}" loading="lazy">
-      </div>
+      <div class="product-img"><img src="${p.img}" alt="${p.title}" loading="lazy"></div>
       <div class="product-body">
         <div class="product-cat">${p.catLabel}</div>
         <div class="product-title">${p.title}</div>
@@ -1655,9 +1504,7 @@ function showModal(type) {
   else if (type === 'membership') document.getElementById('membershipModal').classList.add('open');
 }
 
-function closeModal(id) {
-  document.getElementById(id).classList.remove('open');
-}
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
 function addToCart() {
   cartCount++;
@@ -1672,7 +1519,8 @@ function updateCartModal() {
   } else {
     body.innerHTML = `<p style="color:var(--mid);margin-bottom:16px">${cartCount} item(s) in your cart</p>
     <button class="btn-primary" style="width:100%" onclick="showToast('✅ Proceeding to checkout...'); closeModal('cartModal')">Proceed to Checkout</button>
-    <p style="text-align:center;margin-top:12px;font-size:12px;color:#aaa">or <span style="color:var(--red);cursor:pointer;font-weight:600" onclick="closeModal('cartModal'); goToSlide(0); document.getElementById('service-carousel').scrollIntoView({behavior:'smooth'})">Choose Click & Collect →</span></p>`;
+    <p style="text-align:center;margin-top:12px;font-size:12px;color:#aaa">or <span style="color:var(--red);cursor:pointer;font-weight:600" onclick="closeModal('cartModal'); goToSlide(0); document.getElementById('service-carousel').scrollIntoView({behavior:'smooth'})">Choose Click & Collect →</span></p>
+    <p style="text-align:center;margin-top:8px;font-size:12px;color:#aaa">Have old books? <span style="color:#1B7F4F;cursor:pointer;font-weight:600" onclick="window.location.href='tradein.html'">Trade them in for credits ♻️</span></p>`;
   }
 }
 
@@ -1712,9 +1560,7 @@ function checkStock() {
   document.getElementById('outletResults').style.display = 'block';
 }
 
-/* ══════════════════════════════════════
-   CAROUSEL LOGIC
-══════════════════════════════════════ */
+/* ── CAROUSEL ── */
 const SLIDE_COUNT = 2;
 const INTERVAL_MS = 5000;
 let currentSlide = 0;
@@ -1735,7 +1581,6 @@ function goToSlide(index) {
   section.setAttribute('data-slide', currentSlide);
   resetAutoPlay();
 }
-
 function nextSlide() { goToSlide(currentSlide + 1); }
 function prevSlide() { goToSlide(currentSlide - 1); }
 
@@ -1750,12 +1595,10 @@ function startProgress() {
   }
   progressTimer = requestAnimationFrame(tick);
 }
-
 function stopProgress() {
   cancelAnimationFrame(progressTimer);
   progressElapsed = parseFloat(progressBar.style.width || '0') / 100 * INTERVAL_MS;
 }
-
 function resetProgress() {
   cancelAnimationFrame(progressTimer);
   progressElapsed = 0;
@@ -1763,7 +1606,6 @@ function resetProgress() {
   progressBar.style.width = '0%';
   startProgress();
 }
-
 function resetAutoPlay() {
   clearInterval(autoTimer);
   resetProgress();
