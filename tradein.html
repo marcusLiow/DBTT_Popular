@@ -106,6 +106,24 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 .cond-desc{font-size:11px;color:var(--mid);line-height:1.4;}
 .cond-credit{font-size:13px;font-weight:700;color:var(--green);margin-top:6px;}
 
+/* Condition guide toggle */
+.cond-guide-toggle{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--red);cursor:pointer;user-select:none;margin-bottom:16px;padding:8px 12px;border-radius:8px;background:rgba(208,2,27,0.05);transition:background .15s;}
+.cond-guide-toggle:hover{background:rgba(208,2,27,0.1);}
+.cond-guide-arrow{transition:transform .2s;font-size:10px;}
+.cond-guide-toggle.open .cond-guide-arrow{transform:rotate(90deg);}
+.cond-guide-body{display:none;background:var(--light);border-radius:10px;padding:16px;margin-bottom:20px;border:1px solid var(--border);}
+.cond-guide-body.show{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.cond-guide-col{padding:12px;}
+.cond-guide-col h4{font-size:12px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.cond-guide-col.good h4{color:var(--green);}
+.cond-guide-col.fair h4{color:var(--amber);}
+.cond-guide-col.worn h4{color:#999;}
+.cond-guide-col.good{background:var(--green-bg);border-radius:8px;padding:14px;}
+.cond-guide-col.fair{background:var(--amber-bg);border-radius:8px;padding:14px;}
+.cond-guide-col.worn{background:#F1EDE5;border-radius:8px;padding:14px;}
+.cond-guide-col ul{list-style:none;font-size:12px;line-height:1.6;color:var(--dark);}
+.cond-guide-col ul li{margin-bottom:6px;}
+
 /* Offer box */
 .offer-box{background:linear-gradient(120deg,#1A1A1A,#2a1a0e);border-radius:12px;padding:20px;display:none;margin-bottom:20px;animation:fadeIn .3s ease;}
 .offer-box.show{display:block;}
@@ -117,6 +135,21 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 .ob-row{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:6px;}
 .ob-row .ol{color:rgba(255,255,255,0.55);}
 .ob-row .ov{color:rgba(255,255,255,0.85);font-weight:500;}
+
+/* Demand Meter */
+.demand-meter{margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.1);}
+.demand-meter-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,0.45);margin-bottom:8px;}
+.demand-meter-bar{display:flex;gap:4px;margin-bottom:8px;height:20px;}
+.demand-zone{flex:1;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:rgba(255,255,255,0.7);background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);}
+.demand-zone.active{background:rgba(255,255,255,0.2);border-color:rgba(255,255,255,0.3);color:rgba(255,255,255,0.95);}
+.demand-zone.low{background:#d4d4d4;border-color:#999;}
+.demand-zone.low.active{background:#999;color:#fff;}
+.demand-zone.normal{background:#fef3c7;border-color:#b45309;}
+.demand-zone.normal.active{background:#b45309;color:#fff;}
+.demand-zone.high{background:#e8f5ee;border-color:#1b7f4f;}
+.demand-zone.high.active{background:#1b7f4f;color:#fff;}
+.demand-meter-value{font-size:12px;color:rgba(255,255,255,0.6);}
+
 .offer-note{font-size:11.5px;color:rgba(255,255,255,0.4);margin-top:10px;line-height:1.5;}
 
 /* Buttons */
@@ -190,6 +223,24 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 .ref-num{font-size:22px;font-weight:800;letter-spacing:.08em;margin-bottom:3px;}
 .ref-sub{font-size:12px;color:var(--mid);}
 .sms-notice{background:var(--green-bg);border-radius:9px;padding:12px 16px;display:flex;gap:10px;align-items:center;margin-bottom:20px;font-size:13px;color:var(--green);font-weight:500;}
+
+/* Email preview toggle */
+.email-preview-toggle{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--dark);cursor:pointer;user-select:none;margin-bottom:16px;padding:8px 12px;border-radius:8px;background:var(--light);transition:background .15s;}
+.email-preview-toggle:hover{background:var(--gray-bg);}
+.email-preview-arrow{transition:transform .2s;font-size:10px;}
+.email-preview-toggle.open .email-preview-arrow{transform:rotate(90deg);}
+.email-preview-body{display:none;background:#fff;border:1px solid var(--border);border-radius:10px;margin-bottom:16px;overflow:hidden;}
+.email-preview-body.show{display:block;}
+.email-header{background:#f7f5f2;border-bottom:1px solid var(--border);padding:12px 16px;font-size:11px;line-height:1.6;}
+.email-field{margin-bottom:6px;}
+.email-field-label{color:var(--mid);font-weight:600;}
+.email-field-value{color:var(--dark);}
+.email-body{padding:20px 16px;font-size:13px;line-height:1.7;color:var(--dark);}
+.email-body p{margin-bottom:10px;}
+.email-body ul{margin:10px 0 10px 20px;padding-left:0;}
+.email-body li{margin-bottom:6px;}
+.email-footer{background:#f7f5f2;border-top:1px solid var(--border);padding:12px 16px;font-size:11px;color:var(--mid);text-align:center;}
+
 .success-next{background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);border-radius:10px;padding:14px 18px;margin-bottom:20px;font-size:13px;color:var(--amber);font-weight:500;text-align:left;line-height:1.6;}
 
 /* SIDEBAR */
@@ -203,6 +254,8 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 .s-div{border:none;border-top:1px solid var(--border);margin:10px 0;}
 .s-total{display:flex;justify-content:space-between;font-size:16px;font-weight:700;}
 .stl{color:var(--dark);}
+.s-total-earnings{color:var(--green);}
+.view-history-link{font-size:12px;color:var(--red);text-decoration:none;cursor:pointer;font-weight:600;margin-top:10px;display:block;}
 .info-card{background:#fff;border-radius:14px;border:1px solid var(--border);padding:18px;box-shadow:var(--shadow);}
 .info-card h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--mid);margin-bottom:12px;}
 .info-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;}
@@ -220,6 +273,29 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 /* Toast */
 .toast{position:fixed;bottom:30px;right:30px;background:var(--dark);color:white;padding:13px 22px;border-radius:10px;font-size:14px;font-weight:500;z-index:1000;transform:translateY(80px);opacity:0;transition:all .3s cubic-bezier(.34,1.56,.64,1);display:flex;align-items:center;gap:10px;}
 .toast.show{transform:translateY(0);opacity:1;}
+
+/* RECOMMENDED SECTION */
+.rec-outer{background:#fff;border-bottom:1px solid var(--border);padding:22px 24px 18px;}
+.rec-inner{max-width:1140px;margin:0 auto;}
+.rec-header{margin-bottom:3px;}
+.rec-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;margin-bottom:3px;}
+.rec-subtitle{font-size:12px;color:var(--mid);margin-bottom:6px;}
+.rec-note{font-size:11px;color:#999;margin-bottom:14px;font-style:italic;}
+.rec-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.rec-tab{padding:8px 16px;border-radius:20px;border:1.5px solid var(--border);font-size:12px;font-weight:600;cursor:pointer;background:#fff;color:var(--mid);transition:all .18s;user-select:none;}
+.rec-tab:hover{border-color:var(--dark);color:var(--dark);}
+.rec-tab.active{background:var(--red);color:#fff;border-color:var(--red);}
+.rec-scroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
+.rec-scroll::-webkit-scrollbar{height:4px;}
+.rec-scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+.rec-card{flex-shrink:0;width:175px;border:1.5px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;background:#fff;transition:all .18s;}
+.rec-card:hover{border-color:var(--red);box-shadow:var(--shadow-sm);transform:translateY(-2px);}
+.rec-card-emoji{font-size:26px;margin-bottom:8px;}
+.rec-card-title{font-size:12px;font-weight:600;line-height:1.35;margin-bottom:7px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.rec-pill{font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;margin-bottom:7px;display:inline-block;line-height:1.4;}
+.rec-pill.high{background:var(--amber-bg);color:var(--amber);}
+.rec-pill.normal{background:var(--gray-bg);color:var(--mid);}
+.rec-card-credit{font-size:11.5px;color:var(--green);font-weight:600;}
 
 /* BOOKS IN DEMAND */
 .demand-outer{background:#fff;border-bottom:1px solid var(--border);padding:22px 24px 18px;}
@@ -273,12 +349,17 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 .price-calc-row strong{color:rgba(255,255,255,0.9);}
 .price-calc-eq{font-size:12.5px;font-weight:600;color:var(--gold);margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.1);}
 
+/* COMPLIANCE STRIP */
+.compliance-strip{background:#F7F5F2;border-top:1px solid var(--border);text-align:center;font-size:11px;color:#999;padding:12px 24px;letter-spacing:.03em;}
+
 @media(max-width:600px){
   .hero-text h1{font-size:26px;}
   .hero-stats{gap:12px;}
   .condition-grid{grid-template-columns:repeat(3,1fr);}
   .btn-row{grid-template-columns:1fr;}
   .demand-card{width:150px;}
+  .rec-card{width:150px;}
+  .cond-guide-body{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -345,6 +426,23 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
       <div class="step-circle">4</div>
       <div class="step-label">Credits Issued</div>
     </div>
+  </div>
+</div>
+
+<!-- RECOMMENDED SECTION -->
+<div class="rec-outer" id="recOuter">
+  <div class="rec-inner">
+    <div class="rec-header">
+      <div class="rec-title">📚 Recommended Books to Trade In</div>
+      <div class="rec-subtitle">Based on your browsing, reading list & past trade-ins</div>
+      <div class="rec-note">🔗 Powered by data from your shop history, EduPass reading list, and past trade-ins — three systems, one smarter recommendation.</div>
+    </div>
+    <div class="rec-tabs">
+      <div class="rec-tab active" onclick="setRecTab(this,'shop')">🛒 Shop History</div>
+      <div class="rec-tab" onclick="setRecTab(this,'reading')">📖 Reading List</div>
+      <div class="rec-tab" onclick="setRecTab(this,'tradein')">♻️ Past Trade-Ins</div>
+    </div>
+    <div class="rec-scroll" id="recScroll"></div>
   </div>
 </div>
 
@@ -417,6 +515,38 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
         </div>
       </div>
 
+      <!-- Condition guide toggle -->
+      <div class="cond-guide-toggle" id="condGuideToggle" onclick="toggleCondGuide()">
+        <span class="cond-guide-arrow">▶</span>
+        <span>📷 See condition examples</span>
+      </div>
+      <div class="cond-guide-body" id="condGuideBody">
+        <div class="cond-guide-col good">
+          <h4>✅ Good</h4>
+          <ul>
+            <li>Spine intact, no bending</li>
+            <li>No markings or annotations</li>
+            <li>Cover clean and glossy</li>
+          </ul>
+        </div>
+        <div class="cond-guide-col fair">
+          <h4>📝 Fair</h4>
+          <ul>
+            <li>Pencil annotations visible</li>
+            <li>Slight cover wear or creases</li>
+            <li>Readable throughout</li>
+          </ul>
+        </div>
+        <div class="cond-guide-col worn">
+          <h4>⚠️ Worn</h4>
+          <ul>
+            <li>Torn pages or highlighting</li>
+            <li>Bent spine or heavy creasing</li>
+            <li>Major wear on cover</li>
+          </ul>
+        </div>
+      </div>
+
       <!-- Credit offer box -->
       <div class="offer-box" id="offerBox">
         <div class="offer-top">
@@ -433,6 +563,16 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
           <div class="ob-row"><span class="ol">Book</span><span class="ov" id="ob-book">—</span></div>
           <div class="ob-row"><span class="ol">Condition</span><span class="ov" id="ob-cond">—</span></div>
           <div class="ob-row"><span class="ol">Demand signal</span><span class="ov" id="ob-demand">—</span></div>
+        </div>
+        <!-- Demand Meter -->
+        <div class="demand-meter">
+          <div class="demand-meter-label">Demand Level</div>
+          <div class="demand-meter-bar">
+            <div class="demand-zone low" id="dmZone-low">Low</div>
+            <div class="demand-zone normal" id="dmZone-normal">Normal</div>
+            <div class="demand-zone high" id="dmZone-high">High</div>
+          </div>
+          <div class="demand-meter-value" id="demandMeterValue">—</div>
         </div>
         <div class="offer-note">⚠ This is a provisional offer. Final credit is confirmed after staff inspection at the counter.</div>
         <div class="price-calc-toggle" id="priceCalcToggle" onclick="togglePriceCalc()">
@@ -614,6 +754,43 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 
       <div class="sms-notice"><span style="font-size:20px;">📱</span> QR code also sent to +65 9123 4567</div>
 
+      <!-- Email preview toggle -->
+      <div class="email-preview-toggle" id="emailPreviewToggle" onclick="toggleEmailPreview()">
+        <span class="email-preview-arrow">▶</span>
+        <span>📧 Preview confirmation email</span>
+      </div>
+      <div class="email-preview-body" id="emailPreviewBody">
+        <div class="email-header">
+          <div class="email-field">
+            <span class="email-field-label">From:</span>
+            <span class="email-field-value">noreply@popular.com.sg</span>
+          </div>
+          <div class="email-field">
+            <span class="email-field-label">To:</span>
+            <span class="email-field-value">alex.tan@email.com</span>
+          </div>
+          <div class="email-field">
+            <span class="email-field-label">Subject:</span>
+            <span class="email-field-value">Your TradeIn is confirmed — Ref TI-2025-<span id="emailRefNum">4471</span></span>
+          </div>
+        </div>
+        <div class="email-body">
+          <p>Hi Alex,</p>
+          <p>Your trade-in request has been received.</p>
+          <ul>
+            <li><strong>Book:</strong> <span id="emailBookTitle">—</span></li>
+            <li><strong>Condition:</strong> <span id="emailCondition">—</span></li>
+            <li><strong>Provisional credit:</strong> <span id="emailCredit">—</span></li>
+            <li><strong>Drop-off outlet:</strong> <span id="emailOutlet">—</span></li>
+            <li><strong>Reference:</strong> TI-2025-<span id="emailRefNum2">4471</span></li>
+          </ul>
+          <p>Please bring the book to the outlet within 7 days. Present this email or your QR code at the TradeIn counter.</p>
+        </div>
+        <div class="email-footer">
+          Popular Bookstore Singapore | PDPA-compliant data handling
+        </div>
+      </div>
+
       <div class="success-next">
         💡 <strong>What happens next:</strong> Walk to the TradeIn counter at your chosen outlet. Staff will check the book condition (under 3 minutes) and confirm your final credit. Credits appear in your Popular Wallet immediately.
       </div>
@@ -660,7 +837,18 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 
   <!-- Trade-In History -->
   <div class="summary-card">
-    <div class="summary-header">🕐 My Past Trade-Ins</div>
+    <div class="summary-header">🕐 Wallet Transaction History</div>
+    <div class="history-item">
+      <div class="history-icon">📕</div>
+      <div class="history-info">
+        <div class="history-title">Tomorrow × Tomorrow × Tomorrow — Zevin</div>
+        <div class="history-date">15 Mar 2025 · Bugis Junction</div>
+      </div>
+      <div class="history-right">
+        <div class="history-credit">S$4.20</div>
+        <span class="badge badge-green">Credit Confirmed</span>
+      </div>
+    </div>
     <div class="history-item">
       <div class="history-icon">📗</div>
       <div class="history-info">
@@ -694,6 +882,10 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
         <span class="badge badge-green">Credit Confirmed</span>
       </div>
     </div>
+    <div style="padding:12px 20px;border-top:1px solid var(--border);text-align:right;">
+      <div class="s-total"><span class="stl">Total earned:</span><span class="s-total-earnings">S$16.80</span></div>
+      <a class="view-history-link" onclick="showToast('📊 Full transaction history coming soon')">View full history →</a>
+    </div>
   </div>
 
   <!-- How it works -->
@@ -723,6 +915,9 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 <!-- Toast -->
 <div class="toast" id="toast"><span id="toastMsg"></span></div>
 
+<!-- Compliance Strip -->
+<div class="compliance-strip">🔒 PDPA-compliant · Registered under Second-Hand Dealers Act (PLRD) · Data protected per MAS PSA guidelines · Reg. No. SHDA-2025-04821</div>
+
 <script>
 // ── DATA ──────────────────────────────────────────────────────────────
 const BOOKS = [
@@ -740,18 +935,39 @@ const BOOKS = [
 ];
 
 const OUTLETS = [
-  { id:1, name:'Bugis Junction',    addr:'4 New Bugis St, #B1-05',          region:'central',   dist:'0.4 km', hours:'10am–10pm' },
-  { id:2, name:'Plaza Singapura',   addr:'68 Orchard Rd, #B2-22',           region:'central',   dist:'2.1 km', hours:'10am–10pm' },
-  { id:3, name:'VivoCity',          addr:'1 HarbourFront Walk, #B2-12',     region:'central',   dist:'4.8 km', hours:'10am–10pm' },
-  { id:4, name:'Tampines Mall',     addr:'4 Tampines Central 5, #B1-12',    region:'east',      dist:'3.2 km', hours:'10am–10pm' },
-  { id:5, name:'Parkway Parade',    addr:'80 Marine Parade Rd, #B1-10',     region:'east',      dist:'5.6 km', hours:'10am–9:30pm' },
-  { id:6, name:'Northpoint City',   addr:'930 Yishun Ave 2, #B1-107',       region:'north',     dist:'7.1 km', hours:'10am–9:30pm' },
-  { id:7, name:'Causeway Point',    addr:'1 Woodlands Square, #03-04',      region:'north',     dist:'11.3 km',hours:'10am–10pm' },
-  { id:8, name:'Lot One Shoppers',  addr:'21 Choa Chu Kang Ave 4, #01-01', region:'west',      dist:'9.4 km', hours:'10am–10pm' },
-  { id:9, name:'Clementi Mall',     addr:'3155 Commonwealth Ave W, #03-55', region:'west',      dist:'8.2 km', hours:'10am–10pm' },
-  { id:10,name:'NEX',               addr:'23 Serangoon Central, #B1-31',    region:'northeast', dist:'5.0 km', hours:'10am–10pm' },
-  { id:11,name:'Heartland Mall',    addr:'205 Hougang St 21, #01-107',      region:'northeast', dist:'6.3 km', hours:'10am–9pm'  },
+  { id:1, name:'Bugis Junction',    addr:'4 New Bugis St, #B1-05',          region:'central',   dist:'0.4 km', hours:'10am–10pm', processingTime:'~2 min' },
+  { id:2, name:'Plaza Singapura',   addr:'68 Orchard Rd, #B2-22',           region:'central',   dist:'2.1 km', hours:'10am–10pm', processingTime:'~3 min' },
+  { id:3, name:'VivoCity',          addr:'1 HarbourFront Walk, #B2-12',     region:'central',   dist:'4.8 km', hours:'10am–10pm', processingTime:'~3 min' },
+  { id:4, name:'Tampines Mall',     addr:'4 Tampines Central 5, #B1-12',    region:'east',      dist:'3.2 km', hours:'10am–10pm', processingTime:'~2 min' },
+  { id:5, name:'Parkway Parade',    addr:'80 Marine Parade Rd, #B1-10',     region:'east',      dist:'5.6 km', hours:'10am–9:30pm', processingTime:'~4 min' },
+  { id:6, name:'Northpoint City',   addr:'930 Yishun Ave 2, #B1-107',       region:'north',     dist:'7.1 km', hours:'10am–9:30pm', processingTime:'~3 min' },
+  { id:7, name:'Causeway Point',    addr:'1 Woodlands Square, #03-04',      region:'north',     dist:'11.3 km',hours:'10am–10pm', processingTime:'~4 min' },
+  { id:8, name:'Lot One Shoppers',  addr:'21 Choa Chu Kang Ave 4, #01-01', region:'west',      dist:'9.4 km', hours:'10am–10pm', processingTime:'~3 min' },
+  { id:9, name:'Clementi Mall',     addr:'3155 Commonwealth Ave W, #03-55', region:'west',      dist:'8.2 km', hours:'10am–10pm', processingTime:'~2 min' },
+  { id:10,name:'NEX',               addr:'23 Serangoon Central, #B1-31',    region:'northeast', dist:'5.0 km', hours:'10am–10pm', processingTime:'~3 min' },
+  { id:11,name:'Heartland Mall',    addr:'205 Hougang St 21, #01-107',      region:'northeast', dist:'6.3 km', hours:'10am–9pm', processingTime:'~4 min'  },
 ];
+
+const REC_DATA = {
+  shop: [
+    { emoji:'📗', title:'Primary 6 Maths Challenging Problems', demandMult:1.2, baseGood:4.50, demand:'High demand' },
+    { emoji:'📘', title:'Secondary 2 Science Workbook', demandMult:1.0, baseGood:3.80, demand:'Normal' },
+    { emoji:'📙', title:'PSLE English Oral Practice', demandMult:1.25, baseGood:4.20, demand:'High demand' },
+    { emoji:'📕', title:'Primary 5 Higher Chinese', demandMult:1.1, baseGood:3.50, demand:'Normal' },
+  ],
+  reading: [
+    { emoji:'📗', title:'Atomic Habits — James Clear', demandMult:1.3, baseGood:5.50, demand:'High demand — BookTok' },
+    { emoji:'📘', title:'The Psychology of Money', demandMult:1.2, baseGood:4.80, demand:'High demand' },
+    { emoji:'📙', title:'Lessons in Chemistry', demandMult:1.15, baseGood:4.00, demand:'Trending' },
+    { emoji:'📕', title:'Fourth Wing — Rebecca Yarros', demandMult:1.35, baseGood:5.20, demand:'High demand — BookTok' },
+  ],
+  tradein: [
+    { emoji:'📗', title:'O-Level Chemistry Ten Year Series', demandMult:1.2, baseGood:5.00, demand:'High demand' },
+    { emoji:'📘', title:'JC1 H2 Physics Assessment', demandMult:1.25, baseGood:5.50, demand:'High demand' },
+    { emoji:'📙', title:'Secondary 4 E-Maths TYS', demandMult:1.0, baseGood:4.50, demand:'Normal' },
+    { emoji:'📕', title:'Primary 6 Science Past Papers', demandMult:1.3, baseGood:4.00, demand:'High demand' },
+  ]
+};
 
 // ── STATE ─────────────────────────────────────────────────────────────
 let step = 1;
@@ -760,6 +976,7 @@ let currentCondition = null;
 let selectedOutletId = null;
 let region = 'all';
 let outletSearch = '';
+let currentRecTab = 'shop';
 
 // ── STEP NAV ──────────────────────────────────────────────────────────
 function nextStep(){ if(step<4){ step++; renderStep(); } }
@@ -781,9 +998,11 @@ function renderStep(){
   if(step===3) populateConfirm();
   if(step===4) populateSuccess();
   window.scrollTo({top:0,behavior:'smooth'});
-  // Show demand section only on step 1
+  // Show demand and rec sections only on step 1
   const demandOuter = document.getElementById('demandOuter');
+  const recOuter = document.getElementById('recOuter');
   if(demandOuter) demandOuter.style.display = step===1 ? '' : 'none';
+  if(recOuter) recOuter.style.display = step===1 ? '' : 'none';
 }
 
 // ── STEP 1 LOGIC ──────────────────────────────────────────────────────
@@ -846,6 +1065,28 @@ function selectCondition(cond){
   document.getElementById('nextBtn1').style.display = 'block';
   updateSidebar(credit, condLabel);
   updatePriceCalc(cond);
+  updateDemandMeter();
+}
+
+function updateDemandMeter(){
+  if(!currentBook) return;
+  const mult = currentBook.demandMult;
+  let zone = 'normal';
+  if(mult < 0.95) zone = 'low';
+  else if(mult > 1.15) zone = 'high';
+
+  ['low','normal','high'].forEach(z => {
+    const el = document.getElementById('dmZone-'+z);
+    el.classList.toggle('active', z===zone);
+  });
+
+  const zoneLabel = {low:'Low demand',normal:'Normal demand',high:'High demand'}[zone];
+  document.getElementById('demandMeterValue').textContent = zoneLabel;
+}
+
+function toggleCondGuide(){
+  document.getElementById('condGuideToggle').classList.toggle('open');
+  document.getElementById('condGuideBody').classList.toggle('show');
 }
 
 function updateSidebar(credit, condLabel){
@@ -889,6 +1130,7 @@ function renderOutlets(){
           <div class="out-meta">
             <span class="out-tag">📍 ${o.dist}</span>
             <span class="out-tag">🕙 ${o.hours}</span>
+            <span class="out-tag">⏱ ${o.processingTime}</span>
           </div>
         </div>
         <div class="out-cta">${isSel?'✓ Selected':'Select →'}</div>
@@ -936,11 +1178,24 @@ function populateSuccess(){
   const outlet = OUTLETS.find(o=>o.id===selectedOutletId);
   const baseMap = {good: currentBook.baseGood, fair: currentBook.baseFair, worn: currentBook.baseWorn};
   const credit = (baseMap[currentCondition] * currentBook.demandMult).toFixed(2);
+  const condLabel = {good:'Good condition',fair:'Fair condition',worn:'Worn condition'}[currentCondition];
+  const refNum = String(Math.floor(1000+Math.random()*8999));
 
   document.getElementById('success-outlet').textContent = outlet.name;
   document.getElementById('success-credit').textContent = 'S$'+credit;
-  document.getElementById('refNum').textContent = String(Math.floor(1000+Math.random()*8999));
+  document.getElementById('refNum').textContent = refNum;
+  document.getElementById('emailRefNum').textContent = refNum;
+  document.getElementById('emailRefNum2').textContent = refNum;
+  document.getElementById('emailBookTitle').textContent = currentBook.title;
+  document.getElementById('emailCondition').textContent = condLabel;
+  document.getElementById('emailCredit').textContent = 'S$'+credit;
+  document.getElementById('emailOutlet').textContent = outlet.name;
   updateEdupassBanner(credit);
+}
+
+function toggleEmailPreview(){
+  document.getElementById('emailPreviewToggle').classList.toggle('open');
+  document.getElementById('emailPreviewBody').classList.toggle('show');
 }
 
 // ── RESTART ───────────────────────────────────────────────────────────
@@ -955,7 +1210,43 @@ function restart(){
   document.getElementById('outletNextBtn').disabled=true;
   document.getElementById('pendingCredit').textContent='$0.00';
   ['good','fair','worn'].forEach(c=>document.getElementById('cond-'+c).classList.remove('selected'));
+  document.getElementById('condGuideToggle').classList.remove('open');
+  document.getElementById('condGuideBody').classList.remove('show');
+  document.getElementById('emailPreviewToggle').classList.remove('open');
+  document.getElementById('emailPreviewBody').classList.remove('show');
   renderStep();
+}
+
+// ── RECOMMENDED SECTION ───────────────────────────────────────────────
+function renderRecSection(){
+  renderRecCards(currentRecTab);
+}
+
+function setRecTab(tab, tabName){
+  document.querySelectorAll('.rec-tab').forEach(t=>t.classList.remove('active'));
+  tab.classList.add('active');
+  currentRecTab = tabName;
+  renderRecCards(tabName);
+}
+
+function renderRecCards(tabName){
+  const books = REC_DATA[tabName] || [];
+  document.getElementById('recScroll').innerHTML = books.map(b => {
+    const maxCredit = (b.baseGood * b.demandMult).toFixed(2);
+    const pillClass = b.demandMult >= 1.2 ? 'high' : 'normal';
+    return `<div class="rec-card" onclick="pickRecBook('${b.title}')">
+      <div class="rec-card-emoji">${b.emoji}</div>
+      <div class="rec-card-title">${b.title}</div>
+      <div class="rec-pill ${pillClass}">${b.demand}</div>
+      <div class="rec-card-credit">S$${maxCredit}</div>
+    </div>`;
+  }).join('');
+}
+
+function pickRecBook(title){
+  document.getElementById('isbnInput').value = title;
+  lookupBook();
+  document.getElementById('content-1').scrollIntoView({behavior:'smooth', block:'start'});
 }
 
 // ── BOOKS IN DEMAND ───────────────────────────────────────────────────
@@ -1012,9 +1303,6 @@ function updateEdupassBanner(credit){
 }
 
 // ── TOAST ─────────────────────────────────────────────────────────────
-// ── INIT ──────────────────────────────────────────────────────────────
-renderDemandSection();
-
 let toastTimer;
 function showToast(msg){
   const t = document.getElementById('toast');
@@ -1023,6 +1311,11 @@ function showToast(msg){
   clearTimeout(toastTimer);
   toastTimer = setTimeout(()=>t.classList.remove('show'), 3000);
 }
+
+// ── INIT ──────────────────────────────────────────────────────────────
+renderDemandSection();
+renderRecSection();
 </script>
+
 </body>
 </html>
