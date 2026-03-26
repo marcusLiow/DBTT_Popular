@@ -377,6 +377,7 @@
     <li><a href="#">Primary</a></li>
     <li><a href="#">A Level</a></li>
     <li><a href="#">PSLE</a></li>
+    <li><a href="student-analysis.html" style="color:var(--red);font-weight:600;">My Progress ↗</a></li>
   </ul>
   <div class="nav-right">
     <input type="text" class="nav-search" placeholder="Search assessments…">
@@ -809,6 +810,22 @@
     <span>Made for Singapore students 🇸🇬</span>
   </div>
 </footer>
+
+<!-- MY PROGRESS FLOATING BUTTON -->
+<a href="student-analysis.html" id="progressBtn" style="
+  position: fixed; bottom: 24px; right: 24px; z-index: 800;
+  background: var(--text); color: #fff;
+  font-family: var(--sans); font-size: 12px; font-weight: 600;
+  padding: 12px 20px; border-radius: 30px;
+  display: flex; align-items: center; gap: 9px;
+  text-decoration: none; letter-spacing: .3px;
+  box-shadow: 0 6px 28px rgba(28,25,23,.35);
+  transition: all .25s; border: 1px solid rgba(255,255,255,.08);
+" onmouseover="this.style.background='#c8102e';this.style.transform='translateY(-2px)'"
+   onmouseout="this.style.background='#1C1917';this.style.transform='translateY(0)'">
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+  My Progress
+</a>
 
 <!-- BOOK MODAL -->
 <div class="overlay" id="overlay" onclick="closeModal(event)">
