@@ -419,10 +419,12 @@
     color: var(--dark);
     line-height: 1.45;
     margin-bottom: 8px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
     overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+
     min-height: calc(13px * 1.45 * 2);
   }
   .product-price {
