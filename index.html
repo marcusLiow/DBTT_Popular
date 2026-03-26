@@ -389,14 +389,20 @@
 
   .product-img {
     width: 100%;
-    aspect-ratio: 3/4;
-    object-fit: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 48px;
+    height: 220px;
+    overflow: hidden;
     background: var(--light);
+    flex-shrink: 0;
   }
+  .product-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+  .product-card:hover .product-img img { transform: scale(1.04); }
 
   .product-body { padding: 12px 14px 14px; }
   .product-cat {
@@ -417,6 +423,7 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    min-height: calc(13px * 1.45 * 2);
   }
   .product-price {
     font-size: 15px;
@@ -617,9 +624,14 @@
     width: 90px; height: 120px;
     background: var(--light);
     border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 36px;
+    overflow: hidden;
     flex-shrink: 0;
+  }
+  .modal-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
   .modal-info { flex: 1; }
   .modal-info .cat { font-size: 11px; font-weight: 600; color: var(--red); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 6px; }
@@ -1003,7 +1015,6 @@
     border-radius: 4px;
   }
 
-  /* Dots are white on the dark subscription slide */
   .carousel-section[data-slide="1"] .carousel-dot {
     background: rgba(255,255,255,0.3);
   }
@@ -1192,28 +1203,20 @@
     </div>
     <a class="see-all">See all →</a>
   </div>
-  <div class="product-grid" id="productGrid">
-    <!-- Rendered by JS -->
-  </div>
+  <div class="product-grid" id="productGrid"></div>
 </div>
 
 <hr class="divider">
 
-<!-- ═══════════════════════════════════════
-     SERVICE CAROUSEL
-     Slide 0 → Click & Collect
-     Slide 1 → Subscription Service
-════════════════════════════════════════ -->
+<!-- SERVICE CAROUSEL -->
 <div class="carousel-section" id="service-carousel" data-slide="0">
 
-  <!-- Arrows -->
   <button class="carousel-arrow prev" onclick="prevSlide()">&#8249;</button>
   <button class="carousel-arrow next" onclick="nextSlide()">&#8250;</button>
 
-  <!-- Track -->
   <div class="carousel-track" id="carouselTrack">
 
-    <!-- ── SLIDE 0: Click & Collect ── -->
+    <!-- SLIDE 0: Click & Collect -->
     <div class="carousel-slide">
       <div class="cc-slide" id="cc">
         <div class="cc-inner">
@@ -1287,9 +1290,9 @@
           </div>
         </div>
       </div>
-    </div><!-- /slide 0 -->
+    </div>
 
-    <!-- ── SLIDE 1: Subscription Service ── -->
+    <!-- SLIDE 1: Subscription -->
     <div class="carousel-slide">
       <div class="sub-slide">
         <div class="sub-inner">
@@ -1298,31 +1301,18 @@
             <h2>Unlimited Access to<br><em>Study Pass</em></h2>
             <p>Get unlimited digital access to hundreds of assessment books, past year papers, and exclusive study materials — all in one subscription.</p>
             <div class="sub-features">
-              <div class="sub-feat">
-                <div class="sub-feat-icon">📚</div>
-                Hundreds of assessment titles &amp; past year papers
-              </div>
-              <div class="sub-feat">
-                <div class="sub-feat-icon">📥</div>
-                Downloadable PDFs — study anywhere, anytime
-              </div>
-              <div class="sub-feat">
-                <div class="sub-feat-icon">🔄</div>
-                New content added monthly across all levels
-              </div>
-              <div class="sub-feat">
-                <div class="sub-feat-icon">👨‍👩‍👧</div>
-                Family plan covers up to 4 students
-              </div>
+              <div class="sub-feat"><div class="sub-feat-icon">📚</div>Hundreds of assessment titles &amp; past year papers</div>
+              <div class="sub-feat"><div class="sub-feat-icon">📥</div>Downloadable PDFs — study anywhere, anytime</div>
+              <div class="sub-feat"><div class="sub-feat-icon">🔄</div>New content added monthly across all levels</div>
+              <div class="sub-feat"><div class="sub-feat-icon">👨‍👩‍👧</div>Family plan covers up to 4 students</div>
             </div>
             <div class="sub-btns">
               <a href="subcription.html" class="btn-gold">Explore Study Pass →</a>
               <a href="subcription.html" class="btn-sub-outline">View All Plans</a>
             </div>
           </div>
-
           <div class="sub-plans">
-            <a href="subcription.html" class="plan-card" style="margin-top: 28px;">
+            <a href="subcription.html" class="plan-card" style="margin-top:28px;">
               <div>
                 <div class="plan-name">📖 Starter</div>
                 <div class="plan-desc">1 student · Primary levels</div>
@@ -1333,7 +1323,6 @@
               </div>
               <span class="plan-arrow">›</span>
             </a>
-
             <div style="position:relative;">
               <div class="plan-popular">MOST POPULAR</div>
               <a href="subcription.html" class="plan-card featured">
@@ -1348,7 +1337,6 @@
                 <span class="plan-arrow">›</span>
               </a>
             </div>
-
             <a href="subcription.html" class="plan-card">
               <div>
                 <div class="plan-name">👨‍👩‍👧 Family</div>
@@ -1363,20 +1351,18 @@
           </div>
         </div>
       </div>
-    </div><!-- /slide 1 -->
+    </div>
 
-  </div><!-- /carousel-track -->
+  </div>
 
-  <!-- Dots -->
   <div class="carousel-controls">
     <button class="carousel-dot active" onclick="goToSlide(0)" title="Click & Collect"></button>
     <button class="carousel-dot" onclick="goToSlide(1)" title="Subscription"></button>
   </div>
 
-  <!-- Progress bar -->
   <div class="carousel-progress" id="carouselProgress"></div>
 
-</div><!-- /carousel-section -->
+</div>
 
 <!-- Membership Banner -->
 <div class="promo-banner">
@@ -1447,7 +1433,7 @@
     </div>
     <div class="modal-body">
       <div class="modal-product">
-        <div class="modal-img" id="modalEmoji">📚</div>
+        <div class="modal-img" id="modalImg"></div>
         <div class="modal-info">
           <div class="cat" id="modalCat"></div>
           <div class="title" id="modalName"></div>
@@ -1525,16 +1511,96 @@
 <script>
 /* ── PRODUCTS ── */
 const PRODUCTS = [
-  { id:1, emoji:'📗', cat:'assessment', catLabel:'Assessment', title:'PSLE Mathematics Past Year Papers 2025', price:'$12.90', orig:'$16.90', badge:'PSLE', desc:'Complete collection of past year PSLE Mathematics exam papers with worked solutions. Ideal for Primary 6 revision.', sale:true },
-  { id:2, emoji:'📘', cat:'english', catLabel:'English Books', title:'Atomic Habits — James Clear', price:'$21.90', orig:'$29.90', badge:'Bestseller', desc:'An easy and proven way to build good habits and break bad ones. A must-read for anyone looking to improve their life.', sale:false },
-  { id:3, emoji:'✏️', cat:'stationery', catLabel:'Stationery', title:'Stabilo Boss Highlighter Set (8 Colours)', price:'$8.90', orig:'$12.90', badge:'On Sale', desc:'Vibrant, smear-proof highlighters in 8 classic colours. Perfect for students and professionals alike.', sale:true },
-  { id:4, emoji:'💻', cat:'gadgets', catLabel:'Gadgets & IT', title:'Kindle Paperwhite (16GB)', price:'$249.00', orig:'$289.00', badge:'', desc:'The thinnest, lightest Kindle Paperwhite yet, with a flush-front design and 300 ppi glare-free display.', sale:false },
-  { id:5, emoji:'📙', cat:'chinese', catLabel:'Chinese Books', title:'小王子 (The Little Prince — Chinese Ed.)', price:'$14.90', orig:'', badge:'', desc:'经典儿童文学名著的中文版，适合所有年龄读者。A timeless classic in Chinese.', sale:false },
-  { id:6, emoji:'🍫', cat:'snacks', catLabel:'Titbits', title:'Meiji Milk Chocolate Assorted Box', price:'$6.90', orig:'$9.90', badge:'Sale', desc:'Premium Japanese milk chocolate in an assorted box — a perfect gift or treat for yourself.', sale:true },
-  { id:7, emoji:'📕', cat:'assessment', catLabel:'Assessment', title:'O-Level A-Math Ten Year Series 2025', price:'$19.90', orig:'$24.90', badge:'O Level', desc:'Complete ten-year series for O-Level Additional Mathematics with detailed answers and worked solutions.', sale:false },
-  { id:8, emoji:'🖊️', cat:'stationery', catLabel:'Stationery', title:'Pentel GraphGear 1000 Mechanical Pencil', price:'$22.90', orig:'', badge:'Premium', desc:'Professional-grade drafting mechanical pencil with retractable tip and grip for precision writing.', sale:false },
-  { id:9, emoji:'📓', cat:'english', catLabel:'English Books', title:'The Midnight Library — Matt Haig', price:'$18.90', orig:'$26.90', badge:'', desc:'A dazzling novel about all the choices that go into a life well lived, now a worldwide bestseller.', sale:true },
-  { id:10, emoji:'🎧', cat:'gadgets', catLabel:'Gadgets & IT', title:'JBL Tune 510BT Wireless Headphones', price:'$59.90', orig:'$89.00', badge:'30% Off', desc:'Pure Bass sound, up to 40 hours of battery, and a foldable design for easy portability.', sale:true },
+  {
+    id: 1,
+    img: 'https://www.eph.com.sg/wp-content/uploads/9789815214963_1-360x510.jpg',
+    cat: 'assessment', catLabel: 'Assessment',
+    title: 'PSLE English Specimen Papers: Paper 1 & 2',
+    price: '$12.90', orig: '$16.90', badge: 'PSLE',
+    desc: 'Full specimen papers modelled on the latest PSLE format for Paper 1 (writing) and Paper 2 (language use). Includes worked answers.',
+    sale: true
+  },
+  {
+    id: 2,
+    img: 'https://www.eph.com.sg/wp-content/uploads/9789815214208_1-360x442.jpg',
+    cat: 'assessment', catLabel: 'Assessment',
+    title: 'P1 Champion in English Grammar',
+    price: '$13.90', orig: '$17.90', badge: 'Primary',
+    desc: 'A comprehensive grammar revision workbook aligned to the MOE primary English syllabus for P1 learners.',
+    sale: false
+  },
+  {
+    id: 3,
+    img: 'https://www.eph.com.sg/wp-content/uploads/9789815214246_1-360x493.jpg',
+    cat: 'assessment', catLabel: 'Assessment',
+    title: 'P5 Champion in English Grammar',
+    price: '$13.90', orig: '', badge: '',
+    desc: 'Targets P5 English grammar requirements including editing, situational writing preparation, and comprehensive cloze.',
+    sale: false
+  },
+  {
+    id: 4,
+    img: 'https://www.eph.com.sg/wp-content/uploads/9789815043532_1-360x494.jpg',
+    cat: 'assessment', catLabel: 'Assessment',
+    title: 'O Level Biology Fast Forward',
+    price: '$19.90', orig: '$24.90', badge: 'O Level',
+    desc: 'Concise biology content revision plus targeted O Level exam-style practice. Covers all syllabus topics with concept summaries.',
+    sale: false
+  },
+  {
+    id: 5,
+    img: 'https://www.eph.com.sg/wp-content/uploads/9789815043525_1-360x494.jpg',
+    cat: 'assessment', catLabel: 'Assessment',
+    title: 'O Level Chemistry Fast Forward',
+    price: '$19.90', orig: '$24.90', badge: 'On Sale',
+    desc: 'Key chemistry concepts and targeted questions for O Level preparation. Ideal for efficient, exam-focused revision.',
+    sale: true
+  },
+  {
+    id: 6,
+    img: 'https://www.eph.com.sg/wp-content/uploads/9789815043518_1-360x494.jpg',
+    cat: 'assessment', catLabel: 'Assessment',
+    title: 'O Level Physics Fast Forward',
+    price: '$19.90', orig: '$24.90', badge: 'On Sale',
+    desc: 'Exam-focused physics revision with concept checks, practice drills, and model answers for all O Level topics.',
+    sale: true
+  },
+  {
+    id: 7,
+    img: 'https://www.eph.com.sg/wp-content/uploads/9789815214253_1-360x493.jpg',
+    cat: 'assessment', catLabel: 'Assessment',
+    title: 'P6 Champion in English Grammar',
+    price: '$13.90', orig: '$17.90', badge: 'PSLE',
+    desc: 'Final-year PSLE preparation grammar workbook with rigorous practice on all tested grammar components.',
+    sale: false
+  },
+  {
+    id: 8,
+    img: 'https://www.eph.com.sg/wp-content/uploads/9789814946001_1-360x493.jpg',
+    cat: 'assessment', catLabel: 'Assessment',
+    title: 'P1 English Weekly Revision',
+    price: '$11.90', orig: '', badge: '',
+    desc: 'A week-by-week structured revision programme for P1 English covering reading comprehension and grammar.',
+    sale: false
+  },
+  {
+    id: 9,
+    img: 'https://www.eph.com.sg/wp-content/uploads/9789815267181_1-360x502.jpg',
+    cat: 'assessment', catLabel: 'Assessment',
+    title: 'PSLE English Exam Power Pack',
+    price: '$21.90', orig: '$26.90', badge: 'Bestseller',
+    desc: 'A comprehensive PSLE English revision bundle covering all four papers with model answers.',
+    sale: true
+  },
+  {
+    id: 10,
+    img: 'https://www.eph.com.sg/wp-content/uploads/9789815214925_1-360x493.jpg',
+    cat: 'assessment', catLabel: 'Assessment',
+    title: 'S1/G3 Topical Maths',
+    price: '$16.90', orig: '$21.90', badge: '30% Off',
+    desc: 'Topic-by-topic Sec 1 Express Mathematics practice aligned to the latest MOE syllabus.',
+    sale: true
+  },
 ];
 
 let cartCount = 0;
@@ -1542,11 +1608,17 @@ let activeFilter = 'all';
 
 function renderProducts(filter) {
   const grid = document.getElementById('productGrid');
-  const filtered = filter === 'all' ? PRODUCTS : filter === 'sale' ? PRODUCTS.filter(p=>p.sale) : PRODUCTS.filter(p=>p.cat===filter);
+  const filtered = filter === 'all'
+    ? PRODUCTS
+    : filter === 'sale'
+      ? PRODUCTS.filter(p => p.sale)
+      : PRODUCTS.filter(p => p.cat === filter);
   grid.innerHTML = filtered.map(p => `
     <div class="product-card" onclick="openProduct(${p.id})">
       ${p.badge ? `<div class="product-badge">${p.badge}</div>` : ''}
-      <div class="product-img">${p.emoji}</div>
+      <div class="product-img">
+        <img src="${p.img}" alt="${p.title}" loading="lazy">
+      </div>
       <div class="product-body">
         <div class="product-cat">${p.catLabel}</div>
         <div class="product-title">${p.title}</div>
@@ -1567,7 +1639,7 @@ function filterCat(el, cat) {
 function openProduct(id) {
   const p = PRODUCTS.find(x => x.id === id);
   document.getElementById('modalTitle').textContent = p.title;
-  document.getElementById('modalEmoji').textContent = p.emoji;
+  document.getElementById('modalImg').innerHTML = `<img src="${p.img}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;display:block;">`;
   document.getElementById('modalCat').textContent = p.catLabel;
   document.getElementById('modalName').textContent = p.title;
   document.getElementById('modalPrice').innerHTML = p.price + (p.orig ? ` <span class="orig">${p.orig}</span>` : '');
@@ -1591,7 +1663,6 @@ function addToCart() {
   showToast('🛒 Item added to cart!');
 }
 
-let cartItems = [];
 function updateCartModal() {
   const body = document.getElementById('cartBody');
   if (cartCount === 0) {
@@ -1624,7 +1695,7 @@ function doSearch() {
   showToast(`🔍 Searching for "${q}"...`);
 }
 
-function scrollToTop() { window.scrollTo({top:0, behavior:'smooth'}); }
+function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
 function checkStock() {
   const item = document.getElementById('stockSearch').value.trim();
@@ -1658,32 +1729,22 @@ const dots = document.querySelectorAll('.carousel-dot');
 function goToSlide(index) {
   currentSlide = (index + SLIDE_COUNT) % SLIDE_COUNT;
   track.style.transform = `translateX(-${currentSlide * 100}%)`;
-
-  // Update dots
   dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
-
-  // Update section theme for arrow/dot colours
   section.setAttribute('data-slide', currentSlide);
-
-  // Restart auto-advance & progress bar
   resetAutoPlay();
 }
 
 function nextSlide() { goToSlide(currentSlide + 1); }
 function prevSlide() { goToSlide(currentSlide - 1); }
 
-/* ── Progress Bar ── */
 function startProgress() {
   progressStart = performance.now() - progressElapsed;
   progressBar.style.transition = 'none';
-
   function tick(now) {
     const elapsed = now - progressStart;
     const pct = Math.min((elapsed / INTERVAL_MS) * 100, 100);
     progressBar.style.width = pct + '%';
-    if (elapsed < INTERVAL_MS) {
-      progressTimer = requestAnimationFrame(tick);
-    }
+    if (elapsed < INTERVAL_MS) progressTimer = requestAnimationFrame(tick);
   }
   progressTimer = requestAnimationFrame(tick);
 }
@@ -1701,25 +1762,15 @@ function resetProgress() {
   startProgress();
 }
 
-/* ── Auto-play ── */
 function resetAutoPlay() {
   clearInterval(autoTimer);
   resetProgress();
-  autoTimer = setInterval(() => {
-    goToSlide(currentSlide + 1);
-  }, INTERVAL_MS);
+  autoTimer = setInterval(() => goToSlide(currentSlide + 1), INTERVAL_MS);
 }
 
-// Pause on hover
-section.addEventListener('mouseenter', () => {
-  clearInterval(autoTimer);
-  stopProgress();
-});
-section.addEventListener('mouseleave', () => {
-  resetAutoPlay();
-});
+section.addEventListener('mouseenter', () => { clearInterval(autoTimer); stopProgress(); });
+section.addEventListener('mouseleave', () => { resetAutoPlay(); });
 
-// Touch/swipe support
 let touchStartX = 0;
 section.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
 section.addEventListener('touchend', e => {
@@ -1727,7 +1778,6 @@ section.addEventListener('touchend', e => {
   if (Math.abs(dx) > 40) dx < 0 ? nextSlide() : prevSlide();
 }, { passive: true });
 
-// Boot
 renderProducts('all');
 resetAutoPlay();
 </script>
