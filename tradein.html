@@ -224,13 +224,6 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 .ref-sub{font-size:12px;color:var(--mid);}
 .sms-notice{background:var(--green-bg);border-radius:9px;padding:12px 16px;display:flex;gap:10px;align-items:center;margin-bottom:20px;font-size:13px;color:var(--green);font-weight:500;}
 
-/* Email preview toggle */
-.email-preview-toggle{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--dark);cursor:pointer;user-select:none;margin-bottom:16px;padding:8px 12px;border-radius:8px;background:var(--light);transition:background .15s;}
-.email-preview-toggle:hover{background:var(--gray-bg);}
-.email-preview-arrow{transition:transform .2s;font-size:10px;}
-.email-preview-toggle.open .email-preview-arrow{transform:rotate(90deg);}
-.email-preview-body{display:none;background:#fff;border:1px solid var(--border);border-radius:10px;margin-bottom:16px;overflow:hidden;}
-.email-preview-body.show{display:block;}
 .email-header{background:#f7f5f2;border-bottom:1px solid var(--border);padding:12px 16px;font-size:11px;line-height:1.6;}
 .email-field{margin-bottom:6px;}
 .email-field-label{color:var(--mid);font-weight:600;}
@@ -321,7 +314,7 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 /* TRADE-IN HISTORY */
 .history-item{display:flex;align-items:flex-start;gap:12px;padding:12px 20px;border-bottom:1px solid var(--border);}
 .history-item:last-child{border-bottom:none;}
-.history-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+.history-icon{width:36px;height:48px;border-radius:6px;flex-shrink:0;background-size:cover;background-position:center;background-color:var(--light);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:18px;overflow:hidden;}
 .history-info{flex:1;min-width:0;}
 .history-title{font-size:12.5px;font-weight:600;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .history-date{font-size:11px;color:var(--mid);}
@@ -386,28 +379,7 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
       <h1>Trade In Your Books,<br>Earn <em>Wallet Credits</em></h1>
       <p>Bring your used assessment books or fiction to any Popular outlet. We'll grade them on the spot and add store credits to your Popular Wallet instantly — redeemable on anything in-store or online.</p>
     </div>
-    <div class="hero-stats">
-      <div class="stat-box">
-        <div class="stat-num">$0</div>
-        <div class="stat-lbl">Delivery fees</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num">3 min</div>
-        <div class="stat-lbl">Drop-off time</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num">30+</div>
-        <div class="stat-lbl">Outlets islandwide</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num">2,847</div>
-        <div class="stat-lbl">Books saved from landfill</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num">$14,230</div>
-        <div class="stat-lbl">Credits returned to families</div>
-      </div>
-    </div>
+
   </div>
 </div>
 
@@ -666,21 +638,6 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
       </div>
     </div>
 
-    <div class="upsell-box">
-      <div class="upsell-icon">📲</div>
-      <div class="upsell-text" style="flex:1;">
-        <strong>Your credit covers 1 month of EduPass</strong>
-        <span>Going digital? Apply your TradeIn credit toward unlimited digital access to assessment books.</span>
-      </div>
-      <span class="upsell-link" onclick="showToast('📲 Redirecting to EduPass...')">Learn more →</span>
-    </div>
-
-    <div class="confirm-block">
-      <h4>👤 Your Details</h4>
-      <div class="form-row"><label>Full Name</label><input type="text" value="Alex Tan" /></div>
-      <div class="form-row" style="margin-bottom:0"><label>Mobile (for QR code)</label><input type="tel" value="+65 9123 4567" /></div>
-    </div>
-
     <div class="btn-row">
       <button class="btn-secondary" style="margin-top:0" onclick="prevStep()">← Back</button>
       <button class="btn-primary" onclick="nextStep()">Generate TradeIn QR →</button>
@@ -691,125 +648,120 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 <!-- ══ STEP 4: SUCCESS ══ -->
 <div class="step-content panel" id="content-4">
   <div class="panel-body">
-    <div class="success-wrap">
-      <div class="success-icon">♻️</div>
-      <h2>Your TradeIn QR is Ready!</h2>
-      <p>Show this at the TradeIn counter at <strong id="success-outlet">your outlet</strong>. Staff will inspect the book and confirm your credit on the spot.</p>
 
-      <div class="credit-confirm">
-        <div class="cc-label">Provisional Credit Offer</div>
-        <div class="cc-amount" id="success-credit">$4.00</div>
-        <div class="cc-sub">Final amount confirmed after staff inspection · Valid 7 days</div>
-      </div>
+    <!-- QR view (default) -->
+    <div id="qr-view">
+      <div class="success-wrap">
+        <div class="success-icon">♻️</div>
+        <h2>Your TradeIn QR is Ready!</h2>
+        <p>Show this at the TradeIn counter at <strong id="success-outlet">your outlet</strong>. Staff will inspect the book and confirm your credit on the spot.</p>
 
-      <div class="order-ref">
-        <div class="ref-label">TradeIn Reference</div>
-        <div class="ref-num">TI-2025-<span id="refNum">4471</span></div>
-        <div class="ref-sub">Show QR code at the TradeIn counter</div>
-      </div>
-
-      <!-- Mock QR -->
-      <div style="background:var(--light);border-radius:12px;padding:20px;margin-bottom:16px;border:1px solid var(--border);">
-        <svg width="140" height="140" viewBox="0 0 140 140" style="display:block;margin:0 auto;">
-          <rect width="140" height="140" fill="white"/>
-          <!-- QR pattern mock -->
-          <rect x="10" y="10" width="40" height="40" fill="none" stroke="#1A1A1A" stroke-width="4"/>
-          <rect x="18" y="18" width="24" height="24" fill="#1A1A1A"/>
-          <rect x="90" y="10" width="40" height="40" fill="none" stroke="#1A1A1A" stroke-width="4"/>
-          <rect x="98" y="18" width="24" height="24" fill="#1A1A1A"/>
-          <rect x="10" y="90" width="40" height="40" fill="none" stroke="#1A1A1A" stroke-width="4"/>
-          <rect x="18" y="98" width="24" height="24" fill="#1A1A1A"/>
-          <rect x="58" y="10" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="68" y="10" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="58" y="20" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="75" y="20" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="58" y="30" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="68" y="30" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="58" y="58" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="68" y="58" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="80" y="58" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="92" y="58" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="104" y="58" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="116" y="58" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="58" y="68" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="80" y="68" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="104" y="68" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="58" y="80" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="68" y="80" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="80" y="80" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="92" y="80" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="116" y="80" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="58" y="92" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="80" y="92" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="92" y="92" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="116" y="92" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="58" y="104" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="68" y="104" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="80" y="104" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="104" y="104" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="58" y="116" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="80" y="116" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="92" y="116" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="104" y="116" width="6" height="6" fill="#1A1A1A"/>
-          <rect x="116" y="116" width="6" height="6" fill="#1A1A1A"/>
-        </svg>
-        <div style="text-align:center;font-size:12px;color:var(--mid);margin-top:10px;">Scan at the TradeIn counter</div>
-      </div>
-
-      <div class="sms-notice"><span style="font-size:20px;">📱</span> QR code also sent to +65 9123 4567</div>
-
-      <!-- Email preview toggle -->
-      <div class="email-preview-toggle" id="emailPreviewToggle" onclick="toggleEmailPreview()">
-        <span class="email-preview-arrow">▶</span>
-        <span>📧 Preview confirmation email</span>
-      </div>
-      <div class="email-preview-body" id="emailPreviewBody">
-        <div class="email-header">
-          <div class="email-field">
-            <span class="email-field-label">From:</span>
-            <span class="email-field-value">noreply@popular.com.sg</span>
-          </div>
-          <div class="email-field">
-            <span class="email-field-label">To:</span>
-            <span class="email-field-value">alex.tan@email.com</span>
-          </div>
-          <div class="email-field">
-            <span class="email-field-label">Subject:</span>
-            <span class="email-field-value">Your TradeIn is confirmed — Ref TI-2025-<span id="emailRefNum">4471</span></span>
-          </div>
+        <div class="credit-confirm">
+          <div class="cc-label">Provisional Credit Offer</div>
+          <div class="cc-amount" id="success-credit">$4.00</div>
+          <div class="cc-sub">Final amount confirmed after staff inspection · Valid 7 days</div>
         </div>
-        <div class="email-body">
-          <p>Hi Alex,</p>
-          <p>Your trade-in request has been received.</p>
-          <ul>
-            <li><strong>Book:</strong> <span id="emailBookTitle">—</span></li>
-            <li><strong>Condition:</strong> <span id="emailCondition">—</span></li>
-            <li><strong>Provisional credit:</strong> <span id="emailCredit">—</span></li>
-            <li><strong>Drop-off outlet:</strong> <span id="emailOutlet">—</span></li>
-            <li><strong>Reference:</strong> TI-2025-<span id="emailRefNum2">4471</span></li>
-          </ul>
-          <p>Please bring the book to the outlet within 7 days. Present this email or your QR code at the TradeIn counter.</p>
-        </div>
-        <div class="email-footer">
-          Popular Bookstore Singapore | PDPA-compliant data handling
-        </div>
-      </div>
 
-      <div class="success-next">
-        💡 <strong>What happens next:</strong> Walk to the TradeIn counter at your chosen outlet. Staff will check the book condition (under 3 minutes) and confirm your final credit. Credits appear in your Popular Wallet immediately.
-      </div>
-
-      <button class="btn-primary" onclick="restart()">Trade In Another Book</button>
-      <button class="btn-secondary" onclick="restart()">Back to Home</button>
-
-      <div class="edupass-banner" id="edupassBanner">
-        <div class="edupass-icon">🎓</div>
-        <div class="edupass-text">
-          <p>Your credit can cover <strong id="edupass-months">1</strong> month<span id="edupass-months-s"></span> of <strong>EduPass Basic ($3.90/month)</strong> — start reading digitally today.</p>
-          <a href="subscription.html" class="edupass-link">Subscribe now →</a>
+        <div class="order-ref">
+          <div class="ref-label">TradeIn Reference</div>
+          <div class="ref-num">TI-2025-<span id="refNum">4471</span></div>
+          <div class="ref-sub">Show QR code at the TradeIn counter</div>
         </div>
+
+        <!-- Mock QR — click to simulate staff scan -->
+        <div style="background:var(--light);border-radius:12px;padding:20px;margin-bottom:16px;border:2px dashed var(--border);cursor:pointer;transition:border-color .2s;" onclick="simulateStaffScan()" title="Click to simulate staff scan">
+          <svg width="140" height="140" viewBox="0 0 140 140" style="display:block;margin:0 auto;pointer-events:none;">
+            <rect width="140" height="140" fill="white"/>
+            <rect x="10" y="10" width="40" height="40" fill="none" stroke="#1A1A1A" stroke-width="4"/>
+            <rect x="18" y="18" width="24" height="24" fill="#1A1A1A"/>
+            <rect x="90" y="10" width="40" height="40" fill="none" stroke="#1A1A1A" stroke-width="4"/>
+            <rect x="98" y="18" width="24" height="24" fill="#1A1A1A"/>
+            <rect x="10" y="90" width="40" height="40" fill="none" stroke="#1A1A1A" stroke-width="4"/>
+            <rect x="18" y="98" width="24" height="24" fill="#1A1A1A"/>
+            <rect x="58" y="10" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="68" y="10" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="58" y="20" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="75" y="20" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="58" y="30" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="68" y="30" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="58" y="58" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="68" y="58" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="80" y="58" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="92" y="58" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="104" y="58" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="116" y="58" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="58" y="68" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="80" y="68" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="104" y="68" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="58" y="80" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="68" y="80" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="80" y="80" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="92" y="80" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="116" y="80" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="58" y="92" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="80" y="92" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="92" y="92" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="116" y="92" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="58" y="104" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="68" y="104" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="80" y="104" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="104" y="104" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="58" y="116" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="80" y="116" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="92" y="116" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="104" y="116" width="6" height="6" fill="#1A1A1A"/>
+            <rect x="116" y="116" width="6" height="6" fill="#1A1A1A"/>
+          </svg>
+          <div style="text-align:center;font-size:12px;color:var(--red);font-weight:600;margin-top:10px;">📷 Tap to simulate staff scan</div>
+        </div>
+
+        <div class="sms-notice"><span style="font-size:20px;">📱</span> QR code also sent to your registered mobile</div>
       </div>
     </div>
+
+    <!-- Credits confirmed view (shown after staff scan) -->
+    <div id="credited-view" style="display:none;">
+      <div class="success-wrap">
+        <div class="success-icon" style="background:var(--green-bg);">✅</div>
+        <h2>Credits Added to Your Wallet!</h2>
+        <p>Staff have verified your book. The credit has been instantly added to your Popular Wallet.</p>
+
+        <div class="credit-confirm">
+          <div class="cc-label">Credits Credited</div>
+          <div class="cc-amount" id="credited-amount">$4.00</div>
+          <div class="cc-sub">Added to Popular Wallet · Available to spend now</div>
+        </div>
+
+        <div class="wallet-dest" style="margin-bottom:20px;">
+          <div class="wallet-icon">💳</div>
+          <div class="wallet-text">
+            <strong>New Wallet Balance: <span id="success-new-balance">$16.50</span></strong>
+            <span>Spend in-store, online, via app, or toward EduPass subscription</span>
+          </div>
+        </div>
+
+        <div class="order-ref">
+          <div class="ref-label">Transaction Reference</div>
+          <div class="ref-num">TI-2025-<span id="refNum2">4471</span></div>
+          <div class="ref-sub">Verified at <span id="credited-outlet">your outlet</span></div>
+        </div>
+
+        <div class="upsell-box" style="text-align:left;">
+          <div class="upsell-icon">📲</div>
+          <div class="upsell-text" style="flex:1;">
+            <strong>Your credit covers 1 month of EduPass</strong>
+            <span>Going digital? Apply your TradeIn credit toward unlimited digital access to assessment books.</span>
+          </div>
+          <a class="upsell-link" href="subcription.html">Learn more →</a>
+        </div>
+
+        <button class="btn-primary" onclick="restart()">Trade In Another Book</button>
+        <button class="btn-secondary" onclick="window.location.href='index.html'">Back to Home</button>
+
+       
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -822,9 +774,9 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
   <div class="wallet-card">
     <div class="wc-label">Popular Wallet Balance</div>
     <div class="wc-balance">$12.50</div>
-    <div class="wc-sub">+ <span id="pendingCredit">$0.00</span> pending this trade-in</div>
+    <div class="wc-sub">+ <span id="pendingCredit">$4.00</span> pending this trade-in</div>
     <div class="wc-bar-bg"><div class="wc-bar" id="walletBar"></div></div>
-    <div class="wc-note">Redeemable in-store · online · EduPass</div>
+    <!-- <div class="wc-note">Redeemable In-store · Online · EduPass</div> -->
   </div>
 
   <!-- Trade-in summary -->
@@ -843,7 +795,7 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
   <div class="summary-card">
     <div class="summary-header">🕐 Wallet Transaction History</div>
     <div class="history-item">
-      <div class="history-icon">📕</div>
+      <div class="history-icon" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789814946018_1-360x493.jpg')"></div>
       <div class="history-info">
         <div class="history-title">Tomorrow × Tomorrow × Tomorrow — Zevin</div>
         <div class="history-date">15 Mar 2025 · Bugis Junction</div>
@@ -854,7 +806,7 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
       </div>
     </div>
     <div class="history-item">
-      <div class="history-icon">📗</div>
+      <div class="history-icon" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789815214963_1-360x510.jpg')"></div>
       <div class="history-info">
         <div class="history-title">PSLE Mathematics Past Year Papers 2024</div>
         <div class="history-date">12 Mar 2025 · Bugis Junction</div>
@@ -865,7 +817,7 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
       </div>
     </div>
     <div class="history-item">
-      <div class="history-icon">📘</div>
+      <div class="history-icon" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789815214970_1-650x922.jpg')"></div>
       <div class="history-info">
         <div class="history-title">O-Level English Ten Year Series</div>
         <div class="history-date">28 Feb 2025 · Tampines Mall</div>
@@ -876,7 +828,7 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
       </div>
     </div>
     <div class="history-item">
-      <div class="history-icon">📙</div>
+      <div class="history-icon" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789815214239_1-360x492.jpg')"></div>
       <div class="history-info">
         <div class="history-title">Primary 4 Science Worksheets</div>
         <div class="history-date">15 Jan 2025 · VivoCity</div>
@@ -1107,7 +1059,7 @@ function updateSidebar(credit, condLabel){
   }
 }
 
-// ── STEP 2: OUTLETS ───────────────────────────────────────────────────
+/// ── STEP 2: OUTLETS ───────────────────────────────────────────────────
 function loadOutlets(){
   const sw = document.getElementById('shimmerWrap');
   document.getElementById('outletList').innerHTML = '';
@@ -1164,7 +1116,7 @@ function onOutletSearch(input){
   renderOutlets();
 }
 
-// ── STEP 3: CONFIRM ───────────────────────────────────────────────────
+//// ── STEP 3: CONFIRM ───────────────────────────────────────────────────
 function populateConfirm(){
   const outlet = OUTLETS.find(o=>o.id===selectedOutletId);
   const condLabel = {good:'Good condition',fair:'Fair condition',worn:'Worn condition'}[currentCondition];
@@ -1179,29 +1131,41 @@ function populateConfirm(){
   document.getElementById('conf-hours').textContent = outlet.hours;
 }
 
-// ── STEP 4: SUCCESS ───────────────────────────────────────────────────
+//// ── STEP 4: SUCCESS ───────────────────────────────────────────────────
 function populateSuccess(){
   const outlet = OUTLETS.find(o=>o.id===selectedOutletId);
   const baseMap = {good: currentBook.baseGood, fair: currentBook.baseFair, worn: currentBook.baseWorn};
   const credit = (baseMap[currentCondition] * currentBook.demandMult).toFixed(2);
-  const condLabel = {good:'Good condition',fair:'Fair condition',worn:'Worn condition'}[currentCondition];
   const refNum = String(Math.floor(1000+Math.random()*8999));
 
+  // QR view
   document.getElementById('success-outlet').textContent = outlet.name;
   document.getElementById('success-credit').textContent = 'S$'+credit;
   document.getElementById('refNum').textContent = refNum;
-  document.getElementById('emailRefNum').textContent = refNum;
-  document.getElementById('emailRefNum2').textContent = refNum;
-  document.getElementById('emailBookTitle').textContent = currentBook.title;
-  document.getElementById('emailCondition').textContent = condLabel;
-  document.getElementById('emailCredit').textContent = 'S$'+credit;
-  document.getElementById('emailOutlet').textContent = outlet.name;
+
+  // Reset to QR view in case of re-entry
+  document.getElementById('qr-view').style.display = '';
+  document.getElementById('credited-view').style.display = 'none';
+
   updateEdupassBanner(credit);
 }
 
-function toggleEmailPreview(){
-  document.getElementById('emailPreviewToggle').classList.toggle('open');
-  document.getElementById('emailPreviewBody').classList.toggle('show');
+function simulateStaffScan(){
+  const baseMap = {good: currentBook.baseGood, fair: currentBook.baseFair, worn: currentBook.baseWorn};
+  const credit = (baseMap[currentCondition] * currentBook.demandMult).toFixed(2);
+  const newBalance = (12.50 + parseFloat(credit)).toFixed(2);
+  const outlet = OUTLETS.find(o=>o.id===selectedOutletId);
+  const refNum = document.getElementById('refNum').textContent;
+
+  document.getElementById('credited-amount').textContent = 'S$'+credit;
+  document.getElementById('success-new-balance').textContent = 'S$'+newBalance;
+  document.getElementById('credited-outlet').textContent = outlet.name;
+  document.getElementById('refNum2').textContent = refNum;
+
+  showToast('✅ QR scanned — credits confirmed!');
+  document.getElementById('qr-view').style.display = 'none';
+  document.getElementById('credited-view').style.display = '';
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 
 // ── RESTART ───────────────────────────────────────────────────────────
@@ -1218,8 +1182,6 @@ function restart(){
   ['good','fair','worn'].forEach(c=>document.getElementById('cond-'+c).classList.remove('selected'));
   document.getElementById('condGuideToggle').classList.remove('open');
   document.getElementById('condGuideBody').classList.remove('show');
-  document.getElementById('emailPreviewToggle').classList.remove('open');
-  document.getElementById('emailPreviewBody').classList.remove('show');
   renderStep();
 }
 
