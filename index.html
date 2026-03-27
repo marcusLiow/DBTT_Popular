@@ -120,6 +120,7 @@
     font-size: 11px;
     color: var(--mid);
     font-family: inherit;
+    text-decoration: none;
   }
   .btn-icon:hover { background: var(--light); color: var(--red); }
   .btn-icon .icon { font-size: 20px; }
@@ -137,6 +138,22 @@
     align-items: center;
     justify-content: center;
   }
+  /* Wishlist badge uses green */
+  .wishlist-badge {
+    position: absolute;
+    top: 2px; right: 6px;
+    background: var(--green);
+    color: white;
+    font-size: 10px;
+    font-weight: 600;
+    width: 17px; height: 17px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+  }
+  .btn-icon:hover .wishlist-badge { transform: scale(1.15); }
 
   /* ── NAV ── */
   nav { background: var(--dark); }
@@ -158,6 +175,8 @@
     transition: color 0.15s, background 0.15s;
     white-space: nowrap;
     user-select: none;
+    text-decoration: none;
+    display: block;
   }
   .nav-item:hover, .nav-item.active {
     color: white;
@@ -266,6 +285,8 @@
     font-weight: 600;
     cursor: pointer;
     transition: background 0.2s, transform 0.15s;
+    text-decoration: none;
+    display: inline-block;
   }
   .btn-primary:hover { background: #a8001a; transform: translateY(-1px); }
   .btn-outline {
@@ -279,6 +300,8 @@
     font-weight: 500;
     cursor: pointer;
     transition: border-color 0.2s, background 0.2s;
+    text-decoration: none;
+    display: inline-block;
   }
   .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.08); }
 
@@ -378,6 +401,7 @@
     overflow: hidden;
     background: var(--light);
     flex-shrink: 0;
+    position: relative;
   }
   .product-img img {
     width: 100%;
@@ -388,6 +412,30 @@
     transition: transform 0.3s ease;
   }
   .product-card:hover .product-img img { transform: scale(1.04); }
+
+  /* Wishlist heart on card image */
+  .card-wish-btn {
+    position: absolute;
+    top: 8px; right: 8px;
+    width: 32px; height: 32px;
+    background: rgba(255,255,255,0.92);
+    border: none;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    cursor: pointer;
+    opacity: 0;
+    transform: scale(0.85);
+    transition: opacity 0.2s, transform 0.2s, background 0.15s;
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  }
+  .product-card:hover .card-wish-btn { opacity: 1; transform: scale(1); }
+  .card-wish-btn:hover { background: white; }
+  .card-wish-btn.wishlisted { opacity: 1; background: #fee2e2; }
+  .card-wish-btn.wishlisted::after { content: '♥'; color: var(--red); }
+  .card-wish-btn:not(.wishlisted)::after { content: '♡'; color: var(--mid); }
+
   .product-body { padding: 12px 14px 14px; }
   .product-cat {
     font-size: 10px;
@@ -427,6 +475,7 @@
     font-weight: 700;
     padding: 3px 8px;
     border-radius: 4px;
+    z-index: 1;
   }
   .product-add {
     display: flex;
@@ -661,9 +710,34 @@
     border-radius: 8px;
     cursor: pointer;
     font-size: 18px;
-    transition: border-color 0.18s;
+    transition: border-color 0.18s, background 0.18s;
+    position: relative;
   }
-  .modal-actions .btn-wishlist:hover { border-color: var(--red); }
+  .modal-actions .btn-wishlist:hover { border-color: var(--red); background: #fff0f0; }
+  .modal-actions .btn-wishlist.wishlisted { border-color: var(--red); background: #fee2e2; }
+
+  /* Wishlist nudge strip inside modal */
+  .wishlist-nudge {
+    margin-top: 14px;
+    padding: 12px 14px;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 8px;
+    font-size: 12px;
+    color: #15803d;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .wishlist-nudge a {
+    font-weight: 700;
+    color: var(--green);
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .wishlist-nudge a:hover { text-decoration: underline; }
 
   /* Toast */
   .toast {
@@ -720,6 +794,28 @@
   .stock-in { background: #e8f5e9; color: #2e7d32; }
   .stock-low { background: #fff3e0; color: #e65100; }
   .stock-out { background: #fce4ec; color: #c62828; }
+
+  /* Out-of-stock wishlist prompt inside stock checker */
+  .stock-wish-prompt {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 8px;
+    padding: 11px 14px;
+    margin-top: 10px;
+    font-size: 13px;
+    color: #15803d;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .stock-wish-prompt a {
+    font-weight: 700;
+    color: var(--green);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .stock-wish-prompt a:hover { text-decoration: underline; }
 
   /* ── CAROUSEL ── */
   .carousel-section {
@@ -972,7 +1068,7 @@
 </head>
 <body>
 
-<!-- Announcement — links to trade-in page -->
+<!-- Announcement Bar -->
 <div class="announce" onclick="window.location.href='tradein.html'">
   ♻️ Trade in your old books &amp; earn Popular Wallet credits — <u>Start now</u> &nbsp;|&nbsp; 🎉 Members get 10% off storewide
 </div>
@@ -989,6 +1085,11 @@
       <button class="btn-icon" onclick="showModal('signin')">
         <span class="icon">👤</span>Sign In
       </button>
+      <!-- ★ WISHLIST button → links to wishlist.html -->
+      <a class="btn-icon cart-btn" href="wishlist.html" title="My Wishlist" style="text-decoration:none">
+        <span class="icon">♡</span>Wishlist
+        <span class="wishlist-badge" id="wishlistBadge">0</span>
+      </a>
       <button class="btn-icon cart-btn" onclick="showModal('cart')">
         <span class="icon">🛒</span>Cart
         <span class="cart-badge" id="cartCount">0</span>
@@ -1065,8 +1166,9 @@
       </div>
     </div>
     <div class="nav-item" onclick="setNav(this)" style="color: var(--gold);">🔖 On Sale</div>
-    <!-- Trade-In nav link -->
     <div class="nav-item" onclick="window.location.href='tradein.html'" style="color: #6ee7a8;">♻️ Trade In</div>
+    <!-- ★ WISHLIST nav item -->
+    <div class="nav-item" onclick="window.location.href='wishlist.html'" style="color: #f9a8d4;">♡ Wishlist</div>
   </div>
 </nav>
 
@@ -1078,8 +1180,7 @@
     <p>Singapore's largest bookstore chain — explore thousands of titles in assessment, fiction, lifestyle, and more. Shop online or collect in-store.</p>
     <div class="hero-btns">
       <button class="btn-primary" onclick="scrollTo({top: 500, behavior:'smooth'})">Shop Now</button>
-      <button class="btn-outline" onclick="goToSlide(0); document.getElementById('service-carousel').scrollIntoView({behavior:'smooth'})">Click & Collect ↓</button>
-      <!-- Trade-In hero CTA -->
+      <button class="btn-outline" onclick="goToSlide(0); document.getElementById('service-carousel').scrollIntoView({behavior:'smooth'})">Click &amp; Collect ↓</button>
       <button class="btn-outline" onclick="window.location.href='tradein.html'" style="border-color:rgba(110,231,168,0.5);color:#6ee7a8;">♻️ Trade In Books</button>
     </div>
   </div>
@@ -1218,6 +1319,11 @@
                 </div>
                 <span class="stock-badge stock-low">Low Stock</span>
               </div>
+              <!-- ★ Out-of-stock wishlist prompt -->
+              <div class="stock-wish-prompt" id="stockWishPrompt">
+                📋 Item out of stock at this outlet.
+                <a href="wishlist.html">Save to Wishlist — get notified when it's back →</a>
+              </div>
               <button class="btn-primary" style="width:100%;margin-top:6px" onclick="showToast('✅ Reserved! We\'ll SMS you when ready.')">Reserve Now</button>
             </div>
           </div>
@@ -1306,8 +1412,9 @@
     <div class="perk"><span class="perk-icon">🎁</span> Birthday Rewards</div>
     <div class="perk"><span class="perk-icon">🚀</span> Early Sale Access</div>
     <div class="perk"><span class="perk-icon">📦</span> Free Click & Collect</div>
-    <!-- Trade-In perk added -->
     <div class="perk"><span class="perk-icon">♻️</span> Book Trade-In Credits</div>
+    <!-- ★ Wishlist perk -->
+    <div class="perk" style="cursor:pointer" onclick="window.location.href='wishlist.html'"><span class="perk-icon">♡</span> Restock Alerts</div>
   </div>
 </div>
 
@@ -1337,9 +1444,10 @@
       <h4>Help</h4>
       <a>Track Your Order</a>
       <a>Returns & Exchanges</a>
-      <a>Click & Collect</a>
-      <!-- Trade-In footer link added -->
-      <a onclick="window.location.href='tradein.html'">Book Trade-In</a>
+      <a href="click-collect.html">Click & Collect</a>
+      <a href="tradein.html">Book Trade-In</a>
+      <!-- ★ Wishlist footer link -->
+      <a href="wishlist.html">My Wishlist</a>
       <a>Store Locator</a>
       <a>Contact Us</a>
       <a>FAQs</a>
@@ -1379,7 +1487,13 @@
       <div class="modal-desc" id="modalDesc"></div>
       <div class="modal-actions">
         <button class="btn-primary" onclick="addToCart(); closeModal('productModal')">Add to Cart</button>
-        <button class="btn-wishlist" title="Add to wishlist">♡</button>
+        <!-- ★ Wishlist button in modal — toggles state + links to wishlist.html -->
+        <button class="btn-wishlist" id="modalWishBtn" title="Save to wishlist" onclick="toggleModalWishlist()">♡</button>
+      </div>
+      <!-- ★ Nudge strip: appears after wishlisting -->
+      <div class="wishlist-nudge" id="wishlistNudge" style="display:none">
+        ♡ Saved! Get notified when out-of-stock titles return to your nearest store.
+        <a href="wishlist.html">View Wishlist →</a>
       </div>
     </div>
   </div>
@@ -1429,7 +1543,8 @@
           ✅ Birthday month bonus<br>
           ✅ Exclusive member sales<br>
           ✅ Free Click & Collect<br>
-          ✅ Book Trade-In credits
+          ✅ Book Trade-In credits<br>
+          ✅ Restock alerts for wishlisted items
         </div>
       </div>
       <div class="input-group"><label>Full Name</label><input type="text" placeholder="Your name" /></div>
@@ -1461,7 +1576,10 @@ const PRODUCTS = [
 ];
 
 let cartCount = 0;
+let wishlistCount = 0;
+const wishlisted = new Set(); // track which product IDs are wishlisted
 let activeFilter = 'all';
+let currentModalId = null;
 
 function renderProducts(filter) {
   const grid = document.getElementById('productGrid');
@@ -1469,7 +1587,15 @@ function renderProducts(filter) {
   grid.innerHTML = filtered.map(p => `
     <div class="product-card" onclick="openProduct(${p.id})">
       ${p.badge ? `<div class="product-badge">${p.badge}</div>` : ''}
-      <div class="product-img"><img src="${p.img}" alt="${p.title}" loading="lazy"></div>
+      <div class="product-img">
+        <img src="${p.img}" alt="${p.title}" loading="lazy">
+        <!-- ★ Heart button on card image -->
+        <button class="card-wish-btn ${wishlisted.has(p.id) ? 'wishlisted' : ''}"
+          id="cwb-${p.id}"
+          onclick="event.stopPropagation(); toggleCardWishlist(${p.id})"
+          title="${wishlisted.has(p.id) ? 'Remove from wishlist' : 'Save to wishlist'}">
+        </button>
+      </div>
       <div class="product-body">
         <div class="product-cat">${p.catLabel}</div>
         <div class="product-title">${p.title}</div>
@@ -1488,6 +1614,7 @@ function filterCat(el, cat) {
 }
 
 function openProduct(id) {
+  currentModalId = id;
   const p = PRODUCTS.find(x => x.id === id);
   document.getElementById('modalTitle').textContent = p.title;
   document.getElementById('modalImg').innerHTML = `<img src="${p.img}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;display:block;">`;
@@ -1495,7 +1622,68 @@ function openProduct(id) {
   document.getElementById('modalName').textContent = p.title;
   document.getElementById('modalPrice').innerHTML = p.price + (p.orig ? ` <span class="orig">${p.orig}</span>` : '');
   document.getElementById('modalDesc').textContent = p.desc;
+
+  // Sync wishlist button state
+  const btn = document.getElementById('modalWishBtn');
+  const nudge = document.getElementById('wishlistNudge');
+  if (wishlisted.has(id)) {
+    btn.textContent = '♥';
+    btn.classList.add('wishlisted');
+    nudge.style.display = 'flex';
+  } else {
+    btn.textContent = '♡';
+    btn.classList.remove('wishlisted');
+    nudge.style.display = 'none';
+  }
+
   document.getElementById('productModal').classList.add('open');
+}
+
+/* ★ Toggle wishlist from the modal button */
+function toggleModalWishlist() {
+  if (!currentModalId) return;
+  const p = PRODUCTS.find(x => x.id === currentModalId);
+  const btn = document.getElementById('modalWishBtn');
+  const nudge = document.getElementById('wishlistNudge');
+
+  if (wishlisted.has(currentModalId)) {
+    wishlisted.delete(currentModalId);
+    btn.textContent = '♡';
+    btn.classList.remove('wishlisted');
+    nudge.style.display = 'none';
+    wishlistCount = Math.max(0, wishlistCount - 1);
+    showToast(`♡ Removed "${p.title}" from wishlist`);
+  } else {
+    wishlisted.add(currentModalId);
+    btn.textContent = '♥';
+    btn.classList.add('wishlisted');
+    nudge.style.display = 'flex';
+    wishlistCount++;
+    showToast(`♥ Saved to Wishlist! We'll alert you when it restocks.`);
+  }
+  updateWishlistBadge();
+  // Re-render grid to sync card heart buttons
+  renderProducts(activeFilter);
+}
+
+/* ★ Toggle wishlist from the card heart button */
+function toggleCardWishlist(id) {
+  const p = PRODUCTS.find(x => x.id === id);
+  if (wishlisted.has(id)) {
+    wishlisted.delete(id);
+    wishlistCount = Math.max(0, wishlistCount - 1);
+    showToast(`♡ Removed "${p.title}" from wishlist`);
+  } else {
+    wishlisted.add(id);
+    wishlistCount++;
+    showToast(`♥ "${p.title}" saved! Tap Wishlist for restock alerts.`);
+  }
+  updateWishlistBadge();
+  renderProducts(activeFilter);
+}
+
+function updateWishlistBadge() {
+  document.getElementById('wishlistBadge').textContent = wishlistCount;
 }
 
 function showModal(type) {
@@ -1519,8 +1707,9 @@ function updateCartModal() {
   } else {
     body.innerHTML = `<p style="color:var(--mid);margin-bottom:16px">${cartCount} item(s) in your cart</p>
     <button class="btn-primary" style="width:100%" onclick="showToast('✅ Proceeding to checkout...'); closeModal('cartModal')">Proceed to Checkout</button>
-    <p style="text-align:center;margin-top:12px;font-size:12px;color:#aaa">or <span style="color:var(--red);cursor:pointer;font-weight:600" onclick="closeModal('cartModal'); goToSlide(0); document.getElementById('service-carousel').scrollIntoView({behavior:'smooth'})">Choose Click & Collect →</span></p>
-    <p style="text-align:center;margin-top:8px;font-size:12px;color:#aaa">Have old books? <span style="color:#1B7F4F;cursor:pointer;font-weight:600" onclick="window.location.href='tradein.html'">Trade them in for credits ♻️</span></p>`;
+    <p style="text-align:center;margin-top:12px;font-size:12px;color:#aaa">or <span style="color:var(--red);cursor:pointer;font-weight:600" onclick="closeModal('cartModal'); goToSlide(0); document.getElementById('service-carousel').scrollIntoView({behavior:'smooth'})">Choose Click &amp; Collect →</span></p>
+    <p style="text-align:center;margin-top:8px;font-size:12px;color:#aaa">Have old books? <span style="color:#1B7F4F;cursor:pointer;font-weight:600" onclick="window.location.href='tradein.html'">Trade them in for credits ♻️</span></p>
+    <p style="text-align:center;margin-top:8px;font-size:12px;color:#aaa">Want to save items for later? <a href="wishlist.html" style="color:#1B7F4F;font-weight:600;text-decoration:none">View your Wishlist ♡</a></p>`;
   }
 }
 
@@ -1551,13 +1740,17 @@ function checkStock() {
   const item = document.getElementById('stockSearch').value.trim();
   const outlet = document.getElementById('outletSelect').value;
   if (!item || !outlet) { showToast('⚠️ Please enter a title and select an outlet.'); return; }
-  const statuses = ['stock-in', 'stock-low', 'stock-in'];
-  const labels = ['In Stock', 'Low Stock (2 left)', 'In Stock'];
+  const statuses = ['stock-in', 'stock-low', 'stock-out'];
+  const labels = ['In Stock', 'Low Stock (2 left)', 'Out of Stock'];
   const rand = Math.floor(Math.random() * 3);
   document.getElementById('res-name').textContent = outlet;
   document.getElementById('res-badge').className = 'stock-badge ' + statuses[rand];
   document.getElementById('res-badge').textContent = labels[rand];
   document.getElementById('outletResults').style.display = 'block';
+
+  // ★ Show wishlist prompt only when out of stock
+  const prompt = document.getElementById('stockWishPrompt');
+  prompt.style.display = statuses[rand] === 'stock-out' ? 'flex' : 'none';
 }
 
 /* ── CAROUSEL ── */

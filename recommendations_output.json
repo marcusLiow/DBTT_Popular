@@ -1,0 +1,426 @@
+{
+  "demo_user": {
+    "user_id": "U001",
+    "purchased_books": [
+      "The Martian",
+      "Project Hail Mary",
+      "Atomic Habits"
+    ],
+    "last_purchase": "Atomic Habits"
+  },
+  "mba_recommendations": {
+    "A Brief History of Time": [
+      {
+        "title": "Astrophysics for People in a Hurry",
+        "author": "Neil deGrasse Tyson",
+        "genre": "Science",
+        "price": 16.9,
+        "cover_url": "https://covers.openlibrary.org/b/id/8739280-M.jpg",
+        "description": "The universe is under no obligation to make sense to you."
+      }
+    ],
+    "Astrophysics for People in a Hurry": [
+      {
+        "title": "A Brief History of Time",
+        "author": "Stephen Hawking",
+        "genre": "Science",
+        "price": 19.9,
+        "cover_url": "https://covers.openlibrary.org/b/id/8407943-M.jpg",
+        "description": "From the Big Bang to black holes."
+      },
+      {
+        "title": "The Martian",
+        "author": "Andy Weir",
+        "genre": "Sci-Fi",
+        "price": 18.9,
+        "cover_url": "https://covers.openlibrary.org/b/id/8091016-M.jpg",
+        "description": "Astronaut Mark Watney is stranded alone on Mars with no way to signal Earth."
+      }
+    ],
+    "Thinking Fast and Slow": [
+      {
+        "title": "The Psychology of Money",
+        "author": "Morgan Housel",
+        "genre": "Self-Help",
+        "price": 22.9,
+        "cover_url": "https://covers.openlibrary.org/b/id/12006601-M.jpg",
+        "description": "Timeless lessons on wealth greed and happiness."
+      }
+    ],
+    "The Psychology of Money": [
+      {
+        "title": "Thinking Fast and Slow",
+        "author": "Daniel Kahneman",
+        "genre": "Self-Help",
+        "price": 25.9,
+        "cover_url": "https://covers.openlibrary.org/b/id/8370537-M.jpg",
+        "description": "How two systems drive the way we think."
+      }
+    ],
+    "Atomic Habits": [
+      {
+        "title": "Deep Work",
+        "author": "Cal Newport",
+        "genre": "Self-Help",
+        "price": 21.9,
+        "cover_url": "https://covers.openlibrary.org/b/id/8369777-M.jpg",
+        "description": "Rules for focused success in a distracted world."
+      },
+      {
+        "title": "Digital Minimalism",
+        "author": "Cal Newport",
+        "genre": "Self-Help",
+        "price": 20.9,
+        "cover_url": "https://covers.openlibrary.org/b/id/10369877-M.jpg",
+        "description": "Choosing a focused life in a noisy world."
+      }
+    ],
+    "Deep Work": [
+      {
+        "title": "Atomic Habits",
+        "author": "James Clear",
+        "genre": "Self-Help",
+        "price": 23.9,
+        "cover_url": "https://covers.openlibrary.org/b/id/10521270-M.jpg",
+        "description": "Tiny changes remarkable results."
+      }
+    ],
+    "Digital Minimalism": [
+      {
+        "title": "Atomic Habits",
+        "author": "James Clear",
+        "genre": "Self-Help",
+        "price": 23.9,
+        "cover_url": "https://covers.openlibrary.org/b/id/10521270-M.jpg",
+        "description": "Tiny changes remarkable results."
+      }
+    ],
+    "The Martian": [
+      {
+        "title": "Astrophysics for People in a Hurry",
+        "author": "Neil deGrasse Tyson",
+        "genre": "Science",
+        "price": 16.9,
+        "cover_url": "https://covers.openlibrary.org/b/id/8739280-M.jpg",
+        "description": "The universe is under no obligation to make sense to you."
+      }
+    ],
+    "Dune": [
+      {
+        "title": "Foundation",
+        "author": "Isaac Asimov",
+        "genre": "Sci-Fi",
+        "price": 17.9,
+        "cover_url": "https://covers.openlibrary.org/b/id/8371869-M.jpg",
+        "description": "A mathematician predicts the fall of galactic civilization."
+      }
+    ],
+    "Foundation": [
+      {
+        "title": "Dune",
+        "author": "Frank Herbert",
+        "genre": "Sci-Fi",
+        "price": 24.9,
+        "cover_url": "https://covers.openlibrary.org/b/id/8669200-M.jpg",
+        "description": "The greatest science fiction novel ever written."
+      },
+      {
+        "title": "The Three-Body Problem",
+        "author": "Liu Cixin",
+        "genre": "Sci-Fi",
+        "price": 22.9,
+        "cover_url": "https://covers.openlibrary.org/b/id/8375949-M.jpg",
+        "description": "China's first contact with an alien civilisation."
+      }
+    ],
+    "The Three-Body Problem": [
+      {
+        "title": "Foundation",
+        "author": "Isaac Asimov",
+        "genre": "Sci-Fi",
+        "price": 17.9,
+        "cover_url": "https://covers.openlibrary.org/b/id/8371869-M.jpg",
+        "description": "A mathematician predicts the fall of galactic civilization."
+      }
+    ]
+  },
+  "collab_filtering_recommendations": [
+    {
+      "title": "Astrophysics for People in a Hurry",
+      "author": "Neil deGrasse Tyson",
+      "genre": "Science",
+      "price": 16.9,
+      "cover_url": "https://covers.openlibrary.org/b/id/8739280-M.jpg",
+      "description": "The universe is under no obligation to make sense to you."
+    },
+    {
+      "title": "The Three-Body Problem",
+      "author": "Liu Cixin",
+      "genre": "Sci-Fi",
+      "price": 22.9,
+      "cover_url": "https://covers.openlibrary.org/b/id/8375949-M.jpg",
+      "description": "China's first contact with an alien civilisation."
+    },
+    {
+      "title": "Dune",
+      "author": "Frank Herbert",
+      "genre": "Sci-Fi",
+      "price": 24.9,
+      "cover_url": "https://covers.openlibrary.org/b/id/8669200-M.jpg",
+      "description": "The greatest science fiction novel ever written."
+    },
+    {
+      "title": "Foundation",
+      "author": "Isaac Asimov",
+      "genre": "Sci-Fi",
+      "price": 17.9,
+      "cover_url": "https://covers.openlibrary.org/b/id/8371869-M.jpg",
+      "description": "A mathematician predicts the fall of galactic civilization."
+    },
+    {
+      "title": "A Long Way to Artemis",
+      "author": "Andy Weir",
+      "genre": "Sci-Fi",
+      "price": 19.9,
+      "cover_url": "https://covers.openlibrary.org/b/id/8739161-M.jpg",
+      "description": "Adventures on humanity's first lunar colony."
+    }
+  ],
+  "smart_search": {
+    "query": "Andy Weir",
+    "results": [
+      {
+        "title": "The Martian",
+        "author": "Andy Weir",
+        "genre": "Sci-Fi",
+        "price": 18.9,
+        "cover_url": "https://covers.openlibrary.org/b/id/8091016-M.jpg",
+        "description": "Astronaut Mark Watney is stranded alone on Mars with no way to signal Earth."
+      },
+      {
+        "title": "Project Hail Mary",
+        "author": "Andy Weir",
+        "genre": "Sci-Fi",
+        "price": 21.9,
+        "cover_url": "https://covers.openlibrary.org/b/id/12003157-M.jpg",
+        "description": "A lone astronaut must save Earth from an extinction-level threat."
+      },
+      {
+        "title": "A Long Way to Artemis",
+        "author": "Andy Weir",
+        "genre": "Sci-Fi",
+        "price": 19.9,
+        "cover_url": "https://covers.openlibrary.org/b/id/8739161-M.jpg",
+        "description": "Adventures on humanity's first lunar colony."
+      }
+    ],
+    "you_might_also_like": [
+      {
+        "title": "Astrophysics for People in a Hurry",
+        "author": "Neil deGrasse Tyson",
+        "genre": "Science",
+        "price": 16.9,
+        "cover_url": "https://covers.openlibrary.org/b/id/8739280-M.jpg",
+        "description": "The universe is under no obligation to make sense to you."
+      }
+    ]
+  },
+  "post_purchase_emails": {
+    "email_1": {
+      "subject": "Your order is confirmed! While you wait, you might enjoy...",
+      "recommendations": [
+        {
+          "title": "Astrophysics for People in a Hurry",
+          "author": "Neil deGrasse Tyson",
+          "genre": "Science",
+          "price": 16.9,
+          "cover_url": "https://covers.openlibrary.org/b/id/8739280-M.jpg",
+          "description": "The universe is under no obligation to make sense to you."
+        }
+      ]
+    },
+    "email_2": {
+      "subject": "How are you finding The Martian?",
+      "recommendations": [
+        {
+          "title": "Astrophysics for People in a Hurry",
+          "author": "Neil deGrasse Tyson",
+          "genre": "Science",
+          "price": 16.9,
+          "cover_url": "https://covers.openlibrary.org/b/id/8739280-M.jpg",
+          "description": "The universe is under no obligation to make sense to you."
+        }
+      ]
+    },
+    "email_3": {
+      "subject": "Your personalised reading list is ready",
+      "recommendations": [
+        {
+          "title": "Astrophysics for People in a Hurry",
+          "author": "Neil deGrasse Tyson",
+          "genre": "Science",
+          "price": 16.9,
+          "cover_url": "https://covers.openlibrary.org/b/id/8739280-M.jpg",
+          "description": "The universe is under no obligation to make sense to you."
+        },
+        {
+          "title": "The Three-Body Problem",
+          "author": "Liu Cixin",
+          "genre": "Sci-Fi",
+          "price": 22.9,
+          "cover_url": "https://covers.openlibrary.org/b/id/8375949-M.jpg",
+          "description": "China's first contact with an alien civilisation."
+        },
+        {
+          "title": "Dune",
+          "author": "Frank Herbert",
+          "genre": "Sci-Fi",
+          "price": 24.9,
+          "cover_url": "https://covers.openlibrary.org/b/id/8669200-M.jpg",
+          "description": "The greatest science fiction novel ever written."
+        },
+        {
+          "title": "Foundation",
+          "author": "Isaac Asimov",
+          "genre": "Sci-Fi",
+          "price": 17.9,
+          "cover_url": "https://covers.openlibrary.org/b/id/8371869-M.jpg",
+          "description": "A mathematician predicts the fall of galactic civilization."
+        },
+        {
+          "title": "A Long Way to Artemis",
+          "author": "Andy Weir",
+          "genre": "Sci-Fi",
+          "price": 19.9,
+          "cover_url": "https://covers.openlibrary.org/b/id/8739161-M.jpg",
+          "description": "Adventures on humanity's first lunar colony."
+        }
+      ]
+    }
+  },
+  "association_rules": [
+    {
+      "antecedent": "A Brief History of Time",
+      "consequent": "Astrophysics for People in a Hurry",
+      "support": 0.15,
+      "confidence": 0.7499999999999999,
+      "lift": 3.749999999999999
+    },
+    {
+      "antecedent": "Astrophysics for People in a Hurry",
+      "consequent": "A Brief History of Time",
+      "support": 0.15,
+      "confidence": 0.7499999999999999,
+      "lift": 3.749999999999999
+    },
+    {
+      "antecedent": "Thinking Fast and Slow",
+      "consequent": "The Psychology of Money",
+      "support": 0.15,
+      "confidence": 0.7499999999999999,
+      "lift": 3.749999999999999
+    },
+    {
+      "antecedent": "The Psychology of Money",
+      "consequent": "Thinking Fast and Slow",
+      "support": 0.15,
+      "confidence": 0.7499999999999999,
+      "lift": 3.749999999999999
+    },
+    {
+      "antecedent": "Atomic Habits",
+      "consequent": "Deep Work",
+      "support": 0.15,
+      "confidence": 0.5,
+      "lift": 3.3333333333333335
+    },
+    {
+      "antecedent": "Deep Work",
+      "consequent": "Atomic Habits",
+      "support": 0.15,
+      "confidence": 1.0,
+      "lift": 3.3333333333333335
+    },
+    {
+      "antecedent": "Digital Minimalism",
+      "consequent": "Atomic Habits",
+      "support": 0.15,
+      "confidence": 1.0,
+      "lift": 3.3333333333333335
+    },
+    {
+      "antecedent": "Atomic Habits",
+      "consequent": "Digital Minimalism",
+      "support": 0.15,
+      "confidence": 0.5,
+      "lift": 3.3333333333333335
+    },
+    {
+      "antecedent": "The Martian",
+      "consequent": "Astrophysics for People in a Hurry",
+      "support": 0.15,
+      "confidence": 0.5,
+      "lift": 2.5
+    },
+    {
+      "antecedent": "Astrophysics for People in a Hurry",
+      "consequent": "The Martian",
+      "support": 0.15,
+      "confidence": 0.7499999999999999,
+      "lift": 2.4999999999999996
+    },
+    {
+      "antecedent": "Dune",
+      "consequent": "Foundation",
+      "support": 0.15,
+      "confidence": 0.6,
+      "lift": 2.4
+    },
+    {
+      "antecedent": "Foundation",
+      "consequent": "Dune",
+      "support": 0.15,
+      "confidence": 0.6,
+      "lift": 2.4
+    },
+    {
+      "antecedent": "The Three-Body Problem",
+      "consequent": "Foundation",
+      "support": 0.15,
+      "confidence": 0.6,
+      "lift": 2.4
+    },
+    {
+      "antecedent": "Foundation",
+      "consequent": "The Three-Body Problem",
+      "support": 0.15,
+      "confidence": 0.6,
+      "lift": 2.4
+    }
+  ],
+  "wishlist_demand_signals": [
+    {
+      "book_title": "The Dark Forest",
+      "wishlist_count": 4,
+      "reorder_recommendation": "\ud83d\udd34 URGENT restock"
+    },
+    {
+      "book_title": "Death's End",
+      "wishlist_count": 3,
+      "reorder_recommendation": "\ud83d\udfe1 Monitor closely"
+    },
+    {
+      "book_title": "Sapiens",
+      "wishlist_count": 2,
+      "reorder_recommendation": "\ud83d\udfe1 Monitor closely"
+    }
+  ],
+  "model_stats": {
+    "total_users": 20,
+    "total_books": 14,
+    "total_transactions": 60,
+    "association_rules_found": 14,
+    "min_support": 0.15,
+    "min_lift": 1.2
+  }
+}

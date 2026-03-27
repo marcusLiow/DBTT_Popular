@@ -1,0 +1,61 @@
+user_id,book_id,book_title,author,genre,rating,purchase_date
+U001,B001,The Martian,Andy Weir,Sci-Fi,5,2024-01-15
+U001,B002,Project Hail Mary,Andy Weir,Sci-Fi,5,2024-02-10
+U001,B007,Atomic Habits,James Clear,Self-Help,4,2024-03-01
+U002,B001,The Martian,Andy Weir,Sci-Fi,4,2024-01-20
+U002,B003,A Long Way to Artemis,Andy Weir,Sci-Fi,5,2024-02-05
+U002,B004,The Three-Body Problem,Liu Cixin,Sci-Fi,5,2024-03-10
+U003,B002,Project Hail Mary,Andy Weir,Sci-Fi,5,2024-01-18
+U003,B004,The Three-Body Problem,Liu Cixin,Sci-Fi,4,2024-02-20
+U003,B005,Dune,Frank Herbert,Sci-Fi,5,2024-03-15
+U004,B001,The Martian,Andy Weir,Sci-Fi,3,2024-01-25
+U004,B005,Dune,Frank Herbert,Sci-Fi,4,2024-02-15
+U004,B006,Foundation,Isaac Asimov,Sci-Fi,5,2024-03-20
+U005,B007,Atomic Habits,James Clear,Self-Help,5,2024-01-10
+U005,B008,The Psychology of Money,Morgan Housel,Self-Help,5,2024-02-08
+U005,B009,Deep Work,Cal Newport,Self-Help,4,2024-03-05
+U006,B007,Atomic Habits,James Clear,Self-Help,4,2024-01-22
+U006,B010,Thinking Fast and Slow,Daniel Kahneman,Self-Help,5,2024-02-18
+U006,B008,The Psychology of Money,Morgan Housel,Self-Help,4,2024-03-12
+U007,B002,Project Hail Mary,Andy Weir,Sci-Fi,5,2024-01-30
+U007,B001,The Martian,Andy Weir,Sci-Fi,5,2024-02-25
+U007,B011,Astrophysics for People in a Hurry,Neil deGrasse Tyson,Science,4,2024-03-18
+U008,B003,A Long Way to Artemis,Andy Weir,Sci-Fi,4,2024-01-12
+U008,B011,Astrophysics for People in a Hurry,Neil deGrasse Tyson,Science,5,2024-02-14
+U008,B012,A Brief History of Time,Stephen Hawking,Science,5,2024-03-22
+U009,B009,Deep Work,Cal Newport,Self-Help,5,2024-01-08
+U009,B007,Atomic Habits,James Clear,Self-Help,4,2024-02-06
+U009,B013,Digital Minimalism,Cal Newport,Self-Help,5,2024-03-08
+U010,B004,The Three-Body Problem,Liu Cixin,Sci-Fi,5,2024-01-28
+U010,B005,Dune,Frank Herbert,Sci-Fi,4,2024-02-22
+U010,B006,Foundation,Isaac Asimov,Sci-Fi,5,2024-03-25
+U011,B001,The Martian,Andy Weir,Sci-Fi,4,2024-01-16
+U011,B011,Astrophysics for People in a Hurry,Neil deGrasse Tyson,Science,4,2024-02-12
+U011,B012,A Brief History of Time,Stephen Hawking,Science,3,2024-03-14
+U012,B008,The Psychology of Money,Morgan Housel,Self-Help,5,2024-01-05
+U012,B010,Thinking Fast and Slow,Daniel Kahneman,Self-Help,5,2024-02-03
+U012,B014,The Richest Man in Babylon,George Clason,Finance,5,2024-03-02
+U013,B005,Dune,Frank Herbert,Sci-Fi,5,2024-01-19
+U013,B003,A Long Way to Artemis,Andy Weir,Sci-Fi,4,2024-02-17
+U013,B006,Foundation,Isaac Asimov,Sci-Fi,4,2024-03-19
+U014,B013,Digital Minimalism,Cal Newport,Self-Help,4,2024-01-23
+U014,B009,Deep Work,Cal Newport,Self-Help,5,2024-02-21
+U014,B007,Atomic Habits,James Clear,Self-Help,4,2024-03-23
+U015,B006,Foundation,Isaac Asimov,Sci-Fi,5,2024-01-27
+U015,B004,The Three-Body Problem,Liu Cixin,Sci-Fi,4,2024-02-24
+U015,B002,Project Hail Mary,Andy Weir,Sci-Fi,5,2024-03-27
+U016,B014,The Richest Man in Babylon,George Clason,Finance,4,2024-01-14
+U016,B010,Thinking Fast and Slow,Daniel Kahneman,Self-Help,4,2024-02-11
+U016,B008,The Psychology of Money,Morgan Housel,Self-Help,5,2024-03-10
+U017,B011,Astrophysics for People in a Hurry,Neil deGrasse Tyson,Science,5,2024-01-21
+U017,B012,A Brief History of Time,Stephen Hawking,Science,5,2024-02-19
+U017,B001,The Martian,Andy Weir,Sci-Fi,4,2024-03-21
+U018,B002,Project Hail Mary,Andy Weir,Sci-Fi,4,2024-01-26
+U018,B003,A Long Way to Artemis,Andy Weir,Sci-Fi,5,2024-02-23
+U018,B005,Dune,Frank Herbert,Sci-Fi,3,2024-03-26
+U019,B007,Atomic Habits,James Clear,Self-Help,5,2024-01-09
+U019,B013,Digital Minimalism,Cal Newport,Self-Help,4,2024-02-07
+U019,B010,Thinking Fast and Slow,Daniel Kahneman,Self-Help,5,2024-03-07
+U020,B004,The Three-Body Problem,Liu Cixin,Sci-Fi,4,2024-01-31
+U020,B006,Foundation,Isaac Asimov,Sci-Fi,5,2024-02-28
+U020,B012,A Brief History of Time,Stephen Hawking,Science,4,2024-03-29

@@ -1,0 +1,15 @@
+book_id,title,author,genre,price,cover_url,description
+B001,The Martian,Andy Weir,Sci-Fi,18.90,https://covers.openlibrary.org/b/id/8091016-M.jpg,Astronaut Mark Watney is stranded alone on Mars with no way to signal Earth.
+B002,Project Hail Mary,Andy Weir,Sci-Fi,21.90,https://covers.openlibrary.org/b/id/12003157-M.jpg,A lone astronaut must save Earth from an extinction-level threat.
+B003,A Long Way to Artemis,Andy Weir,Sci-Fi,19.90,https://covers.openlibrary.org/b/id/8739161-M.jpg,Adventures on humanity's first lunar colony.
+B004,The Three-Body Problem,Liu Cixin,Sci-Fi,22.90,https://covers.openlibrary.org/b/id/8375949-M.jpg,China's first contact with an alien civilisation.
+B005,Dune,Frank Herbert,Sci-Fi,24.90,https://covers.openlibrary.org/b/id/8669200-M.jpg,The greatest science fiction novel ever written.
+B006,Foundation,Isaac Asimov,Sci-Fi,17.90,https://covers.openlibrary.org/b/id/8371869-M.jpg,A mathematician predicts the fall of galactic civilization.
+B007,Atomic Habits,James Clear,Self-Help,23.90,https://covers.openlibrary.org/b/id/10521270-M.jpg,Tiny changes remarkable results.
+B008,The Psychology of Money,Morgan Housel,Self-Help,22.90,https://covers.openlibrary.org/b/id/12006601-M.jpg,Timeless lessons on wealth greed and happiness.
+B009,Deep Work,Cal Newport,Self-Help,21.90,https://covers.openlibrary.org/b/id/8369777-M.jpg,Rules for focused success in a distracted world.
+B010,Thinking Fast and Slow,Daniel Kahneman,Self-Help,25.90,https://covers.openlibrary.org/b/id/8370537-M.jpg,How two systems drive the way we think.
+B011,Astrophysics for People in a Hurry,Neil deGrasse Tyson,Science,16.90,https://covers.openlibrary.org/b/id/8739280-M.jpg,The universe is under no obligation to make sense to you.
+B012,A Brief History of Time,Stephen Hawking,Science,19.90,https://covers.openlibrary.org/b/id/8407943-M.jpg,From the Big Bang to black holes.
+B013,Digital Minimalism,Cal Newport,Self-Help,20.90,https://covers.openlibrary.org/b/id/10369877-M.jpg,Choosing a focused life in a noisy world.
+B014,The Richest Man in Babylon,George Clason,Finance,15.90,https://covers.openlibrary.org/b/id/8370555-M.jpg,Ancient secrets of personal wealth.
