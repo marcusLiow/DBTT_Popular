@@ -199,27 +199,31 @@ The recommendation engine connects to the homepage in 6 places:
 
 ---
 
-## Student Analysis (`student-analysis.html`)
+## Subscription Flow (`subcription.html` → `book-preview.html` → `viewer.html` → `student-analysis.html`)
 
-> _Section to be filled in by subscription team_
+Demonstrates the full EduPass subscription experience from browsing to learning analytics.
 
----
+### Step 1 — Browse Library & Subscribe
+1. Open `subcription.html` — the full EduPass book library
+2. Click **Subscribe** in the nav bar to open the plans modal
+3. Select a plan (Starter / Plus / Family) — the nav updates to show "Study Pass Active"
+4. Browse the library of 25 EPH assessment books by level
 
-## Subscription Page (`subcription.html`)
+### Step 2 — Select a Book
+1. Click any book cover to open `book-preview.html`
+2. View the book details: description, table of contents, sample questions
+3. Click **Open E-reader** to proceed
 
-> _Section to be filled in by subscription team_
+### Step 3 — Read & Answer Questions
+1. `viewer.html` opens with the workbook rendered page-by-page
+2. Use the sidebar or arrow keys to navigate pages
+3. For each page with questions, type answers into the input fields below the viewer
+4. On the last page, click **Check Answers** to verify all fields are filled
 
----
-
-## Book Preview (`book-preview.html`)
-
-> _Section to be filled in by subscription team_
-
----
-
-## Viewer (`viewer.html`)
-
-> _Section to be filled in by subscription team_
+### Step 4 — View Learning Report
+1. Open `student-analysis.html` to see the student's progress dashboard
+2. Shows: overall score, topic-level strengths and weaknesses, activity timeline
+3. Weak topics are flagged and matched to recommended next books
 
 ---
 

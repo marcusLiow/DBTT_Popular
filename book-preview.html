@@ -414,12 +414,8 @@
     const toc = tocForBook(book);
     const qs = sampleQs(book);
     const urlId = new URLSearchParams(window.location.search).get('id') || String(book.id || '');
-    const canOpenViewer = urlId === 'al-gp';
     const viewerHref = `viewer.html?from=${encodeURIComponent(getBackTarget())}&id=${encodeURIComponent(urlId)}`;
-    const readerMessage = 'E-reader for this title will be available soon.';
-    const readerActionPrimary = canOpenViewer
-      ? `<a class="ca-btn ca-red" href="${viewerHref}">Open E-reader</a>`
-      : `<button class="ca-btn ca-red" onclick="showToast('📚', '${readerMessage}', '#c8102e')">Open E-reader</button>`;
+    const readerActionPrimary = `<a class="ca-btn ca-red" href="${viewerHref}">Open E-reader</a>`;
 
     app.innerHTML = `
       <div class="breadcrumb">

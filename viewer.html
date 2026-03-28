@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>P2 Champion in English Grammar - Page Viewer</title>
+<title>math - Page Viewer</title>
 <style>
   :root {
     --red: #c8102e;
@@ -189,6 +189,63 @@
     padding: 16px;
   }
 
+  .qa-panel {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 10px 12px;
+    display: grid;
+    gap: 8px;
+  }
+
+  .qa-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .qa-title {
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .qa-context {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .qa-fields {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .qa-item {
+    display: grid;
+    gap: 4px;
+  }
+
+  .qa-item span {
+    font-size: 12px;
+    color: #374151;
+    font-weight: 700;
+  }
+
+  .qa-item input {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 8px 9px;
+    font-size: 13px;
+    outline: none;
+  }
+
+  .qa-item input:focus {
+    border-color: rgba(200,16,46,.5);
+    box-shadow: 0 0 0 3px rgba(200,16,46,.12);
+  }
+
   .controls {
     background: #fff;
     border: 1px solid var(--line);
@@ -219,6 +276,17 @@
     color: #fff;
   }
 
+  .btn.check {
+    background: #065f46;
+    border-color: #065f46;
+    color: #fff;
+  }
+
+  .btn.check:hover {
+    background: #064e3b;
+    border-color: #064e3b;
+  }
+
   .btn.primary:hover { background: var(--red-dark); border-color: var(--red-dark); }
 
   @media (max-width: 860px) {
@@ -234,6 +302,7 @@
     .topbar { height: 58px; }
     .brand-sub { font-size: 10px; letter-spacing: 1px; }
     .main { padding: 10px; }
+    .qa-fields { grid-template-columns: 1fr; }
     .controls { flex-wrap: wrap; }
     .controls .btn { width: 100%; }
     .page-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -258,7 +327,7 @@
     <main class="main">
       <section class="viewer-head">
         <div>
-          <div class="viewer-title">P2 Champion in English Grammar</div>
+          <div class="viewer-title">Math Champion Sec 3</div>
           <div class="viewer-sub">Image-based e-textbook viewer</div>
         </div>
         <div id="pageLabel" class="page-label">Loading...</div>
@@ -269,8 +338,17 @@
         <img id="pageImage" alt="Workbook page" />
       </section>
 
+      <section id="answerPanel" class="qa-panel" hidden>
+        <div class="qa-head">
+          <div class="qa-title">Answer Inputs</div>
+          <div id="qaContext" class="qa-context"></div>
+        </div>
+        <div id="qaFields" class="qa-fields"></div>
+      </section>
+
       <section class="controls">
         <button id="prevBtn" class="btn">Previous Page</button>
+        <button id="checkBtn" class="btn check" hidden>Check Answer</button>
         <button id="nextBtn" class="btn primary">Next Page</button>
       </section>
     </main>
@@ -281,7 +359,7 @@
 
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.6.82/pdf.worker.min.mjs';
 
-    const pdfPath = 'assets/eph-p2-grammar.pdf';
+    const pdfPath = 'assets/sec-2-math-example.pdf';
     const firstVisiblePdfPage = 2; // Remove the first PDF page from the viewer.
 
     const backLink = document.getElementById('backLink');
@@ -296,8 +374,112 @@
     const statusEl = document.getElementById('status');
     const imageEl = document.getElementById('pageImage');
     const wrapEl = document.getElementById('canvasWrap');
+    const answerPanel = document.getElementById('answerPanel');
+    const qaContext = document.getElementById('qaContext');
+    const qaFields = document.getElementById('qaFields');
     const prevBtn = document.getElementById('prevBtn');
+    const checkBtn = document.getElementById('checkBtn');
     const nextBtn = document.getElementById('nextBtn');
+
+    const ANSWER_STORAGE_KEY = 'mathViewerAnswerInputs';
+    const HARDCODED_FIELDS_BY_PDF_PAGE = {
+      3: [
+        { id: 'q1a', label: 'Q1a' },
+        { id: 'q1b', label: 'Q1b' },
+        { id: 'q2', label: 'Q2' }
+      ],
+      4: [
+        { id: 'q3a', label: 'Q3a' },
+        { id: 'q3b', label: 'Q3b' },
+        { id: 'q4', label: 'Q4' }
+      ],
+      5: [
+        { id: 'q5', label: 'Q5' },
+        { id: 'q6', label: 'Q6' }
+      ],
+      6: [
+        { id: 'q7a', label: 'Q7a' },
+        { id: 'q7b', label: 'Q7b' },
+        { id: 'q8a', label: 'Q8a' },
+        { id: 'q8b', label: 'Q8b' }
+      ],
+      7: [
+        { id: 'q9ai', label: 'Q9a(i)' },
+        { id: 'q9aii', label: 'Q9a(ii)' },
+        { id: 'q9b', label: 'Q9b' },
+        { id: 'q10', label: 'Q10' }
+      ],
+      8: [
+        { id: 'q11a', label: 'Q11a' },
+        { id: 'q11b', label: 'Q11b' },
+        { id: 'q12a', label: 'Q12a' },
+        { id: 'q12b', label: 'Q12b' }
+      ],
+      9: [
+        { id: 'q13a', label: 'Q13a' },
+        { id: 'q13b', label: 'Q13b' }
+      ],
+      10: [
+        { id: 'q14a', label: 'Q14a' },
+        { id: 'q14b', label: 'Q14b' },
+        { id: 'q14c', label: 'Q14c' }
+      ],
+      11: [
+        { id: 'q15a', label: 'Q15a' },
+        { id: 'q15b', label: 'Q15b' },
+        { id: 'q16a', label: 'Q16a' },
+        { id: 'q16b', label: 'Q16b' }
+      ],
+      12: [
+        { id: 'q17a', label: 'Q17a' },
+        { id: 'q17b', label: 'Q17b' }
+      ],
+      13: [
+        { id: 'q18a', label: 'Q18a' },
+        { id: 'q18bi', label: 'Q18b(i)' },
+        { id: 'q18bii', label: 'Q18b(ii)' }
+      ],
+      14: [
+        { id: 'q19a', label: 'Q19a' },
+        { id: 'q19b', label: 'Q19b' },
+        { id: 'q19c', label: 'Q19c' }
+      ],
+      15: [
+        { id: 'q20a', label: 'Q20a' },
+        { id: 'q20b', label: 'Q20b' },
+        { id: 'q20c', label: 'Q20c' }
+      ],
+      16: [
+        { id: 'q21a', label: 'Q21a' },
+        { id: 'q21b', label: 'Q21b' }
+      ],
+      17: [
+        { id: 'q21c', label: 'Q21c' }
+      ],
+      18: [
+        { id: 'q22a', label: 'Q22a' },
+        { id: 'q22b', label: 'Q22b' }
+      ],
+      19: [
+        { id: 'q22c', label: 'Q22c' }
+      ],
+      20: [
+        { id: 'q23ai', label: 'Q23a(i)' },
+        { id: 'q23aii', label: 'Q23a(ii)' },
+        { id: 'q23b', label: 'Q23b' }
+      ]
+    };
+
+    function loadAnswers() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(ANSWER_STORAGE_KEY) || '{}');
+        return parsed && typeof parsed === 'object' ? parsed : {};
+      } catch {
+        return {};
+      }
+    }
+
+    const storedAnswers = loadAnswers();
 
     let pdfDoc = null;
     let currentPdfPage = firstVisiblePdfPage;
@@ -308,6 +490,65 @@
 
     function totalVisiblePages() {
       return Math.max(0, (pdfDoc?.numPages || 0) - 1);
+    }
+
+    function answerKey(pdfPage, fieldId) {
+      return `pdf${pdfPage}_${fieldId}`;
+    }
+
+    function saveAnswers() {
+      localStorage.setItem(ANSWER_STORAGE_KEY, JSON.stringify(storedAnswers));
+    }
+
+    function getHardcodedFieldsForCurrentPage() {
+      return HARDCODED_FIELDS_BY_PDF_PAGE[currentPdfPage] || [];
+    }
+
+    function renderAnswerInputs() {
+      const visiblePage = visibleIndex(currentPdfPage);
+
+      if (visiblePage === 1) {
+        answerPanel.hidden = true;
+        qaFields.innerHTML = '';
+        qaContext.textContent = '';
+        return;
+      }
+
+      const fields = getHardcodedFieldsForCurrentPage();
+
+      qaFields.innerHTML = '';
+      if (!fields.length) {
+        answerPanel.hidden = true;
+        qaContext.textContent = '';
+        return;
+      }
+
+      answerPanel.hidden = false;
+      qaContext.textContent = `Viewer page ${visiblePage}`;
+
+      fields.forEach((field) => {
+        const key = answerKey(currentPdfPage, field.id);
+
+        const label = document.createElement('label');
+        label.className = 'qa-item';
+
+        const text = document.createElement('span');
+        text.textContent = field.label;
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.autocomplete = 'off';
+        input.placeholder = 'Type answer';
+        input.value = storedAnswers[key] || '';
+        input.addEventListener('input', () => {
+          storedAnswers[key] = input.value;
+          saveAnswers();
+        });
+
+        label.appendChild(text);
+        label.appendChild(input);
+        qaFields.appendChild(label);
+      });
     }
 
     function setStatus(msg) {
@@ -342,6 +583,9 @@
       pageLabel.textContent = `Page ${visibleIndex(currentPdfPage)} of ${totalVisiblePages()}`;
       prevBtn.disabled = currentPdfPage <= firstVisiblePdfPage;
       nextBtn.disabled = currentPdfPage >= pdfDoc.numPages;
+      checkBtn.hidden = currentPdfPage !== pdfDoc.numPages;
+
+      renderAnswerInputs();
 
       document.querySelectorAll('#pageList button').forEach((btn) => {
         btn.classList.toggle('active', Number(btn.dataset.pdfPage) === currentPdfPage);
@@ -389,6 +633,33 @@
       }
     });
 
+    checkBtn.addEventListener('click', () => {
+      const requiredFields = Object.entries(HARDCODED_FIELDS_BY_PDF_PAGE).flatMap(([pdfPage, fields]) => {
+        const pageNum = Number(pdfPage);
+        return fields.map((field) => ({
+          key: answerKey(pageNum, field.id),
+          label: `Page ${visibleIndex(pageNum)} - ${field.label}`
+        }));
+      });
+
+      const missing = requiredFields.filter((field) => {
+        const value = storedAnswers[field.key] || '';
+        return !value.trim();
+      });
+
+      if (missing.length > 0) {
+        const preview = missing
+          .slice(0, 8)
+          .map((field) => `- ${field.label}`)
+          .join('\n');
+        const more = missing.length > 8 ? '\n- ...' : '';
+        alert(`You still have ${missing.length} unanswered item(s).\n\n${preview}${more}`);
+        return;
+      }
+
+      alert('All answer fields are filled.');
+    });
+
     window.addEventListener('resize', () => {
       if (pdfDoc) renderCurrentPage();
     });
@@ -414,7 +685,7 @@
         await renderCurrentPage();
       } catch (err) {
         console.error(err);
-        setStatus('Unable to load PDF. Please check assets/eph-p2-grammar.pdf exists and refresh.');
+        setStatus('Unable to load PDF. Please check assets/sec-2-math-example.pdf exists and refresh.');
       }
     }
 
