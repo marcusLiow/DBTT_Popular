@@ -3,419 +3,481 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TradeIn — POPULAR</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<title>Trade-In — POPULAR</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --red:#D0021B; --dark:#1A1A1A; --mid:#666; --light:#F7F5F2;
-  --green:#1B7F4F; --green-bg:#E8F5EE;
-  --amber:#B45309; --amber-bg:#FEF3C7;
-  --gray-bg:#F1F0EF; --border:#E5E0D8;
-  --gold:#C9A84C; --white:#fff;
-  --shadow-sm:0 1px 4px rgba(0,0,0,0.07);
-  --shadow:0 4px 20px rgba(0,0,0,0.09);
+  --red: #c8102e;
+  --red-dark: #9e0c24;
+  --red-light: rgba(200,16,46,.08);
+  --bg: #FAFAF8;
+  --bg2: #ffffff;
+  --card: #ffffff;
+  --card-h: #F5F4F1;
+  --text: #1C1917;
+  --muted: #6B6560;
+  --dim: #A09B96;
+  --line: rgba(28,25,23,.11);
+  --gold: #B07D10;
+  --gold-bg: rgba(176,125,16,.09);
+  --green: #16A34A;
+  --green-light: rgba(22,163,74,.1);
+  --amber: #B45309;
+  --amber-bg: rgba(180,83,9,.08);
+  --nav-h: 68px;
+  --r: 6px;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
 }
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'DM Sans',sans-serif;background:var(--light);color:var(--dark);min-height:100vh;}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); background: var(--bg); color: var(--text); overflow-x: hidden; font-size: 15px; line-height: 1.6; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #E8E5E0; }
+::-webkit-scrollbar-thumb { background: var(--red); border-radius: 2px; }
 
-/* TOPBAR */
-.topbar{background:var(--red);color:#fff;text-align:center;font-size:12px;font-weight:500;padding:8px;letter-spacing:.04em;}
+/* NAV */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); z-index: 900;
+  display: flex; align-items: center; justify-content: space-between; padding: 0 52px;
+  background: rgba(250,250,248,.97); box-shadow: 0 1px 0 var(--line); backdrop-filter: blur(12px);
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo-pill { background: var(--red); color: #fff; font-family: var(--sans); font-weight: 700; font-size: 15px; padding: 5px 11px; border-radius: 3px; letter-spacing: -.3px; }
+.logo-tag { font-size: 9px; font-weight: 600; color: var(--dim); letter-spacing: 2.5px; text-transform: uppercase; }
+.nav-links { display: flex; gap: 30px; list-style: none; }
+.nav-links a { text-decoration: none; color: var(--muted); font-size: 13px; font-weight: 500; transition: color .2s; }
+.nav-links a:hover { color: var(--text); }
+.nav-links a.on { color: var(--text); font-weight: 600; }
+.nav-right { display: flex; align-items: center; gap: 14px; }
+.sub-cta { background: var(--red); color: #fff; font-size: 12px; font-weight: 600; padding: 8px 18px; border-radius: 4px; letter-spacing: .3px; cursor: pointer; transition: background .2s; border: none; font-family: var(--sans); text-decoration: none; display: inline-block; }
+.sub-cta:hover { background: var(--red-dark); }
 
-/* HEADER */
-header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.06);}
-.header-inner{max-width:1140px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:16px;height:62px;}
-.logo{font-family:'Playfair Display',serif;font-size:23px;font-weight:800;color:var(--red);}
-.logo span{color:var(--dark);}
-.back-link{margin-left:auto;display:flex;align-items:center;gap:5px;font-size:13px;color:var(--mid);text-decoration:none;padding:6px 12px;border-radius:6px;transition:background .15s;cursor:pointer;}
-.back-link:hover{background:var(--light);color:var(--dark);}
+/* MARQUEE */
+.marquee { background: var(--text); padding: 9px 0; overflow: hidden; }
+.marquee-inner { display: flex; width: max-content; animation: march 32s linear infinite; gap: 64px; }
+.mi { font-size: 10px; font-weight: 500; color: rgba(255,255,255,.72); letter-spacing: 1.8px; text-transform: uppercase; white-space: nowrap; display: flex; align-items: center; gap: 9px; }
+.mi::before { content:''; width: 3px; height: 3px; background: rgba(200,16,46,.8); border-radius: 50%; }
+@keyframes march { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-/* HERO BAND */
-.hero-band{background:linear-gradient(135deg,#1A1A1A 0%,#2a1a0e 60%,#1A1A1A 100%);padding:44px 24px;position:relative;overflow:hidden;}
-.hero-band::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(201,168,76,0.12) 0%,transparent 65%);}
-.hero-inner{max-width:1140px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:32px;position:relative;z-index:1;flex-wrap:wrap;}
-.hero-text{}
-.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,0.18);border:1px solid rgba(201,168,76,0.4);color:var(--gold);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;border-radius:20px;margin-bottom:16px;}
-.hero-text h1{font-family:'Playfair Display',serif;font-size:34px;font-weight:800;color:#fff;line-height:1.15;margin-bottom:10px;}
-.hero-text h1 em{color:var(--gold);font-style:normal;}
-.hero-text p{font-size:14px;color:rgba(255,255,255,0.6);line-height:1.7;max-width:440px;}
-.hero-stats{display:flex;gap:24px;flex-wrap:wrap;}
-.stat-box{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:14px 20px;text-align:center;min-width:110px;}
-.stat-num{font-size:24px;font-weight:800;color:var(--gold);}
-.stat-lbl{font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px;}
+/* HERO */
+.hero { position: relative; min-height: 55vh; display: flex; align-items: center; overflow: hidden; margin-top: var(--nav-h); background: linear-gradient(135deg, #1A1A1A 0%, #2a1a0e 60%, #1A1A1A 100%); }
+.hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 50%, rgba(176,125,16,0.13) 0%, transparent 65%); }
+.hero-pattern {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.hero-content { position: relative; z-index: 10; padding: 44px 52px; max-width: 1140px; margin: 0 auto; width: 100%; }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 700; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; background: rgba(176,125,16,.15); border: 1px solid rgba(176,125,16,.35); padding: 5px 13px; border-radius: 20px; }
+.hero-title { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.1; margin-bottom: 14px; color: #fff; }
+.hero-title em { color: var(--gold); font-style: italic; }
+.hero-desc { font-size: 14px; line-height: 1.75; color: rgba(255,255,255,.6); margin-bottom: 32px; max-width: 480px; }
+.hero-stats { display: flex; gap: 14px; flex-wrap: wrap; }
+.stat-pill { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 10px; padding: 12px 20px; text-align: center; min-width: 110px; }
+.stat-num { font-family: var(--serif); font-size: 22px; font-weight: 800; color: var(--gold); }
+.stat-lbl { font-size: 10px; color: rgba(255,255,255,.45); font-weight: 500; margin-top: 2px; letter-spacing: .02em; }
+
+/* IMPACT BAND */
+.impact-band { background: var(--card); border-bottom: 1px solid var(--line); padding: 14px 52px; }
+.impact-inner { max-width: 1140px; margin: 0 auto; display: flex; align-items: center; gap: 32px; flex-wrap: wrap; }
+.impact-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.8px; color: var(--dim); white-space: nowrap; }
+.impact-divider { width: 1px; height: 28px; background: var(--line); }
+.impact-items { display: flex; gap: 28px; flex-wrap: wrap; }
+.impact-item { display: flex; align-items: baseline; gap: 8px; }
+.impact-item h2 { font-family: var(--serif); font-size: 20px; font-weight: 800; color: var(--red); }
+.impact-item p { font-size: 12px; color: var(--muted); }
 
 /* STEPPER */
-.stepper-wrap{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;}
-.stepper{max-width:760px;margin:0 auto;display:flex;align-items:center;padding:18px 0;}
-.step{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;position:relative;cursor:pointer;}
-.step::after{content:'';position:absolute;top:17px;left:calc(50% + 20px);right:calc(-50% + 20px);height:2px;background:var(--border);transition:background .4s;}
-.step:last-child::after{display:none;}
-.step.completed::after{background:var(--red);}
-.step-circle{width:34px;height:34px;border-radius:50%;border:2px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#bbb;transition:all .3s;z-index:1;}
-.step.active .step-circle{border-color:var(--red);background:var(--red);color:#fff;box-shadow:0 0 0 4px rgba(208,2,27,.12);}
-.step.completed .step-circle{border-color:var(--red);background:var(--red);color:#fff;}
-.step-label{font-size:11px;font-weight:600;color:#bbb;letter-spacing:.03em;transition:color .3s;white-space:nowrap;}
-.step.active .step-label,.step.completed .step-label{color:var(--red);}
+.stepper-wrap { background: var(--card); border-bottom: 1px solid var(--line); padding: 0 52px; }
+.stepper { max-width: 1140px; margin: 0 auto; display: flex; align-items: center; padding: 18px 0; }
+.step { display: flex; flex-direction: column; align-items: center; gap: 5px; flex: 1; position: relative; cursor: pointer; }
+.step::after { content: ''; position: absolute; top: 17px; left: calc(50% + 20px); right: calc(-50% + 20px); height: 2px; background: var(--line); transition: background .4s; }
+.step:last-child::after { display: none; }
+.step.completed::after { background: var(--red); }
+.step-circle { width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--line); background: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: var(--dim); transition: all .3s; z-index: 1; }
+.step.active .step-circle { border-color: var(--red); background: var(--red); color: #fff; box-shadow: 0 0 0 4px rgba(200,16,46,.12); }
+.step.completed .step-circle { border-color: var(--red); background: var(--red); color: #fff; }
+.step-label { font-size: 11px; font-weight: 600; color: var(--dim); letter-spacing: .03em; transition: color .3s; white-space: nowrap; }
+.step.active .step-label, .step.completed .step-label { color: var(--red); }
 
-/* LAYOUT */
-.main{max-width:1140px;margin:0 auto;padding:36px 24px;display:grid;grid-template-columns:1fr 340px;gap:28px;align-items:start;}
-@media(max-width:860px){.main{grid-template-columns:1fr;}}
+/* MAIN LAYOUT */
+.main { max-width: 1140px; margin: 0 auto; padding: 36px 52px; display: grid; grid-template-columns: 1fr 340px; gap: 28px; align-items: start; }
+@media(max-width: 860px) { .main { grid-template-columns: 1fr; padding: 36px 24px; } }
 
 /* PANEL */
-.panel{background:#fff;border-radius:14px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow);}
-.panel-header{padding:22px 26px 18px;border-bottom:1px solid var(--border);}
-.panel-header h2{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;margin-bottom:3px;}
-.panel-header p{font-size:13px;color:var(--mid);}
-.panel-body{padding:24px 26px;}
+.panel { background: var(--card); border-radius: var(--r); border: 1px solid var(--line); overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.panel-header { padding: 22px 26px 18px; border-bottom: 1px solid var(--line); }
+.panel-header h2 { font-family: var(--serif); font-size: 21px; font-weight: 700; margin-bottom: 3px; }
+.panel-header p { font-size: 13px; color: var(--muted); }
+.panel-body { padding: 24px 26px; }
 
 /* STEP CONTENT */
-.step-content{display:none;}
-.step-content.active{display:block;}
+.step-content { display: none; }
+.step-content.active { display: block; }
 
-/* STEP 1 — SCAN */
-.scan-zone{border:2px dashed var(--border);border-radius:12px;padding:32px;text-align:center;background:var(--light);cursor:pointer;transition:border-color .2s,background .2s;margin-bottom:20px;}
-.scan-zone:hover,.scan-zone.drag{border-color:var(--red);background:rgba(208,2,27,0.03);}
-.scan-icon{font-size:44px;margin-bottom:10px;}
-.scan-zone h3{font-size:16px;font-weight:600;margin-bottom:6px;}
-.scan-zone p{font-size:13px;color:var(--mid);}
-.scan-or{display:flex;align-items:center;gap:12px;margin:18px 0;color:#bbb;font-size:12px;}
-.scan-or::before,.scan-or::after{content:'';flex:1;height:1px;background:var(--border);}
-.form-row{margin-bottom:13px;}
-.form-row label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--mid);margin-bottom:5px;}
-.form-row input,.form-row select{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:8px;font-family:inherit;font-size:14px;outline:none;transition:border-color .2s;background:#fff;color:var(--dark);}
-.form-row input:focus,.form-row select:focus{border-color:var(--red);}
+/* STEP 1: SCAN */
+.scan-zone { border: 2px dashed var(--line); border-radius: var(--r); padding: 32px; text-align: center; background: var(--bg2); cursor: pointer; transition: border-color .2s, background .2s; margin-bottom: 20px; }
+.scan-zone:hover, .scan-zone.drag { border-color: var(--red); background: var(--red-light); }
+.scan-icon { font-size: 44px; margin-bottom: 10px; }
+.scan-zone h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+.scan-zone p { font-size: 13px; color: var(--muted); }
+.scan-or { display: flex; align-items: center; gap: 12px; margin: 18px 0; color: var(--dim); font-size: 12px; }
+.scan-or::before, .scan-or::after { content: ''; flex: 1; height: 1px; background: var(--line); }
 
-/* Book result card */
-.book-result{display:none;background:var(--light);border-radius:12px;padding:16px;border:1.5px solid var(--border);margin-bottom:20px;animation:fadeIn .25s ease;}
-.book-result.show{display:flex;gap:14px;align-items:flex-start;}
-@keyframes fadeIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
-.book-cover{width:58px;height:76px;background:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;border:1px solid var(--border);background-size:cover;background-position:center;}
-.book-meta{flex:1;}
-.book-title{font-size:14px;font-weight:600;margin-bottom:3px;line-height:1.35;}
-.book-sub{font-size:12px;color:var(--mid);margin-bottom:8px;}
-.book-tags{display:flex;gap:6px;flex-wrap:wrap;}
-.book-tag{font-size:11px;padding:3px 9px;border-radius:20px;background:#fff;border:1px solid var(--border);color:var(--mid);}
+.form-row { margin-bottom: 13px; }
+.form-row label { display: block; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 5px; }
+.form-row input, .form-row select { width: 100%; padding: 10px 13px; border: 1px solid var(--line); border-radius: var(--r); font-family: inherit; font-size: 14px; outline: none; transition: border-color .2s; background: var(--bg2); color: var(--text); }
+.form-row input:focus, .form-row select:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(200,16,46,.08); }
+
+/* Book result */
+.book-result { display: none; background: var(--bg2); border-radius: var(--r); padding: 16px; border: 1px solid var(--line); margin-bottom: 20px; animation: fadeIn .25s ease; }
+.book-result.show { display: flex; gap: 14px; align-items: flex-start; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+.book-cover { width: 58px; height: 76px; background: #fff; border-radius: var(--r); display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; border: 1px solid var(--line); background-size: cover; background-position: center; }
+.book-meta { flex: 1; }
+.book-title { font-size: 14px; font-weight: 600; margin-bottom: 3px; line-height: 1.35; }
+.book-sub { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+.book-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.book-tag { font-size: 11px; padding: 3px 9px; border-radius: 20px; background: var(--bg); border: 1px solid var(--line); color: var(--muted); }
 
 /* Condition selector */
-.condition-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--mid);margin-bottom:10px;display:block;}
-.condition-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;}
-.cond-card{border:1.5px solid var(--border);border-radius:10px;padding:14px 12px;text-align:center;cursor:pointer;transition:all .18s;background:#fff;}
-.cond-card:hover{border-color:var(--dark);}
-.cond-card.selected{border-color:var(--red);background:rgba(208,2,27,0.04);}
-.cond-icon{font-size:22px;margin-bottom:6px;}
-.cond-name{font-size:13px;font-weight:600;margin-bottom:3px;}
-.cond-desc{font-size:11px;color:var(--mid);line-height:1.4;}
-.cond-credit{font-size:13px;font-weight:700;color:var(--green);margin-top:6px;}
+.condition-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 10px; display: block; }
+.condition-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+.cond-card { border: 1px solid var(--line); border-radius: var(--r); padding: 14px 12px; text-align: center; cursor: pointer; transition: all .18s; background: var(--bg2); }
+.cond-card:hover { border-color: var(--text); }
+.cond-card.selected { border-color: var(--red); background: var(--red-light); }
+.cond-icon { font-size: 20px; margin-bottom: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; border-radius: 50%; }
+.cond-card.selected .cond-icon { background: var(--red-light); }
+.cond-name { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
+.cond-desc { font-size: 11px; color: var(--muted); line-height: 1.4; }
+.cond-credit { font-size: 13px; font-weight: 700; color: var(--green); margin-top: 6px; }
 
-/* Condition guide toggle */
-.cond-guide-toggle{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--red);cursor:pointer;user-select:none;margin-bottom:16px;padding:8px 12px;border-radius:8px;background:rgba(208,2,27,0.05);transition:background .15s;}
-.cond-guide-toggle:hover{background:rgba(208,2,27,0.1);}
-.cond-guide-arrow{transition:transform .2s;font-size:10px;}
-.cond-guide-toggle.open .cond-guide-arrow{transform:rotate(90deg);}
-.cond-guide-body{display:none;background:var(--light);border-radius:10px;padding:16px;margin-bottom:20px;border:1px solid var(--border);}
-.cond-guide-body.show{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
-.cond-guide-col{padding:12px;}
-.cond-guide-col h4{font-size:12px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
-.cond-guide-col.good h4{color:var(--green);}
-.cond-guide-col.fair h4{color:var(--amber);}
-.cond-guide-col.worn h4{color:#999;}
-.cond-guide-col.good{background:var(--green-bg);border-radius:8px;padding:14px;}
-.cond-guide-col.fair{background:var(--amber-bg);border-radius:8px;padding:14px;}
-.cond-guide-col.worn{background:#F1EDE5;border-radius:8px;padding:14px;}
-.cond-guide-col ul{list-style:none;font-size:12px;line-height:1.6;color:var(--dark);}
-.cond-guide-col ul li{margin-bottom:6px;}
+/* Condition guide */
+.cond-guide-toggle { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: var(--red); cursor: pointer; user-select: none; margin-bottom: 16px; padding: 8px 12px; border-radius: var(--r); background: rgba(200,16,46,.05); transition: background .15s; }
+.cond-guide-toggle:hover { background: rgba(200,16,46,.1); }
+.cond-guide-arrow { transition: transform .2s; font-size: 10px; }
+.cond-guide-toggle.open .cond-guide-arrow { transform: rotate(90deg); }
+.cond-guide-body { display: none; background: var(--bg2); border-radius: var(--r); padding: 16px; margin-bottom: 20px; border: 1px solid var(--line); }
+.cond-guide-body.show { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.cond-guide-col { padding: 12px; border-radius: var(--r); }
+.cond-guide-col h4 { font-size: 12px; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.cond-guide-col.good { background: var(--green-light); }
+.cond-guide-col.good h4 { color: var(--green); }
+.cond-guide-col.fair { background: var(--amber-bg); }
+.cond-guide-col.fair h4 { color: var(--amber); }
+.cond-guide-col.worn { background: #F1EDE5; }
+.cond-guide-col.worn h4 { color: #999; }
+.cond-guide-col ul { list-style: none; font-size: 12px; line-height: 1.6; color: var(--text); }
+.cond-guide-col ul li { margin-bottom: 6px; padding-left: 16px; position: relative; }
+.cond-guide-col ul li::before { content: '•'; position: absolute; left: 0; }
 
 /* Offer box */
-.offer-box{background:linear-gradient(120deg,#1A1A1A,#2a1a0e);border-radius:12px;padding:20px;display:none;margin-bottom:20px;animation:fadeIn .3s ease;}
-.offer-box.show{display:block;}
-.offer-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
-.offer-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,0.5);}
-.offer-amount{font-size:32px;font-weight:800;color:var(--gold);}
-.offer-amount span{font-size:14px;color:rgba(255,255,255,0.5);font-weight:400;}
-.offer-breakdown{border-top:1px solid rgba(255,255,255,0.1);padding-top:12px;}
-.ob-row{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:6px;}
-.ob-row .ol{color:rgba(255,255,255,0.55);}
-.ob-row .ov{color:rgba(255,255,255,0.85);font-weight:500;}
+.offer-box { background: linear-gradient(120deg, #1A1A1A, #2a1a0e); border-radius: var(--r); padding: 20px; display: none; margin-bottom: 20px; animation: fadeIn .3s ease; }
+.offer-box.show { display: block; }
+.offer-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.offer-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; color: rgba(255,255,255,.5); }
+.offer-amount { font-size: 32px; font-weight: 800; color: #fff; }
+.offer-breakdown { border-top: 1px solid rgba(255,255,255,.1); padding-top: 12px; }
+.ob-row { display: flex; justify-content: space-between; font-size: 12.5px; margin-bottom: 6px; }
+.ob-row .ol { color: rgba(255,255,255,.55); }
+.ob-row .ov { color: rgba(255,255,255,.85); font-weight: 500; }
 
-/* Demand Meter */
-.demand-meter{margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.1);}
-.demand-meter-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,0.45);margin-bottom:8px;}
-.demand-meter-bar{display:flex;gap:4px;margin-bottom:8px;height:20px;}
-.demand-zone{flex:1;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:rgba(255,255,255,0.7);background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);}
-.demand-zone.active{background:rgba(255,255,255,0.2);border-color:rgba(255,255,255,0.3);color:rgba(255,255,255,0.95);}
-.demand-zone.low{background:#d4d4d4;border-color:#999;}
-.demand-zone.low.active{background:#999;color:#fff;}
-.demand-zone.normal{background:#fef3c7;border-color:#b45309;}
-.demand-zone.normal.active{background:#b45309;color:#fff;}
-.demand-zone.high{background:#e8f5ee;border-color:#1b7f4f;}
-.demand-zone.high.active{background:#1b7f4f;color:#fff;}
-.demand-meter-value{font-size:12px;color:rgba(255,255,255,0.6);}
+/* Demand meter */
+.demand-meter { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.1); }
+.demand-meter-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; color: rgba(255,255,255,.45); margin-bottom: 8px; }
+.demand-meter-bar { display: flex; gap: 4px; margin-bottom: 8px; height: 20px; }
+.demand-zone { flex: 1; border-radius: var(--r); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: rgba(255,255,255,.7); background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); }
+.demand-zone.active { background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.3); color: rgba(255,255,255,.95); }
+.demand-zone.low { background: #d4d4d4; border-color: #999; }
+.demand-zone.low.active { background: #999; color: #fff; }
+.demand-zone.normal { background: #fef3c7; border-color: #b45309; }
+.demand-zone.normal.active { background: #b45309; color: #fff; }
+.demand-zone.high { background: #e8f5ee; border-color: #1b7f4f; }
+.demand-zone.high.active { background: #1b7f4f; color: #fff; }
+.demand-meter-value { font-size: 12px; color: rgba(255,255,255,.6); }
 
-.offer-note{font-size:11.5px;color:rgba(255,255,255,0.4);margin-top:10px;line-height:1.5;}
+.offer-note { font-size: 11.5px; color: rgba(255,255,255,.4); margin-top: 10px; line-height: 1.5; }
 
 /* Buttons */
-.btn-primary{display:inline-block;width:100%;padding:12px 20px;background:var(--red);color:#fff;border:none;border-radius:8px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s,transform .15s;text-align:center;}
-.btn-primary:hover{background:#a8001a;transform:translateY(-1px);}
-.btn-primary:disabled{background:#ccc;cursor:default;transform:none;}
-.btn-secondary{display:inline-block;width:100%;padding:12px 20px;background:transparent;color:var(--mid);border:1.5px solid var(--border);border-radius:8px;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;transition:all .2s;text-align:center;margin-top:10px;}
-.btn-secondary:hover{border-color:var(--dark);color:var(--dark);}
-.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px;}
-.btn-row .btn-primary,.btn-row .btn-secondary{margin-top:0;}
+.btn-primary { display: inline-block; width: 100%; padding: 12px 20px; background: var(--red); color: #fff; border: none; border-radius: 4px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; transition: background .2s, transform .15s; text-align: center; letter-spacing: .2px; }
+.btn-primary:hover { background: var(--red-dark); transform: translateY(-1px); }
+.btn-primary:disabled { background: #ccc; cursor: default; transform: none; }
+.btn-secondary { display: inline-block; width: 100%; padding: 12px 20px; background: transparent; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; font-family: inherit; font-size: 13px; font-weight: 500; cursor: pointer; transition: all .2s; text-align: center; margin-top: 10px; }
+.btn-secondary:hover { border-color: var(--text); color: var(--text); }
+.btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 18px; }
+.btn-row .btn-primary, .btn-row .btn-secondary { margin-top: 0; }
 
-/* STEP 2 — DROP OFF */
-.outlet-search-wrap{display:flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--border);border-radius:9px;padding:0 14px;margin-bottom:14px;transition:border-color .2s;}
-.outlet-search-wrap:focus-within{border-color:var(--red);}
-.outlet-search-wrap input{border:none;background:transparent;font-family:inherit;font-size:13.5px;padding:11px 0;outline:none;flex:1;color:var(--dark);}
-.region-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px;}
-.rtab{padding:6px 13px;border-radius:20px;border:1.5px solid var(--border);font-size:12px;font-weight:600;cursor:pointer;background:#fff;color:var(--mid);transition:all .18s;white-space:nowrap;user-select:none;}
-.rtab:hover{border-color:var(--dark);color:var(--dark);}
-.rtab.active{background:var(--dark);color:#fff;border-color:var(--dark);}
-.outlet-scroll{max-height:420px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
-.outlet-scroll::-webkit-scrollbar{width:4px;}
-.outlet-scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
-.outlet-row{display:flex;align-items:stretch;border:1.5px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .2s;background:#fff;position:relative;}
-.outlet-row:hover{border-color:#b0a9a0;box-shadow:var(--shadow-sm);}
-.outlet-row.selected{border-color:var(--red);box-shadow:0 0 0 3px rgba(208,2,27,.08);}
-.avail-bar{width:5px;flex-shrink:0;background:var(--green);}
-.outlet-body{flex:1;padding:13px 15px;display:flex;align-items:center;gap:12px;}
-.out-icon{font-size:18px;width:38px;height:38px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.out-info{flex:1;min-width:0;}
-.out-name{font-size:14px;font-weight:600;margin-bottom:2px;}
-.out-addr{font-size:12px;color:var(--mid);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.out-meta{display:flex;gap:10px;flex-wrap:wrap;}
-.out-tag{font-size:11px;color:var(--mid);}
-.out-cta{font-size:12px;font-weight:600;color:var(--red);white-space:nowrap;padding:0 8px;display:flex;align-items:center;}
-.sel-tick{display:none;position:absolute;top:10px;right:10px;width:20px;height:20px;background:var(--red);border-radius:50%;color:#fff;font-size:10px;font-weight:800;align-items:center;justify-content:center;}
-.outlet-row.selected .sel-tick{display:flex;}
-.shimmer-wrap{display:none;}
-.shimmer-wrap.show{display:block;}
-.shimmer-row{height:68px;background:linear-gradient(90deg,var(--light) 25%,#ede9e3 50%,var(--light) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:11px;margin-bottom:10px;}
-@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+/* STEP 2: OUTLETS */
+.outlet-search-wrap { display: flex; align-items: center; gap: 8px; background: var(--bg2); border: 1px solid var(--line); border-radius: var(--r); padding: 0 14px; margin-bottom: 14px; transition: border-color .2s; }
+.outlet-search-wrap:focus-within { border-color: var(--red); }
+.outlet-search-wrap input { border: none; background: transparent; font-family: inherit; font-size: 13.5px; padding: 11px 0; outline: none; flex: 1; color: var(--text); }
+.region-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; }
+.rtab { padding: 6px 13px; border-radius: 20px; border: 1px solid var(--line); font-size: 12px; font-weight: 600; cursor: pointer; background: var(--bg2); color: var(--muted); transition: all .18s; white-space: nowrap; user-select: none; }
+.rtab:hover { border-color: var(--text); color: var(--text); }
+.rtab.active { background: var(--text); color: #fff; border-color: var(--text); }
 
-/* STEP 3 — CONFIRM */
-.confirm-block{background:var(--light);border-radius:10px;padding:16px 18px;margin-bottom:14px;}
-.confirm-block h4{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--mid);margin-bottom:10px;}
-.cr{display:flex;justify-content:space-between;align-items:flex-start;font-size:13.5px;margin-bottom:8px;gap:12px;}
-.cr:last-child{margin-bottom:0;}
-.cr .cl{color:var(--mid);}
-.cr .cv{font-weight:500;text-align:right;}
-.wallet-dest{display:flex;align-items:center;gap:12px;background:var(--green-bg);border-radius:10px;padding:14px 16px;border:1px solid rgba(27,127,79,0.2);margin-bottom:14px;}
-.wallet-icon{font-size:24px;}
-.wallet-text strong{display:block;font-size:13.5px;font-weight:600;color:var(--green);margin-bottom:2px;}
-.wallet-text span{font-size:12px;color:#4a9a73;}
-.upsell-box{background:linear-gradient(120deg,#1A1A1A,#2a1a0e);border-radius:10px;padding:16px 18px;margin-bottom:14px;display:flex;align-items:center;gap:14px;}
-.upsell-icon{font-size:26px;flex-shrink:0;}
-.upsell-text strong{display:block;font-size:13px;font-weight:600;color:var(--gold);margin-bottom:3px;}
-.upsell-text span{font-size:12px;color:rgba(255,255,255,0.55);line-height:1.5;}
-.upsell-link{font-size:12px;font-weight:600;color:var(--gold);cursor:pointer;white-space:nowrap;text-decoration:underline;}
+.outlet-scroll { max-height: 420px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+.outlet-scroll::-webkit-scrollbar { width: 4px; }
+.outlet-scroll::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
+.outlet-row { display: flex; align-items: stretch; border: 1px solid var(--line); border-radius: var(--r); margin-bottom: 10px; overflow: hidden; cursor: pointer; transition: border-color .2s, box-shadow .2s; background: var(--bg2); position: relative; }
+.outlet-row:hover { border-color: var(--muted); box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.outlet-row.selected { border-color: var(--red); box-shadow: 0 0 0 3px rgba(200,16,46,.08); }
+.avail-bar { width: 5px; flex-shrink: 0; background: var(--green); }
+.outlet-body { flex: 1; padding: 13px 15px; display: flex; align-items: center; gap: 12px; }
+.out-icon { font-size: 18px; width: 38px; height: 38px; background: var(--bg); border-radius: var(--r); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.out-info { flex: 1; min-width: 0; }
+.out-name { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+.out-addr { font-size: 12px; color: var(--muted); margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.out-meta { display: flex; gap: 10px; flex-wrap: wrap; }
+.out-tag { font-size: 11px; color: var(--muted); }
+.out-cta { font-size: 12px; font-weight: 600; color: var(--red); white-space: nowrap; padding: 0 8px; display: flex; align-items: center; }
+.sel-tick { display: none; position: absolute; top: 10px; right: 10px; width: 20px; height: 20px; background: var(--red); border-radius: 50%; color: #fff; font-size: 10px; font-weight: 800; align-items: center; justify-content: center; }
+.outlet-row.selected .sel-tick { display: flex; }
 
-/* STEP 4 — SUCCESS */
-.success-wrap{text-align:center;padding:36px 16px;}
-.success-icon{width:76px;height:76px;background:var(--green-bg);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:34px;margin:0 auto 18px;animation:popIn .4s cubic-bezier(.34,1.56,.64,1);}
-@keyframes popIn{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
-.success-wrap h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin-bottom:8px;}
-.success-wrap>p{font-size:13.5px;color:var(--mid);line-height:1.7;max-width:320px;margin:0 auto 24px;}
-.credit-confirm{background:linear-gradient(120deg,#1A1A1A,#2a1a0e);border-radius:14px;padding:20px;margin-bottom:20px;}
-.cc-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,0.45);margin-bottom:4px;}
-.cc-amount{font-size:36px;font-weight:800;color:var(--gold);margin-bottom:4px;}
-.cc-sub{font-size:12px;color:rgba(255,255,255,0.45);}
-.order-ref{background:var(--light);border-radius:12px;padding:18px;margin-bottom:16px;border:1px solid var(--border);}
-.ref-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--mid);margin-bottom:5px;}
-.ref-num{font-size:22px;font-weight:800;letter-spacing:.08em;margin-bottom:3px;}
-.ref-sub{font-size:12px;color:var(--mid);}
-.sms-notice{background:var(--green-bg);border-radius:9px;padding:12px 16px;display:flex;gap:10px;align-items:center;margin-bottom:20px;font-size:13px;color:var(--green);font-weight:500;}
+.shimmer-wrap { display: none; }
+.shimmer-wrap.show { display: block; }
+.shimmer-row { height: 68px; background: linear-gradient(90deg, var(--bg) 25%, #ede9e3 50%, var(--bg) 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: var(--r); margin-bottom: 10px; }
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
-/* Persona bars */
-.persona-bars{display:flex;flex-direction:column;gap:5px;}
-.persona-row{display:flex;align-items:center;gap:6px;font-size:11px;}
-.persona-label{width:90px;flex-shrink:0;font-weight:500;color:var(--dark);}
-.persona-bar-bg{flex:1;height:8px;border-radius:4px;background:var(--light);overflow:hidden;}
-.persona-bar{height:100%;border-radius:4px;transition:width .5s ease;}
-.persona-pct{width:30px;text-align:right;font-weight:700;font-size:10px;color:var(--mid);}
+/* STEP 3: CONFIRM */
+.confirm-block { background: var(--bg); border-radius: var(--r); padding: 16px 18px; margin-bottom: 14px; border: 1px solid var(--line); }
+.confirm-block h4 { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); margin-bottom: 10px; }
+.cr { display: flex; justify-content: space-between; align-items: flex-start; font-size: 13.5px; margin-bottom: 8px; gap: 12px; }
+.cr:last-child { margin-bottom: 0; }
+.cr .cl { color: var(--muted); }
+.cr .cv { font-weight: 500; text-align: right; }
 
-/* Email preview toggle */
-.email-preview-toggle{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--dark);cursor:pointer;user-select:none;margin-bottom:16px;padding:8px 12px;border-radius:8px;background:var(--light);transition:background .15s;}
-.email-preview-toggle:hover{background:var(--gray-bg);}
-.email-preview-arrow{transition:transform .2s;font-size:10px;}
-.email-preview-toggle.open .email-preview-arrow{transform:rotate(90deg);}
-.email-preview-body{display:none;background:#fff;border:1px solid var(--border);border-radius:10px;margin-bottom:16px;overflow:hidden;}
-.email-preview-body.show{display:block;}
+.wallet-dest { display: flex; align-items: center; gap: 12px; background: var(--green-light); border-radius: var(--r); padding: 14px 16px; border: 1px solid rgba(22,163,74,.2); margin-bottom: 14px; }
+.wallet-icon { font-size: 24px; flex-shrink: 0; }
+.wallet-text strong { display: block; font-size: 13.5px; font-weight: 600; color: var(--green); margin-bottom: 2px; }
+.wallet-text span { font-size: 12px; color: #4a9a73; }
 
-.email-header{background:#f7f5f2;border-bottom:1px solid var(--border);padding:12px 16px;font-size:11px;line-height:1.6;}
-.email-field{margin-bottom:6px;}
-.email-field-label{color:var(--mid);font-weight:600;}
-.email-field-value{color:var(--dark);}
-.email-body{padding:20px 16px;font-size:13px;line-height:1.7;color:var(--dark);}
-.email-body p{margin-bottom:10px;}
-.email-body ul{margin:10px 0 10px 20px;padding-left:0;}
-.email-body li{margin-bottom:6px;}
-.email-footer{background:#f7f5f2;border-top:1px solid var(--border);padding:12px 16px;font-size:11px;color:var(--mid);text-align:center;}
+.upsell-box { background: linear-gradient(120deg, #1A1A1A, #2a1a0e); border-radius: var(--r); padding: 16px 18px; margin-bottom: 14px; display: flex; align-items: center; gap: 14px; }
+.upsell-icon { font-size: 26px; flex-shrink: 0; }
+.upsell-text strong { display: block; font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 3px; }
+.upsell-text span { font-size: 12px; color: rgba(255,255,255,.55); line-height: 1.5; }
+.upsell-link { font-size: 12px; font-weight: 600; color: #fff; cursor: pointer; white-space: nowrap; text-decoration: underline; }
 
-.success-next{background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);border-radius:10px;padding:14px 18px;margin-bottom:20px;font-size:13px;color:var(--amber);font-weight:500;text-align:left;line-height:1.6;}
+/* STEP 4: SUCCESS */
+.success-wrap { text-align: center; padding: 36px 16px; }
+.success-icon { width: 76px; height: 76px; background: var(--green-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 34px; margin: 0 auto 18px; animation: popIn .4s cubic-bezier(.34, 1.56, .64, 1); }
+@keyframes popIn { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.success-wrap h2 { font-family: var(--serif); font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+.success-wrap > p { font-size: 13.5px; color: var(--muted); line-height: 1.7; max-width: 320px; margin: 0 auto 24px; }
+
+.credit-confirm { background: linear-gradient(120deg, #1A1A1A, #2a1a0e); border-radius: var(--r); padding: 20px; margin-bottom: 20px; }
+.cc-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; color: rgba(255,255,255,.45); margin-bottom: 4px; }
+.cc-amount { font-size: 36px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+.cc-sub { font-size: 12px; color: rgba(255,255,255,.45); }
+
+.order-ref { background: var(--bg); border-radius: var(--r); padding: 18px; margin-bottom: 16px; border: 1px solid var(--line); }
+.ref-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); margin-bottom: 5px; }
+.ref-num { font-size: 22px; font-weight: 800; letter-spacing: .08em; margin-bottom: 3px; }
+.ref-sub { font-size: 12px; color: var(--muted); }
+
+.sms-notice { background: var(--green-light); border-radius: var(--r); padding: 12px 16px; display: flex; gap: 10px; align-items: center; margin-bottom: 20px; font-size: 13px; color: var(--green); font-weight: 500; border: 1px solid rgba(22,163,74,.2); }
+
+.qr-placeholder { width: 120px; height: 120px; background: var(--bg); border: 2px dashed var(--line); border-radius: var(--r); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 40px; }
+
+.email-header { background: var(--bg); border-bottom: 1px solid var(--line); padding: 12px 16px; font-size: 11px; line-height: 1.6; border-radius: var(--r) var(--r) 0 0; }
+.email-field { margin-bottom: 6px; }
+.email-field-label { color: var(--muted); font-weight: 600; }
+.email-field-value { color: var(--text); }
+.email-body { padding: 20px 16px; font-size: 13px; line-height: 1.7; color: var(--text); }
+.email-body p { margin-bottom: 10px; }
+.email-body ul { margin: 10px 0 10px 20px; padding-left: 0; }
+.email-body li { margin-bottom: 6px; }
+.email-footer { background: var(--bg); border-top: 1px solid var(--line); padding: 12px 16px; font-size: 11px; color: var(--muted); text-align: center; border-radius: 0 0 var(--r) var(--r); }
+
+.price-calc-toggle { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: var(--red); cursor: pointer; user-select: none; margin-bottom: 16px; padding: 8px 12px; border-radius: var(--r); background: rgba(200,16,46,.05); transition: background .15s; }
+.price-calc-toggle:hover { background: rgba(200,16,46,.1); }
+.price-calc-arrow { transition: transform .2s; }
+.price-calc-toggle.open .price-calc-arrow { transform: rotate(90deg); }
+.price-calc-body { display: none; background: var(--bg2); border-radius: var(--r); padding: 16px; margin-bottom: 20px; border: 1px solid var(--line); }
+.price-calc-body.show { display: block; }
+.pc-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 8px; }
+.pc-row:last-child { margin-bottom: 0; font-weight: 600; color: var(--red); }
+
+.success-next { background: var(--gold-bg); border: 1px solid rgba(176,125,16,.3); border-radius: var(--r); padding: 14px 18px; margin-bottom: 20px; font-size: 13px; color: var(--amber); font-weight: 500; text-align: left; line-height: 1.6; }
 
 /* SIDEBAR */
-.sidebar{display:flex;flex-direction:column;gap:16px;}
-.summary-card{background:#fff;border-radius:14px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow);}
-.summary-header{padding:16px 20px;border-bottom:1px solid var(--border);font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;}
-.summary-body{padding:16px 20px;}
-.s-item{display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px;gap:8px;}
-.st{color:var(--mid);}
-.sp{font-weight:500;}
-.s-div{border:none;border-top:1px solid var(--border);margin:10px 0;}
-.s-total{display:flex;justify-content:space-between;font-size:16px;font-weight:700;}
-.stl{color:var(--dark);}
-.s-total-earnings{color:var(--green);}
-.view-history-link{font-size:12px;color:var(--red);text-decoration:none;cursor:pointer;font-weight:600;margin-top:10px;display:block;}
-.info-card{background:#fff;border-radius:14px;border:1px solid var(--border);padding:18px;box-shadow:var(--shadow);}
-.info-card h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--mid);margin-bottom:12px;}
-.info-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;}
-.info-row:last-child{margin-bottom:0;}
-.info-dot{width:7px;height:7px;border-radius:50%;background:var(--red);flex-shrink:0;margin-top:5px;}
-.info-text{font-size:12.5px;color:var(--mid);line-height:1.6;}
-.wallet-card{background:linear-gradient(135deg,#1A1A1A,#2a1a0e);border-radius:14px;padding:18px;box-shadow:var(--shadow);}
-.wallet-card .wc-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,0.45);margin-bottom:4px;}
-.wallet-card .wc-balance{font-size:28px;font-weight:800;color:var(--gold);margin-bottom:2px;}
-.wallet-card .wc-sub{font-size:11.5px;color:rgba(255,255,255,0.45);margin-bottom:14px;}
-.wallet-card .wc-bar-bg{height:6px;background:rgba(255,255,255,0.1);border-radius:3px;margin-bottom:6px;}
-.wallet-card .wc-bar{height:6px;background:var(--gold);border-radius:3px;width:35%;}
-.wallet-card .wc-note{font-size:11px;color:rgba(255,255,255,0.35);}
+.sidebar { display: flex; flex-direction: column; gap: 16px; }
+.summary-card { background: var(--card); border-radius: var(--r); border: 1px solid var(--line); overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.summary-header { padding: 16px 20px; border-bottom: 1px solid var(--line); font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.summary-body { padding: 16px 20px; }
+.s-item { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 8px; gap: 8px; }
+.st { color: var(--muted); }
+.sp { font-weight: 500; }
+.s-div { border: none; border-top: 1px solid var(--line); margin: 10px 0; }
+.s-total { display: flex; justify-content: space-between; font-size: 16px; font-weight: 700; }
+.stl { color: var(--text); }
+.s-total-earnings { color: var(--green); }
+.view-history-link { font-size: 12px; color: var(--red); text-decoration: none; cursor: pointer; font-weight: 600; margin-top: 10px; display: block; }
+
+/* Transaction history */
+.history-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 20px; border-bottom: 1px solid var(--line); }
+.history-item:last-child { border-bottom: none; }
+.history-icon { width: 36px; height: 48px; border-radius: var(--r); flex-shrink: 0; background-size: cover; background-position: center; background-color: var(--bg); border: 1px solid var(--line); }
+.history-info { flex: 1; min-width: 0; }
+.history-title { font-size: 12px; font-weight: 600; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text); }
+.history-date { font-size: 11px; color: var(--muted); }
+.history-right { text-align: right; flex-shrink: 0; }
+.history-credit { font-size: 13px; font-weight: 700; color: var(--green); }
+.badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 20px; margin-top: 3px; letter-spacing: .02em; }
+.badge-green { background: rgba(22,163,74,.1); color: var(--green); }
+.badge-amber { background: var(--amber-bg); color: var(--amber); }
+
+.info-card { background: var(--card); border-radius: var(--r); border: 1px solid var(--line); padding: 18px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.info-card h4 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 12px; }
+.info-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; }
+.info-row:last-child { margin-bottom: 0; }
+.info-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--red); flex-shrink: 0; margin-top: 5px; }
+.info-text { font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+
+.wallet-card { background: linear-gradient(135deg, #1A1A1A, #2a1a0e); border-radius: var(--r); padding: 18px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.wallet-card .wc-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; color: rgba(255,255,255,.45); margin-bottom: 4px; }
+.wallet-card .wc-balance { font-size: 28px; font-weight: 800; color: var(--gold); margin-bottom: 2px; }
+.wallet-card .wc-sub { font-size: 11.5px; color: rgba(255,255,255,.45); margin-bottom: 14px; }
+.wallet-card .wc-bar-bg { height: 6px; background: rgba(255,255,255,.1); border-radius: 3px; margin-bottom: 6px; }
+.wallet-card .wc-bar { height: 6px; background: var(--gold); border-radius: 3px; width: 35%; }
+.wallet-card .wc-note { font-size: 11px; color: rgba(255,255,255,.35); }
 
 /* Toast */
-.toast{position:fixed;bottom:30px;right:30px;background:var(--dark);color:white;padding:13px 22px;border-radius:10px;font-size:14px;font-weight:500;z-index:1000;transform:translateY(80px);opacity:0;transition:all .3s cubic-bezier(.34,1.56,.64,1);display:flex;align-items:center;gap:10px;}
-.toast.show{transform:translateY(0);opacity:1;}
+.toast { position: fixed; bottom: 30px; right: 30px; background: var(--text); color: white; padding: 13px 22px; border-radius: var(--r); font-size: 14px; font-weight: 500; z-index: 1000; transform: translateY(80px); opacity: 0; transition: all .3s cubic-bezier(.34, 1.56, .64, 1); display: flex; align-items: center; gap: 10px; }
+.toast.show { transform: translateY(0); opacity: 1; }
 
 /* RECOMMENDED SECTION */
-.rec-outer{background:#fff;border-bottom:1px solid var(--border);padding:22px 24px 18px;}
-.rec-inner{max-width:1140px;margin:0 auto;}
-.rec-header{margin-bottom:3px;}
-.rec-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;margin-bottom:3px;}
-.rec-subtitle{font-size:12px;color:var(--mid);margin-bottom:6px;}
-.rec-note{font-size:11px;color:#999;margin-bottom:14px;font-style:italic;}
-.rec-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
-.rec-tab{padding:8px 16px;border-radius:20px;border:1.5px solid var(--border);font-size:12px;font-weight:600;cursor:pointer;background:#fff;color:var(--mid);transition:all .18s;user-select:none;}
-.rec-tab:hover{border-color:var(--dark);color:var(--dark);}
-.rec-tab.active{background:var(--red);color:#fff;border-color:var(--red);}
-.rec-scroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
-.rec-scroll::-webkit-scrollbar{height:4px;}
-.rec-scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
-.rec-card{flex-shrink:0;width:175px;border:1.5px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;background:#fff;transition:all .18s;}
-.rec-card:hover{border-color:var(--red);box-shadow:var(--shadow-sm);transform:translateY(-2px);}
-.rec-card-emoji{font-size:26px;margin-bottom:8px;}
-.rec-card-img{width:100%;height:110px;border-radius:8px;background-size:cover;background-position:center;margin-bottom:8px;}
-.rec-card-title{font-size:12px;font-weight:600;line-height:1.35;margin-bottom:7px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-.rec-pill{font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;margin-bottom:7px;display:inline-block;line-height:1.4;}
-.rec-pill.high{background:var(--amber-bg);color:var(--amber);}
-.rec-pill.normal{background:var(--gray-bg);color:var(--mid);}
-.rec-card-credit{font-size:11.5px;color:var(--green);font-weight:600;}
+.rec-outer { background: var(--card); border-bottom: 1px solid var(--line); padding: 22px 52px 18px; }
+.rec-inner { max-width: 1140px; margin: 0 auto; }
+.rec-header { margin-bottom: 3px; }
+.rec-title { font-family: var(--serif); font-size: 18px; font-weight: 700; margin-bottom: 3px; }
+.rec-subtitle { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+.rec-note { font-size: 11px; color: var(--dim); margin-bottom: 14px; font-style: italic; }
+.rec-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.rec-tab { padding: 8px 16px; border-radius: 20px; border: 1px solid var(--line); font-size: 12px; font-weight: 600; cursor: pointer; background: var(--bg2); color: var(--muted); transition: all .18s; user-select: none; }
+.rec-tab:hover { border-color: var(--text); color: var(--text); }
+.rec-tab.active { background: var(--red); color: #fff; border-color: var(--red); }
+
+.rec-scroll { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+.rec-scroll::-webkit-scrollbar { height: 4px; }
+.rec-scroll::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
+.rec-card { flex-shrink: 0; width: 175px; border: 1px solid var(--line); border-radius: var(--r); padding: 14px; cursor: pointer; background: var(--bg2); transition: all .18s; }
+.rec-card:hover { border-color: var(--red); box-shadow: 0 1px 3px rgba(0,0,0,.04); transform: translateY(-2px); }
+.rec-card-img { width: 100%; height: 110px; border-radius: var(--r); background-size: cover; background-position: center; margin-bottom: 8px; }
+.rec-card-title { font-size: 12px; font-weight: 600; line-height: 1.35; margin-bottom: 7px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.rec-pill { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 20px; margin-bottom: 7px; display: inline-block; line-height: 1.4; }
+.rec-pill.high { background: var(--amber-bg); color: var(--amber); }
+.rec-pill.normal { background: var(--bg); color: var(--muted); }
+.rec-card-credit { font-size: 11.5px; color: var(--green); font-weight: 600; }
 
 /* BOOKS IN DEMAND */
-.demand-outer{background:#fff;border-bottom:1px solid var(--border);padding:22px 24px 18px;}
-.demand-inner{max-width:1140px;margin:0 auto;}
-.demand-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;margin-bottom:3px;}
-.demand-sub{font-size:12.5px;color:var(--mid);margin-bottom:14px;}
-.demand-scroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
-.demand-scroll::-webkit-scrollbar{height:4px;}
-.demand-scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
-.demand-card{flex-shrink:0;width:175px;border:1.5px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;background:#fff;transition:all .18s;}
-.demand-card:hover{border-color:var(--red);box-shadow:var(--shadow-sm);transform:translateY(-2px);}
-.demand-card-emoji{font-size:26px;margin-bottom:8px;}
-.demand-card-img{width:100%;height:110px;border-radius:8px;background-size:cover;background-position:center;margin-bottom:8px;}
-.demand-card-title{font-size:12px;font-weight:600;line-height:1.35;margin-bottom:7px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-.demand-pill{font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;margin-bottom:7px;display:inline-block;line-height:1.4;}
-.demand-pill.high{background:var(--amber-bg);color:var(--amber);}
-.demand-pill.boosted{background:var(--green-bg);color:var(--green);}
-.demand-pill.normal{background:var(--gray-bg);color:var(--mid);}
-.demand-pill.low{background:var(--gray-bg);color:#999;}
-.demand-card-credit{font-size:11.5px;color:var(--green);font-weight:600;}
+.demand-outer { background: var(--card); border-bottom: 1px solid var(--line); padding: 22px 52px 18px; }
+.demand-inner { max-width: 1140px; margin: 0 auto; }
+.demand-title { font-family: var(--serif); font-size: 18px; font-weight: 700; margin-bottom: 3px; }
+.demand-sub { font-size: 12.5px; color: var(--muted); margin-bottom: 14px; }
+.demand-scroll { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+.demand-scroll::-webkit-scrollbar { height: 4px; }
+.demand-scroll::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
+.demand-card { flex-shrink: 0; width: 175px; border: 1px solid var(--line); border-radius: var(--r); padding: 14px; cursor: pointer; background: var(--bg2); transition: all .18s; }
+.demand-card:hover { border-color: var(--red); box-shadow: 0 1px 3px rgba(0,0,0,.04); transform: translateY(-2px); }
+.demand-card-img { width: 100%; height: 110px; border-radius: var(--r); background-size: cover; background-position: center; margin-bottom: 8px; }
+.demand-card-title { font-size: 12px; font-weight: 600; line-height: 1.35; margin-bottom: 7px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.demand-pill { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 20px; margin-bottom: 7px; display: inline-block; line-height: 1.4; background: var(--bg); color: var(--muted); }
+.demand-pill.high { background: var(--amber-bg); color: var(--amber); }
+.demand-pill.boosted { background: var(--gold-bg); color: var(--gold); }
+.demand-card-credit { font-size: 11.5px; color: var(--green); font-weight: 600; }
 
-/* TRADE-IN HISTORY */
-.history-item{display:flex;align-items:flex-start;gap:12px;padding:12px 20px;border-bottom:1px solid var(--border);}
-.history-item:last-child{border-bottom:none;}
-.history-icon{width:36px;height:48px;border-radius:6px;flex-shrink:0;background-size:cover;background-position:center;background-color:var(--light);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:18px;overflow:hidden;}
-.history-info{flex:1;min-width:0;}
-.history-title{font-size:12.5px;font-weight:600;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.history-date{font-size:11px;color:var(--mid);}
-.history-right{text-align:right;flex-shrink:0;}
-.history-credit{font-size:13px;font-weight:700;color:var(--green);}
-.badge{display:inline-block;font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;margin-top:3px;}
-.badge-green{background:var(--green-bg);color:var(--green);}
-.badge-amber{background:var(--amber-bg);color:var(--amber);}
+.compliance-strip { padding: 12px 52px; background: var(--bg); border-top: 1px solid var(--line); text-align: center; font-size: 10px; color: var(--muted); letter-spacing: 1px; }
 
-/* EDUPASS BANNER */
-.edupass-banner{background:linear-gradient(120deg,#1A1A1A 0%,#2a1a0e 60%,rgba(201,168,76,0.1) 100%);border-radius:12px;padding:18px 20px;margin-top:16px;border:1px solid rgba(201,168,76,0.3);display:flex;align-items:center;gap:14px;}
-.edupass-icon{font-size:28px;flex-shrink:0;}
-.edupass-text{flex:1;}
-.edupass-text p{font-size:13px;color:rgba(255,255,255,0.75);line-height:1.6;margin-bottom:8px;}
-.edupass-text strong{color:var(--gold);}
-.edupass-link{display:inline-block;font-size:12.5px;font-weight:700;color:var(--gold);text-decoration:none;border:1px solid rgba(201,168,76,0.4);padding:6px 14px;border-radius:6px;transition:background .15s;white-space:nowrap;}
-.edupass-link:hover{background:rgba(201,168,76,0.12);}
-
-/* PRICE CALC */
-.price-calc-toggle{display:flex;align-items:center;gap:6px;font-size:11.5px;color:rgba(255,255,255,0.45);cursor:pointer;margin-top:12px;user-select:none;transition:color .15s;}
-.price-calc-toggle:hover{color:rgba(255,255,255,0.7);}
-.price-calc-toggle .pc-arrow{transition:transform .2s;font-size:9px;}
-.price-calc-toggle.open .pc-arrow{transform:rotate(90deg);}
-.price-calc-body{display:none;margin-top:10px;background:rgba(255,255,255,0.06);border-radius:8px;padding:12px 14px;animation:fadeIn .2s ease;}
-.price-calc-body.show{display:block;}
-.price-calc-row{font-size:12px;color:rgba(255,255,255,0.6);margin-bottom:5px;line-height:1.5;}
-.price-calc-row strong{color:rgba(255,255,255,0.9);}
-.price-calc-eq{font-size:12.5px;font-weight:600;color:var(--gold);margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.1);}
-
-/* COMPLIANCE STRIP */
-.compliance-strip{background:#F7F5F2;border-top:1px solid var(--border);text-align:center;font-size:11px;color:#999;padding:12px 24px;letter-spacing:.03em;}
-
-@media(max-width:600px){
-  .hero-text h1{font-size:26px;}
-  .hero-stats{gap:12px;}
-  .condition-grid{grid-template-columns:repeat(3,1fr);}
-  .btn-row{grid-template-columns:1fr;}
-  .demand-card{width:150px;}
-  .rec-card{width:150px;}
-  .cond-guide-body{grid-template-columns:1fr;}
+@media(max-width: 600px) {
+  .nav { padding: 0 24px; }
+  .stepper-wrap { padding: 0 24px; }
+  .main { padding: 24px; grid-template-columns: 1fr; }
+  .hero-content { padding: 28px 24px; }
+  .impact-band { padding: 12px 24px; }
+  .impact-items { gap: 16px; }
+  .impact-divider { display: none; }
+  .rec-outer, .demand-outer { padding: 18px 24px 14px; }
+  .compliance-strip { padding: 12px 24px; }
+  .condition-grid { grid-template-columns: 1fr; }
+  .cond-guide-body.show { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 
-<div class="topbar">♻️ Trade in your old books and earn Popular Wallet credits — redeemable in-store &amp; online</div>
-
-<header>
-  <div class="header-inner">
-    <div class="logo" onclick="window.location.href='index.html'" style="cursor:pointer;">
-      <img src="popular-logo25.png" alt="POPULAR" style="height:36px;width:auto;display:block;">
-    </div>
-    <a class="back-link" onclick="history.back()">← Back to Home</a>
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a class="nav-logo" href="index.html">
+    <img src="popular-logo25.png" alt="POPULAR" style="height:36px;width:auto;display:block;">
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="click-collect.html">Click & Collect</a></li>
+    <li><a class="on" href="tradein.html">Trade-In</a></li>
+    <li><a href="subcription.html">EduPass</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="index.html" class="sub-cta">Back to Store</a>
   </div>
-</header>
+</nav>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-inner">
+    <span class="mi">30+ Outlets Accepting Trade-Ins</span>
+    <span class="mi">Instant Wallet Credits</span>
+    <span class="mi">Assessment Books · Fiction · Textbooks</span>
+    <span class="mi">PDPA Compliant · Registered Dealer</span>
+    <span class="mi">$0 Drop-off Fee · Under 3 Min</span>
+    <span class="mi">Earn Up to S$5.50 Per Book</span>
+    <span class="mi">30+ Outlets Accepting Trade-Ins</span>
+    <span class="mi">Instant Wallet Credits</span>
+    <span class="mi">Assessment Books · Fiction · Textbooks</span>
+    <span class="mi">PDPA Compliant · Registered Dealer</span>
+  </div>
+</div>
 
 <!-- HERO -->
-<div class="hero-band">
-  <div class="hero-inner">
-    <div class="hero-text">
-      <div class="hero-tag">♻️ New Service</div>
-      <h1>Trade In Your Books,<br>Earn <em>Wallet Credits</em></h1>
-      <p>Bring your used assessment books or fiction to any Popular outlet. We'll grade them on the spot and add store credits to your Popular Wallet instantly — redeemable on anything in-store or online.</p>
-    </div>
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">New Service</div>
+    <h1 class="hero-title">Trade in your books,<br>earn <em>wallet credits</em></h1>
+    <p class="hero-desc">Bring your used assessment books or fiction to any Popular outlet. We'll grade them on the spot and add store credits to your Popular Wallet instantly — redeemable on anything in-store or online.</p>
     <div class="hero-stats">
-      <div class="stat-box">
-        <div class="stat-num">$0</div>
-        <div class="stat-lbl">Delivery fees</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num">3 min</div>
-        <div class="stat-lbl">Drop-off time</div>
-      </div>
-      <div class="stat-box">
+      <div class="stat-pill">
         <div class="stat-num">30+</div>
-        <div class="stat-lbl">Outlets islandwide</div>
+        <div class="stat-lbl">Outlets</div>
       </div>
-      <div class="stat-box">
-        <div class="stat-num">2,847</div>
-        <div class="stat-lbl">Books saved from landfill</div>
+      <div class="stat-pill">
+        <div class="stat-num">S$0</div>
+        <div class="stat-lbl">Drop-off Fee</div>
       </div>
-      <div class="stat-box">
-        <div class="stat-num">$14,230</div>
-        <div class="stat-lbl">Credits returned to families</div>
+      <div class="stat-pill">
+        <div class="stat-num">3 min</div>
+        <div class="stat-lbl">Processing</div>
       </div>
+      <div class="stat-pill">
+        <div class="stat-num">S$5.50</div>
+        <div class="stat-lbl">Max per book</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT BAND -->
+<div class="impact-band">
+  <div class="impact-inner">
+    <span class="impact-label">Programme Impact</span>
+    <div class="impact-divider"></div>
+    <div class="impact-items">
+      <div class="impact-item"><h2>4,821</h2><p>Books saved from landfill</p></div>
+      <div class="impact-item"><h2>$14,230</h2><p>Credits returned to families</p></div>
+      <div class="impact-item"><h2>1,203</h2><p>Families served</p></div>
+      <div class="impact-item"><h2>2.4 t</h2><p>Paper diverted from waste</p></div>
     </div>
   </div>
 </div>
@@ -429,7 +491,7 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
     </div>
     <div class="step" id="s2">
       <div class="step-circle">2</div>
-      <div class="step-label">Choose Outlet</div>
+      <div class="step-label">Select Outlet</div>
     </div>
     <div class="step" id="s3">
       <div class="step-circle">3</div>
@@ -437,604 +499,543 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
     </div>
     <div class="step" id="s4">
       <div class="step-circle">4</div>
-      <div class="step-label">Credits Issued</div>
+      <div class="step-label">Success</div>
     </div>
   </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div>
+    <!-- STEP 1: SCAN -->
+    <div class="step-content active" id="content-1">
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Scan or Search</h2>
+          <p>Start by scanning your book or searching by title</p>
+        </div>
+        <div class="panel-body">
+          <div class="scan-zone" onclick="simulateScan()">
+            <div class="scan-icon">
+              <svg width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="color: var(--red);">
+                <rect x="2" y="6" width="20" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6V4a1 1 0 011-1h6a1 1 0 011 1v2"/>
+              </svg>
+            </div>
+            <h3>Tap to scan barcode</h3>
+            <p>Scan the ISBN barcode on the back of your book</p>
+          </div>
+
+          <div class="scan-or">
+            <span>or search manually</span>
+          </div>
+
+          <div class="form-row">
+            <label>Book Title or ISBN</label>
+            <input type="text" id="isbnInput" placeholder="Enter title or ISBN..." oninput="onIsbnInput()">
+          </div>
+
+          <button class="btn-primary" onclick="lookupBook()" style="margin-bottom: 20px;">Search Book</button>
+
+          <!-- Book Result -->
+          <div class="book-result" id="bookResult">
+            <div class="book-cover" id="bookEmoji"></div>
+            <div class="book-meta">
+              <div class="book-title" id="bookTitle"></div>
+              <div class="book-sub" id="bookSub"></div>
+              <div class="book-tags" id="bookTags"></div>
+            </div>
+          </div>
+
+          <!-- Condition Section -->
+          <div id="conditionSection" style="display: none;">
+            <label class="condition-label">Select Condition</label>
+            <div class="condition-grid">
+              <div class="cond-card" id="cond-good" onclick="selectCondition('good')">
+                <div class="cond-icon">✓</div>
+                <div class="cond-name">Good</div>
+                <div class="cond-desc">Like new, minimal use</div>
+                <div class="cond-credit" id="credit-good">$4.50</div>
+              </div>
+              <div class="cond-card" id="cond-fair" onclick="selectCondition('fair')">
+                <div class="cond-icon">≈</div>
+                <div class="cond-name">Fair</div>
+                <div class="cond-desc">Normal wear, readable</div>
+                <div class="cond-credit" id="credit-fair">$2.80</div>
+              </div>
+              <div class="cond-card" id="cond-worn" onclick="selectCondition('worn')">
+                <div class="cond-icon">◆</div>
+                <div class="cond-name">Worn</div>
+                <div class="cond-desc">Heavy use, poor</div>
+                <div class="cond-credit" id="credit-worn">$1.20</div>
+              </div>
+            </div>
+
+            <div class="cond-guide-toggle" id="condGuideToggle" onclick="toggleCondGuide()">
+              <span class="cond-guide-arrow">→</span>
+              <span>See condition examples</span>
+            </div>
+
+            <div class="cond-guide-body" id="condGuideBody">
+              <div class="cond-guide-col good">
+                <h4>Good Condition</h4>
+                <ul>
+                  <li>Minimal creases</li>
+                  <li>No stains</li>
+                  <li>All pages intact</li>
+                  <li>Spine unmarked</li>
+                  <li>Bright cover</li>
+                </ul>
+              </div>
+              <div class="cond-guide-col fair">
+                <h4>Fair Condition</h4>
+                <ul>
+                  <li>Visible creases</li>
+                  <li>Minor stains</li>
+                  <li>Dog-eared pages</li>
+                  <li>Spine wear</li>
+                  <li>Faded notes</li>
+                </ul>
+              </div>
+              <div class="cond-guide-col worn">
+                <h4>Worn Condition</h4>
+                <ul>
+                  <li>Heavy creasing</li>
+                  <li>Multiple stains</li>
+                  <li>Damaged pages</li>
+                  <li>Weak spine</li>
+                  <li>Faded cover</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Offer Box -->
+            <div class="offer-box" id="offerBox">
+              <div class="offer-top">
+                <div class="offer-label">Instant Credit Offer</div>
+                <div class="offer-amount" id="offerAmount">$4.50</div>
+              </div>
+              <div class="offer-breakdown">
+                <div class="ob-row">
+                  <span class="ol" id="ob-book">Book Title</span>
+                  <span class="ov"></span>
+                </div>
+                <div class="ob-row">
+                  <span class="ol" id="ob-cond">Good condition</span>
+                  <span class="ov"></span>
+                </div>
+                <div class="ob-row">
+                  <span class="ol">Demand Boost</span>
+                  <span class="ov" id="ob-demand">Normal stock levels</span>
+                </div>
+              </div>
+
+              <div class="demand-meter">
+                <div class="demand-meter-label">Market Demand</div>
+                <div class="demand-meter-bar">
+                  <div class="demand-zone low" id="dmZone-low">Low</div>
+                  <div class="demand-zone normal" id="dmZone-normal">Normal</div>
+                  <div class="demand-zone high" id="dmZone-high">High</div>
+                </div>
+                <div class="demand-meter-value" id="demandMeterValue">Normal demand</div>
+              </div>
+
+              <div class="offer-note">Credits are instant and credited to your POPULAR Wallet. Use them to purchase anything in our store.</div>
+            </div>
+
+            <!-- Price Calculation Toggle -->
+            <div class="price-calc-toggle" id="priceCalcToggle" onclick="togglePriceCalc()">
+              <span class="price-calc-arrow">→</span>
+              <span>View price calculation</span>
+            </div>
+            <div class="price-calc-body" id="priceCalcBody">
+              <div class="pc-row">
+                <span>Base price (condition)</span>
+                <span id="pc-base">$4.50</span>
+              </div>
+              <div class="pc-row">
+                <span>Demand multiplier</span>
+                <span id="pc-mult">1.2×</span>
+              </div>
+              <div class="pc-row">
+                <span id="pc-demand-label">High demand</span>
+                <span id="pc-final">$5.40</span>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn-primary" id="nextBtn1" style="display: none; margin-top: 20px;" onclick="nextStep()">Choose Outlet</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: OUTLET -->
+    <div class="step-content" id="content-2">
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Select Outlet</h2>
+          <p>Choose where you'll drop off your book</p>
+        </div>
+        <div class="panel-body">
+          <div class="outlet-search-wrap">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/>
+            </svg>
+            <input type="text" placeholder="Search outlet..." oninput="onOutletSearch(this)">
+          </div>
+
+          <div class="region-tabs">
+            <button class="rtab active" onclick="setRegion(this, 'all')">All Regions</button>
+            <button class="rtab" onclick="setRegion(this, 'central')">Central</button>
+            <button class="rtab" onclick="setRegion(this, 'east')">East</button>
+            <button class="rtab" onclick="setRegion(this, 'north')">North</button>
+            <button class="rtab" onclick="setRegion(this, 'northeast')">NE</button>
+            <button class="rtab" onclick="setRegion(this, 'west')">West</button>
+          </div>
+
+          <div class="shimmer-wrap" id="shimmerWrap">
+            <div class="shimmer-row"></div>
+            <div class="shimmer-row"></div>
+            <div class="shimmer-row"></div>
+          </div>
+
+          <div class="outlet-scroll" id="outletList"></div>
+
+          <button class="btn-primary" id="outletNextBtn" disabled style="margin-top: 20px;" onclick="nextStep()">Confirm Selection</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: CONFIRM -->
+    <div class="step-content" id="content-3">
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Review & Confirm</h2>
+          <p>Check your trade-in details before proceeding</p>
+        </div>
+        <div class="panel-body">
+          <div class="confirm-block">
+            <h4>Book Being Traded In</h4>
+            <div class="cr">
+              <span class="cl">Title</span>
+              <span class="cv" id="conf-title">—</span>
+            </div>
+            <div class="cr">
+              <span class="cl">Condition</span>
+              <span class="cv" id="conf-cond">—</span>
+            </div>
+            <div class="cr">
+              <span class="cl">Credit Offer</span>
+              <span class="cv" id="conf-credit">—</span>
+            </div>
+          </div>
+
+          <div class="confirm-block">
+            <h4>Drop-Off Outlet</h4>
+            <div class="cr">
+              <span class="cl">Location</span>
+              <span class="cv" id="conf-name">—</span>
+            </div>
+            <div class="cr">
+              <span class="cl">Address</span>
+              <span class="cv" id="conf-addr">—</span>
+            </div>
+            <div class="cr">
+              <span class="cl">Hours</span>
+              <span class="cv" id="conf-hours">—</span>
+            </div>
+          </div>
+
+          <div class="wallet-dest">
+            <div class="wallet-icon">
+              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="color: var(--green);">
+                <rect x="2" y="6" width="20" height="14" rx="2"/><path d="M2 10h20"/><circle cx="17" cy="14" r="1.5" fill="currentColor"/>
+              </svg>
+            </div>
+            <div class="wallet-text">
+              <strong>Credit to Wallet</strong>
+              <span>Instantly added & ready to use</span>
+            </div>
+          </div>
+
+          <div class="upsell-box">
+            <div class="upsell-icon">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="color: #fff;">
+                <rect x="7" y="2" width="10" height="20" rx="2"/><circle cx="12" cy="18" r=".5" fill="currentColor"/>
+              </svg>
+            </div>
+            <div class="upsell-text">
+              <strong>Upgrade to EduPass Study Pass</strong>
+              <span>Unlimited access to all assessment books. Credits often cover 1+ months.</span>
+              <a class="upsell-link" href="subcription.html">Learn more →</a>
+            </div>
+          </div>
+
+          <div class="btn-row">
+            <button class="btn-secondary" onclick="prevStep()">Back</button>
+            <button class="btn-primary" onclick="nextStep()">Get QR Code</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4: SUCCESS -->
+    <div class="step-content" id="content-4">
+      <div class="panel">
+        <div class="panel-body">
+          <div class="success-wrap">
+            <!-- QR View -->
+            <div id="qr-view">
+              <div class="success-icon">
+                <svg width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="color: var(--green);">
+                  <circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/>
+                </svg>
+              </div>
+              <h2>Trade-In Ready</h2>
+              <p>Your QR code is ready. Present it at the outlet and a staff member will scan it to finalize your trade-in.</p>
+
+              <div class="credit-confirm">
+                <div class="cc-label">Confirmed Credit</div>
+                <div class="cc-amount" id="success-credit">$4.50</div>
+                <div class="cc-sub">Waiting for outlet confirmation</div>
+              </div>
+
+              <div class="order-ref">
+                <div class="ref-label">Reference Number</div>
+                <div class="ref-num" id="refNum">1234</div>
+                <div class="ref-sub">Show this at the outlet to complete trade-in</div>
+              </div>
+
+              <div class="qr-placeholder">█████████████████</div>
+
+              <div class="sms-notice">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                  <rect x="7" y="2" width="10" height="20" rx="2"/><circle cx="12" cy="18" r=".5" fill="currentColor"/>
+                </svg>
+                <span>You'll receive an SMS when your credit is confirmed</span>
+              </div>
+
+              <button class="btn-primary" onclick="simulateStaffScan()" style="margin-bottom: 12px;">Simulate Staff Scan</button>
+              <button class="btn-secondary" onclick="restart()">Start New Trade-In</button>
+            </div>
+
+            <!-- Credited View -->
+            <div id="credited-view" style="display: none;">
+              <div class="success-icon">
+                <svg width="34" height="34" fill="currentColor" viewBox="0 0 24 24" style="color: var(--green);">
+                  <circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5" fill="none" stroke="#fff" stroke-width="2"/>
+                </svg>
+              </div>
+              <h2>Credit Confirmed!</h2>
+              <p>Your trade-in has been processed and credit added to your wallet.</p>
+
+              <div class="credit-confirm">
+                <div class="cc-label">Credit Added</div>
+                <div class="cc-amount" id="credited-amount">$4.50</div>
+                <div class="cc-sub" id="success-new-balance">New wallet balance: $16.50</div>
+              </div>
+
+              <div class="confirm-block">
+                <h4>Trade-In Details</h4>
+                <div class="cr">
+                  <span class="cl">Outlet</span>
+                  <span class="cv" id="credited-outlet">—</span>
+                </div>
+                <div class="cr">
+                  <span class="cl">Reference</span>
+                  <span class="cv" id="refNum2">—</span>
+                </div>
+              </div>
+
+              <div class="edupass-banner" style="background: var(--gold-bg); border-radius: var(--r); padding: 18px; border: 1px solid rgba(176,125,16,.3); margin-bottom: 20px;">
+                <p style="font-size: 13px; color: var(--text); margin-bottom: 10px;">Your <strong>S$<span id="credited-amount-2">4.50</span> credit</strong> covers <strong><span id="edupass-months">1</span> month<span id="edupass-months-s"></span></strong> of EduPass Study Pass</p>
+                <a class="upsell-link" href="subcription.html" style="color: var(--gold); text-decoration: underline;">Subscribe now →</a>
+              </div>
+
+              <div style="background: var(--bg); border-radius: var(--r); padding: 16px; margin-bottom: 20px; border: 1px solid var(--line);">
+                <div class="email-header">
+                  <div class="email-field">
+                    <span class="email-field-label">From:</span>
+                    <span class="email-field-value">hello@popular.sg</span>
+                  </div>
+                  <div class="email-field">
+                    <span class="email-field-label">Subject:</span>
+                    <span class="email-field-value">Your Trade-In Confirmed</span>
+                  </div>
+                </div>
+                <div class="email-body">
+                  <p>Trade-in complete! Your credit has been added to your wallet.</p>
+                  <ul>
+                    <li>Reference: <strong id="refNum3">1234</strong></li>
+                    <li>Amount: <strong id="credited-amount-3">$4.50</strong></li>
+                    <li>Use your credit anytime in-store or online</li>
+                  </ul>
+                </div>
+                <div class="email-footer">POPULAR Trade-In Service</div>
+              </div>
+
+              <button class="btn-primary" onclick="restart()">Trade In Another Book</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="summary-card">
+      <div class="summary-header">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="color: var(--muted);">
+          <rect x="2" y="6" width="20" height="14" rx="2"/><path d="M2 10h20"/><circle cx="17" cy="14" r="1.5" fill="currentColor"/>
+        </svg>
+        <span>Trade-In Summary</span>
+      </div>
+      <div class="summary-body">
+        <div class="s-item">
+          <span class="st">Book</span>
+          <span class="sp" id="sum-book">—</span>
+        </div>
+        <div class="s-item">
+          <span class="st">Condition</span>
+          <span class="sp" id="sum-cond">—</span>
+        </div>
+        <div class="s-item">
+          <span class="st">Demand</span>
+          <span class="sp" id="sum-demand">—</span>
+        </div>
+        <div class="s-div"></div>
+        <div class="s-total">
+          <span class="stl">Your Credit</span>
+          <span class="s-total-earnings" id="sum-total">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wallet balance -->
+    <div class="wallet-card">
+      <div class="wc-label">Popular Wallet Balance</div>
+      <div class="wc-balance">S$12.50</div>
+      <div class="wc-sub">+ <span id="pendingCredit">S$4.00</span> pending this trade-in</div>
+      <div class="wc-bar-bg"><div class="wc-bar" id="walletBar"></div></div>
+      <div class="wc-note">Redeemable in-store · Online · EduPass</div>
+    </div>
+
+    <!-- Transaction History -->
+    <div class="summary-card">
+      <div class="summary-header">Wallet Transaction History</div>
+      <div class="history-item">
+        <div class="history-icon" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789814946018_1-360x493.jpg')"></div>
+        <div class="history-info">
+          <div class="history-title">Tomorrow × Tomorrow × Tomorrow — Zevin</div>
+          <div class="history-date">15 Mar 2025 · Bugis Junction</div>
+        </div>
+        <div class="history-right">
+          <div class="history-credit">S$4.20</div>
+          <span class="badge badge-green">Confirmed</span>
+        </div>
+      </div>
+      <div class="history-item">
+        <div class="history-icon" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789815214963_1-360x510.jpg')"></div>
+        <div class="history-info">
+          <div class="history-title">PSLE Mathematics Past Year Papers 2024</div>
+          <div class="history-date">12 Mar 2025 · Bugis Junction</div>
+        </div>
+        <div class="history-right">
+          <div class="history-credit">S$5.40</div>
+          <span class="badge badge-green">Confirmed</span>
+        </div>
+      </div>
+      <div class="history-item">
+        <div class="history-icon" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789815214970_1-650x922.jpg')"></div>
+        <div class="history-info">
+          <div class="history-title">O-Level English Ten Year Series</div>
+          <div class="history-date">28 Feb 2025 · Tampines Mall</div>
+        </div>
+        <div class="history-right">
+          <div class="history-credit">S$4.80</div>
+          <span class="badge badge-amber">Pending</span>
+        </div>
+      </div>
+      <div class="history-item">
+        <div class="history-icon" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789815214239_1-360x492.jpg')"></div>
+        <div class="history-info">
+          <div class="history-title">Primary 4 Science Worksheets</div>
+          <div class="history-date">15 Jan 2025 · VivoCity</div>
+        </div>
+        <div class="history-right">
+          <div class="history-credit">S$2.60</div>
+          <span class="badge badge-green">Confirmed</span>
+        </div>
+      </div>
+      <div style="padding:12px 20px;border-top:1px solid var(--line);">
+        <div class="s-total"><span class="stl">Total earned</span><span class="s-total-earnings">S$16.80</span></div>
+        <a class="view-history-link" onclick="showToast('Full transaction history coming soon')">View full history →</a>
+      </div>
+    </div>
+
+    <!-- How it works -->
+    <div class="summary-card">
+      <div class="summary-header">How TradeIn Works</div>
+      <div class="summary-body">
+        <div class="info-row">
+          <div class="info-dot"></div>
+          <div class="info-text">Scan any Popular assessment book or fiction title to get an instant credit estimate</div>
+        </div>
+        <div class="info-row">
+          <div class="info-dot"></div>
+          <div class="info-text">Drop the book off at any Popular outlet — takes under 3 minutes at the counter</div>
+        </div>
+        <div class="info-row">
+          <div class="info-dot"></div>
+          <div class="info-text">Credits are added to your Popular Wallet immediately after staff inspection</div>
+        </div>
+        <div class="info-row">
+          <div class="info-dot"></div>
+          <div class="info-text">Use credits in-store, on the website, via app, or toward EduPass subscription fees</div>
+        </div>
+      </div>
+    </div>
+  </aside>
 </div>
 
 <!-- RECOMMENDED SECTION -->
-<div class="rec-outer" id="recOuter">
+<section class="rec-outer" id="recOuter">
   <div class="rec-inner">
     <div class="rec-header">
-      <div class="rec-title">📚 Recommended Books to Trade In</div>
-      <div class="rec-subtitle">Based on your browsing, reading list & past trade-ins</div>
-      <div class="rec-note">🔗 Powered by data from your shop history, EduPass reading list, and past trade-ins — three systems, one smarter recommendation.</div>
+      <h2 class="rec-title">Recommended for Trade-In</h2>
+      <p class="rec-subtitle">Popular books with high demand and good credit value</p>
+      <p class="rec-note">Click any book to add it to your trade-in flow</p>
     </div>
     <div class="rec-tabs">
-      <div class="rec-tab active" onclick="setRecTab(this,'shop')">🛒 Shop History</div>
-      <div class="rec-tab" onclick="setRecTab(this,'reading')">📖 Reading List</div>
-      <div class="rec-tab" onclick="setRecTab(this,'tradein')">♻️ Past Trade-Ins</div>
+      <button class="rec-tab active" onclick="setRecTab(this, 'shop')">Shop Popular</button>
+      <button class="rec-tab" onclick="setRecTab(this, 'reading')">Reading List</button>
+      <button class="rec-tab" onclick="setRecTab(this, 'tradein')">Top Trade-Ins</button>
     </div>
     <div class="rec-scroll" id="recScroll"></div>
   </div>
-</div>
+</section>
 
-<!-- BOOKS IN DEMAND -->
-<div class="demand-outer" id="demandOuter">
+<!-- BOOKS IN DEMAND SECTION -->
+<section class="demand-outer" id="demandOuter">
   <div class="demand-inner">
-    <div class="demand-title">📚 Books in Demand</div>
-    <div class="demand-sub">Click any book to auto-fill and get an instant credit estimate</div>
+    <h2 class="demand-title">Books in Demand</h2>
+    <p class="demand-sub">These books are in high demand and earn premium credits</p>
     <div class="demand-scroll" id="demandScroll"></div>
   </div>
+</section>
+
+<!-- COMPLIANCE STRIP -->
+<div class="compliance-strip">
+  <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="color: var(--muted); margin-right: 6px; display: inline;">
+    <rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 118 0v4"/>
+  </svg>
+  PDPA Compliant · Registered Dealer · Independent Valuation
 </div>
 
-<!-- MAIN LAYOUT -->
-<div class="main">
-<div class="left-col">
-
-<!-- ══ STEP 1: SCAN & VALUE ══ -->
-<div class="step-content active panel" id="content-1">
-  <div class="panel-header">
-    <h2>Scan or Enter Your Book</h2>
-    <p>We'll give you an instant credit offer before you leave home</p>
-  </div>
-  <div class="panel-body">
-
-    <div class="scan-zone" id="scanZone" onclick="simulateScan()">
-      <div class="scan-icon">📷</div>
-      <h3>Tap to Scan Barcode</h3>
-      <p>Point your camera at the ISBN barcode on the back of your book</p>
-    </div>
-
-    <div class="scan-or">or enter manually</div>
-
-    <div class="form-row">
-      <label>Book Title or ISBN</label>
-      <input type="text" id="isbnInput" placeholder="e.g. 9789810985370 or PSLE Mathematics..." oninput="onIsbnInput()" />
-    </div>
-    <button class="btn-primary" onclick="lookupBook()" style="margin-bottom:20px;">Get Credit Estimate →</button>
-
-    <!-- Book result (shown after lookup) -->
-    <div class="book-result" id="bookResult">
-      <div class="book-cover" id="bookEmoji">📗</div>
-      <div class="book-meta">
-        <div class="book-title" id="bookTitle">—</div>
-        <div class="book-sub" id="bookSub">—</div>
-        <div class="book-tags" id="bookTags"></div>
-      </div>
-    </div>
-
-    <!-- Condition selector (shown after book found) -->
-    <div id="conditionSection" style="display:none">
-      <span class="condition-label">What condition is your book in?</span>
-      <div class="condition-grid">
-        <div class="cond-card" id="cond-good" onclick="selectCondition('good')">
-          <div class="cond-icon">✨</div>
-          <div class="cond-name">Good</div>
-          <div class="cond-desc">Minimal wear, no writing</div>
-          <div class="cond-credit" id="credit-good">$4.00</div>
-        </div>
-        <div class="cond-card" id="cond-fair" onclick="selectCondition('fair')">
-          <div class="cond-icon">📝</div>
-          <div class="cond-name">Fair</div>
-          <div class="cond-desc">Some annotations or creases</div>
-          <div class="cond-credit" id="credit-fair">$2.50</div>
-        </div>
-        <div class="cond-card" id="cond-worn" onclick="selectCondition('worn')">
-          <div class="cond-icon">📖</div>
-          <div class="cond-name">Worn</div>
-          <div class="cond-desc">Heavy use, torn pages</div>
-          <div class="cond-credit" id="credit-worn">$1.00</div>
-        </div>
-      </div>
-
-      <!-- Condition guide toggle -->
-      <div class="cond-guide-toggle" id="condGuideToggle" onclick="toggleCondGuide()">
-        <span class="cond-guide-arrow">▶</span>
-        <span>📷 See condition examples</span>
-      </div>
-      <div class="cond-guide-body" id="condGuideBody">
-        <div class="cond-guide-col good">
-          <h4>✅ Good</h4>
-          <ul>
-            <li>Spine intact, no bending</li>
-            <li>No markings or annotations</li>
-            <li>Cover clean and glossy</li>
-          </ul>
-        </div>
-        <div class="cond-guide-col fair">
-          <h4>📝 Fair</h4>
-          <ul>
-            <li>Pencil annotations visible</li>
-            <li>Slight cover wear or creases</li>
-            <li>Readable throughout</li>
-          </ul>
-        </div>
-        <div class="cond-guide-col worn">
-          <h4>⚠️ Worn</h4>
-          <ul>
-            <li>Torn pages or highlighting</li>
-            <li>Bent spine or heavy creasing</li>
-            <li>Major wear on cover</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Credit offer box -->
-      <div class="offer-box" id="offerBox">
-        <div class="offer-top">
-          <div>
-            <div class="offer-label">Your Credit Offer</div>
-            <div class="offer-amount"><span>S$</span><span id="offerAmount">—</span></div>
-          </div>
-          <div style="text-align:right">
-            <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-bottom:4px;">Valid for 7 days</div>
-            <div style="font-size:11px;color:rgba(255,255,255,0.45);">QR code on next step</div>
-          </div>
-        </div>
-        <div class="offer-breakdown">
-          <div class="ob-row"><span class="ol">Book</span><span class="ov" id="ob-book">—</span></div>
-          <div class="ob-row"><span class="ol">Condition</span><span class="ov" id="ob-cond">—</span></div>
-          <div class="ob-row"><span class="ol">Demand signal</span><span class="ov" id="ob-demand">—</span></div>
-        </div>
-        <!-- Demand Meter -->
-        <div class="demand-meter">
-          <div class="demand-meter-label">Demand Level</div>
-          <div class="demand-meter-bar">
-            <div class="demand-zone low" id="dmZone-low">Low</div>
-            <div class="demand-zone normal" id="dmZone-normal">Normal</div>
-            <div class="demand-zone high" id="dmZone-high">High</div>
-          </div>
-          <div class="demand-meter-value" id="demandMeterValue">—</div>
-        </div>
-        <div class="offer-note">⚠ This is a provisional offer. Final credit is confirmed after staff inspection at the counter.</div>
-        <div class="price-calc-toggle" id="priceCalcToggle" onclick="togglePriceCalc()">
-          <span class="pc-arrow">▶</span> How is this price calculated?
-        </div>
-        <div class="price-calc-body" id="priceCalcBody">
-          <div class="price-calc-row">Base price: <strong id="pc-base">$0.00</strong></div>
-          <div class="price-calc-row">Demand multiplier: <strong id="pc-mult">×1.0×</strong> — <span id="pc-demand-label"></span></div>
-          <div class="price-calc-eq">= Final offer: <span id="pc-final">$0.00</span></div>
-        </div>
-      </div>
-
-      <div id="nextBtn1" style="display:none">
-        <button class="btn-primary" onclick="nextStep()">Accept Offer & Choose Outlet →</button>
-      </div>
-    </div>
-
-  </div>
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span id="toastMsg"></span>
 </div>
-
-<!-- ══ STEP 2: CHOOSE OUTLET ══ -->
-<div class="step-content panel" id="content-2">
-  <div class="panel-header">
-    <h2>Choose Your Drop-Off Outlet</h2>
-    <p>Bring your book to any outlet below — drop-off takes under 3 minutes</p>
-  </div>
-  <div class="panel-body">
-
-    <div class="outlet-search-wrap">
-      <span style="font-size:15px;color:#bbb;">🔍</span>
-      <input type="text" placeholder="Search by outlet name or area (e.g. Tampines, Orchard)…" oninput="onOutletSearch(this)">
-    </div>
-
-    <div class="region-tabs">
-      <div class="rtab active" onclick="setRegion(this,'all')">All Regions</div>
-      <div class="rtab" onclick="setRegion(this,'central')">Central</div>
-      <div class="rtab" onclick="setRegion(this,'north')">North</div>
-      <div class="rtab" onclick="setRegion(this,'east')">East</div>
-      <div class="rtab" onclick="setRegion(this,'west')">West</div>
-      <div class="rtab" onclick="setRegion(this,'northeast')">North-East</div>
-    </div>
-
-    <div class="shimmer-wrap" id="shimmerWrap">
-      <div class="shimmer-row"></div>
-      <div class="shimmer-row"></div>
-      <div class="shimmer-row"></div>
-    </div>
-
-    <div class="outlet-scroll">
-      <div id="outletList"></div>
-    </div>
-
-    <div class="btn-row" style="margin-top:18px;">
-      <button class="btn-secondary" style="margin-top:0" onclick="prevStep()">← Back</button>
-      <button class="btn-primary" id="outletNextBtn" onclick="nextStep()" disabled>Confirm Outlet →</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══ STEP 3: CONFIRM ══ -->
-<div class="step-content panel" id="content-3">
-  <div class="panel-header">
-    <h2>Review &amp; Confirm</h2>
-    <p>Check the details below — credits are added to your Popular Wallet at the counter</p>
-  </div>
-  <div class="panel-body">
-
-    <div class="confirm-block">
-      <h4>📚 Book Being Traded In</h4>
-      <div class="cr"><span class="cl">Title</span><span class="cv" id="conf-title">—</span></div>
-      <div class="cr"><span class="cl">Condition</span><span class="cv" id="conf-cond">—</span></div>
-      <div class="cr"><span class="cl">Provisional credit</span><span class="cv" id="conf-credit" style="color:var(--green);font-weight:700;">—</span></div>
-    </div>
-
-    <div class="confirm-block">
-      <h4>📍 Drop-Off Outlet</h4>
-      <div class="cr"><span class="cl">Store</span><span class="cv" id="conf-name">—</span></div>
-      <div class="cr"><span class="cl">Address</span><span class="cv" id="conf-addr">—</span></div>
-      <div class="cr"><span class="cl">Opening Hours</span><span class="cv" id="conf-hours">—</span></div>
-    </div>
-
-    <div class="wallet-dest">
-      <div class="wallet-icon">💳</div>
-      <div class="wallet-text">
-        <strong>Credits go to your Popular Wallet</strong>
-        <span>Spend in-store, online, via app, or toward EduPass subscription</span>
-      </div>
-    </div>
-
-    <div class="upsell-box">
-      <div class="upsell-icon">📲</div>
-      <div class="upsell-text" style="flex:1;">
-        <strong>Your credit covers 1 month of EduPass</strong>
-        <span>Going digital? Apply your TradeIn credit toward unlimited digital access to assessment books.</span>
-      </div>
-      <span class="upsell-link" onclick="showToast('📲 Redirecting to EduPass...')">Learn more →</span>
-    </div>
-
-    <div class="confirm-block">
-      <h4>👤 Your Details</h4>
-      <div class="form-row"><label>Full Name</label><input type="text" value="Alex Tan" /></div>
-      <div class="form-row" style="margin-bottom:0"><label>Mobile (for QR code)</label><input type="tel" value="+65 9123 4567" /></div>
-    </div>
-
-    <div class="btn-row">
-      <button class="btn-secondary" style="margin-top:0" onclick="prevStep()">← Back</button>
-      <button class="btn-primary" onclick="nextStep()">Generate TradeIn QR →</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══ STEP 4: SUCCESS ══ -->
-<div class="step-content panel" id="content-4">
-  <div class="panel-body">
-
-    <!-- QR view (default) -->
-    <div id="qr-view">
-      <div class="success-wrap">
-        <div class="success-icon">♻️</div>
-        <h2>Your TradeIn QR is Ready!</h2>
-        <p>Show this at the TradeIn counter at <strong id="success-outlet">your outlet</strong>. Staff will inspect the book and confirm your credit on the spot.</p>
-
-        <div class="credit-confirm">
-          <div class="cc-label">Provisional Credit Offer</div>
-          <div class="cc-amount" id="success-credit">$4.00</div>
-          <div class="cc-sub">Final amount confirmed after staff inspection · Valid 7 days</div>
-        </div>
-
-        <div class="order-ref">
-          <div class="ref-label">TradeIn Reference</div>
-          <div class="ref-num">TI-2025-<span id="refNum">4471</span></div>
-          <div class="ref-sub">Show QR code at the TradeIn counter</div>
-        </div>
-
-        <!-- Mock QR — click to simulate staff scan -->
-        <div style="background:var(--light);border-radius:12px;padding:20px;margin-bottom:16px;border:2px dashed var(--border);cursor:pointer;transition:border-color .2s;" onclick="simulateStaffScan()" title="Click to simulate staff scan">
-          <svg width="140" height="140" viewBox="0 0 140 140" style="display:block;margin:0 auto;pointer-events:none;">
-            <rect width="140" height="140" fill="white"/>
-            <rect x="10" y="10" width="40" height="40" fill="none" stroke="#1A1A1A" stroke-width="4"/>
-            <rect x="18" y="18" width="24" height="24" fill="#1A1A1A"/>
-            <rect x="90" y="10" width="40" height="40" fill="none" stroke="#1A1A1A" stroke-width="4"/>
-            <rect x="98" y="18" width="24" height="24" fill="#1A1A1A"/>
-            <rect x="10" y="90" width="40" height="40" fill="none" stroke="#1A1A1A" stroke-width="4"/>
-            <rect x="18" y="98" width="24" height="24" fill="#1A1A1A"/>
-            <rect x="58" y="10" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="68" y="10" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="58" y="20" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="75" y="20" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="58" y="30" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="68" y="30" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="58" y="58" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="68" y="58" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="80" y="58" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="92" y="58" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="104" y="58" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="116" y="58" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="58" y="68" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="80" y="68" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="104" y="68" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="58" y="80" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="68" y="80" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="80" y="80" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="92" y="80" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="116" y="80" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="58" y="92" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="80" y="92" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="92" y="92" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="116" y="92" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="58" y="104" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="68" y="104" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="80" y="104" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="104" y="104" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="58" y="116" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="80" y="116" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="92" y="116" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="104" y="116" width="6" height="6" fill="#1A1A1A"/>
-            <rect x="116" y="116" width="6" height="6" fill="#1A1A1A"/>
-          </svg>
-          <div style="text-align:center;font-size:12px;color:var(--red);font-weight:600;margin-top:10px;">📷 Tap to simulate staff scan</div>
-        </div>
-
-        <div class="sms-notice"><span style="font-size:20px;">📱</span> QR code also sent to your registered mobile</div>
-
-        <!-- Email preview toggle -->
-        <div class="email-preview-toggle" id="emailPreviewToggle" onclick="toggleEmailPreview()">
-          <span class="email-preview-arrow">▶</span>
-          <span>📧 Preview confirmation email</span>
-        </div>
-        <div class="email-preview-body" id="emailPreviewBody">
-          <div class="email-header">
-            <div class="email-field">
-              <span class="email-field-label">From:</span>
-              <span class="email-field-value">noreply@popular.com.sg</span>
-            </div>
-            <div class="email-field">
-              <span class="email-field-label">To:</span>
-              <span class="email-field-value">alex.tan@email.com</span>
-            </div>
-            <div class="email-field">
-              <span class="email-field-label">Subject:</span>
-              <span class="email-field-value">Your TradeIn is confirmed — Ref TI-2025-<span id="emailRefNum">4471</span></span>
-            </div>
-          </div>
-          <div class="email-body">
-            <p>Hi Alex,</p>
-            <p>Your trade-in request has been received.</p>
-            <ul>
-              <li><strong>Book:</strong> <span id="emailBookTitle">—</span></li>
-              <li><strong>Condition:</strong> <span id="emailCondition">—</span></li>
-              <li><strong>Provisional credit:</strong> <span id="emailCredit">—</span></li>
-              <li><strong>Drop-off outlet:</strong> <span id="emailOutlet">—</span></li>
-              <li><strong>Reference:</strong> TI-2025-<span id="emailRefNum2">4471</span></li>
-            </ul>
-            <p>Please bring the book to the outlet within 7 days. Present this email or your QR code at the TradeIn counter.</p>
-          </div>
-          <div class="email-footer">
-            Popular Bookstore Singapore | PDPA-compliant data handling
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Credits confirmed view (shown after staff scan) -->
-    <div id="credited-view" style="display:none;">
-      <div class="success-wrap">
-        <div class="success-icon" style="background:var(--green-bg);">✅</div>
-        <h2>Credits Added to Your Wallet!</h2>
-        <p>Staff have verified your book. The credit has been instantly added to your Popular Wallet.</p>
-
-        <div class="credit-confirm">
-          <div class="cc-label">Credits Credited</div>
-          <div class="cc-amount" id="credited-amount">$4.00</div>
-          <div class="cc-sub">Added to Popular Wallet · Available to spend now</div>
-        </div>
-
-        <div class="wallet-dest" style="margin-bottom:20px;">
-          <div class="wallet-icon">💳</div>
-          <div class="wallet-text">
-            <strong>New Wallet Balance: <span id="success-new-balance">$16.50</span></strong>
-            <span>Spend in-store, online, via app, or toward EduPass subscription</span>
-          </div>
-        </div>
-
-        <div class="order-ref">
-          <div class="ref-label">Transaction Reference</div>
-          <div class="ref-num">TI-2025-<span id="refNum2">4471</span></div>
-          <div class="ref-sub">Verified at <span id="credited-outlet">your outlet</span></div>
-        </div>
-
-        <div class="upsell-box" style="text-align:left;">
-          <div class="upsell-icon">📲</div>
-          <div class="upsell-text" style="flex:1;">
-            <strong>Your credit covers 1 month of EduPass</strong>
-            <span>Going digital? Apply your TradeIn credit toward unlimited digital access to assessment books.</span>
-          </div>
-          <a class="upsell-link" href="subcription.html">Learn more →</a>
-        </div>
-
-        <button class="btn-primary" onclick="restart()">Trade In Another Book</button>
-        <button class="btn-secondary" onclick="window.location.href='index.html'">Back to Home</button>
-
-       
-      </div>
-    </div>
-
-  </div>
-</div>
-
-</div><!-- /left -->
-
-<!-- SIDEBAR -->
-<div class="sidebar">
-
-  <!-- Wallet balance -->
-  <div class="wallet-card">
-    <div class="wc-label">Popular Wallet Balance</div>
-    <div class="wc-balance">$12.50</div>
-    <div class="wc-sub">+ <span id="pendingCredit">$4.00</span> pending this trade-in</div>
-    <div class="wc-bar-bg"><div class="wc-bar" id="walletBar"></div></div>
-    <!-- <div class="wc-note">Redeemable In-store · Online · EduPass</div> -->
-  </div>
-
-  <!-- Trade-in summary -->
-  <div class="summary-card">
-    <div class="summary-header">📋 Trade-In Summary</div>
-    <div class="summary-body">
-      <div class="s-item"><span class="st">Book</span><span class="sp" id="sum-book" style="text-align:right;max-width:180px;">—</span></div>
-      <div class="s-item"><span class="st">Condition</span><span class="sp" id="sum-cond">—</span></div>
-      <div class="s-item"><span class="st">Demand signal</span><span class="sp" id="sum-demand">—</span></div>
-      <hr class="s-div">
-      <div class="s-total"><span class="stl">Credit offer</span><span id="sum-total" style="color:var(--green);">—</span></div>
-    </div>
-  </div>
-
-  <!-- Trade-In History -->
-  <div class="summary-card">
-    <div class="summary-header">🕐 Wallet Transaction History</div>
-    <div class="history-item">
-      <div class="history-icon" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789814946018_1-360x493.jpg')"></div>
-      <div class="history-info">
-        <div class="history-title">Tomorrow × Tomorrow × Tomorrow — Zevin</div>
-        <div class="history-date">15 Mar 2025 · Bugis Junction</div>
-      </div>
-      <div class="history-right">
-        <div class="history-credit">S$4.20</div>
-        <span class="badge badge-green">Credit Confirmed</span>
-      </div>
-    </div>
-    <div class="history-item">
-      <div class="history-icon" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789815214963_1-360x510.jpg')"></div>
-      <div class="history-info">
-        <div class="history-title">PSLE Mathematics Past Year Papers 2024</div>
-        <div class="history-date">12 Mar 2025 · Bugis Junction</div>
-      </div>
-      <div class="history-right">
-        <div class="history-credit">S$5.40</div>
-        <span class="badge badge-green">Credit Confirmed</span>
-      </div>
-    </div>
-    <div class="history-item">
-      <div class="history-icon" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789815214970_1-650x922.jpg')"></div>
-      <div class="history-info">
-        <div class="history-title">O-Level English Ten Year Series</div>
-        <div class="history-date">28 Feb 2025 · Tampines Mall</div>
-      </div>
-      <div class="history-right">
-        <div class="history-credit">S$4.80</div>
-        <span class="badge badge-amber">Pending Inspection</span>
-      </div>
-    </div>
-    <div class="history-item">
-      <div class="history-icon" style="background-image:url('https://www.eph.com.sg/wp-content/uploads/9789815214239_1-360x492.jpg')"></div>
-      <div class="history-info">
-        <div class="history-title">Primary 4 Science Worksheets</div>
-        <div class="history-date">15 Jan 2025 · VivoCity</div>
-      </div>
-      <div class="history-right">
-        <div class="history-credit">S$2.60</div>
-        <span class="badge badge-green">Credit Confirmed</span>
-      </div>
-    </div>
-    <div style="padding:12px 20px;border-top:1px solid var(--border);text-align:right;">
-      <div class="s-total"><span class="stl">Total earned:</span><span class="s-total-earnings">S$16.80</span></div>
-      <a class="view-history-link" onclick="showToast('📊 Full transaction history coming soon')">View full history →</a>
-    </div>
-  </div>
-
-  <!-- How it works -->
-  <div class="info-card">
-    <h4>How TradeIn works</h4>
-    <div class="info-row">
-      <div class="info-dot"></div>
-      <div class="info-text">Scan any Popular assessment book or fiction title to get an instant credit estimate</div>
-    </div>
-    <div class="info-row">
-      <div class="info-dot"></div>
-      <div class="info-text">Drop the book off at any Popular outlet — takes under 3 minutes at the counter</div>
-    </div>
-    <div class="info-row">
-      <div class="info-dot"></div>
-      <div class="info-text">Credits are added to your Popular Wallet immediately after staff inspection</div>
-    </div>
-    <div class="info-row">
-      <div class="info-dot"></div>
-      <div class="info-text">Use credits in-store, on the website, via app, or toward EduPass subscription fees</div>
-    </div>
-  </div>
-
-  <!-- Analytics Dashboard (Staff/Demo view) -->
-  <div class="summary-card" id="analyticsPanel">
-    <div class="summary-header" style="cursor:pointer;" onclick="document.getElementById('analyticsBody').style.display = document.getElementById('analyticsBody').style.display==='none'?'block':'none'; this.querySelector('.toggle-arrow').textContent = document.getElementById('analyticsBody').style.display==='none'?'▶':'▼';">
-      🧠 Analytics Dashboard <span class="toggle-arrow" style="float:right;font-size:11px;color:var(--mid);">▼</span>
-    </div>
-    <div id="analyticsBody">
-      <!-- Persona Prediction -->
-      <div style="padding:16px 20px;border-bottom:1px solid var(--border);">
-        <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--dark);">🎯 Customer Persona Prediction</div>
-        <div style="font-size:11px;color:var(--mid);margin-bottom:12px;">K-Means clustering + Random Forest (87% accuracy)</div>
-        <div id="personaPrediction" style="background:var(--green-bg);border:1px solid #c6e5d3;border-radius:8px;padding:12px;margin-bottom:10px;">
-          <div style="font-size:12px;font-weight:700;color:var(--green);">Predicted: <span id="predictedPersona">—</span></div>
-          <div style="font-size:11px;color:var(--mid);margin-top:4px;" id="personaReason">Select a book to see prediction</div>
-        </div>
-        <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--mid);margin-bottom:6px;">All 5 Personas</div>
-        <div class="persona-bars">
-          <div class="persona-row"><span class="persona-label">🧑‍🏫 Parent</span><div class="persona-bar-bg"><div class="persona-bar" id="pbar-parent" style="width:32%;background:var(--red);"></div></div><span class="persona-pct" id="ppct-parent">32%</span></div>
-          <div class="persona-row"><span class="persona-label">🎓 Student</span><div class="persona-bar-bg"><div class="persona-bar" id="pbar-student" style="width:28%;background:var(--amber);"></div></div><span class="persona-pct" id="ppct-student">28%</span></div>
-          <div class="persona-row"><span class="persona-label">📚 Bookworm</span><div class="persona-bar-bg"><div class="persona-bar" id="pbar-bookworm" style="width:18%;background:var(--green);"></div></div><span class="persona-pct" id="ppct-bookworm">18%</span></div>
-          <div class="persona-row"><span class="persona-label">💼 Self-Improver</span><div class="persona-bar-bg"><div class="persona-bar" id="pbar-selfimprover" style="width:14%;background:#6366f1;"></div></div><span class="persona-pct" id="ppct-selfimprover">14%</span></div>
-          <div class="persona-row"><span class="persona-label">💰 Budget</span><div class="persona-bar-bg"><div class="persona-bar" id="pbar-budget" style="width:8%;background:var(--mid);"></div></div><span class="persona-pct" id="ppct-budget">8%</span></div>
-        </div>
-      </div>
-
-      <!-- Pricing Algorithm Live -->
-      <div style="padding:16px 20px;border-bottom:1px solid var(--border);">
-        <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--dark);">📊 Dynamic Pricing — Live</div>
-        <div style="font-size:11px;color:var(--mid);margin-bottom:10px;">final_price = base × demand × condition</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px;">
-          <div style="background:var(--light);border-radius:6px;padding:8px;text-align:center;">
-            <div style="font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--mid);font-weight:600;">Sales Vel.</div>
-            <div style="font-size:16px;font-weight:800;color:var(--dark);" id="signal-sales">—</div>
-            <div style="font-size:9px;color:var(--mid);">40% weight</div>
-          </div>
-          <div style="background:var(--light);border-radius:6px;padding:8px;text-align:center;">
-            <div style="font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--mid);font-weight:600;">EduPass</div>
-            <div style="font-size:16px;font-weight:800;color:var(--dark);" id="signal-edupass">—</div>
-            <div style="font-size:9px;color:var(--mid);">30% weight</div>
-          </div>
-          <div style="background:var(--light);border-radius:6px;padding:8px;text-align:center;">
-            <div style="font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--mid);font-weight:600;">Supply</div>
-            <div style="font-size:16px;font-weight:800;color:var(--dark);" id="signal-supply">—</div>
-            <div style="font-size:9px;color:var(--mid);">30% weight</div>
-          </div>
-        </div>
-        <div style="background:var(--light);border-radius:6px;padding:8px 10px;font-size:11px;color:var(--dark);">
-          <strong>Season:</strong> <span id="signal-season">March — Mid-term (×1.00)</span>
-        </div>
-      </div>
-
-      <!-- Cross-System Data -->
-      <div style="padding:16px 20px;">
-        <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--dark);">🔗 Cross-Source Integration</div>
-        <div style="font-size:11px;color:var(--mid);margin-bottom:10px;">Data from all 3 solutions feeds this page</div>
-        <div style="display:flex;flex-direction:column;gap:6px;">
-          <div style="display:flex;align-items:center;gap:8px;font-size:11px;">
-            <span style="width:6px;height:6px;border-radius:50%;background:var(--red);flex-shrink:0;"></span>
-            <strong>Omnichannel</strong> — POS sales velocity across 40 stores
-          </div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:11px;">
-            <span style="width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;"></span>
-            <strong>Subscription</strong> — EduPass digital reading trends
-          </div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:11px;">
-            <span style="width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;"></span>
-            <strong>Trade-In</strong> — Supply-side trade-in volume
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-</div><!-- /main -->
-
-<!-- Toast -->
-<div class="toast" id="toast"><span id="toastMsg"></span></div>
-
-<!-- Compliance Strip -->
-<div class="compliance-strip">🔒 PDPA-compliant · Registered under Second-Hand Dealers Act (PLRD) · Data protected per MAS PSA guidelines · Reg. No. SHDA-2025-04821</div>
 
 <script>
 // ── DATA ──────────────────────────────────────────────────────────────
@@ -1087,7 +1088,6 @@ const REC_DATA = {
   ]
 };
 
-// ── STATE ─────────────────────────────────────────────────────────────
 let step = 1;
 let currentBook = null;
 let currentCondition = null;
@@ -1116,7 +1116,6 @@ function renderStep(){
   if(step===3) populateConfirm();
   if(step===4) populateSuccess();
   window.scrollTo({top:0,behavior:'smooth'});
-  // Show demand and rec sections only on step 1
   const demandOuter = document.getElementById('demandOuter');
   const recOuter = document.getElementById('recOuter');
   if(demandOuter) demandOuter.style.display = step===1 ? '' : 'none';
@@ -1127,23 +1126,22 @@ function renderStep(){
 function simulateScan(){
   document.getElementById('isbnInput').value = '9789810985370';
   lookupBook();
-  showToast('📷 Barcode scanned!');
+  showToast('Barcode scanned!');
 }
 
 function onIsbnInput(){}
 
 function lookupBook(){
   const q = document.getElementById('isbnInput').value.trim().toLowerCase();
-  if(!q){ showToast('⚠️ Please enter a title or ISBN'); return; }
+  if(!q){ showToast('Please enter a title or ISBN'); return; }
 
   let book = BOOKS.find(b => b.isbn === q);
   if(!book) book = BOOKS.find(b => b.title.toLowerCase().includes(q));
-  if(!book) book = BOOKS[BOOKS.length-1]; // fallback
+  if(!book) book = BOOKS[BOOKS.length-1];
 
   currentBook = book;
   currentCondition = null;
 
-  // Show book card
   const br = document.getElementById('bookResult');
   const bookCoverEl = document.getElementById('bookEmoji');
   if(book.img){ bookCoverEl.style.backgroundImage = `url('${book.img}')`; bookCoverEl.textContent = ''; }
@@ -1153,7 +1151,6 @@ function lookupBook(){
   document.getElementById('bookTags').innerHTML = book.tags.map(t=>`<span class="book-tag">${t}</span>`).join('');
   br.classList.add('show');
 
-  // Set credit amounts
   document.getElementById('credit-good').textContent = '$'+book.baseGood.toFixed(2);
   document.getElementById('credit-fair').textContent = '$'+book.baseFair.toFixed(2);
   document.getElementById('credit-worn').textContent = '$'+book.baseWorn.toFixed(2);
@@ -1162,14 +1159,12 @@ function lookupBook(){
   document.getElementById('offerBox').classList.remove('show');
   document.getElementById('nextBtn1').style.display = 'none';
 
-  // Reset condition cards
   ['good','fair','worn'].forEach(c => document.getElementById('cond-'+c).classList.remove('selected'));
   updateSidebar();
-  updateAnalytics();
 }
 
 function selectCondition(cond){
-  if(!currentBook){ showToast('⚠️ Scan a book first'); return; }
+  if(!currentBook){ showToast('Scan a book first'); return; }
   currentCondition = cond;
   ['good','fair','worn'].forEach(c => document.getElementById('cond-'+c).classList.remove('selected'));
   document.getElementById('cond-'+cond).classList.add('selected');
@@ -1187,7 +1182,6 @@ function selectCondition(cond){
   updateSidebar(credit, condLabel);
   updatePriceCalc(cond);
   updateDemandMeter();
-  updateAnalytics();
 }
 
 function updateDemandMeter(){
@@ -1223,77 +1217,6 @@ function updateSidebar(credit, condLabel){
   }
 }
 
-// ── ANALYTICS DASHBOARD ──────────────────────────────────────────────
-function updateAnalytics(){
-  if(!currentBook) return;
-
-  // Persona prediction based on book tags/genre
-  const tags = currentBook.tags.map(t=>t.toLowerCase()).join(' ');
-  const title = currentBook.title.toLowerCase();
-  let persona='Parent', reason='';
-  let pcts = {parent:32, student:28, bookworm:18, selfimprover:14, budget:8};
-
-  if(tags.includes('primary') && (tags.includes('psle')||tags.includes('maths')||tags.includes('science')||tags.includes('chinese'))){
-    persona='Parent'; reason='Assessment book + Primary level → likely parent buying for child';
-    pcts = {parent:72, student:14, bookworm:4, selfimprover:2, budget:8};
-  } else if(tags.includes('sec')||tags.includes('o level')||tags.includes('a level')||tags.includes('jc')){
-    persona='Student'; reason='Secondary/JC assessment book → likely student self-purchase';
-    pcts = {parent:15, student:68, bookworm:5, selfimprover:4, budget:8};
-  } else if(tags.includes('fiction')||tags.includes('booktok')||tags.includes('literature')){
-    persona='Bookworm'; reason='Fiction/Literature genre → avid reader profile';
-    pcts = {parent:8, student:12, bookworm:62, selfimprover:10, budget:8};
-  } else if(title.includes('atomic')||title.includes('psychology')||title.includes('self')){
-    persona='Self-Improver'; reason='Self-help/Business genre → professional development';
-    pcts = {parent:5, student:8, bookworm:15, selfimprover:64, budget:8};
-  }
-
-  // Apply condition modifier (worn books more likely Budget Shopper)
-  if(currentCondition==='worn'){
-    pcts.budget += 15; pcts[Object.keys(pcts).reduce((a,b)=>pcts[a]>pcts[b]?a:b)] -= 15;
-    if(pcts.budget > pcts[Object.keys(pcts).reduce((a,b)=>pcts[a]>pcts[b]?a:b)]){
-      persona='Budget Shopper'; reason='Worn condition + any genre → price-sensitive trader';
-    }
-  }
-
-  document.getElementById('predictedPersona').textContent = persona;
-  document.getElementById('personaReason').textContent = reason;
-  document.getElementById('personaPrediction').style.background = persona==='Parent'?'rgba(208,2,27,0.08)':persona==='Student'?'var(--amber-bg)':persona==='Bookworm'?'var(--green-bg)':persona==='Self-Improver'?'rgba(99,102,241,0.08)':'var(--gray-bg)';
-  document.getElementById('personaPrediction').style.borderColor = persona==='Parent'?'rgba(208,2,27,0.2)':persona==='Student'?'rgba(180,83,9,0.2)':persona==='Bookworm'?'#c6e5d3':persona==='Self-Improver'?'rgba(99,102,241,0.2)':'var(--border)';
-
-  // Update bars
-  for(const [key,val] of Object.entries(pcts)){
-    const barId = 'pbar-'+key;
-    const pctId = 'ppct-'+key;
-    const el = document.getElementById(barId);
-    const pctEl = document.getElementById(pctId);
-    if(el) el.style.width = val+'%';
-    if(pctEl) pctEl.textContent = val+'%';
-  }
-
-  // Pricing signals (simulated from pricing_model.py cross-system data)
-  const signalData = {
-    'PSLE Mathematics':   {sales:'320/wk', edupass:'450 reads', supply:'45 units'},
-    'Secondary 3':        {sales:'85/wk',  edupass:'120 reads', supply:'30 units'},
-    'Primary 4 Science':  {sales:'150/wk', edupass:'200 reads', supply:'60 units'},
-    'O-Level English':    {sales:'210/wk', edupass:'300 reads', supply:'25 units'},
-    'Primary 5 Chinese':  {sales:'95/wk',  edupass:'130 reads', supply:'35 units'},
-    'JC2 H2 Chemistry':   {sales:'180/wk', edupass:'220 reads', supply:'15 units'},
-    'Secondary 1 History':{sales:'40/wk',  edupass:'55 reads',  supply:'50 units'},
-    'Great Gatsby':       {sales:'60/wk',  edupass:'180 reads', supply:'20 units'},
-    'Primary 3 Maths':    {sales:'130/wk', edupass:'170 reads', supply:'55 units'},
-    'Tomorrow':           {sales:'110/wk', edupass:'250 reads', supply:'10 units'},
-  };
-  let matched = null;
-  for(const key of Object.keys(signalData)){
-    if(currentBook.title.includes(key)){ matched = signalData[key]; break; }
-  }
-  if(!matched) matched = {sales:'—', edupass:'—', supply:'—'};
-  document.getElementById('signal-sales').textContent = matched.sales;
-  document.getElementById('signal-edupass').textContent = matched.edupass;
-  document.getElementById('signal-supply').textContent = matched.supply;
-}
-
-/// ── STEP 2: OUTLETS ───────────────────────────────────────────────────
 function loadOutlets(){
   const sw = document.getElementById('shimmerWrap');
   document.getElementById('outletList').innerHTML = '';
@@ -1315,14 +1238,18 @@ function renderOutlets(){
     <div class="outlet-row ${isSel?'selected':''}" onclick="chooseOutlet(${o.id})">
       <div class="avail-bar"></div>
       <div class="outlet-body">
-        <div class="out-icon">🏬</div>
+        <div class="out-icon">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <path d="M3 21h18M3 7l9-4 9 4M4 7v14M20 7v14M8 11v4M12 11v4M16 11v4"/>
+          </svg>
+        </div>
         <div class="out-info">
           <div class="out-name">${o.name}</div>
           <div class="out-addr">${o.addr}</div>
           <div class="out-meta">
-            <span class="out-tag">📍 ${o.dist}</span>
-            <span class="out-tag">🕙 ${o.hours}</span>
-            <span class="out-tag">⏱ ${o.processingTime}</span>
+            <span class="out-tag">${o.dist}</span>
+            <span class="out-tag">${o.hours}</span>
+            <span class="out-tag">${o.processingTime}</span>
           </div>
         </div>
         <div class="out-cta">${isSel?'✓ Selected':'Select →'}</div>
@@ -1350,7 +1277,6 @@ function onOutletSearch(input){
   renderOutlets();
 }
 
-//// ── STEP 3: CONFIRM ───────────────────────────────────────────────────
 function populateConfirm(){
   const outlet = OUTLETS.find(o=>o.id===selectedOutletId);
   const condLabel = {good:'Good condition',fair:'Fair condition',worn:'Worn condition'}[currentCondition];
@@ -1365,37 +1291,20 @@ function populateConfirm(){
   document.getElementById('conf-hours').textContent = outlet.hours;
 }
 
-//// ── STEP 4: SUCCESS ───────────────────────────────────────────────────
 function populateSuccess(){
   const outlet = OUTLETS.find(o=>o.id===selectedOutletId);
   const baseMap = {good: currentBook.baseGood, fair: currentBook.baseFair, worn: currentBook.baseWorn};
   const credit = (baseMap[currentCondition] * currentBook.demandMult).toFixed(2);
   const refNum = String(Math.floor(1000+Math.random()*8999));
 
-  // QR view
   document.getElementById('success-outlet').textContent = outlet.name;
   document.getElementById('success-credit').textContent = 'S$'+credit;
   document.getElementById('refNum').textContent = refNum;
 
-  // Reset to QR view in case of re-entry
   document.getElementById('qr-view').style.display = '';
   document.getElementById('credited-view').style.display = 'none';
 
-  // Populate email preview
-  const condLabel = {good:'Good condition',fair:'Fair condition',worn:'Worn condition'}[currentCondition];
-  document.getElementById('emailRefNum').textContent = refNum;
-  document.getElementById('emailRefNum2').textContent = refNum;
-  document.getElementById('emailBookTitle').textContent = currentBook.title;
-  document.getElementById('emailCondition').textContent = condLabel;
-  document.getElementById('emailCredit').textContent = 'S$'+credit;
-  document.getElementById('emailOutlet').textContent = outlet.name;
-
   updateEdupassBanner(credit);
-}
-
-function toggleEmailPreview(){
-  document.getElementById('emailPreviewToggle').classList.toggle('open');
-  document.getElementById('emailPreviewBody').classList.toggle('show');
 }
 
 function simulateStaffScan(){
@@ -1406,17 +1315,19 @@ function simulateStaffScan(){
   const refNum = document.getElementById('refNum').textContent;
 
   document.getElementById('credited-amount').textContent = 'S$'+credit;
-  document.getElementById('success-new-balance').textContent = 'S$'+newBalance;
+  document.getElementById('credited-amount-2').textContent = credit;
+  document.getElementById('credited-amount-3').textContent = 'S$'+credit;
+  document.getElementById('success-new-balance').textContent = 'New wallet balance: S$'+newBalance;
   document.getElementById('credited-outlet').textContent = outlet.name;
   document.getElementById('refNum2').textContent = refNum;
+  document.getElementById('refNum3').textContent = refNum;
 
-  showToast('✅ QR scanned — credits confirmed!');
+  showToast('QR scanned — credits confirmed!');
   document.getElementById('qr-view').style.display = 'none';
   document.getElementById('credited-view').style.display = '';
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
-// ── RESTART ───────────────────────────────────────────────────────────
 function restart(){
   step=1; currentBook=null; currentCondition=null; selectedOutletId=null;
   region='all'; outletSearch='';
@@ -1430,12 +1341,9 @@ function restart(){
   ['good','fair','worn'].forEach(c=>document.getElementById('cond-'+c).classList.remove('selected'));
   document.getElementById('condGuideToggle').classList.remove('open');
   document.getElementById('condGuideBody').classList.remove('show');
-  document.getElementById('emailPreviewToggle').classList.remove('open');
-  document.getElementById('emailPreviewBody').classList.remove('show');
   renderStep();
 }
 
-// ── RECOMMENDED SECTION ───────────────────────────────────────────────
 function renderRecSection(){
   renderRecCards(currentRecTab);
 }
@@ -1467,7 +1375,6 @@ function pickRecBook(title){
   document.getElementById('content-1').scrollIntoView({behavior:'smooth', block:'start'});
 }
 
-// ── BOOKS IN DEMAND ───────────────────────────────────────────────────
 function renderDemandSection(){
   const featured = BOOKS.filter(b => b.isbn !== 'default');
   document.getElementById('demandScroll').innerHTML = featured.map(b => {
@@ -1493,7 +1400,6 @@ function pickDemandBook(isbn){
   document.getElementById('content-1').scrollIntoView({behavior:'smooth', block:'start'});
 }
 
-// ── PRICE CALC ────────────────────────────────────────────────────────
 function togglePriceCalc(){
   document.getElementById('priceCalcToggle').classList.toggle('open');
   document.getElementById('priceCalcBody').classList.toggle('show');
@@ -1513,14 +1419,12 @@ function updatePriceCalc(cond){
   document.getElementById('priceCalcBody').classList.remove('show');
 }
 
-// ── EDUPASS BANNER ────────────────────────────────────────────────────
 function updateEdupassBanner(credit){
   const months = Math.max(1, Math.floor(parseFloat(credit) / 3.90));
   document.getElementById('edupass-months').textContent = months;
   document.getElementById('edupass-months-s').textContent = months > 1 ? 's' : '';
 }
 
-// ── TOAST ─────────────────────────────────────────────────────────────
 let toastTimer;
 function showToast(msg){
   const t = document.getElementById('toast');
@@ -1530,7 +1434,6 @@ function showToast(msg){
   toastTimer = setTimeout(()=>t.classList.remove('show'), 3000);
 }
 
-// ── INIT ──────────────────────────────────────────────────────────────
 renderDemandSection();
 renderRecSection();
 </script>
