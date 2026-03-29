@@ -18,21 +18,16 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'DM Sans',sans-serif;background:var(--light);color:var(--dark);min-height:100vh;}
 
-/* TOPBAR */
 .topbar{background:var(--red);color:#fff;text-align:center;font-size:12px;font-weight:500;padding:8px;letter-spacing:.04em;}
 
-/* HEADER */
 header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.06);}
 .header-inner{max-width:1140px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:16px;height:62px;}
-.logo{font-family:'Playfair Display',serif;font-size:23px;font-weight:800;color:var(--red);}
-.logo span{color:var(--dark);}
 .back-link{margin-left:auto;display:flex;align-items:center;gap:5px;font-size:13px;color:var(--mid);text-decoration:none;padding:6px 12px;border-radius:6px;transition:background .15s;}
 .back-link:hover{background:var(--light);color:var(--dark);}
 
-/* STEPPER */
 .stepper-wrap{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;}
 .stepper{max-width:640px;margin:0 auto;display:flex;align-items:center;padding:18px 0;}
-.step{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;position:relative;cursor:pointer;}
+.step{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;position:relative;}
 .step::after{content:'';position:absolute;top:17px;left:calc(50% + 20px);right:calc(-50% + 20px);height:2px;background:var(--border);transition:background .4s;}
 .step:last-child::after{display:none;}
 .step.completed::after{background:var(--red);}
@@ -41,22 +36,32 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 .step.completed .step-circle{border-color:var(--red);background:var(--red);color:#fff;}
 .step-label{font-size:11px;font-weight:600;color:#bbb;letter-spacing:.03em;transition:color .3s;white-space:nowrap;}
 .step.active .step-label,.step.completed .step-label{color:var(--red);}
+.step.skipped{opacity:0.3;}
 
-/* LAYOUT */
 .main{max-width:1140px;margin:0 auto;padding:36px 24px;display:grid;grid-template-columns:1fr 340px;gap:28px;align-items:start;}
 @media(max-width:860px){.main{grid-template-columns:1fr;}}
 
-/* PANEL */
 .panel{background:#fff;border-radius:14px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow);}
 .panel-header{padding:22px 26px 18px;border-bottom:1px solid var(--border);}
 .panel-header h2{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;margin-bottom:3px;}
 .panel-header p{font-size:13px;color:var(--mid);}
 .panel-body{padding:24px 26px;}
 
-/* STEP 1 CART */
-.method-toggle{display:flex;border:1.5px solid var(--border);border-radius:9px;overflow:hidden;margin-bottom:22px;}
-.method-btn{flex:1;padding:11px;text-align:center;font-family:inherit;font-size:13px;font-weight:600;border:none;cursor:pointer;background:#fff;color:var(--mid);transition:all .2s;}
-.method-btn.active{background:var(--red);color:#fff;}
+/* METHOD CARDS */
+.method-toggle{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px;}
+.method-card{border:2px solid var(--border);border-radius:12px;padding:16px 14px;cursor:pointer;transition:all .2s;background:#fff;text-align:left;font-family:inherit;position:relative;}
+.method-card:hover{border-color:#b0a9a0;box-shadow:var(--shadow-sm);}
+.method-card.active{border-color:var(--red);background:#fff9f9;}
+.method-card .mc-check{position:absolute;top:12px;right:12px;display:none;width:20px;height:20px;background:var(--red);border-radius:50%;color:#fff;font-size:10px;font-weight:800;align-items:center;justify-content:center;}
+.method-card.active .mc-check{display:flex;}
+.method-card .mc-icon{font-size:22px;margin-bottom:8px;display:block;}
+.method-card .mc-title{font-size:13.5px;font-weight:700;color:var(--dark);display:block;margin-bottom:3px;}
+.method-card .mc-sub{font-size:12px;color:var(--mid);display:block;line-height:1.4;}
+.method-card .mc-price{font-size:14px;font-weight:700;margin-top:8px;display:block;}
+.mc-free{color:var(--green);}
+.mc-paid{color:var(--dark);}
+
+/* CART ITEMS */
 .cart-item{display:flex;align-items:center;gap:14px;padding:15px 0;border-bottom:1px solid var(--border);}
 .cart-item:last-of-type{border-bottom:none;}
 .cart-emoji{width:60px;height:76px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;}
@@ -69,9 +74,7 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 .qty-btn:hover{border-color:var(--red);color:var(--red);}
 .qty-num{font-size:13px;font-weight:600;min-width:18px;text-align:center;}
 
-/* ── STEP 2: STOCK CHECKER (Cotton On + Uniqlo patterns) ── */
-
-/* Product context bar */
+/* STEP 2 OUTLET FINDER */
 .product-context{display:flex;align-items:center;gap:14px;background:var(--light);border-radius:10px;padding:13px 16px;margin-bottom:20px;border:1px solid var(--border);}
 .pc-emoji{font-size:24px;width:44px;height:54px;background:#fff;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid var(--border);}
 .pc-info{flex:1;}
@@ -79,43 +82,30 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 .pc-sub{font-size:11.5px;color:var(--mid);}
 .pc-change{font-size:12px;color:var(--red);font-weight:600;cursor:pointer;white-space:nowrap;}
 .pc-change:hover{text-decoration:underline;}
-
-/* Search bar */
 .outlet-search-wrap{display:flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--border);border-radius:9px;padding:0 14px;margin-bottom:14px;transition:border-color .2s;}
 .outlet-search-wrap:focus-within{border-color:var(--red);}
 .outlet-search-wrap .search-icon{font-size:15px;color:#bbb;}
 .outlet-search-wrap input{border:none;background:transparent;font-family:inherit;font-size:13.5px;padding:11px 0;outline:none;flex:1;color:var(--dark);}
 .clear-x{font-size:17px;color:#ccc;cursor:pointer;display:none;line-height:1;padding:2px;}
 .clear-x.show{display:block;}
-
-/* Region tabs — Cotton On style */
 .region-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px;}
 .rtab{padding:6px 13px;border-radius:20px;border:1.5px solid var(--border);font-size:12px;font-weight:600;cursor:pointer;background:#fff;color:var(--mid);transition:all .18s;white-space:nowrap;user-select:none;}
 .rtab:hover{border-color:var(--dark);color:var(--dark);}
 .rtab.active{background:var(--dark);color:#fff;border-color:var(--dark);}
-
-/* Shimmer */
 .shimmer-wrap{display:none;}
 .shimmer-wrap.show{display:block;}
 .shimmer-row{height:74px;background:linear-gradient(90deg,var(--light) 25%,#ede9e3 50%,var(--light) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:11px;margin-bottom:10px;}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-
-/* Outlet list scroll container */
 .outlet-scroll{max-height:430px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
 .outlet-scroll::-webkit-scrollbar{width:4px;}
 .outlet-scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
-
-/* Outlet row — left colour bar is the Uniqlo availability signal */
 .outlet-row{display:flex;align-items:stretch;border:1.5px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .2s;background:#fff;position:relative;}
 .outlet-row:hover{border-color:#b0a9a0;box-shadow:var(--shadow-sm);}
 .outlet-row.selected{border-color:var(--red);box-shadow:0 0 0 3px rgba(208,2,27,.08);}
-
-/* Left colour bar — Uniqlo's key visual signal */
 .avail-bar{width:5px;flex-shrink:0;}
 .avail-bar.in{background:var(--green);}
 .avail-bar.low{background:#F59E0B;}
 .avail-bar.out{background:#D1D5DB;}
-
 .outlet-body{flex:1;padding:13px 15px;display:flex;align-items:center;gap:12px;}
 .out-icon{font-size:18px;width:38px;height:38px;background:var(--light);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .out-info{flex:1;min-width:0;}
@@ -123,8 +113,6 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 .out-addr{font-size:12px;color:var(--mid);margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .out-meta{display:flex;gap:10px;flex-wrap:wrap;}
 .out-tag{font-size:11px;color:var(--mid);}
-
-/* Stock count — Cotton On's big number approach */
 .stock-right{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:2px;padding-right:4px;min-width:72px;text-align:right;}
 .stock-num{font-size:22px;font-weight:800;line-height:1;}
 .stock-num.in{color:var(--green);}
@@ -134,17 +122,12 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 .stock-lbl.in{color:var(--green);}
 .stock-lbl.low{color:#D97706;}
 .stock-lbl.out{color:#9CA3AF;}
-
-/* Selected checkmark */
 .sel-tick{display:none;position:absolute;top:10px;right:10px;width:20px;height:20px;background:var(--red);border-radius:50%;color:#fff;font-size:10px;font-weight:800;align-items:center;justify-content:center;}
 .outlet-row.selected .sel-tick{display:flex;}
-
-/* Per-item breakdown drawer — Uniqlo style */
 .stock-drawer{display:none;background:var(--light);border-radius:0 0 11px 11px;border:1.5px solid var(--red);border-top:none;padding:16px 18px;margin-top:-11px;margin-bottom:10px;animation:dropIn .22s ease;}
 .stock-drawer.open{display:block;}
 @keyframes dropIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
 .sd-header{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--mid);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;}
-.sd-items{}
 .sd-item{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border);gap:12px;}
 .sd-item:last-child{border-bottom:none;}
 .sd-left{display:flex;align-items:center;gap:9px;}
@@ -156,12 +139,10 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 .pill-low{background:var(--amber-bg);color:var(--amber);}
 .pill-out{background:var(--gray-bg);color:#9CA3AF;}
 .drawer-cta{margin-top:14px;}
-
-/* No results */
 .no-results{text-align:center;padding:40px 0;color:var(--mid);}
 .no-results .nr-icon{font-size:34px;margin-bottom:10px;}
 
-/* STEP 3 */
+/* STEP 3 CONFIRM */
 .confirm-block{background:var(--light);border-radius:10px;padding:16px 18px;margin-bottom:14px;}
 .confirm-block h4{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--mid);margin-bottom:10px;}
 .cr{display:flex;justify-content:space-between;align-items:flex-start;font-size:13.5px;margin-bottom:8px;gap:12px;}
@@ -175,8 +156,11 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 .timeslot.unavail{background:var(--light);color:#ccc;cursor:default;text-decoration:line-through;}
 .form-row{margin-bottom:13px;}
 .form-row label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--mid);margin-bottom:5px;}
-.form-row input{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:8px;font-family:inherit;font-size:14px;outline:none;transition:border-color .2s;}
+.form-row input{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:8px;font-family:inherit;font-size:14px;outline:none;transition:border-color .2s;background:#fff;color:var(--dark);}
 .form-row input:focus{border-color:var(--red);}
+.delivery-notice{background:#eff6ff;border:1.5px solid #bfdbfe;border-radius:10px;padding:14px 16px;display:flex;gap:10px;align-items:flex-start;margin-bottom:14px;}
+.delivery-notice .dn-icon{font-size:20px;flex-shrink:0;}
+.delivery-notice p{font-size:13px;color:#1e40af;line-height:1.55;}
 
 /* STEP 4 */
 .success-wrap{text-align:center;padding:36px 16px;}
@@ -213,12 +197,11 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 .ms-text strong{font-size:13px;display:block;margin-bottom:2px;}
 .ms-text span{font-size:12px;color:var(--mid);}
 .ms-saving{font-size:15px;font-weight:700;color:var(--gold);margin-top:3px;}
-.cc-badge{background:var(--dark);color:#fff;border-radius:10px;padding:14px 16px;display:flex;gap:12px;align-items:center;}
-.cc-badge .bi{font-size:22px;}
-.cc-badge strong{font-size:13.5px;display:block;margin-bottom:2px;}
-.cc-badge span{font-size:12px;color:rgba(255,255,255,.55);}
+.fulfilment-badge{border-radius:10px;padding:14px 16px;display:flex;gap:12px;align-items:center;}
+.fulfilment-badge .bi{font-size:22px;}
+.fulfilment-badge strong{font-size:13.5px;display:block;margin-bottom:2px;}
+.fulfilment-badge span{font-size:12px;opacity:.7;}
 
-/* BUTTONS */
 .btn-primary{background:var(--red);color:#fff;border:none;padding:13px 24px;border-radius:9px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;width:100%;transition:background .2s,transform .15s;}
 .btn-primary:hover{background:#a8001a;transform:translateY(-1px);}
 .btn-primary:disabled{background:#ccc;cursor:default;transform:none;}
@@ -227,7 +210,6 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 .btn-row{display:flex;gap:10px;margin-top:20px;}
 .btn-row .btn-secondary{margin-top:0;}
 
-/* STEP VISIBILITY */
 .step-content{display:none;}
 .step-content.active{display:block;animation:fadeSlide .28s ease;}
 @keyframes fadeSlide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:translateX(0)}}
@@ -239,7 +221,7 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 
 <header>
   <div class="header-inner">
-    <div class="logo"><img src="popular-logo25.png" alt="POPULAR" style="height:36px;width:auto;display:block;"></div>
+    <div><img src="popular-logo25.png" alt="POPULAR" style="height:36px;width:auto;display:block;" onerror="this.style.display='none'"></div>
     <a class="back-link" href="index.html">← Back to Store</a>
   </div>
 </header>
@@ -256,88 +238,59 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 <div class="main">
 <div>
 
-<!-- ══ STEP 1 ══ -->
+<!-- STEP 1 — CART -->
 <div class="step-content active panel" id="content-1">
   <div class="panel-header">
     <h2>Your Cart</h2>
-    <p>Review items then choose how you'd like to receive them</p>
+    <p>Review items and choose how you'd like to receive them</p>
   </div>
   <div class="panel-body">
+
     <div class="method-toggle">
-      <button class="method-btn active" onclick="setMethod(this)">📦 Click &amp; Collect — FREE</button>
-      <button class="method-btn" onclick="setMethod(this)">🚚 Home Delivery — $3.99</button>
+      <button class="method-card active" id="mc-collect" onclick="setMethod('collect')">
+        <span class="mc-check">✓</span>
+        <span class="mc-icon">🏪</span>
+        <span class="mc-title">Click &amp; Collect</span>
+        <span class="mc-sub">Pick up at your nearest Popular outlet — ready within 2 hours</span>
+        <span class="mc-price mc-free">FREE</span>
+      </button>
+      <button class="method-card" id="mc-delivery" onclick="setMethod('delivery')">
+        <span class="mc-check">✓</span>
+        <span class="mc-icon">🚚</span>
+        <span class="mc-title">Home Delivery</span>
+        <span class="mc-sub">Standard delivery to your door in 3–5 business days</span>
+        <span class="mc-price mc-paid" id="deliveryPriceLabel">$3.99</span>
+      </button>
     </div>
-    <div class="cart-item">
-      <div class="cart-emoji">📗</div>
-      <div class="cart-info">
-        <div class="cart-cat">Assessment</div>
-        <div class="cart-title">PSLE Mathematics Past Year Papers 2025</div>
-        <div class="cart-price">$12.90</div>
-      </div>
-      <div class="qty-row">
-        <button class="qty-btn" onclick="chQty(this,-1)">−</button>
-        <span class="qty-num">1</span>
-        <button class="qty-btn" onclick="chQty(this,1)">+</button>
-      </div>
-    </div>
-    <div class="cart-item">
-      <div class="cart-emoji">📘</div>
-      <div class="cart-info">
-        <div class="cart-cat">English Books</div>
-        <div class="cart-title">Atomic Habits — James Clear</div>
-        <div class="cart-price">$21.90</div>
-      </div>
-      <div class="qty-row">
-        <button class="qty-btn" onclick="chQty(this,-1)">−</button>
-        <span class="qty-num">1</span>
-        <button class="qty-btn" onclick="chQty(this,1)">+</button>
-      </div>
-    </div>
-    <div class="cart-item">
-      <div class="cart-emoji">✏️</div>
-      <div class="cart-info">
-        <div class="cart-cat">Stationery</div>
-        <div class="cart-title">Stabilo Boss Highlighter Set (8 Colours)</div>
-        <div class="cart-price">$8.90</div>
-      </div>
-      <div class="qty-row">
-        <button class="qty-btn" onclick="chQty(this,-1)">−</button>
-        <span class="qty-num">2</span>
-        <button class="qty-btn" onclick="chQty(this,1)">+</button>
-      </div>
-    </div>
+
+    <div id="cartItemsEl"></div>
+
     <div style="margin-top:22px">
-      <button class="btn-primary" onclick="nextStep()">Check Store Availability →</button>
+      <button class="btn-primary" id="step1Btn" onclick="step1Next()">Check Store Availability →</button>
     </div>
   </div>
 </div>
 
-<!-- ══ STEP 2: IN-STORE STOCK CHECKER ══ -->
+<!-- STEP 2 — OUTLET FINDER (Click & Collect only) -->
 <div class="step-content panel" id="content-2">
   <div class="panel-header">
     <h2>Check In-Store Availability</h2>
-    <p>See exact stock counts at each outlet for your cart items, then choose where to collect</p>
+    <p>See exact stock counts at each outlet, then choose where to collect</p>
   </div>
   <div class="panel-body">
-
-    <!-- Cart context -->
     <div class="product-context">
       <div class="pc-emoji">🛒</div>
       <div class="pc-info">
-        <div class="pc-title">Checking <strong>3 items</strong> across all POPULAR outlets</div>
+        <div class="pc-title" id="cartCountLabel">Checking items across all POPULAR outlets</div>
         <div class="pc-sub">Stock is live. Items held for 15 min after you select an outlet.</div>
       </div>
-      <span class="pc-change" onclick="prevStep()">← Edit cart</span>
+      <span class="pc-change" onclick="goToStep(1)">← Edit cart</span>
     </div>
-
-    <!-- Search -->
     <div class="outlet-search-wrap">
       <span class="search-icon">🔍</span>
       <input type="text" id="searchInput" placeholder="Search by outlet name or area (e.g. Tampines, Orchard)…" oninput="onSearch(this)">
       <span class="clear-x" id="clearX" onclick="clearSearch()">✕</span>
     </div>
-
-    <!-- Region tabs -->
     <div class="region-tabs">
       <div class="rtab active" onclick="setRegion(this,'all')">All Regions</div>
       <div class="rtab" onclick="setRegion(this,'central')">Central</div>
@@ -346,15 +299,9 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
       <div class="rtab" onclick="setRegion(this,'west')">West</div>
       <div class="rtab" onclick="setRegion(this,'northeast')">North-East</div>
     </div>
-
-    <!-- Shimmer -->
     <div class="shimmer-wrap" id="shimmerWrap">
-      <div class="shimmer-row"></div>
-      <div class="shimmer-row"></div>
-      <div class="shimmer-row"></div>
+      <div class="shimmer-row"></div><div class="shimmer-row"></div><div class="shimmer-row"></div>
     </div>
-
-    <!-- List -->
     <div class="outlet-scroll">
       <div id="outletList"></div>
       <div class="no-results" id="noResults" style="display:none">
@@ -362,100 +309,108 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
         <p>No outlets match your search. Try another area.</p>
       </div>
     </div>
-
     <div class="btn-row" style="margin-top:18px">
-      <button class="btn-secondary" style="margin-top:0" onclick="prevStep()">← Back</button>
-      <button class="btn-primary" id="outletNextBtn" onclick="nextStep()" disabled>Confirm This Outlet →</button>
+      <button class="btn-secondary" style="margin-top:0" onclick="goToStep(1)">← Back</button>
+      <button class="btn-primary" id="outletNextBtn" onclick="goToStep(3)" disabled>Confirm This Outlet →</button>
     </div>
   </div>
 </div>
 
-<!-- ══ STEP 3 ══ -->
+<!-- STEP 3 — CONFIRM -->
 <div class="step-content panel" id="content-3">
   <div class="panel-header">
-    <h2>Confirm &amp; Reserve</h2>
-    <p>Pick a collection window — items held for 24 hours after confirmation</p>
+    <h2 id="step3Title">Confirm &amp; Reserve</h2>
+    <p id="step3Sub">Pick a collection window — items held for 24 hours after confirmation</p>
   </div>
   <div class="panel-body">
-    <div class="confirm-block">
-      <h4>📍 Collection Outlet</h4>
-      <div class="cr"><span class="cl">Store</span><span class="cv" id="conf-name">—</span></div>
-      <div class="cr"><span class="cl">Address</span><span class="cv" id="conf-addr">—</span></div>
-      <div class="cr"><span class="cl">Opening Hours</span><span class="cv" id="conf-hours">—</span></div>
-      <div class="cr"><span class="cl">Stock Status</span><span class="cv" id="conf-stock">—</span></div>
-    </div>
-    <div class="confirm-block">
-      <h4>⏰ Collection Time Slot</h4>
-      <p style="font-size:12px;color:var(--mid);margin-bottom:10px">Ready within 2 hours. Items held for 24 hours.</p>
-      <div class="timeslot-grid">
-        <div class="timeslot" onclick="pickSlot(this)">10am–12pm</div>
-        <div class="timeslot" onclick="pickSlot(this)">12pm–2pm</div>
-        <div class="timeslot selected" onclick="pickSlot(this)">2pm–4pm</div>
-        <div class="timeslot" onclick="pickSlot(this)">4pm–6pm</div>
-        <div class="timeslot" onclick="pickSlot(this)">6pm–8pm</div>
-        <div class="timeslot unavail">8pm–10pm</div>
+
+    <!-- Click & Collect: outlet details + timeslot -->
+    <div id="collectDetails">
+      <div class="confirm-block">
+        <h4>📍 Collection Outlet</h4>
+        <div class="cr"><span class="cl">Store</span><span class="cv" id="conf-name">—</span></div>
+        <div class="cr"><span class="cl">Address</span><span class="cv" id="conf-addr">—</span></div>
+        <div class="cr"><span class="cl">Opening Hours</span><span class="cv" id="conf-hours">—</span></div>
+        <div class="cr"><span class="cl">Stock Status</span><span class="cv" id="conf-stock">—</span></div>
+      </div>
+      <div class="confirm-block">
+        <h4>⏰ Collection Time Slot</h4>
+        <p style="font-size:12px;color:var(--mid);margin-bottom:10px">Ready within 2 hours. Items held for 24 hours.</p>
+        <div class="timeslot-grid">
+          <div class="timeslot" onclick="pickSlot(this)">10am–12pm</div>
+          <div class="timeslot" onclick="pickSlot(this)">12pm–2pm</div>
+          <div class="timeslot selected" onclick="pickSlot(this)">2pm–4pm</div>
+          <div class="timeslot" onclick="pickSlot(this)">4pm–6pm</div>
+          <div class="timeslot" onclick="pickSlot(this)">6pm–8pm</div>
+          <div class="timeslot unavail">8pm–10pm</div>
+        </div>
       </div>
     </div>
+
+    <!-- Home Delivery: address form -->
+    <div id="deliveryDetails" style="display:none">
+      <div class="delivery-notice">
+        <span class="dn-icon">🚚</span>
+        <p id="deliveryNoticeText">Standard delivery in <strong>3–5 business days</strong>. A $3.99 delivery fee has been added to your order.</p>
+      </div>
+      <div class="confirm-block">
+        <h4>📦 Delivery Address</h4>
+        <div class="form-row"><label>Block / Street &amp; Unit</label><input type="text" placeholder="e.g. 123 Tampines Ave 5, #04-20"></div>
+        <div class="form-row"><label>Postal Code</label><input type="text" placeholder="e.g. 520123"></div>
+        <div class="form-row" style="margin-bottom:0"><label>Delivery Instructions (optional)</label><input type="text" placeholder="e.g. Leave at door"></div>
+      </div>
+    </div>
+
     <div class="confirm-block">
-      <h4>👤 SMS Alert Contact</h4>
-      <div class="form-row"><label>Full Name</label><input type="text" value="Jinhong Tan"></div>
+      <h4>👤 Contact Details</h4>
+      <div class="form-row"><label>Full Name</label><input type="text" value="John Doe"></div>
       <div class="form-row" style="margin-bottom:0"><label>Mobile Number</label><input type="tel" value="+65 9123 4567"></div>
     </div>
+
     <div class="btn-row">
-      <button class="btn-secondary" style="margin-top:0" onclick="prevStep()">← Back</button>
-      <button class="btn-primary" onclick="nextStep()">Reserve &amp; Pay →</button>
+      <button class="btn-secondary" style="margin-top:0" id="step3BackBtn" onclick="step3Back()">← Back</button>
+      <button class="btn-primary" id="step3ConfirmBtn" onclick="goToStep(4)">Reserve &amp; Pay →</button>
     </div>
   </div>
 </div>
 
-<!-- ══ STEP 4 ══ -->
+<!-- STEP 4 — DONE -->
 <div class="step-content panel" id="content-4">
   <div class="panel-body">
     <div class="success-wrap">
-      <div class="success-icon">✅</div>
-      <h2>Order Reserved!</h2>
-      <p>Your items are being picked at <strong id="success-outlet">your outlet</strong>. We'll SMS you when they're ready.</p>
+      <div class="success-icon" id="successIcon">✅</div>
+      <h2 id="successTitle">Order Reserved!</h2>
+      <p id="successMsg"></p>
       <div class="order-ref">
         <div class="ref-label">Order Reference</div>
         <div class="ref-num">POP-2025-8841</div>
-        <div class="ref-sub">Show this at the Click &amp; Collect counter</div>
+        <div class="ref-sub" id="successRefSub">Show this at the Click &amp; Collect counter</div>
       </div>
-      <div class="sms-notice"><span style="font-size:20px">📱</span> SMS confirmation sent to +65 9123 4567</div>
-      <div class="timeline">
-        <div class="tl-item"><div class="tl-dot done"></div><div class="tl-text"><strong>Order Received</strong><span>Today, 1:42 PM</span></div></div>
-        <div class="tl-item"><div class="tl-dot done"></div><div class="tl-text"><strong>Items Being Picked</strong><span>Staff are locating your items in-store</span></div></div>
-        <div class="tl-item"><div class="tl-dot pending"></div><div class="tl-text"><strong>Ready for Collection</strong><span>Est. 3:30 PM — we'll SMS you</span></div></div>
-        <div class="tl-item"><div class="tl-dot pending"></div><div class="tl-text"><strong>Collected</strong><span>Visit the Click &amp; Collect counter</span></div></div>
-      </div>
+      <div class="sms-notice"><span style="font-size:20px">📱</span> <span id="smsText">SMS confirmation sent to +65 9123 4567</span></div>
+      <div class="timeline" id="successTimeline"></div>
       <button class="btn-primary" onclick="restart()">🔄 New Order</button>
-      <button class="btn-secondary" onclick="restart()">Continue Shopping</button>
+      <button class="btn-secondary" onclick="window.location.href='index.html'">Continue Shopping</button>
     </div>
   </div>
 </div>
 
-</div><!-- /left -->
+</div><!-- /left col -->
 
 <!-- SIDEBAR -->
 <div class="sidebar">
   <div class="summary-card">
     <div class="summary-header">📋 Order Summary</div>
-    <div class="summary-body">
-      <div class="s-item"><span class="st">PSLE Maths Papers ×1</span><span class="sp">$12.90</span></div>
-      <div class="s-item"><span class="st">Atomic Habits ×1</span><span class="sp">$21.90</span></div>
-      <div class="s-item"><span class="st">Stabilo Highlighters ×2</span><span class="sp">$17.80</span></div>
-      <hr class="s-div">
-      <div class="s-item"><span class="st">Subtotal</span><span class="sp">$52.60</span></div>
-      <div class="s-item"><span class="st">Member Discount (10%)</span><span class="sp" style="color:var(--green)">−$5.26</span></div>
-      <div class="s-item"><span class="st">Click &amp; Collect</span><span class="sp" style="color:var(--green)">FREE</span></div>
-      <hr class="s-div">
-      <div class="s-total"><span class="stl">Total</span><span>$47.34</span></div>
-    </div>
+    <div class="summary-body" id="summaryBody"></div>
   </div>
   <div class="member-save">
     <div class="ms-icon">💳</div>
-    <div class="ms-text"><strong>Member Savings</strong><span>POPULAR membership discount applied</span><div class="ms-saving">$5.26 saved today</div></div>
+    <div class="ms-text">
+      <strong>Member Savings</strong>
+      <span>POPULAR membership discount applied</span>
+      <div class="ms-saving" id="memberSavingEl">$0.00 saved today</div>
+    </div>
   </div>
-  <div class="cc-badge">
+  <div class="fulfilment-badge" id="fulfilmentBadge" style="background:var(--dark);color:#fff;">
     <div class="bi">⚡</div>
     <div><strong>Ready in 2 Hours</strong><span>Free · No shipping wait · No queues</span></div>
   </div>
@@ -464,67 +419,263 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 </div><!-- /main -->
 
 <script>
-// ── DATA ──────────────────────────────────────────────────────────────
+// ─── DATA ─────────────────────────────────────────────────────────────
 const CART = [
-  { emoji:'📗', name:'PSLE Mathematics Past Year Papers 2025', cat:'Assessment' },
-  { emoji:'📘', name:'Atomic Habits', cat:'English Books' },
-  { emoji:'✏️', name:'Stabilo Boss Highlighter Set', cat:'Stationery' },
+  { emoji:'📗', name:'PSLE Mathematics Past Year Papers 2025', short:'PSLE Maths Papers',       cat:'Assessment',    unitPrice:12.90, qty:1 },
+  { emoji:'📘', name:'Atomic Habits — James Clear',            short:'Atomic Habits',            cat:'English Books', unitPrice:21.90, qty:1 },
+  { emoji:'✏️', name:'Stabilo Boss Highlighter Set (8 Colours)',short:'Stabilo Highlighters',    cat:'Stationery',    unitPrice:8.90,  qty:2 },
 ];
 
-// stock[] = units available per cart item [psle, atomicHabits, stabilo]
 const OUTLETS = [
-  { id:1,  name:'Bugis Junction',      addr:'4 New Bugis St, #B1-05',               region:'central',   dist:'0.4 km',  hours:'10am–10pm',  stock:[12, 8,  5]  },
-  { id:2,  name:'Plaza Singapura',     addr:'68 Orchard Rd, #B2-22',                region:'central',   dist:'2.1 km',  hours:'10am–10pm',  stock:[6,  2,  0]  },
-  { id:3,  name:'VivoCity',            addr:'1 HarbourFront Walk, #B2-12',          region:'central',   dist:'4.8 km',  hours:'10am–10pm',  stock:[9, 11,  7]  },
-  { id:4,  name:'Tampines Mall',       addr:'4 Tampines Central 5, #B1-12',         region:'east',      dist:'3.2 km',  hours:'10am–10pm',  stock:[15, 4,  3]  },
-  { id:5,  name:'Parkway Parade',      addr:'80 Marine Parade Rd, #B1-10',          region:'east',      dist:'5.6 km',  hours:'10am–9:30pm',stock:[7,  6,  0]  },
-  { id:6,  name:'Northpoint City',     addr:'930 Yishun Ave 2, #B1-107',            region:'north',     dist:'7.1 km',  hours:'10am–9:30pm',stock:[11, 0,  4]  },
-  { id:7,  name:'Causeway Point',      addr:'1 Woodlands Square, #03-04',           region:'north',     dist:'11.3 km', hours:'10am–10pm',  stock:[8,  9,  6]  },
-  { id:8,  name:'Lot One Shoppers',    addr:'21 Choa Chu Kang Ave 4, #01-01',      region:'west',      dist:'9.4 km',  hours:'10am–10pm',  stock:[3,  5,  1]  },
-  { id:9,  name:'Clementi Mall',       addr:'3155 Commonwealth Ave W, #03-55',      region:'west',      dist:'8.2 km',  hours:'10am–10pm',  stock:[0,  7,  9]  },
-  { id:10, name:'NEX',                 addr:'23 Serangoon Central, #B1-31',         region:'northeast', dist:'5.0 km',  hours:'10am–10pm',  stock:[14, 3,  2]  },
-  { id:11, name:'Heartland Mall',      addr:'205 Hougang St 21, #01-107',           region:'northeast', dist:'6.3 km',  hours:'10am–9pm',   stock:[5,  8,  0]  },
+  { id:1,  name:'Bugis Junction',     addr:'4 New Bugis St, #B1-05',          region:'central',   dist:'0.4 km',  hours:'10am–10pm',  stock:[12,8,5]  },
+  { id:2,  name:'Plaza Singapura',    addr:'68 Orchard Rd, #B2-22',           region:'central',   dist:'2.1 km',  hours:'10am–10pm',  stock:[6,2,0]   },
+  { id:3,  name:'VivoCity',           addr:'1 HarbourFront Walk, #B2-12',     region:'central',   dist:'4.8 km',  hours:'10am–10pm',  stock:[9,11,7]  },
+  { id:4,  name:'Tampines Mall',      addr:'4 Tampines Central 5, #B1-12',    region:'east',      dist:'3.2 km',  hours:'10am–10pm',  stock:[15,4,3]  },
+  { id:5,  name:'Parkway Parade',     addr:'80 Marine Parade Rd, #B1-10',     region:'east',      dist:'5.6 km',  hours:'10am–9:30pm',stock:[7,6,0]   },
+  { id:6,  name:'Northpoint City',    addr:'930 Yishun Ave 2, #B1-107',       region:'north',     dist:'7.1 km',  hours:'10am–9:30pm',stock:[11,0,4]  },
+  { id:7,  name:'Causeway Point',     addr:'1 Woodlands Square, #03-04',      region:'north',     dist:'11.3 km', hours:'10am–10pm',  stock:[8,9,6]   },
+  { id:8,  name:'Lot One Shoppers',   addr:'21 Choa Chu Kang Ave 4, #01-01', region:'west',      dist:'9.4 km',  hours:'10am–10pm',  stock:[3,5,1]   },
+  { id:9,  name:'Clementi Mall',      addr:'3155 Commonwealth Ave W, #03-55', region:'west',      dist:'8.2 km',  hours:'10am–10pm',  stock:[0,7,9]   },
+  { id:10, name:'NEX',                addr:'23 Serangoon Central, #B1-31',    region:'northeast', dist:'5.0 km',  hours:'10am–10pm',  stock:[14,3,2]  },
+  { id:11, name:'Heartland Mall',     addr:'205 Hougang St 21, #01-107',      region:'northeast', dist:'6.3 km',  hours:'10am–9pm',   stock:[5,8,0]   },
 ];
 
-// ── STATE ─────────────────────────────────────────────────────────────
-let step = 1;
-let selectedId = null;
+const MEMBER_DISCOUNT_RATE = 0.10;
+const DELIVERY_FEE_STD     = 3.99;
+const FREE_DELIVERY_ABOVE  = 40.00;
+
+// ─── STATE ────────────────────────────────────────────────────────────
+let step         = 1;
+let method       = 'collect';
+let selectedId   = null;
 let openDrawerId = null;
-let region = 'all';
-let searchQ = '';
+let region       = 'all';
+let searchQ      = '';
 
-// ── STEP NAVIGATION ───────────────────────────────────────────────────
-function nextStep(){ if(step<4){ step++; renderStep(); } }
-function prevStep(){ if(step>1){ step--; renderStep(); } }
+// ─── PRICING ──────────────────────────────────────────────────────────
+function calcSubtotal(){
+  return CART.reduce((s, i) => s + i.unitPrice * i.qty, 0);
+}
+function calcMemberDiscount(){
+  return calcSubtotal() * MEMBER_DISCOUNT_RATE;
+}
+function calcDeliveryFee(){
+  if(method === 'collect') return 0;
+  const afterDiscount = calcSubtotal() - calcMemberDiscount();
+  return afterDiscount >= FREE_DELIVERY_ABOVE ? 0 : DELIVERY_FEE_STD;
+}
+function calcTotal(){
+  return calcSubtotal() - calcMemberDiscount() + calcDeliveryFee();
+}
+function fmt(n){ return '$' + n.toFixed(2); }
 
-function renderStep(){
-  document.querySelectorAll('.step-content').forEach((el,i)=>{
-    el.classList.toggle('active', i+1===step);
-  });
-  document.querySelectorAll('.step').forEach((el,i)=>{
-    const n=i+1;
-    el.classList.remove('active','completed');
-    if(n===step) el.classList.add('active');
-    else if(n<step) el.classList.add('completed');
-  });
-  document.querySelectorAll('.step-circle').forEach((el,i)=>{
-    el.textContent = i+1<step ? '✓' : String(i+1);
-  });
-  if(step===2) triggerLoad();
-  window.scrollTo({top:0,behavior:'smooth'});
+// ─── RENDER CART ITEMS (Step 1) ───────────────────────────────────────
+function renderCartItems(){
+  document.getElementById('cartItemsEl').innerHTML = CART.map((item, i) => `
+    <div class="cart-item">
+      <div class="cart-emoji">${item.emoji}</div>
+      <div class="cart-info">
+        <div class="cart-cat">${item.cat}</div>
+        <div class="cart-title">${item.name}</div>
+        <div class="cart-price">${fmt(item.unitPrice)}</div>
+      </div>
+      <div class="qty-row">
+        <button class="qty-btn" onclick="chQty(${i},-1)">−</button>
+        <span class="qty-num" id="qty-${i}">${item.qty}</span>
+        <button class="qty-btn" onclick="chQty(${i},1)">+</button>
+      </div>
+    </div>
+  `).join('');
 }
 
-// ── OUTLET LOADING (shimmer then render) ──────────────────────────────
+function chQty(idx, delta){
+  CART[idx].qty = Math.max(1, CART[idx].qty + delta);
+  document.getElementById('qty-' + idx).textContent = CART[idx].qty;
+  renderSummary();
+}
+
+// ─── RENDER SIDEBAR SUMMARY ───────────────────────────────────────────
+function renderSummary(){
+  const sub  = calcSubtotal();
+  const disc = calcMemberDiscount();
+  const fee  = calcDeliveryFee();
+  const tot  = calcTotal();
+
+  const itemRows = CART.map(item =>
+    `<div class="s-item"><span class="st">${item.short} ×${item.qty}</span><span class="sp">${fmt(item.unitPrice * item.qty)}</span></div>`
+  ).join('');
+
+  let feeRow;
+  if(method === 'collect'){
+    feeRow = `<div class="s-item"><span class="st">Click &amp; Collect</span><span class="sp" style="color:var(--green)">FREE</span></div>`;
+  } else if(fee === 0){
+    feeRow = `<div class="s-item"><span class="st">Home Delivery</span><span class="sp" style="color:var(--green)">FREE (over $40)</span></div>`;
+  } else {
+    feeRow = `<div class="s-item"><span class="st">Home Delivery</span><span class="sp">${fmt(fee)}</span></div>`;
+  }
+
+  document.getElementById('summaryBody').innerHTML = `
+    ${itemRows}
+    <hr class="s-div">
+    <div class="s-item"><span class="st">Subtotal</span><span class="sp">${fmt(sub)}</span></div>
+    <div class="s-item"><span class="st">Member Discount (10%)</span><span class="sp" style="color:var(--green)">−${fmt(disc)}</span></div>
+    ${feeRow}
+    <hr class="s-div">
+    <div class="s-total"><span class="stl">Total</span><span>${fmt(tot)}</span></div>
+  `;
+
+  document.getElementById('memberSavingEl').textContent = fmt(disc) + ' saved today';
+
+  // Update delivery price label on method card
+  document.getElementById('deliveryPriceLabel').textContent =
+    (sub - disc) >= FREE_DELIVERY_ABOVE ? 'FREE delivery' : fmt(DELIVERY_FEE_STD);
+
+  // Update fulfilment badge
+  const badge = document.getElementById('fulfilmentBadge');
+  if(method === 'collect'){
+    badge.style.background = 'var(--dark)';
+    badge.innerHTML = `<div class="bi">⚡</div><div><strong style="font-size:13.5px;display:block;margin-bottom:2px;">Ready in 2 Hours</strong><span style="font-size:12px;opacity:.7;">Free · No shipping wait · No queues</span></div>`;
+  } else {
+    badge.style.background = '#1e3a5f';
+    const feeLabel = fee === 0 ? 'Free delivery (order over $40)' : fmt(fee) + ' delivery fee';
+    badge.innerHTML = `<div class="bi">🚚</div><div><strong style="font-size:13.5px;display:block;margin-bottom:2px;color:#fff;">Home Delivery</strong><span style="font-size:12px;opacity:.7;color:#fff;">3–5 business days · ${feeLabel}</span></div>`;
+  }
+}
+
+// ─── METHOD SELECTION ────────────────────────────────────────────────
+function setMethod(m){
+  method = m;
+  document.getElementById('mc-collect').classList.toggle('active', m === 'collect');
+  document.getElementById('mc-delivery').classList.toggle('active', m === 'delivery');
+
+  // Step 1 button text
+  document.getElementById('step1Btn').textContent =
+    m === 'collect' ? 'Check Store Availability →' : 'Proceed to Delivery Details →';
+
+  // Grey out outlet step for delivery
+  document.getElementById('si2').classList.toggle('skipped', m === 'delivery');
+
+  renderSummary();
+}
+
+// ─── NAVIGATION ───────────────────────────────────────────────────────
+function step1Next(){
+  if(method === 'delivery'){
+    prepareStep3();
+    goToStep(3);
+  } else {
+    goToStep(2);
+  }
+}
+
+function step3Back(){
+  if(method === 'delivery'){
+    goToStep(1);
+  } else {
+    goToStep(2);
+  }
+}
+
+function goToStep(n){
+  step = n;
+  if(n === 2) triggerLoad();
+  if(n === 3) prepareStep3();
+  if(n === 4) prepareStep4();
+
+  document.querySelectorAll('.step-content').forEach((el, i) => {
+    el.classList.toggle('active', i + 1 === n);
+  });
+
+  document.querySelectorAll('.step').forEach((el, i) => {
+    const sn = i + 1;
+    el.classList.remove('active', 'completed');
+    // For delivery mode, outlet step (2) shows as skipped
+    if(method === 'delivery' && sn === 2){
+      el.classList.add('skipped');
+      return;
+    }
+    // Remap visual step for delivery: step 3 should show as step 2 visually
+    let visualN = n;
+    if(method === 'delivery' && n >= 3) visualN = n; // keep actual numbers
+    if(sn === visualN) el.classList.add('active');
+    else if(sn < visualN && !(method === 'delivery' && sn === 2)) el.classList.add('completed');
+  });
+
+  document.querySelectorAll('.step-circle').forEach((el, i) => {
+    const sn = i + 1;
+    if(method === 'delivery' && sn === 2){ el.textContent = '2'; return; }
+    el.textContent = (sn < n && !(method === 'delivery' && sn === 2)) ? '✓' : String(sn);
+  });
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ─── STEP 3 PREP ──────────────────────────────────────────────────────
+function prepareStep3(){
+  const isDelivery = method === 'delivery';
+  document.getElementById('collectDetails').style.display  = isDelivery ? 'none' : 'block';
+  document.getElementById('deliveryDetails').style.display = isDelivery ? 'block' : 'none';
+  document.getElementById('step3Title').textContent        = isDelivery ? 'Delivery Details' : 'Confirm & Reserve';
+  document.getElementById('step3Sub').textContent          = isDelivery
+    ? 'Enter your delivery address — we\'ll keep you updated via SMS'
+    : 'Pick a collection window — items held for 24 hours after confirmation';
+  document.getElementById('step3ConfirmBtn').textContent   = isDelivery ? 'Place Order →' : 'Reserve & Pay →';
+
+  // Update delivery notice text dynamically
+  if(isDelivery){
+    const fee = calcDeliveryFee();
+    document.getElementById('deliveryNoticeText').innerHTML = fee === 0
+      ? `Standard delivery in <strong>3–5 business days</strong>. <strong style="color:var(--green)">Free delivery</strong> — your order is above $40 after member discount.`
+      : `Standard delivery in <strong>3–5 business days</strong>. A <strong>${fmt(fee)} delivery fee</strong> has been added to your order.`;
+  }
+}
+
+// ─── STEP 4 PREP ──────────────────────────────────────────────────────
+function prepareStep4(){
+  const isDelivery = method === 'delivery';
+  if(isDelivery){
+    document.getElementById('successIcon').textContent   = '📦';
+    document.getElementById('successTitle').textContent  = 'Order Placed!';
+    document.getElementById('successMsg').innerHTML      = 'Your order has been confirmed for <strong>home delivery</strong>. Estimated arrival in 3–5 business days.';
+    document.getElementById('successRefSub').textContent = 'Keep this for delivery tracking';
+    document.getElementById('smsText').textContent       = 'Delivery confirmation sent to +65 9123 4567';
+    document.getElementById('successTimeline').innerHTML = `
+      <div class="tl-item"><div class="tl-dot done"></div><div class="tl-text"><strong>Order Confirmed</strong><span>Today, just now</span></div></div>
+      <div class="tl-item"><div class="tl-dot pending"></div><div class="tl-text"><strong>Processing</strong><span>1–2 business days</span></div></div>
+      <div class="tl-item"><div class="tl-dot pending"></div><div class="tl-text"><strong>Shipped</strong><span>Tracking number sent via SMS</span></div></div>
+      <div class="tl-item"><div class="tl-dot pending"></div><div class="tl-text"><strong>Delivered</strong><span>Est. 3–5 business days</span></div></div>
+    `;
+  } else {
+    const outlet = OUTLETS.find(o => o.id === selectedId);
+    const outletName = outlet ? outlet.name : 'your selected outlet';
+    document.getElementById('successIcon').textContent   = '✅';
+    document.getElementById('successTitle').textContent  = 'Order Reserved!';
+    document.getElementById('successMsg').innerHTML      = `Your items are being picked at <strong>${outletName}</strong>. We'll SMS you when they're ready to collect.`;
+    document.getElementById('successRefSub').textContent = 'Show this at the Click & Collect counter';
+    document.getElementById('smsText').textContent       = 'SMS confirmation sent to +65 9123 4567';
+    document.getElementById('successTimeline').innerHTML = `
+      <div class="tl-item"><div class="tl-dot done"></div><div class="tl-text"><strong>Order Received</strong><span>Today, just now</span></div></div>
+      <div class="tl-item"><div class="tl-dot done"></div><div class="tl-text"><strong>Items Being Picked</strong><span>Staff are locating your items in-store</span></div></div>
+      <div class="tl-item"><div class="tl-dot pending"></div><div class="tl-text"><strong>Ready for Collection</strong><span>Est. within 2 hours — we'll SMS you</span></div></div>
+      <div class="tl-item"><div class="tl-dot pending"></div><div class="tl-text"><strong>Collected</strong><span>Visit the Click &amp; Collect counter</span></div></div>
+    `;
+  }
+}
+
+// ─── OUTLET LOADING ───────────────────────────────────────────────────
 function triggerLoad(){
-  const sw = document.getElementById('shimmerWrap');
-  const ol = document.getElementById('outletList');
-  sw.classList.add('show');
-  ol.innerHTML = '';
-  document.getElementById('noResults').style.display='none';
-  setTimeout(()=>{ sw.classList.remove('show'); renderOutlets(); }, 650);
+  document.getElementById('shimmerWrap').classList.add('show');
+  document.getElementById('outletList').innerHTML = '';
+  document.getElementById('noResults').style.display = 'none';
+  const totalQty = CART.reduce((s, i) => s + i.qty, 0);
+  document.getElementById('cartCountLabel').innerHTML =
+    `Checking <strong>${totalQty} item${totalQty !== 1 ? 's' : ''}</strong> across all POPULAR outlets`;
+  setTimeout(() => {
+    document.getElementById('shimmerWrap').classList.remove('show');
+    renderOutlets();
+  }, 650);
 }
 
-// ── STOCK HELPERS ─────────────────────────────────────────────────────
 function outletStatus(o){
   const min = Math.min(...o.stock);
   if(min === 0) return 'out';
@@ -533,52 +684,43 @@ function outletStatus(o){
 }
 
 function statusDisplay(o){
-  const status = outletStatus(o);
-  const min = Math.min(...o.stock);
-  if(status==='out') return { cls:'out', num:'0',     lbl:'Out of stock' };
-  if(status==='low') return { cls:'low', num:String(min), lbl:'Low stock'    };
-  return               { cls:'in',  num:min+'+',  lbl:'Available'      };
+  const s = outletStatus(o), min = Math.min(...o.stock);
+  if(s === 'out') return { cls:'out', num:'0',         lbl:'Out of stock' };
+  if(s === 'low') return { cls:'low', num:String(min), lbl:'Low stock'    };
+  return                  { cls:'in',  num:min + '+',  lbl:'Available'    };
 }
 
 function itemPill(qty){
-  if(qty===0)   return { cls:'pill-out', txt:'Out of stock' };
-  if(qty<=3)    return { cls:'pill-low', txt:`${qty} left`  };
+  if(qty === 0) return { cls:'pill-out', txt:'Out of stock' };
+  if(qty <= 3)  return { cls:'pill-low', txt:`${qty} left`  };
   return               { cls:'pill-in',  txt:`${qty} in stock` };
 }
 
-// ── RENDER OUTLET LIST ────────────────────────────────────────────────
 function renderOutlets(){
   const q = searchQ.toLowerCase();
-  const visible = OUTLETS.filter(o=>{
-    const okRegion = region==='all' || o.region===region;
-    const okSearch = !q || o.name.toLowerCase().includes(q) || o.addr.toLowerCase().includes(q);
-    return okRegion && okSearch;
-  });
-
+  const visible = OUTLETS.filter(o =>
+    (region === 'all' || o.region === region) &&
+    (!q || o.name.toLowerCase().includes(q) || o.addr.toLowerCase().includes(q))
+  );
   const list = document.getElementById('outletList');
-  const noRes = document.getElementById('noResults');
-
   if(!visible.length){
-    list.innerHTML='';
-    noRes.style.display='block';
+    list.innerHTML = '';
+    document.getElementById('noResults').style.display = 'block';
     return;
   }
-  noRes.style.display='none';
-
-  list.innerHTML = visible.map(o=>{
+  document.getElementById('noResults').style.display = 'none';
+  list.innerHTML = visible.map(o => {
     const { cls, num, lbl } = statusDisplay(o);
-    const isSel = selectedId===o.id;
-    const drawerOpen = openDrawerId===o.id;
-
+    const drawerOpen = openDrawerId === o.id;
     const drawerHTML = drawerOpen ? `
-      <div class="stock-drawer open" id="drawer-${o.id}">
+      <div class="stock-drawer open">
         <div class="sd-header">
-          <span>Stock breakdown at ${o.name}</span>
+          <span>Stock at ${o.name}</span>
           <span style="color:var(--mid);font-weight:400;font-size:11px">Updated just now</span>
         </div>
         <div class="sd-items">
-          ${CART.map((item,i)=>{
-            const { cls:pc, txt:pt } = itemPill(o.stock[i]);
+          ${CART.map((item, i) => {
+            const { cls:pc, txt:pt } = itemPill(o.stock[i] !== undefined ? o.stock[i] : 5);
             return `<div class="sd-item">
               <div class="sd-left">
                 <div class="sd-emoji">${item.emoji}</div>
@@ -589,55 +731,46 @@ function renderOutlets(){
           }).join('')}
         </div>
         <div class="drawer-cta">
-          ${cls!=='out'
-            ? `<button class="btn-primary" onclick="event.stopPropagation();chooseOutlet(${o.id})">
-                 ✓ Collect at ${o.name}
-               </button>`
-            : `<button class="btn-primary" style="background:#ccc;cursor:default" disabled>
-                 Not all items available here
-               </button>`
-          }
+          ${cls !== 'out'
+            ? `<button class="btn-primary" onclick="event.stopPropagation();chooseOutlet(${o.id})">✓ Collect at ${o.name}</button>`
+            : `<button class="btn-primary" style="background:#ccc;cursor:default" disabled>Not all items available here</button>`}
         </div>
       </div>` : '';
-
     return `
-    <div id="wrap-${o.id}">
-      <div class="outlet-row ${isSel?'selected':''}" onclick="toggleDrawer(${o.id})">
-        <div class="avail-bar ${cls}"></div>
-        <div class="outlet-body">
-          <div class="out-icon">🏬</div>
-          <div class="out-info">
-            <div class="out-name">${o.name}</div>
-            <div class="out-addr">${o.addr}</div>
-            <div class="out-meta">
-              <span class="out-tag">📍 ${o.dist}</span>
-              <span class="out-tag">🕙 ${o.hours}</span>
+      <div id="wrap-${o.id}">
+        <div class="outlet-row${selectedId===o.id?' selected':''}" onclick="toggleDrawer(${o.id})">
+          <div class="avail-bar ${cls}"></div>
+          <div class="outlet-body">
+            <div class="out-icon">🏬</div>
+            <div class="out-info">
+              <div class="out-name">${o.name}</div>
+              <div class="out-addr">${o.addr}</div>
+              <div class="out-meta">
+                <span class="out-tag">📍 ${o.dist}</span>
+                <span class="out-tag">🕙 ${o.hours}</span>
+              </div>
+            </div>
+            <div class="stock-right">
+              <span class="stock-num ${cls}">${num}</span>
+              <span class="stock-lbl ${cls}">${lbl}</span>
             </div>
           </div>
-          <div class="stock-right">
-            <span class="stock-num ${cls}">${num}</span>
-            <span class="stock-lbl ${cls}">${lbl}</span>
-          </div>
+          <div class="sel-tick">✓</div>
         </div>
-        <div class="sel-tick">✓</div>
-      </div>
-      ${drawerHTML}
-    </div>`;
+        ${drawerHTML}
+      </div>`;
   }).join('');
 }
 
 function toggleDrawer(id){
-  openDrawerId = (openDrawerId===id) ? null : id;
+  openDrawerId = openDrawerId === id ? null : id;
   renderOutlets();
 }
 
 function chooseOutlet(id){
-  const o = OUTLETS.find(x=>x.id===id);
-  selectedId = id;
-  openDrawerId = id;
+  const o = OUTLETS.find(x => x.id === id);
+  selectedId = id; openDrawerId = id;
   document.getElementById('outletNextBtn').disabled = false;
-
-  // Prefill confirm step
   document.getElementById('conf-name').textContent  = o.name;
   document.getElementById('conf-addr').textContent  = o.addr;
   document.getElementById('conf-hours').textContent = o.hours;
@@ -646,49 +779,40 @@ function chooseOutlet(id){
     s==='in'  ? '<span style="color:var(--green);font-weight:600">✓ All items available</span>' :
     s==='low' ? '<span style="color:#D97706;font-weight:600">⚠ Some items low — reserved for you</span>' :
                 '<span style="color:#e00;font-weight:600">✗ Not all items available</span>';
-  document.getElementById('success-outlet').textContent = o.name;
   renderOutlets();
 }
 
-// ── FILTERS ───────────────────────────────────────────────────────────
 function setRegion(tab, r){
-  document.querySelectorAll('.rtab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.rtab').forEach(t => t.classList.remove('active'));
   tab.classList.add('active');
   region = r;
   renderOutlets();
 }
 function onSearch(input){
   searchQ = input.value;
-  document.getElementById('clearX').classList.toggle('show', searchQ.length>0);
+  document.getElementById('clearX').classList.toggle('show', searchQ.length > 0);
   renderOutlets();
 }
 function clearSearch(){
-  document.getElementById('searchInput').value='';
-  searchQ='';
+  document.getElementById('searchInput').value = '';
+  searchQ = '';
   document.getElementById('clearX').classList.remove('show');
   renderOutlets();
 }
-
-// ── MISC ──────────────────────────────────────────────────────────────
-function setMethod(btn){
-  document.querySelectorAll('.method-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-}
-function chQty(btn, d){
-  const s = btn.parentElement.querySelector('.qty-num');
-  let v = parseInt(s.textContent)+d;
-  if(v<1) v=1;
-  s.textContent=v;
-}
 function pickSlot(el){
-  document.querySelectorAll('.timeslot').forEach(t=>t.classList.remove('selected'));
+  document.querySelectorAll('.timeslot').forEach(t => t.classList.remove('selected'));
   el.classList.add('selected');
 }
 function restart(){
-  step=1; selectedId=null; openDrawerId=null; region='all'; searchQ='';
-  document.getElementById('outletNextBtn').disabled=true;
-  renderStep();
+  step=1; method='collect'; selectedId=null; openDrawerId=null; region='all'; searchQ='';
+  document.getElementById('outletNextBtn').disabled = true;
+  setMethod('collect');
+  goToStep(1);
 }
+
+// ─── INIT ─────────────────────────────────────────────────────────────
+renderCartItems();
+renderSummary();
 </script>
 </body>
 </html>
