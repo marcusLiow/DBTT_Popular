@@ -19,6 +19,20 @@ No server or installation required.
 | `tradein.html` | Book Trade-In Flow | Trade-In |
 | `student-analysis.html` | Student Progress Analysis | Subscription |
 
+### Python & Analytics Files
+
+| File | Purpose |
+|---|---|
+| `recommendation_engine.py` | Apriori + Collaborative Filtering recommendation model |
+| `pricing_model.py` | Dynamic buy-back pricing algorithm with cross-system demand signals |
+| `Popular_Demographic_Analytics.ipynb` | K-Means + Random Forest persona prediction (87% accuracy) |
+| `purchases.csv` | Mock transaction data (60 records, 20 users, 14 books) |
+| `books.csv` | Book metadata (title, author, genre, price, cover URL) |
+| `recommendations_output.json` | Model output consumed by `recommendations.html` |
+| `confusion_matrix.png` | ML output — persona classifier accuracy matrix |
+| `feature_importance.png` | ML output — genre is #1 predictor (47% importance) |
+| `personas.png` | ML output — 5 customer persona clusters visualisation |
+
 ---
 
 ## Homepage (`index.html`)
@@ -279,8 +293,32 @@ Full walkthrough of the 4-step book trade-in flow.
    - Updated wallet balance
    - EduPass subscription recommendation banner — click 
      **Subscribe now →** to go to `subcription.html`
-4. Click **Trade In Another Book** to restart, or **Back to Home** 
+4. Click **Trade In Another Book** to restart, or **Back to Home**
    to return to `index.html`.
+
+---
+
+### Sidebar Features
+
+**Analytics Dashboard (collapsible)**
+- Shows live persona prediction: selects a book → system predicts
+  whether the trader is a Parent, Student, Bookworm, Self-Improver,
+  or Budget Shopper, with animated probability bars
+- Dynamic pricing signals panel showing the 3 cross-system demand
+  inputs (Sales Velocity, EduPass reads, Trade-In supply) with their
+  weights (40%/30%/30%)
+- Cross-source integration diagram showing how data from all 3
+  solutions (Omnichannel, Subscription, Trade-In) feeds the page
+
+**Hero Stats Bar**
+- $0 delivery fees, 3 min drop-off, 30+ outlets, books saved
+  from landfill, credits returned to families
+
+**Confirmation Enhancements**
+- Email preview toggle showing a mock confirmation email with
+  book, condition, credit, outlet, and reference number
+- EduPass cross-sell upsell ("Your credit covers 1 month of EduPass")
+- User details form (name + mobile for QR code)
 
 ---
 
@@ -326,6 +364,69 @@ Output is printed to console and written to
 - Aggregates wishlist counts for out-of-stock titles
 - Flags titles with 4+ wishlists as urgent restock
 - Powers: Wishlist tab demand table, supply chain procurement signal
+
+---
+
+## Dynamic Pricing Model (`pricing_model.py`)
+
+The buy-back pricing algorithm that powers `tradein.html`'s credit offers.
+
+### Formula
+```
+final_price = base_price × demand_multiplier × condition_factor
+```
+
+Where:
+- `base_price` = retail price × genre buyback rate (Assessment 35%, Fiction 30%, etc.)
+- `demand_multiplier` = weighted signal from 3 cross-system sources:
+  - Omnichannel POS sales velocity (40% weight)
+  - EduPass digital reading trends (30% weight)
+  - Trade-in supply volume (30% weight)
+- `condition_factor` = Good (1.0), Fair (0.65), Worn (0.30)
+- Seasonal multiplier from Singapore academic calendar (Jan back-to-school 1.30× → Jun holiday 0.80×)
+
+### How to Run
+```bash
+pip install pandas numpy matplotlib --break-system-packages
+python pricing_model.py
+```
+
+Generates 3 charts in the project folder:
+- `tradein_price_comparison.png` — credit offers across books by condition
+- `demand_signal_analysis.png` — cross-system demand signals visualisation
+- `seasonal_pricing_impact.png` — how Singapore school calendar affects pricing
+
+### Legal Compliance
+- Second-Hand Dealers Act (PLRD registration: SHDA-2025-04821)
+- PDPA — seller records retained for 5 years, consent-managed
+- NEA EPR framework alignment for sustainability reporting
+
+---
+
+## Persona Prediction (`Popular_Demographic_Analytics.ipynb`)
+
+K-Means clustering + Random Forest classifier that predicts customer
+personas from trade-in behaviour.
+
+### 5 Customer Personas
+| Persona | Key Signals |
+|---|---|
+| Parent | Assessment books, good condition, heartland mall outlets |
+| Student | Assessment books, worn condition, post-exam timing |
+| Bookworm | Fiction, good condition, city centre outlets |
+| Self-Improver | Self-help/business, city outlets |
+| Budget Shopper | Any genre, fair/worn condition |
+
+### Results
+- Random Forest accuracy: **87%**
+- #1 feature: Genre (47% importance)
+- Output charts: `confusion_matrix.png`, `feature_importance.png`, `personas.png`
+
+### How to Run
+```bash
+pip install pandas numpy scikit-learn matplotlib seaborn --break-system-packages
+jupyter notebook Popular_Demographic_Analytics.ipynb
+```
 
 ---
 
