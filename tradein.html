@@ -680,7 +680,7 @@ body { font-family: var(--sans); background: var(--bg); color: var(--text); over
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
               <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/>
             </svg>
-            <input type="text" placeholder="Search outlet..." oninput="onOutletSearch(this)">
+            <input id="outletSearchInput" type="text" placeholder="Search outlet..." oninput="onOutletSearch(this)">
           </div>
 
           <div class="region-tabs">
@@ -1215,7 +1215,7 @@ function selectCondition(cond){
   const credit = (baseMap[cond] * currentBook.demandMult).toFixed(2);
   const condLabel = {good:'Good condition',fair:'Fair condition',worn:'Worn condition'}[cond];
 
-  document.getElementById('offerAmount').textContent = credit;
+  document.getElementById('offerAmount').textContent = 'S$'+credit;
   document.getElementById('ob-book').textContent = currentBook.title.length>30 ? currentBook.title.slice(0,30)+'…' : currentBook.title;
   document.getElementById('ob-cond').textContent = condLabel;
   document.getElementById('ob-demand').textContent = currentBook.demand;
@@ -1252,10 +1252,14 @@ function updateSidebar(credit, condLabel){
   document.getElementById('sum-cond').textContent = condLabel || '—';
   document.getElementById('sum-demand').textContent = currentBook ? currentBook.demand : '—';
   document.getElementById('sum-total').textContent = credit ? 'S$'+credit : '—';
+
   if(credit){
     document.getElementById('pendingCredit').textContent = 'S$'+credit;
     const pct = Math.min((parseFloat(credit)/10)*100, 100);
     document.getElementById('walletBar').style.width = (35+pct*0.3)+'%';
+  } else {
+    document.getElementById('pendingCredit').textContent = 'S$0.00';
+    document.getElementById('walletBar').style.width = '35%';
   }
 }
 
@@ -1339,7 +1343,6 @@ function populateSuccess(){
   const credit = (baseMap[currentCondition] * currentBook.demandMult).toFixed(2);
   const refNum = String(Math.floor(1000+Math.random()*8999));
 
-  document.getElementById('success-outlet').textContent = outlet.name;
   document.getElementById('success-credit').textContent = 'S$'+credit;
   document.getElementById('refNum').textContent = refNum;
 
@@ -1379,10 +1382,25 @@ function restart(){
   document.getElementById('offerBox').classList.remove('show');
   document.getElementById('nextBtn1').style.display='none';
   document.getElementById('outletNextBtn').disabled=true;
-  document.getElementById('pendingCredit').textContent='$0.00';
+  document.getElementById('pendingCredit').textContent='S$0.00';
+  document.getElementById('walletBar').style.width='35%';
   ['good','fair','worn'].forEach(c=>document.getElementById('cond-'+c).classList.remove('selected'));
   document.getElementById('condGuideToggle').classList.remove('open');
   document.getElementById('condGuideBody').classList.remove('show');
+  document.getElementById('priceCalcToggle').classList.remove('open');
+  document.getElementById('priceCalcBody').classList.remove('show');
+
+  const tabs = document.querySelectorAll('.rtab');
+  tabs.forEach(t=>t.classList.remove('active'));
+  if(tabs[0]) tabs[0].classList.add('active');
+
+  const outletSearchInput = document.getElementById('outletSearchInput');
+  if(outletSearchInput) outletSearchInput.value='';
+
+  document.getElementById('qr-view').style.display = '';
+  document.getElementById('credited-view').style.display = 'none';
+
+  updateSidebar();
   renderStep();
 }
 
