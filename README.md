@@ -427,6 +427,10 @@ personas from trade-in behaviour.
 pip install pandas numpy scikit-learn matplotlib seaborn --break-system-packages
 jupyter notebook Popular_Demographic_Analytics.ipynb
 ```
+1. Run all cells top to bottom (**Shift + Enter**)
+2. Sections 1–8 generate the dataset, train both models, and output charts
+3. Section 9b is the interactive demo — select a genre, condition, month, and outlet from the dropdowns, then click **Predict Persona**
+4. The result card shows the predicted persona, confidence %, and recommended action
 
 ---
 
