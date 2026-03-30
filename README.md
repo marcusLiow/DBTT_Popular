@@ -29,6 +29,7 @@ No server or installation required.
 | `purchases.csv` | Mock transaction data (60 records, 20 users, 14 books) |
 | `books.csv` | Book metadata (title, author, genre, price, cover URL) |
 | `recommendations_output.json` | Model output consumed by `recommendations.html` |
+| `assets/sec-2-math-example.pdf` | Sample Sec 2 Maths workbook rendered by `viewer.html` |
 | `confusion_matrix.png` | ML output — persona classifier accuracy matrix |
 | `feature_importance.png` | ML output — genre is #1 predictor (47% importance) |
 | `personas.png` | ML output — 5 customer persona clusters visualisation |
@@ -291,10 +292,11 @@ Full walkthrough of the 4-step book trade-in flow.
 3. The page transitions to the **Credits Confirmed** screen showing:
    - Amount credited to Popular Wallet
    - Updated wallet balance
-   - EduPass subscription recommendation banner — click 
+   - EduPass subscription recommendation banner — click
      **Subscribe now →** to go to `subcription.html`
-4. Click **Trade In Another Book** to restart, or **Back to Home**
-   to return to `index.html`.
+4. Click **Trade In Another Book** (or **Start New Trade-In** on the
+   intermediate confirmation screen) to fully reset all steps and
+   restart, or **Back to Home** to return to `index.html`.
 
 ---
 
